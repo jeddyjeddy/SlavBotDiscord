@@ -1,0 +1,320 @@
+const command = require("discord.js-commando");
+const Jimp = require("jimp");
+const shortid = require("shortid");
+const fs = require('fs');
+var resultHandler = function(err) { 
+    if(err) {
+       console.log("unlink failed", err);
+    } else {
+       console.log("file deleted");
+    }
+}
+
+class FreerealestateCommand extends command.Command
+ {
+    constructor(client)
+    {
+        super(client, {
+            name: "freerealestate",
+            group: "imageshit",
+            memberName: "freerealestate",
+            description: "It's free real estate... This command also has an optional image parameter.",
+            examples: ["`!freerealestate <top-text>|<text-above-image>`", "`!freerealestate <top-text>|<text-above-image>|<imageoption>`", "`!freerealestate <top-text>|<text-above-image>|image`", "`!freerealestate <top-text>|<text-above-image>|avatar`", "`!freerealestate <top-text>|<text-above-image>|@User`"]
+        });
+    }
+
+    async run(message, args)
+    {
+        message.channel.startTyping();
+
+
+        if(args.length > 0)
+        {
+            var text = "";
+            var textAboveImage = "";
+            var option = "";
+
+            if(args.indexOf("|") > -1 && args.slice(args.indexOf("|")).length > 1)
+            {
+                text = args.slice(0, args.indexOf("|"))
+                var slicedArgs = args.slice(args.indexOf("|") + 1);
+                if(slicedArgs.indexOf("|") > -1)
+                {
+                    textAboveImage = slicedArgs.slice(0, slicedArgs.indexOf("|"));
+                    if(slicedArgs.slice(slicedArgs.indexOf("|")).length > 1)
+                    {
+                        option = slicedArgs.toLowerCase().slice(slicedArgs.indexOf("|") + 1);
+                    }
+                }
+                else
+                {
+                    textAboveImage = slicedArgs;
+                }
+            }
+            else
+            {
+                text = args;
+            }
+
+            if(option != "" && text.length <= 185)
+            {
+                if(option.indexOf("image") > -1)
+                {
+                    message.channel.fetchMessages({ around: message.id })
+                    .then(messages => {
+                        var messageID = "";
+                        messages.filter(msg => {
+                            if(msg.attachments.first() != undefined)
+                            {
+                                if(msg.attachments.last().height > 0)
+                                {
+                                    if(messageID == "")
+                                    {
+                                        messageID = msg.id;
+                                        url = msg.attachments.first().url;
+                                    }
+                                }
+                            }
+                        });
+                    
+                        if(messageID == "")
+                        {
+                            message.reply("no image found, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.stopTyping();
+                            return;
+                        }
+                        message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                        var file = shortid.generate() + ".png";
+
+                        Jimp.read(url).then(function (userImage) {
+                            Jimp.read("free.jpg").then(function (freeImage) {
+                            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                                userImage.scaleToFit(320, 320);
+
+                                var y = 250;
+                                y = y + ((320 - userImage.bitmap.height) / 2);
+
+                                var x = 190;
+                                x = x + ((320 - userImage.bitmap.width) / 2)
+
+                                var XYText = 10;
+                                var YText2 = 155
+
+                                freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
+                                    if(error) throw error;
+                                message.channel.send("***It's Free Real Estate***", {
+                                            files: [file]
+                                }).then(function(){
+                                    message.channel.stopTyping();
+                                    setTimeout(function(){
+                                        fs.unlink(file, resultHandler);
+                                        console.log("Deleted " + file);
+                                    }, 10000);
+                                }).catch(function (err) {
+                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    console.log(err.message);
+                                    message.channel.stopTyping();
+                                    setTimeout(function(){
+                                        fs.unlink(file, resultHandler);
+                                        console.log("Deleted " + file);
+                                    }, 10000);
+                                });
+                                    });
+                            });
+                         }).catch(function (err) {
+                            console.log(err.message);
+                            message.channel.stopTyping();});
+                        }).catch(function (err) {
+                            console.log(err.message);
+                            message.channel.stopTyping();});
+                    }).catch(function (err) {
+                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        console.log(err.message);
+                        message.channel.stopTyping();
+                    });
+                }
+                else
+                {                    
+                    if(option.indexOf("avatar") > -1)
+                    {
+                        var url = message.author.avatarURL;
+                        var file = shortid.generate() + ".png";
+
+                        Jimp.read(url).then(function (userImage) {
+                            Jimp.read("free.jpg").then(function (freeImage) {
+                            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                                userImage.resize(320, 320);
+
+                                var y = 250;
+                                var x = 190;
+
+                                var XYText = 10;
+                                var YText2 = 155
+
+                                freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
+                                    if(error) throw error;
+                                message.channel.send("***It's Free Real Estate***", {
+                                            files: [file]
+                                }).then(function(){
+                                    message.channel.stopTyping();
+                                    setTimeout(function(){
+                                        fs.unlink(file, resultHandler);
+                                        console.log("Deleted " + file);
+                                    }, 10000);
+                                }).catch(function (err) {
+                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    console.log(err.message);
+                                    message.channel.stopTyping();
+                                    setTimeout(function(){
+                                        fs.unlink(file, resultHandler);
+                                        console.log("Deleted " + file);
+                                    }, 10000);
+                                });
+                                    });
+                            });
+                        }).catch(function (err) {
+                            console.log(err.message);
+                            message.channel.stopTyping();});
+                        }).catch(function (err) {
+                            console.log(err.message);
+                            message.channel.stopTyping();});
+                    }
+                    else
+                    {
+                        var otherUser = false;
+                        var userID = "";
+                        var getUser = false;
+                        for(var i = 0; i < option.length; i++)
+                        {
+                            if(getUser)
+                            {
+                                if(option[i].toString() == ">")
+                                {
+                                    i = option.length;
+                                    otherUser = true;
+                                }
+                                else
+                                {
+                                    if(option[i].toString() != "@" && !isNaN(option[i].toString()))
+                                    {
+                                        userID = userID + option[i].toString();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if(option[i].toString() == "<")
+                                {
+                                    getUser = true;
+                                } 
+                            }
+                        }
+                        if(otherUser)
+                        {
+                            console.log("other real estate");
+                            console.log(userID);
+                
+                            message.channel.client.fetchUser(userID)
+                            .then(user => {
+                                    url = user.avatarURL;
+                                    var file = shortid.generate() + ".png";
+
+                                    Jimp.read(url).then(function (userImage) {
+                                        Jimp.read("free.jpg").then(function (freeImage) {
+                                        Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                                            userImage.resize(320, 320);
+
+                                            var y = 250;
+                                            var x = 190;
+            
+                                            var XYText = 10;
+                                            var YText2 = 155
+            
+                                            freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
+                                                if(error) throw error;
+                                            message.channel.send("***It's Free Real Estate***", {
+                                                        files: [file]
+                                            }).then(function(){
+                                                message.channel.stopTyping();
+                                                setTimeout(function(){
+                                                    fs.unlink(file, resultHandler);
+                                                    console.log("Deleted " + file);
+                                                }, 10000);
+                                            }).catch(function (err) {
+                                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                console.log(err.message);
+                                                message.channel.stopTyping();
+                                                setTimeout(function(){
+                                                    fs.unlink(file, resultHandler);
+                                                    console.log("Deleted " + file);
+                                                }, 10000);
+                                            });
+                                                });
+                                        });
+                                    }).catch(function (err) {
+                                        console.log(err.message);
+                                        message.channel.stopTyping();});
+                                    }).catch(function (err) {
+                                        console.log(err.message);
+                                        message.channel.stopTyping();});
+                            }, rejection => {
+                                    console.log(rejection.message);
+                            });
+                        }
+                        else
+                        {
+                            message.reply("no image option mentioned after seperator. Use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.stopTyping();
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var file = shortid.generate() + ".png";
+            
+                Jimp.read("free.jpg").then(function (freeImage) {
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                        var XYText = 10;
+                        var YText2 = 155
+
+                        freeImage.print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
+                            if(error) throw error;
+                        message.channel.send("***It's Free Real Estate***", {
+                                    files: [file]
+                        }).then(function(){
+                            message.channel.stopTyping();
+                            setTimeout(function(){
+                                fs.unlink(file, resultHandler);
+                                console.log("Deleted " + file);
+                            }, 10000);
+                        }).catch(function (err) {
+                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            console.log(err.message);
+                            message.channel.stopTyping();
+                            setTimeout(function(){
+                                fs.unlink(file, resultHandler);
+                                console.log("Deleted " + file);
+                            }, 10000);
+                        });
+                            });
+                    });
+                 }).catch(function (err) {
+                    console.log(err.message);
+                    message.channel.stopTyping();
+                });
+            }
+        }
+        else
+        {
+            if(args.length > 0)
+             message.reply("character limit for top text is 185 characters, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+            else
+             message.reply("incorrect parameters, top text not given, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+            message.channel.stopTyping();
+        }
+    }
+}
+
+module.exports = FreerealestateCommand;
