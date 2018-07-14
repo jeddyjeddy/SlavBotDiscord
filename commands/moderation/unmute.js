@@ -104,25 +104,10 @@ class UnmuteCommand extends command.Command
             message.channel.stopTyping();
             return;
         }
-        
-        fs.readFile('mutedusers.json', 'utf8', function readFileCallback(err, data){
+
+        fs.readFile('mutedusers/' + message.guild.id + '.json', 'utf8', function readFileCallback(err, data){
+            var mutedusers = []
             if (err){
-                console.log(err);
-            } else {
-            var allMutedUsers = JSON.parse(data).allMutedUsers; 
-            var mutedusers = [];
-
-            for(var i = 0; i < allMutedUsers.length; i++)
-            {
-                if(allMutedUsers[i].key == message.guild.id)
-                {
-                    mutedusers = allMutedUsers[i].users;
-                }
-            }
-
-            if(mutedusers == null || mutedusers.length == 0)
-            {
-                console.log("users null, getting data")
                 firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").once('value').then(function(snapshot) {
                     if(snapshot.val() == null)
                     {
@@ -132,9 +117,7 @@ class UnmuteCommand extends command.Command
                     {
                         mutedusers = JSON.parse(snapshot.val());
                     }
-                   
-                    allMutedUsers.push({key: message.guild.id, users: mutedusers})
-
+                           
                     for(var i = 0; i < users.length; i++)
                     {
                         var alreadyUnmuted = true;
@@ -160,62 +143,53 @@ class UnmuteCommand extends command.Command
                         {
                             message.reply("<@" + users[i] + "> already unmuted").catch(error => console.log("Send Error - " + error));
                         }          
-                    }  
-
-                    for(var i = 0; i < allMutedUsers.length; i++)
-                    {
-                        if(allMutedUsers[i].key == message.guild.id)
-                        {
-                            allMutedUsers[i].users = mutedusers;
-                        }
-                    }
+                    } 
 
                     firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
-                    fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
+                    fs.writeFile('mutedusers/' + message.guild.id + '.json', JSON.stringify({allMutedUsers: mutedusers}), 'utf8', callback); // write it back 
                     message.channel.stopTyping();
                 });
+            } else {
+            try 
+            {
+                mutedUsers = JSON.parse(data).allMutedUsers; 
             }
-            else
-            {   
-                for(var i = 0; i < users.length; i++)
+            catch(e) 
+            {
+                console.log(e); // error in the above string (in this case, yes)!
+                mutedUsers = ["test"]
+            }
+            
+            for(var i = 0; i < users.length; i++)
+            {
+                var alreadyUnmuted = true;
+
+                for(var userIndex = 0; userIndex < mutedusers.length; userIndex++)
                 {
-                    var alreadyUnmuted = true;
+                    var userAdded = false;
 
-                    for(var userIndex = 0; userIndex < mutedusers.length; userIndex++)
+                    if(mutedusers[userIndex] == users[i])
                     {
-                        var userAdded = false;
-
-                        if(mutedusers[userIndex] == users[i])
-                        {
-                            userAdded = true;
-                        }
-
-                        if(userAdded)
-                        {
-                            mutedusers.splice(userIndex, 1);
-                            message.reply("unmuted <@" + users[i] + ">").catch(error => console.log("Send Error - " + error));
-                            userIndex = mutedusers.length
-                            alreadyUnmuted = false;
-                        }
-                    }    
-                    if(alreadyUnmuted)
-                    {
-                        message.reply("<@" + users[i] + "> already unmuted").catch(error => console.log("Send Error - " + error));
-                    }          
-                }  
-
-                for(var i = 0; i < allMutedUsers.length; i++)
-                {
-                    if(allMutedUsers[i].key == message.guild.id)
-                    {
-                        allMutedUsers[i].users = mutedusers;
+                        userAdded = true;
                     }
-                }
 
-                firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
-                fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
-                message.channel.stopTyping();
-            }
+                    if(userAdded)
+                    {
+                        mutedusers.splice(userIndex, 1);
+                        message.reply("unmuted <@" + users[i] + ">").catch(error => console.log("Send Error - " + error));
+                        userIndex = mutedusers.length
+                        alreadyUnmuted = false;
+                    }
+                }    
+                if(alreadyUnmuted)
+                {
+                    message.reply("<@" + users[i] + "> already unmuted").catch(error => console.log("Send Error - " + error));
+                }          
+            } 
+
+            firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
+            fs.writeFile('mutedusers/' + message.guild.id + '.json', JSON.stringify({allMutedUsers: mutedusers}), 'utf8', callback); // write it back 
+            message.channel.stopTyping();
         }});
     }
 }

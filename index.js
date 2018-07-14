@@ -85,35 +85,9 @@ bot.on("message", (message) => {
     }
     var noResponse = false;
 
-    fs.readFile('mutedusers.json', 'utf8', function readFileCallback(err, data){
-        if (err){
-            console.log(err);
-        } else {
-
-        if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
-            return;
-        }
-        var readMutedUsers = []
-        var allMutedUsers = []
-        try {
-            readMutedUsers = JSON.parse(data);
-            allMutedUsers = readMutedUsers.allMutedUsers; 
-            tempMutedUsers = allMutedUsers;
-        } catch(e) {
-            console.log(e); // error in the above string (in this case, yes)!
-            allMutedUsers = tempMutedUsers
-        }
-        var mutedusers = [];
-
-        for(var i = 0; i < allMutedUsers.length; i++)
-        {
-            if(allMutedUsers[i].key == message.guild.id)
-            {
-                mutedusers = allMutedUsers[i].users;
-            }
-        }
-
-        if(mutedusers == null || mutedusers.length == 0)
+    fs.readFile('mutedusers/' + message.guild.id + '.json', 'utf8', function readFileCallback(err, data){
+        var mutedUsers = []
+        if (err)
         {
             firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").once('value').then(function(snapshot) {
 
@@ -126,8 +100,7 @@ bot.on("message", (message) => {
                     mutedusers = JSON.parse(snapshot.val());
                 }
     
-                allMutedUsers.push({key: message.guild.id, users: mutedusers})
-                fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
+                fs.writeFile('mutedusers/' + message.guild.id + '.json', JSON.stringify({allMutedUsers: mutedUsers}), 'utf8', callback); // write it back 
                 for(var i = 0; i < mutedusers.length; i++)	
                 {	
                     if(mutedusers[i] == message.author.id)	
@@ -143,9 +116,18 @@ bot.on("message", (message) => {
                     }
                 }
             });
-        }
-        else
-        {
+        } 
+        else {
+            try 
+            {
+                mutedUsers = JSON.parse(data).allMutedUsers; 
+            }
+            catch(e) 
+            {
+                console.log(e); // error in the above string (in this case, yes)!
+                mutedUsers = ["test"]
+            }
+
             for(var i = 0; i < mutedusers.length; i++)	
             {	
                 if(mutedusers[i] == message.author.id)	
@@ -161,7 +143,10 @@ bot.on("message", (message) => {
                 }
             }	
         }
-    }
+
+        if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
+            return;
+        }
 
 
     if(!noResponse)
