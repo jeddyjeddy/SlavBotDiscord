@@ -182,7 +182,8 @@ class UnmuteCommand extends command.Command
                             allMutedUsers[i].users = mutedusers;
                         }
                     }
-
+                    console.log(mutedusers);
+                    console.log(allMutedUsers);
                     firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
                     fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
                     message.channel.stopTyping();
