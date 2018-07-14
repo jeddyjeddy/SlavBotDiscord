@@ -152,7 +152,7 @@ bot.on("message", (message) => {
                         checkResponse = true;
                     }
                 }
-                if(checkResponse)
+                if(!checkResponse)
                     noResponse = false;
             });
         }
@@ -173,7 +173,7 @@ bot.on("message", (message) => {
                 }
             }	
 
-            if(checkResponse)
+            if(!checkResponse)
                 noResponse = false;
         }
     }
