@@ -108,6 +108,9 @@ bot.on("message", (message) => {
                 mutedusers = allMutedUsers[i].users;
             }
         }
+        console.log("Getting")
+        console.log(mutedusers);
+        console.log(allMutedUsers);
 
         if(mutedusers == null || mutedusers.length == 0)
         {
@@ -136,6 +139,9 @@ bot.on("message", (message) => {
                 {
                     allMutedUsers.push({key: message.guild.id, users: mutedusers})
                 }
+                console.log("Setting")
+                console.log(mutedusers);
+                console.log(allMutedUsers);
 
                 fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
                 for(var i = 0; i < mutedusers.length; i++)	

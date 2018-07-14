@@ -119,7 +119,6 @@ class UnmuteCommand extends command.Command
                     mutedusers = allMutedUsers[i].users;
                 }
             }
-            console.log(mutedusers.length)
             if(mutedusers == null || mutedusers.length == 0)
             {
                 console.log("users null, getting data")
@@ -182,8 +181,7 @@ class UnmuteCommand extends command.Command
                             allMutedUsers[i].users = mutedusers;
                         }
                     }
-                    console.log(mutedusers);
-                    console.log(allMutedUsers);
+                    
                     firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
                     fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
                     message.channel.stopTyping();
@@ -225,8 +223,7 @@ class UnmuteCommand extends command.Command
                         allMutedUsers[i].users = mutedusers;
                     }
                 }
-                console.log(mutedusers);
-                console.log(allMutedUsers);
+             
                 firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").set(JSON.stringify(mutedusers));
                 fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
                 message.channel.stopTyping();
