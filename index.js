@@ -30,7 +30,7 @@ bot.on('guildDelete', mem => {
 
 var allSwearCounters = [{ley: "Key", counter: null}] 
 var allThotCounters = [{ley: "Key", counter: null}] 
-
+var tempMutedUsers = [];
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
@@ -93,8 +93,16 @@ bot.on("message", (message) => {
         if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
             return;
         }
-
-        var allMutedUsers = JSON.parse(data).allMutedUsers; 
+        var readMutedUsers = []
+        var allMutedUsers = []
+        try {
+            readMutedUsers = JSON.parse(data).catc;
+            allMutedUsers = readMutedUsers.allMutedUsers; 
+            tempMutedUsers = allMutedUsers;
+        } catch(e) {
+            console.log(e); // error in the above string (in this case, yes)!
+            allMutedUsers = tempMutedUsers
+        }
         var mutedusers = [];
 
         for(var i = 0; i < allMutedUsers.length; i++)
@@ -111,7 +119,7 @@ bot.on("message", (message) => {
 
                 if(snapshot.val() == null)
                 {
-                    mutedusers = ["test"]
+                    mutedusers = ["test"];
                 }
                 else
                 {
