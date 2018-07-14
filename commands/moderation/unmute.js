@@ -133,7 +133,20 @@ class UnmuteCommand extends command.Command
                         mutedusers = JSON.parse(snapshot.val());
                     }
                    
-                    allMutedUsers.push({key: message.guild.id, users: mutedusers})
+                    var hasKey = false;
+                    for(var i = 0; i < allMutedUsers.length; i++)
+                    {
+                        if(allMutedUsers[i].key == message.guild.id)
+                        {
+                            allMutedUsers[i].users = mutedusers;
+                            hasKey = true;
+                        }
+                    }
+
+                    if(!hasKey)
+                    {
+                        allMutedUsers.push({key: message.guild.id, users: mutedusers})
+                    }
 
                     for(var i = 0; i < users.length; i++)
                     {

@@ -122,7 +122,21 @@ bot.on("message", (message) => {
                     mutedusers = JSON.parse(snapshot.val());
                 }
     
-                allMutedUsers.push({key: message.guild.id, users: mutedusers})
+                var hasKey = false;
+                for(var i = 0; i < allMutedUsers.length; i++)
+                {
+                    if(allMutedUsers[i].key == message.guild.id)
+                    {
+                        allMutedUsers[i].users = mutedusers;
+                        hasKey = true;
+                    }
+                }
+
+                if(!hasKey)
+                {
+                    allMutedUsers.push({key: message.guild.id, users: mutedusers})
+                }
+
                 fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
                 for(var i = 0; i < mutedusers.length; i++)	
                 {	
