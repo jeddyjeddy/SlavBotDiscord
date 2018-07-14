@@ -82,8 +82,8 @@ bot.on("message", (message) => {
     {
         return;
     }
-    var noResponse = false;
-
+    var noResponse = true;
+    var checkResponse = false;
     fs.readFile('mutedusers.json', 'utf8', function readFileCallback(err, data){
         if (err){
             console.log(err);
@@ -149,9 +149,11 @@ bot.on("message", (message) => {
                     }	
                     if(mutedusers[i] == message.client.user.id)
                     {
-                        noResponse = true;
+                        checkResponse = true;
                     }
                 }
+                if(checkResponse)
+                    noResponse = false;
             });
         }
         else
@@ -167,12 +169,14 @@ bot.on("message", (message) => {
                 }	
                 if(mutedusers[i] == message.client.user.id)
                 {
-                    noResponse = true;
+                    checkResponse = true;
                 }
             }	
+
+            if(checkResponse)
+                noResponse = false;
         }
     }
-
 
     if(!noResponse)
     {
