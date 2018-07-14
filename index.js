@@ -96,7 +96,7 @@ bot.on("message", (message) => {
         var readMutedUsers = []
         var allMutedUsers = []
         try {
-            readMutedUsers = JSON.parse(data).catc;
+            readMutedUsers = JSON.parse(data);
             allMutedUsers = readMutedUsers.allMutedUsers; 
             tempMutedUsers = allMutedUsers;
         } catch(e) {
