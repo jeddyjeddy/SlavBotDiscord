@@ -58,7 +58,7 @@ class CleanCommand extends command.Command
         
         message.channel.fetchMessages({ before: message.id, limit: number })
         .then(messages => {
-            message.channel.bulkDelete(messages)
+            message.channel.bulkDelete(messages, true)
             message.delete();
             message.channel.stopTyping();
         }).catch(function (err) {
