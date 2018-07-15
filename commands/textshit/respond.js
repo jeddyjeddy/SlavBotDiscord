@@ -18,6 +18,7 @@ class RespondCommand extends command.Command
     {
         message.channel.startTyping();
         var currentSetting = ResponseChange.getResponse(message.guild.id);
+        console.log(currentSetting)
         if(args.toLowerCase() == "enable")
         {
             if(currentSetting == true)
