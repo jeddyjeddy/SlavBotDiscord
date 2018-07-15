@@ -7,12 +7,6 @@ const dbl = new DBL(process.env.DBL_TOKEN, bot);
 
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-const fs = require('fs');
-var callback = function(err) { 
-    if(err) {
-       console.log("unlink failed", err);
-    } 
 }
 
 dbl.on('posted', () => {
