@@ -98,23 +98,15 @@ class FCommand extends command.Command
                         var x = 270
                         var y = 180
 
-                        if(userImage.bitmap.height > userImage.bitmap.width)
-                        {
-                            var height = userImage.bitmap.height/(userImage.bitmap.width/100)
-                            userImage.resize(100, height);
+                        userImage.scaleToFit(100, 100)
 
-                            y = y - (userImage.bitmap.height/4)
-                        }
-                        else if (userImage.bitmap.width > userImage.bitmap.height)
+                        if(userImage.bitmap.height < 100)
                         {
-                            var width = userImage.bitmap.width/(userImage.bitmap.height/100)
-                            userImage.resize(width, 100);
-
-                            x = x - (userImage.bitmap.width/4)
+                            y = y + ((100 - userImage.bitmap.height) / 2);
                         }
-                        else
+                        if(userImage.bitmap.width < 100)
                         {
-                            userImage.resize(100, 100);
+                            x = x + ((100 - userImage.bitmap.width) / 2)
                         }
         
         
