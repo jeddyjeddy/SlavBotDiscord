@@ -141,7 +141,7 @@ bot.on("message", (message) => {
         }
     }
 
-    if(noResponse)
+    if(noResponse === true)
     {
         if (message.content.toLowerCase().indexOf("ur mom") > -1 || message.content.toLowerCase().indexOf("ur mum") > -1
         || message.content.toLowerCase().indexOf("ur mother") > -1 || message.content.toLowerCase().indexOf("ur dad") > -1
