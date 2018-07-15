@@ -26,7 +26,8 @@ var allSwearCounters = [{key: "Key", counter: null}]
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
 
-var getResponse = (guildID) => {
+var ResponseFunctions = module.exports = {
+ getResponse: function(guildID) {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
@@ -54,9 +55,9 @@ var getResponse = (guildID) => {
         }
     }
     return true;
-}
+},
 
-var changeResponse = (guildID, setting) => {
+ changeResponse: function(guildID, setting) {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
@@ -69,7 +70,7 @@ var changeResponse = (guildID, setting) => {
         }
     }
 }
-
+}
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
