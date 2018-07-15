@@ -21,7 +21,7 @@ class RespondCommand extends command.Command
         console.log(currentSetting)
         if(args.toLowerCase() == "enable")
         {
-            if(currentSetting === true)
+            if(currentSetting === false)
             {
                 ResponseChange.changeResponse(message.guild.id, true);
                 message.reply("responses enabled").catch(error => console.log("Send Error - " + error));
@@ -33,7 +33,7 @@ class RespondCommand extends command.Command
         }
         else if (args.toLowerCase() == "disable")
         {
-            if(currentSetting === false)
+            if(currentSetting === true)
             {
                 ResponseChange.changeResponse(message.guild.id, false);
                 message.reply("responses disabled").catch(error => console.log("Send Error - " + error));
