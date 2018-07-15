@@ -11,7 +11,7 @@ var resultHandler = function(err) {
 }
 
 var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum", "Suspect is in custody", "You're under arrest", "You have the right to remain silent", "Freeze!", "Hands in the air!"]
-
+var selfResponses = ["I'll be back", "you haven't seen the last of me!", "I won't be gone for long", "no walls can hold me","my attorney will get me out in five minutes","you have just turned all of the gopniks against you, blyat", "you will hear hardbass in your sleep"]
 class PoliceCommand extends command.Command
  {
     constructor(client)
@@ -202,6 +202,12 @@ class PoliceCommand extends command.Command
                             }, 10000);
                         });
                         console.log("Message Sent");
+                        setTimeout(function(){
+                            if(userID == message.client.user.id)
+                            {
+                                message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => console.log("Send Error - " + error));
+                            }
+                        }, 1000);
                     });
                 }).catch(function (err) {
                     message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));

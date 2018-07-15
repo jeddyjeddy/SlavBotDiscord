@@ -9,7 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
-const selfResponses = [" you must have nothing better to do", " feel free to insult a bot if it makes you feel better about yourself", " your parents must be proud of you", " how insecure must you be to insult a bot?"];
+const selfResponses = [" you must have nothing better to do", " feel free to insult a bot if it makes you feel better about yourself", " your parents must be proud of you", " how insecure must you be to insult a bot?"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
 
 class EwCommand extends command.Command
  {
