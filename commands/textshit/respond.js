@@ -1,5 +1,5 @@
 const command = require("discord.js-commando");
-var ResponseChange = require("./../.../index.js")
+var ResponseChange = require("./../index.js")
 
 class RespondCommand extends command.Command
  {
