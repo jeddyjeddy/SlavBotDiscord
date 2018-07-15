@@ -94,11 +94,8 @@ class FreerealestateCommand extends command.Command
                                 var x = 190;
 
                                 userImage.resize(Jimp.AUTO, 320)
-
-                                if (userImage.bitmap.width != 320)
-                                {
-                                    x = x + ((320 - userImage.bitmap.width) / 2)
-                                }
+                                x = x + ((320 - userImage.bitmap.width) / 2)
+                                
 
                                 var XYText = 10;
                                 var YText2 = 155

@@ -99,15 +99,9 @@ class PoliceCommand extends command.Command
                         
                         var x = 330
                         var y = 190
-                        userImage.scaleToFit(150, 150)
-                        if(userImage.bitmap.height < 150)
-                        {
-                            y = y + ((150 - userImage.bitmap.height) / 2);
-                        }
-                        if(userImage.bitmap.width < 150)
-                        {
-                            x = x + ((150 - userImage.bitmap.width) / 2)
-                        }
+                        userImage.resize(Jimp.AUTO, 150)
+                        x = x + ((150 - userImage.bitmap.width) / 2)
+                        
         
                         var mergedImage = FImage.composite(userImage, x, y );
                         var file = shortid.generate() + ".png"

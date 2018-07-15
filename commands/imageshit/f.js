@@ -100,10 +100,8 @@ class FCommand extends command.Command
 
                         userImage.resize(Jimp.AUTO, 100)
 
-                        if (userImage.bitmap.width != 100)
-                        {
-                            x = x + ((100 - userImage.bitmap.width) / 2)
-                        }
+                        x = x + ((100 - userImage.bitmap.width) / 2)
+                        
                         
         
         
