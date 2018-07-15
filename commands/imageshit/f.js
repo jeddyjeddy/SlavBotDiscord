@@ -98,16 +98,17 @@ class FCommand extends command.Command
                         var x = 270
                         var y = 180
 
-                        userImage.scaleToFit(100, 100)
+                        userImage.resize(Jimp.AUTO, 100)
 
-                        if(userImage.bitmap.height < 100)
+                        if(userImage.bitmap.width > 100)
                         {
-                            y = y + ((100 - userImage.bitmap.height) / 2);
+                            x = x - ((100 - userImage.bitmap.width) / 2)
                         }
-                        if(userImage.bitmap.width < 100)
+                        else if (userImage.bitmap.width < 100)
                         {
                             x = x + ((100 - userImage.bitmap.width) / 2)
                         }
+                        
         
         
                         var mergedImage = FImage.composite(userImage, x, y );
