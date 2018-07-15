@@ -26,7 +26,7 @@ var allSwearCounters = [{key: "Key", counter: null}]
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
 
-var getResponse = function(guildID) {
+var getResponse = (guildID) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
@@ -56,7 +56,7 @@ var getResponse = function(guildID) {
     return true;
 }
 
-var changeResponse = function(guildID, setting) {
+var changeResponse = (guildID, setting) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
