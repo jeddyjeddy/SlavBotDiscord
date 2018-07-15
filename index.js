@@ -28,8 +28,35 @@ bot.on('guildDelete', mem => {
         firebase.database().ref("serversettings/" + mem.id).remove();
 });
 
-var allSwearCounters = [{ley: "Key", counter: null}] 
-var allThotCounters = [{ley: "Key", counter: null}] 
+var allSwearCounters = [{key: "Key", counter: null}] 
+var allThotCounters = [{key: "Key", counter: null}]
+var responseSettings = [{key: "Key", respond: true}] 
+var ResponseChange = module.exports = {
+    setting: true,
+    getResponse: function(guildID) {
+        for(var i = 0; i < responseSettings.length; i++)
+        {
+            if(guildID == responseSettings[i].key)
+            {
+                return responseSettings[i].respond;
+            }
+        }
+        return true;
+    },
+    changeResponse: function(guildID, setting) {
+        for(var i = 0; i < responseSettings.length; i++)
+        {
+            if(guildID == responseSettings[i].key)
+            {
+                responseSettings[i].respond = setting;
+                if(signedIntoFirebase)
+                {
+                    firebase.database().ref("serversettings/" + message.guild.id + "/respond").set(setting);
+                }
+            }
+        }
+    }
+}
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
@@ -82,103 +109,21 @@ bot.on("message", (message) => {
     {
         return;
     }
-    var noResponse = true;
-    var checkResponse = false;
-    fs.readFile('mutedusers.json', 'utf8', function readFileCallback(err, data){
-        if (err){
-            console.log(err);
-        } else {
-
-        if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
-            return;
-        }
-        var allMutedUsers = []
-        try {
-            allMutedUsers = JSON.parse(data).allMutedUsers; 
-        } catch(e) {
-            console.log(e); // error in the above string (in this case, yes)!
-            allMutedUsers = [];
-        }
-        var mutedusers = [];
-
-        for(var i = 0; i < allMutedUsers.length; i++)
-        {
-            if(allMutedUsers[i].key == message.guild.id)
-            {
-                mutedusers = allMutedUsers[i].users;
-            }
-        }
-
-        if(mutedusers == null || mutedusers.length == 0)
-        {
-            firebase.database().ref("serversettings/" + message.guild.id + "/mutedusers").once('value').then(function(snapshot) {
-
-                if(snapshot.val() == null)
-                {
-                    mutedusers = ["test"];
-                }
-                else
-                {
-                    mutedusers = JSON.parse(snapshot.val());
-                }
     
-                var hasKey = false;
-                for(var i = 0; i < allMutedUsers.length; i++)
-                {
-                    if(allMutedUsers[i].key == message.guild.id)
-                    {
-                        allMutedUsers[i].users = mutedusers;
-                        hasKey = true;
-                    }
-                }
+    if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
+        return;
+    }
+    var noResponse = false;
 
-                if(!hasKey)
-                {
-                    allMutedUsers.push({key: message.guild.id, users: mutedusers})
-                }
-
-                fs.writeFile('mutedusers.json', JSON.stringify({allMutedUsers: allMutedUsers}), 'utf8', callback); // write it back 
-                for(var i = 0; i < mutedusers.length; i++)	
-                {	
-                    if(mutedusers[i] == message.author.id)	
-                    {	
-                        if(message.author.id != message.client.user.id)
-                        {
-                            message.delete().catch(error => message.reply("Cannot keep user muted. Error - " + error).catch(error => console.log("Send Error - " + error)));	
-                        }
-                    }	
-                    if(mutedusers[i] == message.client.user.id)
-                    {
-                        checkResponse = true;
-                    }
-                }
-                if(!checkResponse)
-                    noResponse = false;
-            });
-        }
-        else
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(message.guild.id == responseSettings[i].key)
         {
-            for(var i = 0; i < mutedusers.length; i++)	
-            {	
-                if(mutedusers[i] == message.author.id)	
-                {	
-                    if(message.author.id != message.client.user.id)
-                    {
-                        message.delete().catch(error => message.reply("Cannot keep user muted. Error - " + error).catch(error => console.log("Send Error - " + error)));	
-                    }
-                }	
-                if(mutedusers[i] == message.client.user.id)
-                {
-                    checkResponse = true;
-                }
-            }	
-
-            if(!checkResponse)
-                noResponse = false;
+            noResponse = responseSettings[i].respond;
         }
     }
 
-    if(!noResponse)
+    if(noResponse)
     {
         if (message.content.toLowerCase().indexOf("ur mom") > -1 || message.content.toLowerCase().indexOf("ur mum") > -1
         || message.content.toLowerCase().indexOf("ur mother") > -1 || message.content.toLowerCase().indexOf("ur dad") > -1
@@ -458,7 +403,6 @@ bot.on("message", (message) => {
             }
         }
     }
-});
 });
 
 bot.login(process.env.BOT_TOKEN);
