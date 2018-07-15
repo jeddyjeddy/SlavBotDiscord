@@ -9,7 +9,7 @@ class SayCommand extends command.Command
             group: "textshit",
             memberName: "say",
             description: "A simple Say command. Slav Bot will repeat whatever you tell it to.",
-            examples: ["`!say` <text>"]
+            examples: ["`!say <text>`"]
         });
     }
 

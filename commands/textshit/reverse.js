@@ -9,7 +9,7 @@ class ReverseCommand extends command.Command
             group: "textshit",
             memberName: "reverse",
             description: "Reverse what you say. Slav Bot will repeat whatever you tell it to in reverse.",
-            examples: ["`!reverse` <text>"]
+            examples: ["`!reverse <text>`"]
         });
     }
 
