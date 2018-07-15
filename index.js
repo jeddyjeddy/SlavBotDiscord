@@ -145,14 +145,6 @@ bot.on("message", (message) => {
     if(hasKey === false)
     {
         localGetResponse(message.guild.id);
-        for(var i = 0; i < responseSettings.length; i++)
-        {
-            if(message.guild.id == responseSettings[i].key)
-            {
-                noResponse = responseSettings[i].respond;
-                hasKey = true;
-            }
-        }
     }
 
     if(noResponse === true)
