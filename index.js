@@ -25,9 +25,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-
-var ResponseFunctions = module.exports = {
- getResponse: function(guildID) {
+var localGetResponse = (guildID) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
@@ -46,18 +44,10 @@ var ResponseFunctions = module.exports = {
         }
         console.log("Checked")
     })
-    console.log("Restart Check")
-    for(var i = 0; i < responseSettings.length; i++)
-    {
-        if(guildID == responseSettings[i].key)
-        {
-            return responseSettings[i].respond;
-        }
-    }
-    return true;
-},
+    return false;
+}
 
- changeResponse: function(guildID, setting) {
+var localChangeResponse = (guildID, setting) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
         if(guildID == responseSettings[i].key)
@@ -70,7 +60,17 @@ var ResponseFunctions = module.exports = {
         }
     }
 }
+
+var ResponseFunctions = module.exports = {
+ getResponse: function(guildID) {
+    return localGetResponse(guildID)
+},
+
+ changeResponse: function(guildID, setting) {
+    localChangeResponse(guildID, setting)
 }
+}
+
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
