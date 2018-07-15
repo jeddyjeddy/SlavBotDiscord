@@ -25,51 +25,51 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-var ResponseChange = {
-    setting: true,
-    getResponse: function(guildID) {
-        for(var i = 0; i < responseSettings.length; i++)
+
+function getResponse(guildID) {
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(guildID == responseSettings[i].key)
         {
-            if(guildID == responseSettings[i].key)
-            {
-                return responseSettings[i].respond;
-            }
+            return responseSettings[i].respond;
         }
-        firebase.database().ref("serversettings/" + message.guild.id + "/respond").once('value').then(function(snapshot) {
-            if(snapshot.val() != null || snapshot.val() == true)
-            {
-                responseSettings.push({key: message.guild.id, respond: true})
-            }
-            else
-            {
-                responseSettings.push({key: message.guild.id, respond: false})
-            }
-            console.log("Checked")
-        })
-        console.log("Restart Check")
-        for(var i = 0; i < responseSettings.length; i++)
+    }
+    firebase.database().ref("serversettings/" + message.guild.id + "/respond").once('value').then(function(snapshot) {
+        if(snapshot.val() != null || snapshot.val() == true)
         {
-            if(guildID == responseSettings[i].key)
-            {
-                return responseSettings[i].respond;
-            }
+            responseSettings.push({key: message.guild.id, respond: true})
         }
-        return true;
-    },
-    changeResponse: function(guildID, setting) {
-        for(var i = 0; i < responseSettings.length; i++)
+        else
         {
-            if(guildID == responseSettings[i].key)
+            responseSettings.push({key: message.guild.id, respond: false})
+        }
+        console.log("Checked")
+    })
+    console.log("Restart Check")
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(guildID == responseSettings[i].key)
+        {
+            return responseSettings[i].respond;
+        }
+    }
+    return true;
+}
+
+function changeResponse(guildID, setting) {
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(guildID == responseSettings[i].key)
+        {
+            responseSettings[i].respond = setting;
+            if(signedIntoFirebase)
             {
-                responseSettings[i].respond = setting;
-                if(signedIntoFirebase)
-                {
-                    firebase.database().ref("serversettings/" + message.guild.id + "/respond").set(setting);
-                }
+                firebase.database().ref("serversettings/" + message.guild.id + "/respond").set(setting);
             }
         }
     }
 }
+
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
