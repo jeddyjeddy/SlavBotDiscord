@@ -25,7 +25,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-var ResponseChange = module.exports = {
+var ResponseChange = {
     setting: true,
     getResponse: function(guildID) {
         for(var i = 0; i < responseSettings.length; i++)
