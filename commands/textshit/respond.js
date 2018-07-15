@@ -23,6 +23,7 @@ class RespondCommand extends command.Command
             if(currentSetting)
             {
                 ResponseChange.changeResponse(message.guild.id, true);
+                message.reply("responses enabled").catch(error => console.log("Send Error - " + error));
             }
             else
             {
@@ -34,6 +35,7 @@ class RespondCommand extends command.Command
             if(!currentSetting)
             {
                 ResponseChange.changeResponse(message.guild.id, false);
+                message.reply("responses disabled").catch(error => console.log("Send Error - " + error));
             }
             else
             {
