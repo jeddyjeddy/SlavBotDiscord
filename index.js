@@ -41,6 +41,25 @@ var ResponseChange = module.exports = {
                 return responseSettings[i].respond;
             }
         }
+        firebase.database().ref("serversettings/" + message.guild.id + "/respond").once('value').then(function(snapshot) {
+            if(snapshot.val() != null || snapshot.val() == true)
+            {
+                responseSettings.push({key: message.guild.id, respond: true})
+            }
+            else
+            {
+                responseSettings.push({key: message.guild.id, respond: false})
+            }
+            console.log("Checked")
+        })
+        console.log("Restart Check")
+        for(var i = 0; i < responseSettings.length; i++)
+        {
+            if(guildID == responseSettings[i].key)
+            {
+                return responseSettings[i].respond;
+            }
+        }
         return true;
     },
     changeResponse: function(guildID, setting) {
