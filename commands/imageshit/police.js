@@ -10,6 +10,8 @@ var resultHandler = function(err) {
     }
 }
 
+var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum"]
+
 class FCommand extends command.Command
  {
     constructor(client)
@@ -98,9 +100,14 @@ class FCommand extends command.Command
                         var x = 330
                         var y = 190
                         userImage.scaleToFit(150, 150)
-                        y = y - ((150 - userImage.bitmap.height) / 2);
-                        x = x - ((150 - userImage.bitmap.width) / 2)
-                    
+                        if(userImage.bitmap.height < 150)
+                        {
+                            y = y + ((150 - userImage.bitmap.height) / 2);
+                        }
+                        if(userImage.bitmap.width < 150)
+                        {
+                            x = x + ((150 - userImage.bitmap.width) / 2)
+                        }
         
                         var mergedImage = FImage.composite(userImage, x, y );
                         var file = shortid.generate() + ".png"
@@ -108,7 +115,7 @@ class FCommand extends command.Command
                             if(error) throw error;
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***The police have arrived***", {
+                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
                                 files: [file]
                             }).then(function(){
                                 message.channel.stopTyping();
