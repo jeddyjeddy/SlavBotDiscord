@@ -12,7 +12,7 @@ var resultHandler = function(err) {
 
 var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum", "Suspect is in custody", "You're under arrest", "You have the right to remain silent", "Freeze!", "Hands in the air!"]
 
-class FCommand extends command.Command
+class PoliceCommand extends command.Command
  {
     constructor(client)
     {
@@ -184,7 +184,7 @@ class FCommand extends command.Command
                         if(error) throw error;
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("<@" + userID +"> ***has been arrested***", {
+                        message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***\n<@" + userID +"> ***has been arrested***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
@@ -216,4 +216,4 @@ class FCommand extends command.Command
     }
 }
 
-module.exports = FCommand;
+module.exports = PoliceCommand;
