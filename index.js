@@ -34,11 +34,15 @@ var localGetResponse = (guildID) => {
         }
     }
     firebase.database().ref("serversettings/" + guildID + "/respond").once('value').then(function(snapshot) {
-        if(snapshot.val() != null || snapshot.val() == true)
+        if(snapshot.val() == null)
         {
             responseSettings.push({key: guildID, respond: true})
         }
-        else
+        else if(snapshot.val() == true)
+        {
+            responseSettings.push({key: guildID, respond: true})
+        }
+        else if(snapshot.val() == true)
         {
             responseSettings.push({key: guildID, respond: false})
         }
