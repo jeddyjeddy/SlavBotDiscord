@@ -89,13 +89,16 @@ class FreerealestateCommand extends command.Command
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("free.jpg").then(function (freeImage) {
                             Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-                                userImage.scaleToFit(320, 320);
 
                                 var y = 250;
-                                y = y + ((320 - userImage.bitmap.height) / 2);
-
                                 var x = 190;
-                                x = x + ((320 - userImage.bitmap.width) / 2)
+
+                                userImage.resize(Jimp.AUTO, 320)
+
+                                if (userImage.bitmap.width != 320)
+                                {
+                                    x = x + ((320 - userImage.bitmap.width) / 2)
+                                }
 
                                 var XYText = 10;
                                 var YText2 = 155

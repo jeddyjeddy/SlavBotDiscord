@@ -99,16 +99,11 @@ class EwCommand extends command.Command
                         var x = 200
                         var y = 730
 
-                        userImage.scaleToFit(240, 240)
+                        userImage.resize(Jimp.AUTO, 240)
 
-                        if(userImage.bitmap.height < 240)
+                        if (userImage.bitmap.width != 240)
                         {
-                            y = y + (userImage.bitmap.height/4)
-                        }
-                        
-                        if (userImage.bitmap.width < 240)
-                        {
-                            x = x + (userImage.bitmap.width/4)
+                            x = x + ((240 - userImage.bitmap.width) / 2)
                         }
                         
         
