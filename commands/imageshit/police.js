@@ -98,17 +98,9 @@ class FCommand extends command.Command
                         var x = 330
                         var y = 190
                         userImage.scaleToFit(150, 150)
-
-                        if(userImage.bitmap.height > userImage.bitmap.width)
-                        {
-                            y = y - (userImage.bitmap.height/4)
-                        }
-                        else if (userImage.bitmap.width > userImage.bitmap.height)
-                        {
-                            x = x - (userImage.bitmap.width/4)
-                        }
-                        
-        
+                        y = y - ((150 - userImage.bitmap.height) / 2);
+                        x = x - ((150 - userImage.bitmap.width) / 2)
+                    
         
                         var mergedImage = FImage.composite(userImage, x, y );
                         var file = shortid.generate() + ".png"
