@@ -10,7 +10,7 @@ var resultHandler = function(err) {
     }
 }
 
-var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum"]
+var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum", "Suspect is in custody", "You're under arrest", "You have the right to remain silent", "Freeze!", "Hands in the air!"]
 
 class FCommand extends command.Command
  {
