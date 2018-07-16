@@ -41,7 +41,11 @@ var localGetResponse = (guild) => {
         }
         else
         {
-            if(snapshot.child("respond").val() === true)
+            if(snapshot.child("respond").val() == null)
+            {
+                responseSettings.push({key: guild.id, respond: true})
+            }
+            else if(snapshot.child("respond").val() === true)
             {
                 responseSettings.push({key: guild.id, respond: true})
             }
