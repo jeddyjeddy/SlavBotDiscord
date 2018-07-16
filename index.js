@@ -37,7 +37,7 @@ var localGetResponse = (guildID) => {
     firebase.database().ref("serversettings/" + guildID + "/respond").once('value').then(function(snapshot) {
         if(snapshot.val() == null)
         {
-            migrateServerID(message.guild);
+            migrateServerID(guild);
         }
         else if(snapshot.val() === true)
         {
