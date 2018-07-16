@@ -88,6 +88,7 @@ var migrateServerID = (guild) =>
     console.log("Migrating " + guild.id)
     for(var i = 0; i < channels.length; i++)
     {
+        const checkIndex = i;
         firebase.database().ref("serversettings/" + channels[i].id).once('value').then(function(snapshot) {
             if(snapshot.val() != null)
             {
@@ -102,9 +103,8 @@ var migrateServerID = (guild) =>
                     snapshot.ref.remove();
                 }
             }
-            console.log(channels.length)
-            console.log(i)
-            if(i == channels.length - 1)
+            console.log(checkIndex)
+            if(checkIndex == channels.length - 1)
             { 
                 console("Migrating over " + guild.id)
                 var responseCheck = false;
