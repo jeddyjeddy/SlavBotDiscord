@@ -25,6 +25,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
+
 var localGetResponse = (guildID) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
@@ -36,7 +37,7 @@ var localGetResponse = (guildID) => {
     firebase.database().ref("serversettings/" + guildID + "/respond").once('value').then(function(snapshot) {
         if(snapshot.val() == null)
         {
-            responseSettings.push({key: guildID, respond: true})
+            migrateServerID(message.guild);
         }
         else if(snapshot.val() === true)
         {
@@ -61,6 +62,54 @@ var localChangeResponse = (guildID, setting) => {
                 firebase.database().ref("serversettings/" + guildID + "/respond").set(setting);
             }
         }
+    }
+}
+
+migrateServerID(guild)
+{
+    //If server ID in serversettings returns null
+    var channels = guild.channels.array();
+    var alreadyFoundData = false;
+    for(var i = 0; i < channels.length; i++)
+    {
+        firebase.database().ref("serversettings/" + channels[i].id).once('value').then(function(snapshot) {
+            if(snapshot.val() != null)
+            {
+                if(!alreadyFoundData)
+                {
+                    firebase.database().ref("serversettings/" + guild.id).set(snapshot.val());
+                    alreadyFoundData = true;
+                }
+                else
+                {
+                    snapshot.ref.remove();
+                }
+            }
+
+            if(i == channels.length - 1)
+            {
+                var responseCheck = false;
+                for(var index = 0; index < responseSettings.length; index++)
+                {
+                    if(guildID == responseSettings[index].key)
+                    {
+                        responseCheck = true;
+                    }
+                }
+
+                if(!responseCheck)
+                {
+                    if(alreadyFoundData)
+                    {
+                        localGetResponse(guild.id);
+                    }
+                    else
+                    {
+                        responseSettings.push({key: guild.id, respond: true});
+                    }
+                }
+            }
+        })
     }
 }
 
@@ -189,11 +238,19 @@ bot.on("message", (message) => {
             if(thotCounter == [] || thotCounter.length == 0)
             {       
                 firebase.database().ref("serversettings/" + message.guild.id + "/thotcounter").once('value').then(function(snapshot) {
+                    if(snapshot.val() == null)
+                    {
+                        migrateServerID(message.guild)
+                        return;
+                    }
+                    
                     thotCounter = JSON.parse(snapshot.val());
+
                     if(thotCounter == null)
                     {
-                        thotCounter = [{key: "Key", value: 0, valueToCheck: 10}]
+                        thotCounter = [{key: "Key", value: 0, valueToCheck: 10}];
                     }
+
                     var hasKey = false;
                     var index = 1;
                     
@@ -320,13 +377,21 @@ bot.on("message", (message) => {
             if(swearcounter == [] || swearcounter.length == 0)
             {
                 firebase.database().ref("serversettings/" + message.guild.id + "/swearcounter").once('value').then(function(snapshot) {
+                    if(snapshot.val() == null)
+                    {
+                        migrateServerID(message.guild);
+                        return;
+                    }
+                    
                     swearCounter = JSON.parse(snapshot.val());
+
                     if(swearCounter == null)
                     {
-                        swearCounter = [{key: "Key", value: 0, valueToCheck: 10}]
+                        swearCounter = [{key: "Key", value: 0, valueToCheck: 10}];
                     }
 
-                        message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
+
+                    message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                     
                     var hasKey = false;
                     var index = 1;
