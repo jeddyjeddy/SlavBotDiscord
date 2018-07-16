@@ -102,7 +102,8 @@ var migrateServerID = (guild) =>
                     snapshot.ref.remove();
                 }
             }
-
+            console.log(channels.length)
+            console.log(i)
             if(i == channels.length - 1)
             { 
                 console("Migrating over " + guild.id)
