@@ -70,6 +70,7 @@ var migrateServerID = (guild) =>
     //If server ID in serversettings returns null
     var channels = guild.channels.array();
     var alreadyFoundData = false;
+    console.log("Migrating " + guild.id)
     for(var i = 0; i < channels.length; i++)
     {
         firebase.database().ref("serversettings/" + channels[i].id).once('value').then(function(snapshot) {
@@ -88,6 +89,7 @@ var migrateServerID = (guild) =>
 
             if(i == channels.length - 1)
             {
+                console("Migrating over " + guild.id)
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
                 {
