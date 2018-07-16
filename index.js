@@ -106,7 +106,7 @@ var migrateServerID = (guild) =>
             console.log(checkIndex)
             if(checkIndex == channels.length - 1)
             { 
-                console("Migrating over " + guild.id)
+                console.log("Migrating over " + guild.id)
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
                 {
