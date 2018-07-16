@@ -26,26 +26,26 @@ var allSwearCounters = [{key: "Key", counter: null}]
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
 
-var localGetResponse = (guildID) => {
+var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
-        if(guildID == responseSettings[i].key)
+        if(guild.id == responseSettings[i].key)
         {
             return responseSettings[i].respond;
         }
     }
-    firebase.database().ref("serversettings/" + guildID + "/respond").once('value').then(function(snapshot) {
+    firebase.database().ref("serversettings/" + guild.id + "/respond").once('value').then(function(snapshot) {
         if(snapshot.val() == null)
         {
             migrateServerID(guild);
         }
         else if(snapshot.val() === true)
         {
-            responseSettings.push({key: guildID, respond: true})
+            responseSettings.push({key: guild.id, respond: true})
         }
         else if(snapshot.val() === false)
         {
-            responseSettings.push({key: guildID, respond: false})
+            responseSettings.push({key: guild.id, respond: false})
         }
     })
     return false;
@@ -91,9 +91,9 @@ var migrateServerID = (guild) =>
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
                 {
-                    if(guildID == responseSettings[index].key)
+                    if(guild.id == responseSettings[index].key)
                     {
-                        responseCheck = true;
+                          responseCheck = true;
                     }
                 }
 
@@ -101,7 +101,7 @@ var migrateServerID = (guild) =>
                 {
                     if(alreadyFoundData)
                     {
-                        localGetResponse(guild.id);
+                        localGetResponse(guild);
                     }
                     else
                     {
@@ -114,8 +114,8 @@ var migrateServerID = (guild) =>
 }
 
 var ResponseFunctions = module.exports = {
- getResponse: function(guildID) {
-    return localGetResponse(guildID)
+ getResponse: function(guild) {
+    return localGetResponse(guild)
 },
 
  changeResponse: function(guildID, setting) {
@@ -192,7 +192,7 @@ bot.on("message", (message) => {
 
     if(hasKey === false)
     {
-        localGetResponse(message.guild.id);
+        localGetResponse(message.guild);
     }
 
     if(noResponse === true)

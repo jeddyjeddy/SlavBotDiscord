@@ -17,7 +17,7 @@ class RespondCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        var currentSetting = ResponseChange.getResponse(message.guild.id);
+        var currentSetting = ResponseChange.getResponse(message.guild);
         console.log(currentSetting)
         if(args.toLowerCase() == "enable")
         {
