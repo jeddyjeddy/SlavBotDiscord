@@ -19,7 +19,14 @@ console.log(`Oops! ${e}`);
 
 bot.on('guildDelete', mem => {
     if(signedIntoFirebase)
+    {
+        var channels = mem.channels.array();
+        for(var i = 0; i < channels.length; i++)
+        {
+            firebase.database().ref("serversettings/" + channels[i].id).remove();
+        }
         firebase.database().ref("serversettings/" + mem.id).remove();
+    }
 });
 
 var allSwearCounters = [{key: "Key", counter: null}] 
