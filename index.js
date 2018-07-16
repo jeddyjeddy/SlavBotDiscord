@@ -65,7 +65,7 @@ var localChangeResponse = (guildID, setting) => {
     }
 }
 
-migrateServerID(guild)
+var migrateServerID = (guild) =>
 {
     //If server ID in serversettings returns null
     var channels = guild.channels.array();
@@ -243,7 +243,7 @@ bot.on("message", (message) => {
                         migrateServerID(message.guild)
                         return;
                     }
-                    
+
                     thotCounter = JSON.parse(snapshot.val());
 
                     if(thotCounter == null)
