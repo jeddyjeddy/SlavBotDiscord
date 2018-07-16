@@ -103,7 +103,7 @@ var migrateServerID = (guild) =>
                     snapshot.ref.remove();
                 }
             }
-            console.log(checkIndex)
+
             if(checkIndex == channels.length - 1)
             { 
                 console.log("Migrating over " + guild.id)
@@ -132,7 +132,7 @@ var migrateServerID = (guild) =>
                     if(snapshot.val() == null)
                     {
                         console.log("Adding new data for " + guild.id)
-                        firebase.database().ref("serversettings/" + guild.id + "respond").set(true)
+                        firebase.database().ref("serversettings/" + guild.id + "/respond").set(true)
                     }
                 })
             }
