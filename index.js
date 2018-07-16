@@ -46,7 +46,6 @@ var localGetResponse = (guildID) => {
         {
             responseSettings.push({key: guildID, respond: false})
         }
-        console.log("Checked")
     })
     return false;
 }
