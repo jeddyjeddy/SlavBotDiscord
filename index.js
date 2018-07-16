@@ -265,7 +265,7 @@ bot.on("message", (message) => {
                         return;
                     }
 
-                    if(snapshot.child("thotcounter").val() == null)
+                    if(snapshot.child("thotcounter").val() != null)
                     {
                         thotCounter = JSON.parse(snapshot.child("thotcounter").val());
                     }
@@ -406,7 +406,7 @@ bot.on("message", (message) => {
                         return;
                     }
                     
-                    if(snapshot.child("swearcounter").val() == null)
+                    if(snapshot.child("swearcounter").val() != null)
                     {
                         swearCounter = JSON.parse(snapshot.child("swearcounter").val());
                     }
