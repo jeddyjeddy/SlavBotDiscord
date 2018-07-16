@@ -115,6 +115,7 @@ var migrateServerID = (guild) =>
                 firebase.database().ref("serversettings/" + guild.id).once('value').then(function(snapshot) {
                     if(snapshot.val() == null)
                     {
+                        console.log("Adding new data for " + guild.id)
                         firebase.database().ref("serversettings/" + guild.id + "swearcounter").set([{key: "Key", value: 0, valueToCheck: 10}])
                         firebase.database().ref("serversettings/" + guild.id + "thotcounter").set([{key: "Key", value: 0, valueToCheck: 10}])
                         firebase.database().ref("serversettings/" + guild.id + "respond").set(true)
