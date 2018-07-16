@@ -250,16 +250,18 @@ bot.on("message", (message) => {
            
             if(thotCounter == [] || thotCounter.length == 0)
             {       
-                firebase.database().ref("serversettings/" + message.guild.id + "/thotcounter").once('value').then(function(snapshot) {
+                firebase.database().ref("serversettings/" + message.guild.id).once('value').then(function(snapshot) {
                     if(snapshot.val() == null)
                     {
                         migrateServerID(message.guild)
                         return;
                     }
 
-                    thotCounter = JSON.parse(snapshot.val());
-
-                    if(thotCounter == null)
+                    if(snapshot.child("thotcounter").val() == null)
+                    {
+                        thotCounter = JSON.parse(snapshot.child("thotcounter").val());
+                    }
+                    else
                     {
                         thotCounter = [{key: "Key", value: 0, valueToCheck: 10}];
                     }
@@ -389,16 +391,18 @@ bot.on("message", (message) => {
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
-                firebase.database().ref("serversettings/" + message.guild.id + "/swearcounter").once('value').then(function(snapshot) {
+                firebase.database().ref("serversettings/" + message.guild.id).once('value').then(function(snapshot) {
                     if(snapshot.val() == null)
                     {
                         migrateServerID(message.guild);
                         return;
                     }
                     
-                    swearCounter = JSON.parse(snapshot.val());
-
-                    if(swearCounter == null)
+                    if(snapshot.child("swearcounter").val() == null)
+                    {
+                        swearCounter = JSON.parse(snapshot.child("swearcounter").val());
+                    }
+                    else
                     {
                         swearCounter = [{key: "Key", value: 0, valueToCheck: 10}];
                     }
