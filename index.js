@@ -78,6 +78,7 @@ var migrateServerID = (guild) =>
             {
                 if(!alreadyFoundData)
                 {
+                    console.log("Previous data found for " + guild.id)
                     firebase.database().ref("serversettings/" + guild.id).set(snapshot.val());
                     alreadyFoundData = true;
                 }
@@ -88,7 +89,7 @@ var migrateServerID = (guild) =>
             }
 
             if(i == channels.length - 1)
-            {
+            { 
                 console("Migrating over " + guild.id)
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
