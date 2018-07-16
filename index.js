@@ -34,19 +34,23 @@ var localGetResponse = (guild) => {
             return responseSettings[i].respond;
         }
     }
-    firebase.database().ref("serversettings/" + guild.id + "/respond").once('value').then(function(snapshot) {
+    firebase.database().ref("serversettings/" + guild.id).once('value').then(function(snapshot) {
         if(snapshot.val() == null)
         {
             migrateServerID(guild);
         }
-        else if(snapshot.val() === true)
+        else
         {
-            responseSettings.push({key: guild.id, respond: true})
+            if(snapshot.child("respond").val() === true)
+            {
+                responseSettings.push({key: guild.id, respond: true})
+            }
+            else if(snapshot.child("respond").val() === false)
+            {
+                responseSettings.push({key: guild.id, respond: false})
+            }
         }
-        else if(snapshot.val() === false)
-        {
-            responseSettings.push({key: guild.id, respond: false})
-        }
+        
     })
     return false;
 }
