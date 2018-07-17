@@ -17,6 +17,10 @@ dbl.on('error', e => {
 console.log(`Oops! ${e}`);
 });
 
+bot.user.setActivity('Hardbass', { type: 'LISTENING' }).catch(console.error);
+
+client.user.setActivity
+
 bot.on('guildDelete', mem => {
     if(signedIntoFirebase)
     {
