@@ -74,7 +74,7 @@ class CompileCommand extends command.Command
                 message.channel.stopTyping();
                 return;
             }
-            message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+            message.reply("***taking images***").catch(error => console.log("Send Error - " + error));
             Jimp.read(url1).then(function (image1) {
                 if(image1.bitmap.height > image1.bitmap.width)
                 {

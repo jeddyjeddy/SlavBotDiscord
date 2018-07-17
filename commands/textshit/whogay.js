@@ -16,7 +16,16 @@ class WhogayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        message.reply("u bige gay").catch(error => console.log("Send Error - " + error));
+        if(message.guild == null)
+        {
+            message.reply("u bige gay").catch(error => console.log("Send Error - " + error));
+        }
+        else
+        {
+            var users = message.guild.members.array()
+            var user = users[Math.floor(Math.random() * users.length)].id
+            message.channel.send("", {embed: {title: "***Let's find out who bige gay***", description: "<@" + user + "> is bige gay."}}).catch(error => console.log("Send Error - " + error));
+        }
         message.channel.stopTyping();
     }
 }
