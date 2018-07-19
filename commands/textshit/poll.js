@@ -429,20 +429,28 @@ class PollCommand extends command.Command
                 {
                     var hasVoted = false;
 
+                    console.log("check if has voted")
+
                     if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
                     {
+                        console.log("users not null")
                         if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length > 0)
                         {
+                            console.log("users length > 0")
                             for(var i = 0; i < allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length; i++)
                             {
+                                console.log("found poll")
                                 if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users[i] == message.author.id)
                                 {
                                     hasVoted = true;
+                                    console.log("has voted")
                                 }
                             }
                         }
                     }
                     
+                    console.log("checking done")
+
                     if(hasVoted)
                     {
                         message.reply("you have already voted for this poll.").catch(error => console.log("Send Error - " + error));
@@ -461,7 +469,13 @@ class PollCommand extends command.Command
 
                             if(selectedOption >= 1 && selectedOption <= allPolls[guildIndex].polls[pollIndex].poll.options.length)
                             {
-                                allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.push(message.author.id);
+                                console.log("adding vote")
+
+                                if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
+                                    allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.push(message.author.id);
+                                else
+                                    allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users = [message.author.id];
+
                                 message.channel.send("<@" + message.author.id + "> has voted for " + allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option).catch(error => console.log("Send Error - " + error));
                             }
                             else
