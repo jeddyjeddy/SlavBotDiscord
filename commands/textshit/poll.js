@@ -127,7 +127,7 @@ class PollCommand extends command.Command
                         if(i == 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("", {embed: {title: title, description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                     }
 
                     var largestVote = -1;
@@ -211,7 +211,7 @@ class PollCommand extends command.Command
                             if(i == 0)
                                 message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                             else
-                                message.channel.send("", {embed: {title: winnerTitle, description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***" + winnerTitle + "***", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
 
@@ -272,7 +272,7 @@ class PollCommand extends command.Command
                             if(i == 0)
                                 message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                             else
-                                message.channel.send("", {embed: {title: title, description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                         }
     
                         var largestVote = -1;
@@ -356,7 +356,7 @@ class PollCommand extends command.Command
                                 if(i == 0)
                                     message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                                 else
-                                    message.channel.send("", {embed: {title: winnerTitle, description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("***" + winnerTitle + "***", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
 
@@ -422,7 +422,7 @@ class PollCommand extends command.Command
                         if(i == 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("***" + title + "***", {embed: {title: title, description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else
@@ -504,7 +504,7 @@ class PollCommand extends command.Command
                         options.push({option: optionTitles[i].toString(), users: []})
                     }
 
-                    var pollObject = {title: title, options: options, owner: message.author.id}
+                    var pollObject = {title: title.toString(), options: options, owner: message.author.id}
                     var poll = {key: message.channel.id, poll: pollObject}
 
                     allPolls[guildIndex].polls.push(poll);
@@ -545,7 +545,7 @@ class PollCommand extends command.Command
                         if(i == 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("***" + title + "***", {embed: {title: title, description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                     }
                 }
             } 
