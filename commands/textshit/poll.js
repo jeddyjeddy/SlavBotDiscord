@@ -112,7 +112,7 @@ class PollCommand extends command.Command
                                 descriptions.push(descriptionFields[i]);
                             }
                             else
-                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionToAdd;
+                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionFields[i];
                         }
                         else
                         {
@@ -196,7 +196,7 @@ class PollCommand extends command.Command
                                     winnerDescriptions.push(descriptionFields[i]);
                                 }
                                 else
-                                winnerDescriptions[winnerDescriptionIndex] = winnerDescriptions[winnerDescriptionIndex] + descriptionToAdd;
+                                winnerDescriptions[winnerDescriptionIndex] = winnerDescriptions[winnerDescriptionIndex] + winnerFields[i];
                             }
                             else
                             {
@@ -257,7 +257,7 @@ class PollCommand extends command.Command
                                     descriptions.push(descriptionFields[i]);
                                 }
                                 else
-                                    descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionToAdd;
+                                    descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionFields[i];
                             }
                             else
                             {
@@ -341,7 +341,7 @@ class PollCommand extends command.Command
                                         winnerDescriptions.push(descriptionFields[i]);
                                     }
                                     else
-                                    winnerDescriptions[winnerDescriptionIndex] = winnerDescriptions[winnerDescriptionIndex] + descriptionToAdd;
+                                    winnerDescriptions[winnerDescriptionIndex] = winnerDescriptions[winnerDescriptionIndex] + winnerFields[i];
                                 }
                                 else
                                 {
@@ -407,7 +407,7 @@ class PollCommand extends command.Command
                                 descriptions.push(descriptionFields[i]);
                             }
                             else
-                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionToAdd;
+                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionFields[i];
                         }
                         else
                         {
@@ -520,7 +520,7 @@ class PollCommand extends command.Command
                                 descriptions.push(descriptionFields[i]);
                             }
                             else
-                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionToAdd;
+                                descriptions[descriptionIndex] = descriptions[descriptionIndex] + descriptionFields[i];
                         }
                         else
                         {
