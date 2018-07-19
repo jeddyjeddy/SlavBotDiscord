@@ -24,7 +24,7 @@ class WhogayCommand extends command.Command
         {
             var users = message.guild.members.array()
             var user = users[Math.floor(Math.random() * users.length)].id
-            message.channel.send("", {embed: {title: "***Let's find out who bige gay***", description: "<@" + user + "> is bige gay."}}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("", {embed: {title: "***Let's find out who bige gay***", description: "<@" + user + "> is bige gay.", color: 16711787}}).catch(error => console.log("Send Error - " + error));
         }
         message.channel.stopTyping();
     }

@@ -17,6 +17,12 @@ class RespondCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+
+        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
+            message.reply("this command is only available to admins and those with the manage channels or manage messages permissions.").catch(error => console.log("Send Error - " + error))
+            return;
+        }
+
         var currentSetting = ResponseChange.getResponse(message.guild);
         console.log(currentSetting)
         if(args.toLowerCase() == "enable")

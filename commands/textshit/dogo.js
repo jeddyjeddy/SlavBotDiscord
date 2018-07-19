@@ -19,11 +19,11 @@ class DogoCommand extends command.Command
         message.channel.startTyping();
         var random = Math.floor(Math.random() * 3);
         if(random == 0)
-            message.channel.send("", {embed: {description: dogs.snoopy()}}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("", {embed: {color: 63487, description: "```" + dogs.snoopy() + "```"}}).catch(error => console.log("Send Error - " + error));
         if(random == 1)
-            message.channel.send("", {embed: {description: dogs.dog()}}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("", {embed: {color: 63487, description: "```" + dogs.dog() + "```"}}).catch(error => console.log("Send Error - " + error));
         if(random == 2)
-            message.channel.send("", {embed: {description: dogs.bulldog()}}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("", {embed: {color: 63487, description: "```" + dogs.bulldog() + "```"}}).catch(error => console.log("Send Error - " + error));
             
         message.channel.stopTyping();
     }
