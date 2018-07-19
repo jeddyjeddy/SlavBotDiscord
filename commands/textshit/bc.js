@@ -33,7 +33,7 @@ class BcCommand extends command.Command
                     }
                     else
                     {
-                        if(args[i].toString() != "@" && !isNaN(args[i].toString()))
+                        if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
                         {
                             userID = userID + args[i].toString();
                         }
