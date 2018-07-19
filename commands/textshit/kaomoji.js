@@ -9,7 +9,7 @@ class KaomojiCommand extends command.Command
             name: "kaomoji",
             group: "textshit",
             memberName: "kaomoji",
-            description: "Searches for and returns kaomojis based on your search parameter.",
+            description: "Searches for and returns kaomojis based on your search parameter. Gives a maximum of 5 results",
             examples: ["`!kaomoji <search-param>`", "`!kaomoji shrug`"]
         });
     }
@@ -32,10 +32,17 @@ class KaomojiCommand extends command.Command
         else
         {
             var lib = asciilib.ordered;
-
-            var kaomojis = lib.filter(function (emoji) {
-                return emoji.name.toLowerCase().indexOf(args.toString()) > -1
-            });
+            var kaomojis = []
+            for (var key in lib) 
+            {
+                if (lib.hasOwnProperty(key)) 
+                {
+                    if(lib[key].name.toLowerCase().indexOf(args.toString().toLowerCase()) > -1)
+                    {
+                        kaomojis.push(lib[key])
+                    }
+                }
+            }
 
             if(kaomojis.length > 5)
             {
