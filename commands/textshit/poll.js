@@ -159,7 +159,7 @@ class PollCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("All options have been given an equal vote of " + largestVote + " votes.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("All options have been given an equal vote of " + largestVote + " vote(s).").catch(error => console.log("Send Error - " + error));
                         }
                     }
                     else
