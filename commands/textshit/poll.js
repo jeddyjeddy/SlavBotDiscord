@@ -427,37 +427,38 @@ class PollCommand extends command.Command
                 }
                 else
                 {
-                    var selectedOption = parseInt(args);
-                    var selectedOptionIndex = selectedOption - 1;
-                    var hasVoted = false;
-
-                    if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
+                    if(isNaN(args.toString()))
                     {
-                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length > 0)
-                        {
-                            for(var i = 0; i < allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length; i++)
-                            {
-                                if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users[i] == message.author.id)
-                                {
-                                    hasVoted = true;
-                                }
-                            }
-                        }
-                    }
-                    
-                    if(hasVoted)
-                    {
-                        message.reply("you have already voted for this poll.").catch(error => console.log("Send Error - " + error));
+                        message.reply("you must give the number of the option you wish to vote for. Use `!poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {
-                        //Vote for option
-                        if(isNaN(args))
+                        var selectedOption = parseInt(args);
+                        var selectedOptionIndex = selectedOption - 1;
+                        var hasVoted = false;
+
+                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
                         {
-                            message.reply("you must give the number of the option you wish to vote for. Use `!poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
+                            if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length > 0)
+                            {
+                                for(var i = 0; i < allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length; i++)
+                                {
+                                    if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users[i] == message.author.id)
+                                    {
+                                        hasVoted = true;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if(hasVoted)
+                        {
+                            message.reply("you have already voted for this poll.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
+                            //Vote for option
+                            
                             if(selectedOption >= 1 && selectedOption <= allPolls[guildIndex].polls[pollIndex].poll.options.length)
                             {
                                 if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
