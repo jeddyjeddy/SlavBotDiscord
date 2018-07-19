@@ -456,7 +456,7 @@ class PollCommand extends command.Command
                         
                         if(hasVoted)
                         {
-                            message.reply("you have already voted for this poll.").catch(error => console.log("Send Error - " + error));
+                            message.reply("you have already voted for this option.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
