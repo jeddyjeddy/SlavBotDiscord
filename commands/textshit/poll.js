@@ -124,7 +124,7 @@ class PollCommand extends command.Command
 
                     for(var i = 0; i < descriptions.length; i++)
                     {
-                        if(i == 0)
+                        if(i > 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                         else
                             message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
@@ -208,7 +208,7 @@ class PollCommand extends command.Command
 
                         for(var i = 0; i < winnerDescriptions.length; i++)
                         {
-                            if(i == 0)
+                            if(i > 0)
                                 message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                             else
                                 message.channel.send("***" + winnerTitle + "***", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
@@ -269,7 +269,7 @@ class PollCommand extends command.Command
     
                         for(var i = 0; i < descriptions.length; i++)
                         {
-                            if(i == 0)
+                            if(i > 0)
                                 message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
                             else
                                 message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
@@ -353,7 +353,7 @@ class PollCommand extends command.Command
     
                             for(var i = 0; i < winnerDescriptions.length; i++)
                             {
-                                if(i == 0)
+                                if(i > 0)
                                     message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
                                 else
                                     message.channel.send("***" + winnerTitle + "***", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
@@ -419,7 +419,7 @@ class PollCommand extends command.Command
 
                     for(var i = 0; i < descriptions.length; i++)
                     {
-                        if(i == 0)
+                        if(i > 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                         else
                             message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
@@ -466,7 +466,7 @@ class PollCommand extends command.Command
                                 else
                                     allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users = [message.author.id];
 
-                                message.channel.send("<@" + message.author.id + "> has voted for " + allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> has voted for ***" + allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option + "***").catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
@@ -543,7 +543,7 @@ class PollCommand extends command.Command
 
                     for(var i = 0; i < descriptions.length; i++)
                     {
-                        if(i == 0)
+                        if(i > 0)
                             message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
                         else
                             message.channel.send("***" + title + "***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
