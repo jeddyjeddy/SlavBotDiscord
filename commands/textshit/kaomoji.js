@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 const asciilib = require("asciilib")
-const lib = asciilib.ordered;
+const lib = asciilib.lib;
 
 class KaomojiCommand extends command.Command
  {
@@ -37,7 +37,6 @@ class KaomojiCommand extends command.Command
             {
                 if (lib.hasOwnProperty(key)) 
                 {
-                    console.log(lib[key])
                     if(lib[key].name.toLowerCase().indexOf(args.toString().toLowerCase()) > -1)
                     {
                         kaomojis.push(lib[key])
