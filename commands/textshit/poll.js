@@ -82,6 +82,7 @@ class PollCommand extends command.Command
                 {
                     message.channel.send("the poll ***" + allPolls[guildIndex].polls[pollIndex].poll.title + "*** has ended").catch(error => console.log("Send Error - " + error));
                     //Poll Results
+                    var title = allPolls[guildIndex].polls[pollIndex].poll.title;
                     var options = allPolls[guildIndex].polls[pollIndex].poll.options;
                     optionTitles = [];
                     var optionVotes = [];
@@ -227,6 +228,7 @@ class PollCommand extends command.Command
                         message.channel.send("the poll ***" + allPolls[guildIndex].polls[pollIndex].poll.title + "*** has ended").catch(error => console.log("Send Error - " + error));
 
                         //Poll Results
+                        var title = allPolls[guildIndex].polls[pollIndex].poll.title;
                         var options = allPolls[guildIndex].polls[pollIndex].poll.options;
                         optionTitles = [];
                         var optionVotes = [];
@@ -379,6 +381,7 @@ class PollCommand extends command.Command
                 {
                     //Send Poll Details
 
+                    var title = allPolls[guildIndex].polls[pollIndex].poll.title;
                     var options = allPolls[guildIndex].polls[pollIndex].poll.options;
                     optionTitles = [];
 
