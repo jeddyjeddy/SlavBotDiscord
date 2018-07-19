@@ -431,10 +431,6 @@ class PollCommand extends command.Command
                     var selectedOptionIndex = selectedOption - 1;
                     var hasVoted = false;
 
-                    console.log(selectedOption)
-                    console.log(selectedOptionIndex)
-                    console.log(allPolls[guildIndex].polls[pollIndex].poll.options)
-
                     if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
                     {
                         if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length > 0)
