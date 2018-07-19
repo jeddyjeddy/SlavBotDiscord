@@ -491,7 +491,11 @@ class PollCommand extends command.Command
                         message.reply("the poll title is too long. Title has been shortened.").catch(error => console.log("Send Error - " + error));
                     }
 
+                    console.log(parameters);
                     var optionTitles = parameters.shift();
+                    console.log(args);
+                    console.log(title)
+                    console.log(parameters);
 
                     var options = [];
 
