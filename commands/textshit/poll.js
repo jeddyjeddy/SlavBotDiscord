@@ -21,7 +21,7 @@ class PollCommand extends command.Command
             group: "textshit",
             memberName: "poll",
             description: "Create a poll. The required parameters for this command is the title for the poll and at least 2 choices. The poll can be stopped at any time, each channel can only have 1 poll",
-            examples: ["`!poll` (Sends poll again if there is an on-going poll)", "`!poll <title>|<option1>|<option2>`", "`!poll end`", "`!poll <title>|<option1>|<option2>|<option3>`", "`!poll <option-number>`", "`!poll 2`"]
+            examples: ["`!poll` (Sends poll again if there is an on-going poll)", "`!poll <title>|<option1>|<option2>`", "`!poll end`", "`!poll <title>|<option1>|<option2>|<option3>`", "`!poll <option-number>` (To place your vote)", "`!poll 2`"]
         });
     }
 
@@ -484,7 +484,7 @@ class PollCommand extends command.Command
                         message.reply("the poll title is too long. Title has been shortened.").catch(error => console.log("Send Error - " + error));
                     }
 
-                    var optionTitles = parameters.splice(0, 1);
+                    var optionTitles = parameters.shift();
 
                     var options = [];
 
