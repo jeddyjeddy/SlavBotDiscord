@@ -469,7 +469,7 @@ class PollCommand extends command.Command
             else
             {
                 //Create Poll
-                var parameters = args.split("|")
+                var parameters = args.toString().split("|")
 
                 if(parameters.length < 3)
                 {
@@ -477,7 +477,7 @@ class PollCommand extends command.Command
                 }
                 else
                 {
-                    var title = parameters[0];
+                    var title = parameters[0].toString();
 
                     if(title.length > 256)
                     {
@@ -491,7 +491,7 @@ class PollCommand extends command.Command
 
                     for(var i = 0; i < optionTitles.length; i++)
                     {
-                        options.push({option: optionTitles[i], users: []})
+                        options.push({option: optionTitles[i].toString(), users: []})
                     }
 
                     var pollObject = {title: title, options: options, owner: message.author.id}
