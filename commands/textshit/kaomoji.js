@@ -44,16 +44,24 @@ class KaomojiCommand extends command.Command
                 }
             }
 
-            if(kaomojis.length > 5)
+
+            if(kaomojis.length > 0)
             {
-                kaomojis.splice(5)
+                if(kaomojis.length > 5)
+                {
+                    kaomojis.splice(5)
+                }
+    
+                message.channel.send("Kaomoji results for ***" + args + "***").catch(error => console.log("Send Error - " + error));
+    
+                for(var i = 0; i < kaomojis.length; i++)
+                {
+                    message.channel.send(kaomojis[i].entry).catch(error => console.log("Send Error - " + error));
+                }
             }
-
-            message.channel.send("Kaomoji results for ***" + args + "***").catch(error => console.log("Send Error - " + error));
-
-            for(var i = 0; i < kaomojis.length; i++)
+            else
             {
-                message.channel.send(kaomojis[i].entry).catch(error => console.log("Send Error - " + error));
+                message.channel.send("No results found for ***" + args + "***").catch(error => console.log("Send Error - " + error));
             }
         }
         message.channel.stopTyping();
