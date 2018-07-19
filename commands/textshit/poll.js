@@ -429,9 +429,9 @@ class PollCommand extends command.Command
                 {
                     var hasVoted = false;
 
-                    for(var i = 0; i < allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length; i++)
+                    for(var i = 0; i < allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option.users.length; i++)
                     {
-                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users[i] == message.author.id)
+                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option.users[i] == message.author.id)
                         {
                             hasVoted = true;
                         }
@@ -455,8 +455,8 @@ class PollCommand extends command.Command
 
                             if(selectedOption >= 1 && selectedOption <= allPolls[guildIndex].polls[pollIndex].poll.options.length)
                             {
-                                allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.push(message.author.id);
-                                message.channel.send("<@" + message.author.id + "> has voted for " + allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].title).catch(error => console.log("Send Error - " + error));
+                                allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option.users.push(message.author.id);
+                                message.channel.send("<@" + message.author.id + "> has voted for " + allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].option.title).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
