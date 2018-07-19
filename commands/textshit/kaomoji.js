@@ -1,6 +1,5 @@
 const command = require("discord.js-commando");
 const asciilib = require("asciilib")
-const lib = asciilib.ordered;
 
 class KaomojiCommand extends command.Command
  {
@@ -32,8 +31,10 @@ class KaomojiCommand extends command.Command
         }
         else
         {
+            var lib = asciilib.ordered;
+
             var kaomojis = lib.filter(function (emoji) {
-                return emoji.name.toLowerString().indexof(args.toString()) > -1
+                return emoji.name.toLowerCase().indexOf(args.toString()) > -1
             });
 
             if(kaomojis.length > 5)
