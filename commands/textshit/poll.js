@@ -63,7 +63,15 @@ class PollCommand extends command.Command
                 }
                 else
                 {
-                    allPolls.push(JSON.parse(snapshot.val()));
+                    var downloadedPolls = JSON.parse(snapshot.val())
+                    if(downloadedPolls.length == 0)
+                    {
+                        allPolls.push({key: message.guild.id, polls: []});
+                    }
+                    else
+                    {
+                        allPolls.push(downloadedPolls);
+                    }
                 }
 
                 classRef.run(message, args);
