@@ -26,7 +26,7 @@ class BanCommand extends command.Command
         }
         
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("BAN_MEMBERS")){
-            message.reply("this command is only available to admins and mods.").catch(error => console.log("Send Error - " + error))
+            message.reply("this command is only available to those with the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
