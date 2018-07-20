@@ -29,10 +29,10 @@ class DespacitoCommand extends command.Command
 
         var otherUser = false;
         var userID = "";
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         if(args.length > 0)
         {

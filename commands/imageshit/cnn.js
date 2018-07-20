@@ -29,10 +29,10 @@ class CNNCommand extends command.Command
         var headline = "";
         var ticker = "";
 
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
 
         if(args.length > 0)

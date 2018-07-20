@@ -15,14 +15,14 @@ class CleanCommand extends command.Command
 
     async run(message, args)
     {
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild == null)
         {
             return;
         }
         else
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){

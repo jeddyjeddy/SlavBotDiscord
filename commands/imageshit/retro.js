@@ -32,10 +32,10 @@ class RetroCommand extends command.Command
         var textLine3 = "";
         var bgStyle = 1;
         var textStyle = 1;
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         if(args.length > 0)
         {

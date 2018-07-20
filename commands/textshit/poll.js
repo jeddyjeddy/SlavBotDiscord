@@ -31,10 +31,10 @@ class PollCommand extends command.Command
             return;
 
         message.channel.startTyping();
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         var hasPoll = false;
         var pollIndex = -1;

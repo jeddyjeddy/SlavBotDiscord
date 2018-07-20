@@ -26,10 +26,10 @@ class CompileCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         message.channel.fetchMessages({ around: message.id })
         .then(messages => {

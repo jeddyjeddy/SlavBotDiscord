@@ -30,10 +30,10 @@ class RotateCommand extends command.Command
         var userID = "";
         var option = "";
         var imageOption = "";
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         if(args.length > 0)
         {

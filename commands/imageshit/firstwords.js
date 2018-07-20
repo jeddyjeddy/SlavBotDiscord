@@ -41,10 +41,10 @@ class FirstwordsCommand extends command.Command
             if(args.indexOf("|") > -1)
             text = args.slice(0, args.indexOf("|"))
         }
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
 
         if(args.length > 0 && text.length < 100)

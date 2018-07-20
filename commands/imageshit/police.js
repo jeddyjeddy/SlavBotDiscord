@@ -28,10 +28,10 @@ class PoliceCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         var otherUser = false;
         var userID = "";

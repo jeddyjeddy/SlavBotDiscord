@@ -71,10 +71,10 @@ class TictacCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
         var sessionExists = false;
         for(var index = 0; index < sessions.length; index++)

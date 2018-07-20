@@ -23,10 +23,10 @@ class RespondCommand extends command.Command
             return;
         }
 
-        var currentPrefix= "!"
+        var commandPrefix= "!"
         if(message.guild != null)
         {
-            currentPrefix = message.guild.commandPrefix
+            commandPrefix = message.guild.commandPrefix
         }
 
         var currentSetting = ResponseChange.getResponse(message.guild);
