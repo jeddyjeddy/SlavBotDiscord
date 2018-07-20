@@ -508,7 +508,7 @@ bot.on("message", (message) => {
                             swearCounter[index].valueToCheck = Math.floor((swearCounter[index].value + 10)/10) * 10;
                             if(swearCounter[index].value >= swearCounter[index].specialCheck)
                             {
-                                message.channel.send("This is it, the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("This is it; the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
                                 swearCounter[index].specialCheck = Math.floor((swearCounter[index].value + 1000)/1000) * 1000;
                             }
                             else
@@ -568,7 +568,7 @@ bot.on("message", (message) => {
                         swearCounter[index].valueToCheck = Math.floor((swearCounter[index].value + 10)/10) * 10;
                         if(swearCounter[index].value >= swearCounter[index].specialCheck)
                         {
-                            message.channel.send("This is it, the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("This is it; the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
                             swearCounter[index].specialCheck = Math.floor((swearCounter[index].value + 1000)/1000) * 1000;
                         }
                         else
