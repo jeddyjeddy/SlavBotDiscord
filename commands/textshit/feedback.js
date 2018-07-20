@@ -50,13 +50,64 @@ class FeedbackCommand extends command.Command
                     }
                     else
                     {
-                        message.channel.client.fetchUser("281876391535050762")
-                        .then(user => {
-                                user.send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
-                                message.reply("thank you for your feedback!").catch(error => console.log("Send Error - " + error));
-                        }, rejection => {
-                                console.log(rejection.message);
-                        });
+                        if(message.author.id == "281876391535050762")
+                        {
+                            if(args.length > 0)
+                            {
+                                var userID = "";
+                                var getUser = false;
+                                for(var i = 0; i < args.length; i++)
+                                {
+                                    if(getUser)
+                                    {
+                                        if(args[i].toString() == ">")
+                                        {
+                                            i = args.length;
+                                        }
+                                        else
+                                        {
+                                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                                            {
+                                                userID = userID + args[i].toString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(args[i].toString() == "<")
+                                        {
+                                            getUser = true;
+                                        } 
+                                    }
+                                }
+
+                                var params = args.toString().splice("|");
+                                if(params.length < 2)
+                                {
+                                    message.reply("add text for reply")
+                                    return;
+                                }
+                                var text = params[1];
+
+                                message.channel.client.fetchUser(userID)
+                                .then(user => {
+                                        user.send("***Reply from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
+                                        message.reply("thank you for your feedback!").catch(error => console.log("Send Error - " + error));
+                                }, rejection => {
+                                        console.log(rejection.message);
+                                });
+                            }
+                        }
+                        else
+                        {
+                            message.channel.client.fetchUser("281876391535050762")
+                            .then(user => {
+                                    user.send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
+                                    message.reply("thank you for your feedback!").catch(error => console.log("Send Error - " + error));
+                            }, rejection => {
+                                    console.log(rejection.message);
+                            });
+                        }
                     }
                 }
                 else
