@@ -81,7 +81,7 @@ class FeedbackCommand extends command.Command
                                     }
                                 }
 
-                                var params = args.toString().splice("|");
+                                var params = args.toString().split("|");
                                 if(params.length < 2)
                                 {
                                     message.reply("add text for reply")
