@@ -292,7 +292,7 @@ bot.on("message", (message) => {
                             thotCounter[i].value = thotCounter[i].value + count;
                             index = i;
 
-                            if(thotCounter.specialCheck == null)
+                            if(thotCounter[i].specialCheck == null)
                             {
                                 thotCounter[i]["specialCheck"] = 1000;
                             }
@@ -355,7 +355,7 @@ bot.on("message", (message) => {
                             thotCounter[i].value = thotCounter[i].value + count;
                             index = i;
 
-                            if(thotCounter.specialCheck == null)
+                            if(thotCounter[i].specialCheck == null)
                             {
                                 thotCounter[i]["specialCheck"] = 1000;
                             }
@@ -477,7 +477,7 @@ bot.on("message", (message) => {
                             swearCounter[i].value = swearCounter[i].value + count;
                             index = i;
 
-                            if(swearCounter.specialCheck == null)
+                            if(swearCounter[i].specialCheck == null)
                             {
                                 swearCounter[i]["specialCheck"] = 1000;
                             }
@@ -537,7 +537,7 @@ bot.on("message", (message) => {
                         swearCounter[i].value = swearCounter[i].value + count;
                         index = i;
 
-                        if(swearCounter.specialCheck == null)
+                        if(swearCounter[i].specialCheck == null)
                         {
                             swearCounter[i]["specialCheck"] = 1000;
                         }
