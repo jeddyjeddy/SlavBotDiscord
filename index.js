@@ -278,7 +278,7 @@ bot.on("message", (message) => {
                     }
                     else
                     {
-                        thotCounter = [{key: "Key", value: 0, valueToCheck: 10}];
+                        thotCounter = [{key: "Key", value: 0, valueToCheck: 50}];
                     }
 
                     var hasKey = false;
@@ -298,7 +298,7 @@ bot.on("message", (message) => {
                         thotCounter.push({
                             key: message.channel.id,
                             value: 1,
-                            valueToCheck: 10
+                            valueToCheck: 50
                         });
                         for(var i = 0; i < thotCounter.length; i++)
                         {
@@ -313,8 +313,15 @@ bot.on("message", (message) => {
 
                         if(thotCounter[index].value >= thotCounter[index].valueToCheck)
                         {
-                            message.channel.send("***B E G O N E  T H O T***", {files: ["thot.gif"]}).catch(error => console.log("Send Error - " + error));
-                            thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 10)/10) * 10;
+                            thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 50)/10) * 10;
+                            if(thotCounter[index].valueToCheck - 50 % 1000 == 0)
+                            {
+                                message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                message.channel.send("***B E G O N E  T H O T***", {files: ["thot.gif"]}).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                     
 
@@ -357,8 +364,15 @@ bot.on("message", (message) => {
 
                         if(thotCounter[index].value >= thotCounter[index].valueToCheck)
                         {
-                            message.channel.send("***B E G O N E  T H O T***", {files: ["thot.gif"]}).catch(error => console.log("Send Error - " + error));
-                            thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 10)/10) * 10;
+                            thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 50)/10) * 10;
+                            if(thotCounter[index].valueToCheck - 50 % 1000 == 0)
+                            {
+                                message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                message.channel.send("***B E G O N E  T H O T***", {files: ["thot.gif"]}).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                     
 
@@ -459,8 +473,15 @@ bot.on("message", (message) => {
         
                         if(swearCounter[index].value >= swearCounter[index].valueToCheck)
                         {
-                            message.channel.send(curseResponses[Math.floor(Math.random() * (curseResponses.length))]).catch(error => console.log("Send Error - " + error));
                             swearCounter[index].valueToCheck = Math.floor((swearCounter[index].value + 10)/10) * 10;
+                            if(swearCounter[index].valueToCheck - 10 % 1000 == 0)
+                            {
+                                message.channel.send("This is it, the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                message.channel.send(curseResponses[Math.floor(Math.random() * (curseResponses.length))]).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                     
                     
@@ -505,8 +526,15 @@ bot.on("message", (message) => {
     
                     if(swearCounter[index].value >= swearCounter[index].valueToCheck)
                     {
-                        message.channel.send(curseResponses[Math.floor(Math.random() * (curseResponses.length))]).catch(error => console.log("Send Error - " + error));
                         swearCounter[index].valueToCheck = Math.floor((swearCounter[index].value + 10)/10) * 10;
+                        if(swearCounter[index].valueToCheck - 10 % 1000 == 0)
+                        {
+                            message.channel.send("This is it, the pinnacle of degeneracy. I hope you're all happy, you autistic fucks.", {files: ["swear1000.gif"]}).catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            message.channel.send(curseResponses[Math.floor(Math.random() * (curseResponses.length))]).catch(error => console.log("Send Error - " + error));
+                        }
                     }
                 
                
