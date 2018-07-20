@@ -26,7 +26,11 @@ class CompileCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         message.channel.fetchMessages({ around: message.id })
         .then(messages => {
             var messageID = "";
@@ -70,7 +74,7 @@ class CompileCommand extends command.Command
 
             if(messageID == "" || messageID2 == "" || messageID3 == "" || messageID4 == "")
             {
-                message.reply("4 images not found, use `!help compile` for help.").catch(error => console.log("Send Error - " + error));
+                message.reply("4 images not found, use `" + commandPrefix + "help compile` for help.").catch(error => console.log("Send Error - " + error));
                 message.channel.stopTyping();
                 return;
             }

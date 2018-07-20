@@ -45,7 +45,7 @@ class RrCommand extends command.Command
         if(message.guild == null)
         {
             return;
-        }
+        } 
 
         if(signedIntoFirebase)
         {

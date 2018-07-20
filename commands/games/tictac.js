@@ -71,7 +71,11 @@ class TictacCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         var sessionExists = false;
         for(var index = 0; index < sessions.length; index++)
         {
@@ -92,7 +96,7 @@ class TictacCommand extends command.Command
                         if(args.toString().toLowerCase() == "accept")
                         {
                             sessions[i].started = true;
-                            message.channel.send("A game of Tic-Tac-Toe has started! <@" + sessions[i].owner + "> vs <@" + sessions[i].user + ">. Use `!tictac end` to end the game. <@" + sessions[i].owner + "> goes first. Use `!tictac <row-column>` to place your mark. Example: `!tictac a1`", {files: ["tictac.jpg"]}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("A game of Tic-Tac-Toe has started! <@" + sessions[i].owner + "> vs <@" + sessions[i].user + ">. Use `" + commandPrefix + "tictac end` to end the game. <@" + sessions[i].owner + "> goes first. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`", {files: ["tictac.jpg"]}).catch(error => console.log("Send Error - " + error));
                             const currentID = sessions[i].id;
                             setTimeout(function(){const sessionID = currentID; counterCheck(message.channel, sessionID)}, 60000);
                         }
@@ -103,7 +107,7 @@ class TictacCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("incorrect response.  Please respond with either `!tictac accept` to accept or `!tictac decline` to decline.").catch(error => console.log("Send Error - " + error));
+                            message.reply("incorrect response.  Please respond with either `" + commandPrefix + "tictac accept` to accept or `" + commandPrefix + "tictac decline` to decline.").catch(error => console.log("Send Error - " + error));
                         }
                     }
                     else if(sessions[i].started)
@@ -124,7 +128,7 @@ class TictacCommand extends command.Command
                                         var played = true;
                                         if(args.length > 2 || args.length == 0)
                                         {
-                                            message.reply("incorrect format. Use `!tictac <row-column>` to place your mark. Example: `!tictac a1`").catch(error => console.log("Send Error - " + error))
+                                            message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                         }
                                         else
                                         {
@@ -239,7 +243,7 @@ class TictacCommand extends command.Command
                                             else
                                             {
                                                 played= false;
-                                                message.reply("incorrect format. Use `!tictac <row-column>` to place your mark. Example: `!tictac a1`").catch(error => console.log("Send Error - " + error))
+                                                message.reply("incorrect format. Use " + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                             }
                                             if(played)
                                             {
@@ -260,7 +264,7 @@ class TictacCommand extends command.Command
                                         var played = true;
                                         if(args.length > 2 || args.length == 0)
                                         {
-                                            message.reply("incorrect format. Use `!tictac <row-column>` to place your mark. Example: `!tictac a1`").catch(error => console.log("Send Error - " + error))
+                                            message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `"+ commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                         }
                                         else
                                         {
@@ -375,7 +379,7 @@ class TictacCommand extends command.Command
                                             else
                                             {
                                                 played = false;
-                                                message.reply("incorrect format. Use `!tictac <row-column>` to place your mark. Example: `!tictac a1`").catch(error => console.log("Send Error - " + error))
+                                                message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                             }
                                             if(played)
                                             {
@@ -1286,7 +1290,7 @@ class TictacCommand extends command.Command
             {
                 console.log(userID);
                 var gameID = shortid.generate();
-                message.channel.send("<@" + message.author.id + "> has requested <@" + userID + "> to play a game of Tic-Tac-Toe. Please respond with either `!tictac accept` to accept or `!tictac decline` to decline. This request will last for 30 seconds.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> has requested <@" + userID + "> to play a game of Tic-Tac-Toe. Please respond with either `" + commandPrefix + "tictac accept` to accept or `" + commandPrefix + "tictac decline` to decline. This request will last for 30 seconds.").catch(error => console.log("Send Error - " + error));
                 sessions.push({
                     key: message.channel.id,
                     id: gameID,

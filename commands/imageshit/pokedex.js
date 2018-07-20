@@ -18,6 +18,11 @@ class PokedexCommand extends command.Command
     {
         message.channel.startTyping();
         var url = "";
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         if(args.length > 0)
         {
             if(args.toString() == "random")
@@ -48,7 +53,7 @@ class PokedexCommand extends command.Command
         }
         else
         {
-            message.reply("please fill the parameters for the command. Use `!help pokedex` for help.").catch(error => console.log("Send Error - " + error));
+            message.reply("please fill the parameters for the command. Use `" + commandPrefix + "help pokedex` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
             return;
         }

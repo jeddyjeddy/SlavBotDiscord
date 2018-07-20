@@ -29,6 +29,12 @@ class CNNCommand extends command.Command
         var headline = "";
         var ticker = "";
 
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
+
         if(args.length > 0)
         {
             var nextLine = false;
@@ -57,7 +63,7 @@ class CNNCommand extends command.Command
 
         if(headline == "" && ticker == "")
         {
-            message.reply("all parameters not filled. Use `!help cnn` for help.").catch(error => console.log("Send Error - " + error))
+            message.reply("all parameters not filled. Use `" + commandPrefix + "help cnn` for help.").catch(error => console.log("Send Error - " + error))
         }
         console.log(headline.toUpperCase())
         console.log(ticker.toUpperCase())

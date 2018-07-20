@@ -29,7 +29,11 @@ class FCommand extends command.Command
 
         var otherUser = false;
         var userID = "";
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         if(args.length > 0)
         {
             console.log("args are present");
@@ -85,7 +89,7 @@ class FCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, , use `!help f` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, , use `" + commandPrefix + "help f` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }

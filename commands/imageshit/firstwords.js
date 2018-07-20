@@ -41,7 +41,11 @@ class FirstwordsCommand extends command.Command
             if(args.indexOf("|") > -1)
             text = args.slice(0, args.indexOf("|"))
         }
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
 
         if(args.length > 0 && text.length < 100)
         {
@@ -245,7 +249,7 @@ class FirstwordsCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.reply("no image found, use `!help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.reply("no image found, use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -433,7 +437,7 @@ class FirstwordsCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("no image option mentioned after seperator. Use `!help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.reply("no image option mentioned after seperator. Use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }

@@ -31,6 +31,12 @@ class FlipCommand extends command.Command
         var option = "";
         var imageOption = "";
 
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
+
         if(args.length > 0)
         {
             if(args.indexOf("|") > -1)
@@ -82,7 +88,7 @@ class FlipCommand extends command.Command
 
         if(option != "horizontal" && option != "vertical")
         {
-            message.reply("no option in parameter, use either \"horizontal\" or \"vertical\". Use `!help flip` for help.").catch(error => console.log("Send Error - " + error));
+            message.reply("no option in parameter, use either \"horizontal\" or \"vertical\". Use `" + commandPrefix + "help flip` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
             return;
         }
@@ -108,7 +114,7 @@ class FlipCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `!help flip` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help flip` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }

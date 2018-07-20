@@ -27,6 +27,11 @@ class FreerealestateCommand extends command.Command
     {
         message.channel.startTyping();
 
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
 
         if(args.length > 0)
         {
@@ -79,7 +84,7 @@ class FreerealestateCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.reply("no image found, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.reply("no image found, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -263,7 +268,7 @@ class FreerealestateCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("no image option mentioned after seperator. Use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.reply("no image option mentioned after seperator. Use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -309,9 +314,9 @@ class FreerealestateCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for top text is 185 characters, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("character limit for top text is 185 characters, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
             else
-             message.reply("incorrect parameters, top text not given, use `!help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("incorrect parameters, top text not given, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
         }
     }

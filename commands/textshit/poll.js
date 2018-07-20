@@ -31,7 +31,11 @@ class PollCommand extends command.Command
             return;
 
         message.channel.startTyping();
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         var hasPoll = false;
         var pollIndex = -1;
         var guildIndex = -1;
@@ -432,7 +436,7 @@ class PollCommand extends command.Command
                 {
                     if(isNaN(args.toString()))
                     {
-                        message.reply("you must give the number of the option you wish to vote for. Use `!poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
+                        message.reply("you must give the number of the option you wish to vote for. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {
@@ -473,7 +477,7 @@ class PollCommand extends command.Command
                             }
                             else
                             {
-                                message.reply("there is no option for the number you have given. Use `!poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
+                                message.reply("there is no option for the number you have given. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
                             }
                         }
                     }

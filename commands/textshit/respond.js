@@ -23,6 +23,12 @@ class RespondCommand extends command.Command
             return;
         }
 
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
+
         var currentSetting = ResponseChange.getResponse(message.guild);
         console.log(currentSetting)
         if(args.toLowerCase() == "enable")
@@ -51,7 +57,7 @@ class RespondCommand extends command.Command
         }
         else
         {
-            message.reply("no parameter given, use either `!respond enable` or `!respond disable`").catch(error => console.log("Send Error - " + error));
+            message.reply("no parameter given, use either `" + commandPrefix + "respond enable` or `" + commandPrefix + "respond disable`").catch(error => console.log("Send Error - " + error));
         }
         message.channel.stopTyping();
     }

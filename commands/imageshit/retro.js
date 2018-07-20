@@ -32,7 +32,11 @@ class RetroCommand extends command.Command
         var textLine3 = "";
         var bgStyle = 1;
         var textStyle = 1;
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         if(args.length > 0)
         {
             var nextLine = false;
@@ -57,7 +61,7 @@ class RetroCommand extends command.Command
                 {
                     if(args[i] != "|")
                     {
-                        message.reply("please use the correct format for the command. Use `!help retro` for help.").catch(error => console.log("Send Error - " + error));
+                        message.reply("please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;                    
                     }
@@ -79,7 +83,7 @@ class RetroCommand extends command.Command
                 {
                     if(args[i] != "|")
                     {
-                        message.reply("please use the correct format for the command. Use `!help retro` for help.").catch(error => console.log("Send Error - " + error));
+                        message.reply("please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;                    
                     }
@@ -159,7 +163,7 @@ class RetroCommand extends command.Command
         }
         else
         {
-            message.reply("please fill the parameters for the command. Use `!help retro` for help.").catch(error => console.log("Send Error - " + error));
+            message.reply("please fill the parameters for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
         }
     }

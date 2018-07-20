@@ -28,7 +28,11 @@ class PoliceCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         var otherUser = false;
         var userID = "";
 
@@ -87,7 +91,7 @@ class PoliceCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, , use `!help police` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, , use `" + commandPrefix + "help police` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }

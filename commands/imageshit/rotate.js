@@ -30,7 +30,11 @@ class RotateCommand extends command.Command
         var userID = "";
         var option = "";
         var imageOption = "";
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         if(args.length > 0)
         {
             if(args.indexOf("|") > -1)
@@ -82,7 +86,7 @@ class RotateCommand extends command.Command
 
         if(!(parseInt(option) >= -360 && parseInt(option) <= 360))
         {
-            message.reply("no option in parameter, use a number ranging from -360 to 360. Use `!help rotate` for help.").catch(error => console.log("Send Error - " + error));
+            message.reply("no option in parameter, use a number ranging from -360 to 360. Use `" + commandPrefix + "help rotate` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
             return;
         }
@@ -108,7 +112,7 @@ class RotateCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `!help rotate` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help rotate` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }

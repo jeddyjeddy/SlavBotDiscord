@@ -15,9 +15,14 @@ class CleanCommand extends command.Command
 
     async run(message, args)
     {
+        var currentPrefix= "!"
         if(message.guild == null)
         {
             return;
+        }
+        else
+        {
+            currentPrefix = message.guild.commandPrefix
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
@@ -37,7 +42,7 @@ class CleanCommand extends command.Command
         {
             if(isNaN(args))
             {
-                message.reply("invalid parameters. Use `!help clean` for help.".catch(error => console.log("Send Error - " + error)));
+                message.reply("invalid parameters. Use `" + commandPrefix + "help clean` for help.".catch(error => console.log("Send Error - " + error)));
                 message.channel.stopTyping();
                 return; 
             }

@@ -29,7 +29,11 @@ class PosterizeCommand extends command.Command
         message.channel.startTyping();
         var otherUser = false;
         var userID = "";
-
+        var currentPrefix= "!"
+        if(message.guild != null)
+        {
+            currentPrefix = message.guild.commandPrefix
+        }
         if(args.length > 0)
         {
             console.log("args are present");
@@ -87,7 +91,7 @@ class PosterizeCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `!help posterize` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help posterize` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
