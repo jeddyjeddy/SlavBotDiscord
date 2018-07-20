@@ -328,7 +328,7 @@ bot.on("message", (message) => {
 
                             if(thotCounter[index].value >= thotCounter[index].specialCheck)
                             {
-                                message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***Thot patrol, dispatched***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
                                 thotCounter[index].specialCheck = Math.floor((thotCounter[index].value + 1000)/1000) * 1000;
                             }
                             else
@@ -392,7 +392,7 @@ bot.on("message", (message) => {
 
                             if(thotCounter[index].value >= thotCounter[index].specialCheck)
                             {
-                                message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***Thot patrol, dispatched***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
                                 thotCounter[index].specialCheck = Math.floor((thotCounter[index].value + 1000)/1000) * 1000;
                             }
                             else
