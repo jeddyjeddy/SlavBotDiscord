@@ -1,6 +1,7 @@
 const commando = require("discord.js-commando");
 const bot = new commando.Client({
-    owner: "281876391535050762"});
+    owner: "281876391535050762",
+    unknownCommandResponse: false});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);

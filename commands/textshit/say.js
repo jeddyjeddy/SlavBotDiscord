@@ -15,6 +15,9 @@ class SayCommand extends command.Command
 
     async run(message, args)
     {
+        if(message.guild != null)
+            console.log(message.guild.commandPrefix)
+            
         message.channel.startTyping();
 
         if(args.length > 0)
