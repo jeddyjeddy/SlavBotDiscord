@@ -92,7 +92,7 @@ class FeedbackCommand extends command.Command
                                 message.channel.client.fetchUser(userID)
                                 .then(user => {
                                         user.send("***Reply from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
-                                        message.reply("thank you for your feedback!").catch(error => console.log("Send Error - " + error));
+                                        message.reply("Message sent: " + text).catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                         console.log(rejection.message);
                                 });
