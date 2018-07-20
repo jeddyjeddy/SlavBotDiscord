@@ -314,6 +314,12 @@ bot.on("message", (message) => {
                         if(thotCounter[index].value >= thotCounter[index].valueToCheck)
                         {
                             thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 50)/10) * 10;
+
+                            if(thotCounter[index].valueToCheck % 50 != 0)
+                            {
+                                thotCounter[index].valueToCheck = (Math.floor((thotCounter[index].valueToCheck/100)) * 100) + 50
+                            }
+
                             if(thotCounter[index].valueToCheck - 50 % 1000 == 0)
                             {
                                 message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
@@ -365,6 +371,12 @@ bot.on("message", (message) => {
                         if(thotCounter[index].value >= thotCounter[index].valueToCheck)
                         {
                             thotCounter[index].valueToCheck = Math.floor((thotCounter[index].value + 50)/10) * 10;
+                            
+                            if(thotCounter[index].valueToCheck % 50 != 0)
+                            {
+                                thotCounter[index].valueToCheck = (Math.floor((thotCounter[index].valueToCheck/100)) * 100) + 50
+                            }
+
                             if(thotCounter[index].valueToCheck - 50 % 1000 == 0)
                             {
                                 message.channel.send("***We on thot patrol***", {files: ["thot1000.jpg"]}).catch(error => console.log("Send Error - " + error));
