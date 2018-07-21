@@ -208,7 +208,7 @@ const app = express()
 app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000))
 
-app.post('/voted', function (req, res) {
+app.post('/webhook', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
