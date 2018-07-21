@@ -208,7 +208,7 @@ const app = express()
 app.use(bodyParser.json())
 app.set('port', 5000)
 
-app.get('/webhook', function (req, res) {
+app.post('/webhook', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
@@ -234,10 +234,13 @@ app.get('/webhook', function (req, res) {
             }
         }  
     }
+
+    res.status(200).json({
+        source: 'webhook',
+        speech: "Webhook Recieved",
+        displayText: "Webhook Recieved"
+    })
 })
-
-app.listen(5000)
-
 
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
