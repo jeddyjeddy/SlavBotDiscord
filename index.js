@@ -33,6 +33,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
+var userCommandUsage = [{key: "Key", uses: 0, reminded: false, weekendUsesCheck: 100, usesCheck: 250}] 
 
 var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
@@ -141,6 +142,90 @@ var migrateServerID = (guild) =>
     }
 }
 
+var commandCounterChange = (userID) => {
+    if(!signedIntoFirebase)
+    {
+        commandCounterChange(userID);
+        return;
+    }
+
+    var isStored = false;
+    for(var i = 0; i < userCommandUsage.length; i++)
+    {
+        if(userCommandUsage[i].key == userID)
+        {
+            isStored = true;
+            userCommandUsage[i].uses += 1;
+            if(!userCommandUsage[i].reminded)
+            {
+                dbl.hasVoted(userID).then(voted => {
+                    if (!voted)
+                    {
+                        dbl.isWeekend().then(weekend => {
+                            if (weekend)
+                            {
+                                if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
+                                {
+                                    message.channel.client.fetchUser(userID)
+                                    .then(user => {
+                                            user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                            console.log(rejection.message);
+                                    });
+                                    userCommandUsage[i].weekendUsesCheck += 100;
+                                    userCommandUsage[i].reminded = true;
+                                }
+                            }
+                            else
+                            {
+                                message.channel.client.fetchUser(userID)
+                                .then(user => {
+                                        user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                }, rejection => {
+                                        console.log(rejection.message);
+                                });
+                                userCommandUsage[i].weekendUsesCheck += 250;
+                                userCommandUsage[i].reminded = true;
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    if(!isStored)
+    {
+        userCommandUsage.push({key: userID, uses: 1, reminded: false, weekendUsesCheck: 100, usesCheck: 250});
+    }
+
+    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+}
+
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+app.use(bodyParser.json())
+app.set('port', (process.env.PORT || 5000))
+
+app.post('/voted', function (req, res) {
+    const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
+    
+    if (req.headers['Authorization'] !== AUTH_TOKEN) {
+        return res.status(401).send('Unauthorized')
+    }
+    
+    var userID = req.body.result.parameters['user']
+  
+    for(var i = 0; i < userCommandUsage.length; i++)
+    {
+        if(userCommandUsage[i].key == userID)
+        {
+            userCommandUsage[i].reminded = false;
+        }
+    }
+})
+
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -148,6 +233,10 @@ var ResponseFunctions = module.exports = {
 
  changeResponse: function(guildID, setting) {
     localChangeResponse(guildID, setting)
+},
+
+addCommandCounter: function(userID){
+    commandCounterChange(userID)
 }
 }
 
@@ -187,6 +276,12 @@ firebase.auth().signInAnonymously().catch(function(error) {
     if (user) {
       console.log("signed in to firebase");
       signedIntoFirebase = true;
+      firebase.database().ref("commandusage").once('value').then(function(snapshot) {
+        if(snapshot.val() != null)
+        {
+            userCommandUsage = JSON.parse(snapshot.val())
+        }
+      })
     } else {
       console.log("signed out of firebase");
       signedIntoFirebase = false;
