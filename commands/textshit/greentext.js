@@ -122,9 +122,8 @@ class GreentextCommand extends command.Command
                     message.channel.send(selftext).catch(error => console.log("Send Error - " + error));
                 }
             }
-            
-            message.channel.stopTyping();
-            });
+        });
+        message.channel.stopTyping();
     }
 }
 

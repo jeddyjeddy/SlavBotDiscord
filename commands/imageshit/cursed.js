@@ -59,11 +59,9 @@ class CursedCommand extends command.Command
             else
             {
                 this.run(message, args)
-            }
-            
-            
-            message.channel.stopTyping();
+            }            
         });
+        message.channel.stopTyping();
     }
 }
 
