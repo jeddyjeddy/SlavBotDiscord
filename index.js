@@ -207,7 +207,7 @@ const bodyParser = require('body-parser')
 const app = express()
 app.use(bodyParser.json())
 var port = 3000
-app.post('/webhook', function (req, res) {
+app.post('/', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
