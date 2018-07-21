@@ -212,7 +212,7 @@ app.post(function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     console.log("Received")
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
-        return res.status(401).send('Unauthorized')
+        return;
     }
 
     console.log(req.body.result.parameters);
