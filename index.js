@@ -169,19 +169,17 @@ var commandCounterChange = (userID) => {
     }
 
     var isStored = false;
-    for(var i = 0; i < userCommandUsage.length; i++)
+    for(var index = 0; i < userCommandUsage.length; i++)
     {
-        if(userCommandUsage[i].key == userID) 
+        if(userCommandUsage[index].key == userID) 
         {
             isStored = true;
-            userCommandUsage[i].uses += 1;
+            userCommandUsage[index].uses += 1;
+            const i = index;
             dbl.hasVoted(userID).then(voted => {
                 if (!voted)
                 {
-                    console.log(userCommandUsage)
-                    console.log(userCommandUsage[i])
-
-                    if(userCommandUsage[i]["requestsSent"] < 3)
+                    if(userCommandUsage[i].requestsSent < 3)
                     {
                         dbl.isWeekend().then(weekend => {
                             if (weekend)
