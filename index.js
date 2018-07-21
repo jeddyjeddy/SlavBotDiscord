@@ -206,9 +206,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 app.use(bodyParser.json())
-app.set('port', (process.env.PORT || 5000))
+app.set('port', 5000)
 
-app.post('/webhook', function (req, res) {
+app.get('/webhook', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
@@ -235,6 +235,9 @@ app.post('/webhook', function (req, res) {
         }  
     }
 })
+
+app.listen(5000)
+
 
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
