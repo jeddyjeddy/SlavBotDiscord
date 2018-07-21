@@ -239,7 +239,7 @@ app.post('/', function (req, res) {
     });
 })
 
-var server = app.listen(port, "https://slavbotdiscord.herokuapp.com", function () {
+var server = app.listen(port, "167.99.196.89", function () {
 
     var host = server.address().address
     var port = server.address().port
