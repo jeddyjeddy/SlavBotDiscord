@@ -169,7 +169,7 @@ var commandCounterChange = (userID) => {
     }
 
     var isStored = false;
-    for(var index = 0; i < userCommandUsage.length; i++)
+    for(var index = 0; index < userCommandUsage.length; index++)
     {
         if(userCommandUsage[index].key == userID) 
         {
