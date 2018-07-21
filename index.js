@@ -33,7 +33,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-var userCommandUsage = [] 
+var userCommandUsage = [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}] 
 
 var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
