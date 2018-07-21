@@ -178,6 +178,11 @@ var commandCounterChange = (userID) => {
             dbl.hasVoted(userID).then(voted => {
                 if (!voted)
                 {
+                    if(userCommandUsage[i].requestsSent == null)
+                    {
+                        console.log(userCommandUsage[i])
+                    }
+                    
                     if(userCommandUsage[i].requestsSent < 3)
                     {
                         dbl.isWeekend().then(weekend => {
