@@ -234,10 +234,6 @@ app.post(function (req, res) {
             }
         }  
     }
-
-    res.json({
-        message: 'ok got it!'
-    });
 })
 
 var server = app.listen(port, "localhost", function () {
