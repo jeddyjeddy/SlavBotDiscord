@@ -19,7 +19,7 @@ class CursedCommand extends command.Command
     {
         message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
-        var url = "http://www.reddit.com/r/cursedimages/random/.json";
+        var url = "https://www.reddit.com/r/cursedimages/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
             var title = redditResponse[0].data.children[0].data.title;

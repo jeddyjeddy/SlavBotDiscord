@@ -2,16 +2,16 @@ const request = require('request');
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 
-class BlessedCommand extends command.Command
+class InclusiveorCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "blessed",
+            name: "inclusiveor",
             group: "imageshit",
-            memberName: "blessed",
-            description: "Gives a random Blessed Image from /r/blessedimages.",
-            examples: ["`!blessed`"]
+            memberName: "inclusiveor",
+            description: "Gives a random Image from /r/InclusiveOr.",
+            examples: ["`!inclusiveor`"]
         });
     }
 
@@ -19,7 +19,7 @@ class BlessedCommand extends command.Command
     {
         message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
-        var url = "https://www.reddit.com/r/blessedimages/random/.json";
+        var url = "https://www.reddit.com/r/InclusiveOr/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
             var title = redditResponse[0].data.children[0].data.title;
@@ -46,7 +46,7 @@ class BlessedCommand extends command.Command
             
             if(title == "" || title == null)
             {
-                title = "***Blessed Image***";
+                title = "***Yes***";
             }
             else
             {
@@ -68,4 +68,4 @@ class BlessedCommand extends command.Command
     }
 }
 
-module.exports = BlessedCommand;
+module.exports = InclusiveorCommand;
