@@ -32,7 +32,7 @@ class PollCommand extends command.Command
             return;
 
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
         {

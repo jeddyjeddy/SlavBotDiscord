@@ -37,7 +37,7 @@ class CleanCommand extends command.Command
         }
 
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         var number = 50;
 
         if(args.length > 0)

@@ -18,7 +18,7 @@ class ChooseCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
             var options = [];

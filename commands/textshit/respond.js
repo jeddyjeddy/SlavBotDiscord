@@ -17,7 +17,7 @@ class RespondCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
             message.reply("this command is only available to admins and those with the manage channels or manage messages permissions.").catch(error => console.log("Send Error - " + error))
             return;

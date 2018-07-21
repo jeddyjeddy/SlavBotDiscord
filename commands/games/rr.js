@@ -50,7 +50,7 @@ class RrCommand extends command.Command
 
         if(signedIntoFirebase)
         {
-            CommandCounter.addCommandCounter();
+            CommandCounter.addCommandCounter(message.author.id);
             var bulletLoad = [];
             if(allBulletLoads.length > 0)
             {

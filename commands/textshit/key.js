@@ -19,7 +19,7 @@ class KeyCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         message.reply("Random Key: " + keys[Math.floor(Math.random() * (keys.length))], {files: ["key.gif"]}).then(function(){
             message.channel.stopTyping();
         }).catch(function (err) {

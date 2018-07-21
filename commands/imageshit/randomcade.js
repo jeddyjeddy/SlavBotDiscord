@@ -18,7 +18,7 @@ class RandomcadeCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         request('http://thecatapi.com/api/images/get?format=src', { json: false }, (err, res, body) => {
             if (err) { return console.log(err); }
                 console.log(res.request.uri.href);

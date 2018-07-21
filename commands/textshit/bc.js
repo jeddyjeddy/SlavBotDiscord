@@ -17,7 +17,7 @@ class BcCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
 

@@ -17,7 +17,7 @@ class GayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-CommandCounter.addCommandCounter()
+CommandCounter.addCommandCounter(message.author.id)
         message.channel.send("No home of sexuals", {files: ["gay" + Math.floor(Math.random() * 5) + ".jpg"]}).then(function(){
             message.channel.stopTyping();
         }).catch(function (err) {

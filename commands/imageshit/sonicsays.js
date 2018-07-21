@@ -27,7 +27,7 @@ class SonicsaysCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         var editText = "";
         var editTextExtra = "";
         var editTextExtra2 = "";

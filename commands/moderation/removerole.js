@@ -32,7 +32,7 @@ class RemoveroleCommand extends command.Command
         }
 
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         var users = [];
 
         if(args.length > 0)

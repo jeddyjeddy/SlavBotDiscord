@@ -17,7 +17,7 @@ class FellasCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
             message.channel.send("<@" + message.author.id + "> asks: Fellas, is it gay to " + args.toString()).catch(error => console.log("Send Error - " + error));

@@ -9,7 +9,7 @@ class UserStatsCommand extends command.Command
             name: "userstats",
             group: "util",
             memberName: "userstats",
-            description: "Returns the number of command requests sent by a user to Slav Bot.",
+            description: "Returns the number of command requests sent by a user to Slav Bot (Excluding Utility Commands).",
             examples: ["`!userstats`"]
         });
     }

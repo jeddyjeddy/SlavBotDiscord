@@ -18,7 +18,7 @@ class Magic8BallCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter();
+        CommandCounter.addCommandCounter(message.author.id);
         if(args.length > 0)
         {
             message.channel.send("<@" + message.author.id + "> " + responses[Math.floor(Math.random() * responses.length)]).catch(error => console.log("Send Error - " + error));

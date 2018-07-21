@@ -17,7 +17,7 @@ class WhogayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter()
+        CommandCounter.addCommandCounter(message.author.id)
         if(message.guild == null)
         {
             message.reply("u bige gay").catch(error => console.log("Send Error - " + error));
