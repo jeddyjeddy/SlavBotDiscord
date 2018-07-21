@@ -181,8 +181,7 @@ var commandCounterChange = (userID) => {
                     console.log(userCommandUsage)
                     console.log(userCommandUsage[i])
 
-
-                    if(userCommandUsage[i].requestsSent < 3)
+                    if(userCommandUsage[i]["requestsSent"] < 3)
                     {
                         dbl.isWeekend().then(weekend => {
                             if (weekend)
