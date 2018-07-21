@@ -207,7 +207,6 @@ const bodyParser = require('body-parser')
 const app = express()
 app.use(bodyParser.json())
 var port = (process.env.PORT || 5000)
-var host = (location.origin || "0.0.0.0")
 
 app.post('/', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
@@ -241,7 +240,7 @@ app.post('/', function (req, res) {
     });
 })
 
-var server = app.listen(port, host, function () {
+var server = app.listen(port, function () {
 
     var host = server.address().address
     var port = server.address().port
