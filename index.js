@@ -208,7 +208,7 @@ const app = express()
 app.use(bodyParser.json())
 var port = (process.env.PORT || 5000)
 
-app.post("/", function (req, res) {
+app.post('/', function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     console.log("Received")
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
