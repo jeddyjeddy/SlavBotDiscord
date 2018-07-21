@@ -144,23 +144,20 @@ var migrateServerID = (guild) =>
 
 var getUserCommandCounter = (userID) => {
 
-    var isStored = false;
     for(var i = 0; i < userCommandUsage.length; i++)
     { 
         if(userCommandUsage[i].key == userID)
         {
-            isStored = true;
             return userCommandUsage[i].uses;
         }
     }
 
-    if(!isStored)
+    
+    if(signedIntoFirebase)
     {
-        if(signedIntoFirebase)
-        {
-            userCommandUsage.push({key: userID, uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
-        }
+        userCommandUsage.push({key: userID, uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
     }
+    
     return 0;
 }
 
