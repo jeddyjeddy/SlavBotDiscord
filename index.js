@@ -208,7 +208,7 @@ const app = express()
 app.use(bodyParser.json())
 var port = (process.env.PORT || 5000)
 
-app.route("/").post(function (req, res) {
+app.post(function (req, res) {
     const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
     console.log("Received")
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
@@ -245,7 +245,7 @@ var server = app.listen(port, "localhost", function () {
     var host = server.address().address
     var port = server.address().port
 
-    console.log('Example app listening at http://%s:%s', host, port)
+    console.log('App listening at http://%s:%s', host, port)
 
 });
 
