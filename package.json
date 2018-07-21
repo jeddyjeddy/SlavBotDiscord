@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "asciilib": "^0.7.0",
+    "body-parser": "^1.18.3",
     "cat-me": "^1.0.3",
     "dblapi.js": "^2.1.0",
     "discord.js": "^11.3.2",
     "discord.js-commando": "^0.10.0",
     "dogs": "^0.2.0",
+    "express": "^4.16.3",
     "firebase": "^5.2.0",
     "git": "^0.1.5",
     "googleapis": "^27.0.0",
