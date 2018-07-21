@@ -17,7 +17,8 @@ class UserStatsCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        message.reply("<@" + message.author.id + "> You have sent " CommandCounter.getCommandCounter(message.author.id) + " requests to Slav Bot.").catch(error => console.log("Send Error - " + error));
+        var count = CommandCounter.getCommandCounter(message.author.id);
+        message.reply("<@" + message.author.id + "> You have sent " + count + " requests to Slav Bot.").catch(error => console.log("Send Error - " + error));
         message.channel.stopTyping();
     }
 }
