@@ -181,7 +181,7 @@ var commandCounterChange = (userID) => {
                 {
                     if(userCommandUsage[i].requestsSent < 3)
                     {
-                        dbl.isWeekend().then(weekend => {
+                        dbl.isWeekend.then(weekend => {
                             if (weekend)
                             {
                                 if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
@@ -222,7 +222,7 @@ var commandCounterChange = (userID) => {
                             }
                             else
                             {
-                                dbl.isWeekend().then(weekend => {
+                                dbl.isWeekend.then(weekend => {
                                     if (weekend)
                                     {
                                         if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
