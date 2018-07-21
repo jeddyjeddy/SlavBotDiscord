@@ -240,7 +240,7 @@ app.route("/").post(function (req, res) {
     });
 })
 
-var server = app.listen(port, function () {
+var server = app.listen(port, "slavbotdiscord.herokuapp.com", function () {
 
     var host = server.address().address
     var port = server.address().port
@@ -248,19 +248,6 @@ var server = app.listen(port, function () {
     console.log('Example app listening at http://%s:%s', host, port)
 
 });
-
-var router = express.Router()
-
-// middleware that is specific to this router
-router.use(function timeLog (req, res, next) {
-  console.log('Time: ', Date.now())
-  next()
-})
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page')
-  console.log("Got Stuff")
-})
 
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
