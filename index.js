@@ -239,7 +239,7 @@ app.post('/', function (req, res) {
     });
 })
 
-var server = app.listen(port, "167.99.196.89", function () {
+var server = app.listen(port, "127.0.0.1", function () {
 
     var host = server.address().address
     var port = server.address().port
