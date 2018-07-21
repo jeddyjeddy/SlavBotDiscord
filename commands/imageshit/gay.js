@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class GayCommand extends command.Command
  {
@@ -16,7 +17,7 @@ class GayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+CommandCounter.addCommandCounter()
         message.channel.send("No home of sexuals", {files: ["gay" + Math.floor(Math.random() * 5) + ".jpg"]}).then(function(){
             message.channel.stopTyping();
         }).catch(function (err) {

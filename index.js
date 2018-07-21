@@ -33,7 +33,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-var userCommandUsage = [{key: "Key", uses: 0, reminded: false, weekendUsesCheck: 100, usesCheck: 250}] 
+var userCommandUsage = [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}] 
 
 var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
@@ -142,6 +142,28 @@ var migrateServerID = (guild) =>
     }
 }
 
+var getUserCommandCounter = (userID) => {
+
+    var isStored = false;
+    for(var i = 0; i < userCommandUsage.length; i++)
+    { 
+        if(userCommandUsage[i].key == userID)
+        {
+            isStored = true;
+            return userCommandUsage[i].uses;
+        }
+    }
+
+    if(!isStored)
+    {
+        if(signedIntoFirebase)
+        {
+            userCommandUsage.push({key: userID, uses: 0, reminded: false, weekendUsesCheck: 100, usesCheck: 250});
+        }
+    }
+    return 0;
+}
+
 var commandCounterChange = (userID) => {
     if(!signedIntoFirebase)
     {
@@ -152,14 +174,14 @@ var commandCounterChange = (userID) => {
     var isStored = false;
     for(var i = 0; i < userCommandUsage.length; i++)
     {
-        if(userCommandUsage[i].key == userID)
+        if(userCommandUsage[i].key == userID]) 
         {
             isStored = true;
             userCommandUsage[i].uses += 1;
-            if(!userCommandUsage[i].reminded)
-            {
-                dbl.hasVoted(userID).then(voted => {
-                    if (!voted)
+            dbl.hasVoted(userID).then(voted => {
+                if (!voted)
+                {
+                    if(userCommandUsage[i].requestsSent < 3)
                     {
                         dbl.isWeekend().then(weekend => {
                             if (weekend)
@@ -173,7 +195,7 @@ var commandCounterChange = (userID) => {
                                             console.log(rejection.message);
                                     });
                                     userCommandUsage[i].weekendUsesCheck += 100;
-                                    userCommandUsage[i].reminded = true;
+                                    userCommandUsage[i].requestsSent += 1;
                                 }
                             }
                             else
@@ -185,12 +207,45 @@ var commandCounterChange = (userID) => {
                                         console.log(rejection.message);
                                 });
                                 userCommandUsage[i].weekendUsesCheck += 250;
-                                userCommandUsage[i].reminded = true;
+                                userCommandUsage[i].requestsSent += 1;
                             }
                         });
                     }
-                });
-            }
+                    else
+                    {
+                        dbl.getVotes().then(votes => {
+                            if (votes.find(vote => vote.id == userID))
+                            {
+                                userCommandUsage[i].requestsSent = 0;
+                                commandCounterChange(userID)
+                            }
+                            else
+                            {
+                                dbl.isWeekend().then(weekend => {
+                                    if (weekend)
+                                    {
+                                        if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
+                                        {
+                                            userCommandUsage[i].weekendUsesCheck += 100;
+                                            userCommandUsage[i].requestsSent += 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        userCommandUsage[i].weekendUsesCheck += 250;
+                                        userCommandUsage[i].requestsSent += 1;
+                                    }
+
+                                    if(userCommandUsage[i].requestsSent > 5)
+                                    {
+                                        userCommandUsage[i].requestsSent = 0;
+                                    }
+                                });
+                            }
+                        }); 
+                    }
+                }
+            });
         }
     }
 
@@ -201,49 +256,6 @@ var commandCounterChange = (userID) => {
 
     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
 }
-
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-app.use(bodyParser.json())
-var port = (process.env.PORT || 5000)
-
-app.post('/', function (req, res) {
-    const AUTH_TOKEN = process.env.VOTE_AUTH_TOKEN
-    console.log("Received")
-    if (req.headers['Authorization'] !== AUTH_TOKEN) {
-        return res.status(401).send('Unauthorized')
-    }
-
-    console.log(req.body.result.parameters);
-    var type = req.body.result.parameters['type']
-
-    if(type == "test")
-    {
-        console.log("Test Vote Recieved")
-    }
-    else if(type == "upvote")
-    {
-        var userID = req.body.result.parameters['user']
-  
-        for(var i = 0; i < userCommandUsage.length; i++)
-        {
-            if(userCommandUsage[i].key == userID)
-            {
-                userCommandUsage[i].reminded = false;
-            }
-        }  
-    }
-})
-
-var server = app.listen(port, "localhost", function () {
-
-    var host = server.address().address
-    var port = server.address().port
-
-    console.log('App listening at http://%s:%s', host, port)
-
-});
 
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
@@ -256,6 +268,10 @@ var ResponseFunctions = module.exports = {
 
 addCommandCounter: function(userID){
     commandCounterChange(userID)
+},
+getCommandCounter: function(userID)
+{
+    return getUserCommandCounter(userID)
 }
 }
 

@@ -9,6 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
+var CommandCounter = require("../../index.js")
 
 var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum", "Suspect is in custody", "You're under arrest", "You have the right to remain silent", "Freeze!", "Hands in the air!"]
 var selfResponses = ["I'll be back", "you haven't seen the last of me!", "I won't be gone for long", "no walls can hold me","my attorney will get me out in five minutes","you have just turned all of the gopniks against you, blyat", "you will hear hardbass in your sleep"]
@@ -28,6 +29,7 @@ class PoliceCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var commandPrefix= "!"
         if(message.guild != null)
         {

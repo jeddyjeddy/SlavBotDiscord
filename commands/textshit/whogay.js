@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class WhogayCommand extends command.Command
  {
@@ -16,6 +17,7 @@ class WhogayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         if(message.guild == null)
         {
             message.reply("u bige gay").catch(error => console.log("Send Error - " + error));

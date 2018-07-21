@@ -1,6 +1,7 @@
 const command = require("discord.js-commando");
 const asciilib = require("asciilib")
 const lib = asciilib.lib;
+var CommandCounter = require("../../index.js")
 
 class KaomojiCommand extends command.Command
  {
@@ -18,6 +19,7 @@ class KaomojiCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
 
         if(args.length < 2)
         {

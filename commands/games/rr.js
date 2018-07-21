@@ -26,6 +26,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 const messageDelay = 1000;
 
 var allBulletLoads = [{key: "Key", counter: null}]
+var CommandCounter = require("../../index.js")
 
 class RrCommand extends command.Command
  {
@@ -49,6 +50,7 @@ class RrCommand extends command.Command
 
         if(signedIntoFirebase)
         {
+            CommandCounter.addCommandCounter();
             var bulletLoad = [];
             if(allBulletLoads.length > 0)
             {

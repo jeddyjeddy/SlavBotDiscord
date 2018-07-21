@@ -9,6 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
+var CommandCounter = require("../../index.js")
 
 class CNNCommand extends command.Command
  {
@@ -26,6 +27,7 @@ class CNNCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var headline = "";
         var ticker = "";
 

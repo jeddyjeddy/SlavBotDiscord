@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class FellasCommand extends command.Command
  {
@@ -16,7 +17,7 @@ class FellasCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        CommandCounter.addCommandCounter()
         if(args.length > 0)
         {
             var stringToSend = args.toString().replace(/ /g, ":clap:")

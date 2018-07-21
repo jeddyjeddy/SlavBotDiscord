@@ -10,6 +10,7 @@ var resultHandler = function(err) {
     }
 }
 const effectValue = 10;
+var CommandCounter = require("../../index.js")
 
 class PixelateCommand extends command.Command
  {
@@ -27,6 +28,7 @@ class PixelateCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var otherUser = false;
         var userID = "";
         var commandPrefix= "!"

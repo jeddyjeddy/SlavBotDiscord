@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 const request = require('request')
+var CommandCounter = require("../../index.js")
 
 class RandomcadeCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class RandomcadeCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         request('http://thecatapi.com/api/images/get?format=src', { json: false }, (err, res, body) => {
             if (err) { return console.log(err); }
                 console.log(res.request.uri.href);

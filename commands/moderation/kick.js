@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class KickCommand extends command.Command
  {
@@ -32,6 +33,7 @@ class KickCommand extends command.Command
         }
 
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var users = [];
 
         if(args.length > 0)

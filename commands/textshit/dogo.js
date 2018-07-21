@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 var dogs = require('dogs')
+var CommandCounter = require("../../index.js")
 
 class DogoCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class DogoCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var random = Math.floor(Math.random() * 3);
         if(random == 0)
             message.channel.send("", {embed: {color: 63487, description: "```" + dogs.snoopy() + "```"}}).catch(error => console.log("Send Error - " + error));

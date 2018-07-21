@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 var responses = ["is the way to go", "is my choice", "would probably be better for you", "is the safest bet"];
+var CommandCounter = require("../../index.js")
 
 class ChooseCommand extends command.Command
  {
@@ -17,7 +18,7 @@ class ChooseCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        CommandCounter.addCommandCounter()
         if(args.length > 0)
         {
             var options = [];

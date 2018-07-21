@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class SayCommand extends command.Command
  {
@@ -16,7 +17,7 @@ class SayCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-
+        CommandCounter.addCommandCounter()
         if(args.length > 0)
         {
             message.channel.send(args.toString()).catch(error => console.log("Send Error - " + error));

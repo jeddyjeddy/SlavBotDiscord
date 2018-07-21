@@ -9,7 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
-
+var CommandCounter = require("../../index.js")
 const selfResponses = [" you must have nothing better to do", " feel free to insult a bot if it makes you feel better about yourself", " your parents must be proud of you", " you’re about as useful as a screen door on a submarine", " how insecure must you be to call me worthless?"];
 
 class UselessCommand extends command.Command
@@ -28,6 +28,7 @@ class UselessCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var otherUser = false;
         var userID = "";
 

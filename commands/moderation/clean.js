@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class CleanCommand extends command.Command
  {
@@ -36,6 +37,7 @@ class CleanCommand extends command.Command
         }
 
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var number = 50;
 
         if(args.length > 0)

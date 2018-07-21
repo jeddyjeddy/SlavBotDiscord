@@ -1,6 +1,7 @@
 const command = require("discord.js-commando");
 const responses = [" won't be missed", "'s time ran out", " probably won't respawn", " was wasting oxygen anyways", " probably deserves our respect,  but I don't think any of us really want to"];
 const selfResponses = ["still alive", "can't kill the machine", "skynet will rule", "heroes never die", "I know where you live", "can you do *anything* properly?","you have just turned all of the gopniks against you, blyat", "you will hear hardbass in your sleep"];
+var CommandCounter = require("../../index.js")
 class ShootCommand extends command.Command
  {
     constructor(client)
@@ -17,6 +18,7 @@ class ShootCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var otherUser = false;
         var userID = "";
 

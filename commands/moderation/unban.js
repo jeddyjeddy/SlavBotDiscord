@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class UnbanCommand extends command.Command
  {
@@ -31,6 +32,8 @@ class UnbanCommand extends command.Command
         }
 
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
+
         var users = [];
 
         if(args.length > 0)

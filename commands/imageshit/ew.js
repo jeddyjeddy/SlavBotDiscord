@@ -10,6 +10,7 @@ var resultHandler = function(err) {
     }
 }
 const selfResponses = [" you must have nothing better to do", " feel free to insult a bot if it makes you feel better about yourself", " your parents must be proud of you", " how insecure must you be to insult a bot?"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
+var CommandCounter = require("../../index.js")
 
 class EwCommand extends command.Command
  {
@@ -27,6 +28,7 @@ class EwCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
 
         var otherUser = false;
         var userID = "";

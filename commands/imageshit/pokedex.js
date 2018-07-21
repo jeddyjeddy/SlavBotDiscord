@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 const pokemonGif = require('pokemon-gif');
+var CommandCounter = require("../../index.js")
 
 class PokedexCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class PokedexCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var url = "";
         var commandPrefix= "!"
         if(message.guild != null)

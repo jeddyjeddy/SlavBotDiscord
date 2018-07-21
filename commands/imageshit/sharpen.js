@@ -16,6 +16,7 @@ function imageEffect(pixels) {
             -1, 8.75, -1,
             -1, -1, -1], 1);
 }
+var CommandCounter = require("../../index.js")
 
 class SharpenCommand extends command.Command
  {
@@ -33,6 +34,7 @@ class SharpenCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var otherUser = false;
         var userID = "";
         var commandPrefix= "!"

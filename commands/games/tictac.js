@@ -54,6 +54,7 @@ var removeGame = function(index,  channel)
 }
 
 var sessions = [{key: "Key", id: "", started: false, counter: 0, turn: false, owner: "", user: "", a1: 0, a2: 0, a3: 0, b1: 0, b2: 0, b3: 0, c1: 0, c2: 0, c3: 0}];
+var CommandCounter = require("../../index.js")
 
 class TictacCommand extends command.Command
 {
@@ -71,6 +72,7 @@ class TictacCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var commandPrefix= "!"
         if(message.guild != null)
         {

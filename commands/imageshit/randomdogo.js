@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 const randomAnimals = require('random-animals')
+var CommandCounter = require("../../index.js")
 
 class RandomdogoCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class RandomdogoCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         randomAnimals.dog().then(dog => message.channel.send("", {files: [dog]}).catch(error => console.log("Send Error - " + error)));
         message.channel.stopTyping();
     }

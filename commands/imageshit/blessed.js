@@ -1,5 +1,6 @@
 const request = require('request');
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class BlessedCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class BlessedCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var url = "http://www.reddit.com/r/blessedimages/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }

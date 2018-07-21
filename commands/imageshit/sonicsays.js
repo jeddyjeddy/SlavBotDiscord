@@ -9,6 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
+var CommandCounter = require("../../index.js")
 
 class SonicsaysCommand extends command.Command
  {
@@ -26,6 +27,7 @@ class SonicsaysCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var editText = "";
         var editTextExtra = "";
         var editTextExtra2 = "";

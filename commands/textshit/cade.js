@@ -1,5 +1,6 @@
 const command = require("discord.js-commando");
 var catMe = require('cat-me')
+var CommandCounter = require("../../index.js")
 
 class CadeCommand extends command.Command
  {
@@ -17,6 +18,7 @@ class CadeCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         message.channel.send("", {embed: {color: 63487, description: "```" + catMe() + "```"}}).catch(error => console.log("Send Error - " + error));
         message.channel.stopTyping();
     }

@@ -10,6 +10,7 @@ var resultHandler = function(err) {
     }
 }
 const RetroText = require('retrotext')
+var CommandCounter = require("../../index.js")
 
 class RetroCommand extends command.Command
  {
@@ -27,6 +28,7 @@ class RetroCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var textLine1 = "";
         var textLine2 = "";
         var textLine3 = "";

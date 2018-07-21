@@ -9,6 +9,7 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
+var CommandCounter = require("../../index.js")
 
 const selfResponses = [" I have a knife", ", they won't find your body",  "I know where you live", " can you do *anything* properly?", " you're not kidnapping me, *I'm* kidnapping you","you have just turned all of the gopniks against you, blyat", "you will hear hardbass in your sleep"];
 
@@ -28,6 +29,7 @@ class KidnapCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var otherUser = false;
         var userID = "";
 

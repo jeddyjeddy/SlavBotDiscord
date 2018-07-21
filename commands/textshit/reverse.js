@@ -1,4 +1,5 @@
 const command = require("discord.js-commando");
+var CommandCounter = require("../../index.js")
 
 class ReverseCommand extends command.Command
  {
@@ -16,6 +17,7 @@ class ReverseCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
 
         if(args.length > 0)
         {

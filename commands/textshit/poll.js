@@ -11,6 +11,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         signedIntoFirebase = false;
     }
 });
+var CommandCounter = require("../../index.js")
 
 class PollCommand extends command.Command
  {
@@ -31,6 +32,7 @@ class PollCommand extends command.Command
             return;
 
         message.channel.startTyping();
+        CommandCounter.addCommandCounter()
         var commandPrefix= "!"
         if(message.guild != null)
         {
