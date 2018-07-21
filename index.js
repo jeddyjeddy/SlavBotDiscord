@@ -235,11 +235,18 @@ app.post('/webhook', function (req, res) {
         }  
     }
 
-    res.status(200).json({
-        source: 'webhook',
-        speech: "Webhook Recieved",
-        displayText: "Webhook Recieved"
-    })
+    res.json({
+        message: 'ok got it!'
+    });
+
+    var server = app.listen(5000, function () {
+
+        var host = server.address().address
+        var port = server.address().port
+    
+        console.log('Example app listening at http://%s:%s', host, port)
+    
+    });
 })
 
 var ResponseFunctions = module.exports = {
@@ -315,7 +322,7 @@ bot.on("message", (message) => {
         return;
     }
     
-    if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") && !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
+    if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") || !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
         return;
     }
     var noResponse = false;
