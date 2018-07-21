@@ -198,14 +198,17 @@ var commandCounterChange = (userID) => {
                             }
                             else
                             {
-                                message.channel.client.fetchUser(userID)
-                                .then(user => {
-                                        user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
-                                }, rejection => {
-                                        console.log(rejection.message);
-                                });
-                                userCommandUsage[i].weekendUsesCheck += 250;
-                                userCommandUsage[i].requestsSent += 1;
+                                if(userCommandUsage[i].usesCheck < userCommandUsage[i].uses)
+                                {
+                                    message.channel.client.fetchUser(userID)
+                                    .then(user => {
+                                            user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                            console.log(rejection.message);
+                                    });
+                                    userCommandUsage[i].usesCheck += 250;
+                                    userCommandUsage[i].requestsSent += 1;
+                                }   
                             }
                         });
                     }
@@ -230,8 +233,11 @@ var commandCounterChange = (userID) => {
                                     }
                                     else
                                     {
-                                        userCommandUsage[i].weekendUsesCheck += 250;
-                                        userCommandUsage[i].requestsSent += 1;
+                                        if(userCommandUsage[i].usesCheck < userCommandUsage[i].uses)
+                                        {
+                                            userCommandUsage[i].usesCheck += 250;
+                                            userCommandUsage[i].requestsSent += 1;
+                                        }
                                     }
 
                                     if(userCommandUsage[i].requestsSent > 5)
