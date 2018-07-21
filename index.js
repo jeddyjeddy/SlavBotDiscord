@@ -214,15 +214,25 @@ app.post('/voted', function (req, res) {
     if (req.headers['Authorization'] !== AUTH_TOKEN) {
         return res.status(401).send('Unauthorized')
     }
-    
-    var userID = req.body.result.parameters['user']
-  
-    for(var i = 0; i < userCommandUsage.length; i++)
+
+    console.log(req.body.result.parameters);
+    var type = req.body.result.parameters['type']
+
+    if(type == "test")
     {
-        if(userCommandUsage[i].key == userID)
+        console.log("Test Vote Recieved")
+    }
+    else if(type == "upvote")
+    {
+        var userID = req.body.result.parameters['user']
+  
+        for(var i = 0; i < userCommandUsage.length; i++)
         {
-            userCommandUsage[i].reminded = false;
-        }
+            if(userCommandUsage[i].key == userID)
+            {
+                userCommandUsage[i].reminded = false;
+            }
+        }  
     }
 })
 
