@@ -1,4 +1,14 @@
 const command = require("discord.js-commando");
+const Jimp = require("jimp");
+const shortid = require("shortid");
+const fs = require('fs');
+var resultHandler = function(err) { 
+    if(err) {
+       console.log("unlink failed", err);
+    } else {
+       console.log("file deleted");
+    }
+}
 
 class BotstatsCommand extends command.Command
  {
