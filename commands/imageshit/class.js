@@ -19,8 +19,8 @@ class ClassCommand extends command.Command
             name: "class",
             group: "imageshit",
             memberName: "class",
-            description: "***Choose your class.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the images parameter to use the last uploaded images (up to 6 images only).",
-            examples: ["`!class`", "`!class images`"]
+            description: "***Choose your class.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the image parameter to use the last uploaded images (up to 6 images only).",
+            examples: ["`!class`", "`!class image`"]
         });
     }
 
@@ -34,7 +34,7 @@ class ClassCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        if(args.toString().toLowerCase() == "images")
+        if(args.toString().toLowerCase() == "image")
         {
             message.channel.fetchMessages({ around: message.id })
             .then(messages => {
