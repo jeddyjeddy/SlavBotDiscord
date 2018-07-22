@@ -212,6 +212,11 @@ class ClassCommand extends command.Command
                 }
             }
 
+            while(profileURLs.length < 6)
+            {
+                console.log("Waiting")
+            }
+
             Jimp.read("class.png").then(function (classImage) {
                 console.log("got image");
                 var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
