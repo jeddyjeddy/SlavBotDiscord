@@ -194,10 +194,7 @@ var commandCounterChange = (userID) => {
                                             console.log(rejection.message);
                                     });
 
-                                    while(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
-                                    {
-                                        userCommandUsage[i].weekendUsesCheck += 100;
-                                    }
+                                    userCommandUsage[i].weekendUsesCheck = userCommandUsage[i].uses + 100;
                                     userCommandUsage[i].requestsSent += 1;
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }
@@ -213,10 +210,8 @@ var commandCounterChange = (userID) => {
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
-                                    while(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
-                                    {
-                                        userCommandUsage[i].usesCheck += 250;
-                                    }
+                                
+                                    userCommandUsage[i].usesCheck = userCommandUsage[i].uses + 250;
                                     userCommandUsage[i].requestsSent += 1;
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }   
@@ -239,10 +234,7 @@ var commandCounterChange = (userID) => {
                                     {
                                         if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
                                         {
-                                            while(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
-                                            {
-                                                userCommandUsage[i].weekendUsesCheck += 100;
-                                            }
+                                            userCommandUsage[i].weekendUsesCheck = userCommandUsage[i].uses + 100;
                                             userCommandUsage[i].requestsSent += 1;
                                         }
                                     }
@@ -250,10 +242,7 @@ var commandCounterChange = (userID) => {
                                     {
                                         if(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
                                         {
-                                            while(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
-                                            {
-                                                userCommandUsage[i].usesCheck += 250;
-                                            }                                      
+                                            userCommandUsage[i].usesCheck = userCommandUsage[i].uses + 250;                                 
                                             userCommandUsage[i].requestsSent += 1;
                                         }
                                     }
