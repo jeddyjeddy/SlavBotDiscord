@@ -203,6 +203,7 @@ class ClassCommand extends command.Command
                         console.log("Adding")
                         profileURLs.push(user.avatarURL);
                     }, rejection => {
+                            profileURLs.push("blank.png")
                             console.log(rejection.message);
                     });
                 }
@@ -210,11 +211,6 @@ class ClassCommand extends command.Command
                 {
                     profileURLs.push("blank.png");
                 }
-            }
-
-            while(profileURLs.length < 6)
-            {
-                console.log("Waiting")
             }
 
             Jimp.read("class.png").then(function (classImage) {
