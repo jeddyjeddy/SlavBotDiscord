@@ -256,6 +256,10 @@ var commandCounterChange = (userID) => {
                         }); 
                     }
                 }
+                else
+                {
+                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                }
             });
         }
     }
