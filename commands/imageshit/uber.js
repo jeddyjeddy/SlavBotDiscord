@@ -19,7 +19,7 @@ class UberCommand extends command.Command
             name: "uber",
             group: "imageshit",
             memberName: "uber",
-            description: "Where tf my uber driver taking me? Use the last image uploaded (required).",
+            description: "Wait. Where tf my uber driver taking me? Use the last image uploaded (required).",
             examples: ["`!uber`"]
         });
     }
@@ -70,7 +70,7 @@ class UberCommand extends command.Command
                         if(error) throw error;
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Where tf my driver taking me?***", {
+                        message.channel.send("***Wait. Where tf my driver taking me?***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
