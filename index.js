@@ -222,6 +222,7 @@ var commandCounterChange = (userID) => {
                             if (votes.find(vote => vote.id == userID))
                             {
                                 userCommandUsage[i].requestsSent = 0;
+                                firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 commandCounterChange(userID)
                             }
                             else
