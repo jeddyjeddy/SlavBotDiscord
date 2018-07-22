@@ -19,7 +19,7 @@ class FirstwordsCommand extends command.Command
             name: "firstwords",
             group: "imageshit",
             memberName: "firstwords",
-            description: "The baby's first words... This command also has an optional image parameter.",
+            description: "***The baby's first words...*** This command also has an optional image parameter.",
             examples: ["`!firstwords <text>`", "`!firstwords <text>|<imageoption>`", "`!firstwords <text>|image`", "`!firstwords <text>|avatar`", "`!firstwords <text>|@User`"]
         });
     }

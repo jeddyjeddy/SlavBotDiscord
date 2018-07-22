@@ -19,7 +19,7 @@ class FreerealestateCommand extends command.Command
             name: "freerealestate",
             group: "imageshit",
             memberName: "freerealestate",
-            description: "It's free real estate... This command also has an optional image parameter.",
+            description: "***It's free real estate...*** This command also has an optional image parameter.",
             examples: ["`!freerealestate <top-text>|<text-above-image>`", "`!freerealestate <top-text>|<text-above-image>|<imageoption>`", "`!freerealestate <top-text>|<text-above-image>|image`", "`!freerealestate <top-text>|<text-above-image>|avatar`", "`!freerealestate <top-text>|<text-above-image>|@User`"]
         });
     }

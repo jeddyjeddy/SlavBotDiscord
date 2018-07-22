@@ -19,7 +19,7 @@ class DespacitoCommand extends command.Command
             name: "despacito",
             group: "imageshit",
             memberName: "despacito",
-            description: "Get despacito'd. Merge the despacito cover with the last image uploaded or merge it with your avatar or the avatar of the user you mentioned after the command.",
+            description: "***Get despacito'd.*** Merge the despacito cover with the last image uploaded or merge it with your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!despacito`", "`!despacito avatar`", "`!despacito @User`"]
         });
     }
