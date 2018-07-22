@@ -184,8 +184,9 @@ var commandCounterChange = (userID) => {
                         dbl.isWeekend().then(weekend => {
                             if (weekend)
                             {
-                                if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
+                                if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
                                 {
+                                    console.log("Sending Weekend Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
                                             user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
@@ -198,8 +199,9 @@ var commandCounterChange = (userID) => {
                             }
                             else
                             {
-                                if(userCommandUsage[i].usesCheck < userCommandUsage[i].uses)
+                                if(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
                                 {
+                                    console.log("Sending Regular Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
                                             user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
@@ -225,7 +227,7 @@ var commandCounterChange = (userID) => {
                                 dbl.isWeekend().then(weekend => {
                                     if (weekend)
                                     {
-                                        if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
+                                        if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
                                         {
                                             userCommandUsage[i].weekendUsesCheck += 100;
                                             userCommandUsage[i].requestsSent += 1;
@@ -233,7 +235,7 @@ var commandCounterChange = (userID) => {
                                     }
                                     else
                                     {
-                                        if(userCommandUsage[i].usesCheck < userCommandUsage[i].uses)
+                                        if(userCommandUsage[i].uses < userCommandUsage[i].usesCheck)
                                         {
                                             userCommandUsage[i].usesCheck += 250;
                                             userCommandUsage[i].requestsSent += 1;
