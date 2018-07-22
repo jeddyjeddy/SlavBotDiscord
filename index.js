@@ -186,7 +186,7 @@ var commandCounterChange = (userID) => {
                             {
                                 if(userCommandUsage[i].weekendUsesCheck < userCommandUsage[i].uses)
                                 {
-                                    message.channel.client.fetchUser(userID)
+                                    bot.fetchUser(userID)
                                     .then(user => {
                                             user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
@@ -200,7 +200,7 @@ var commandCounterChange = (userID) => {
                             {
                                 if(userCommandUsage[i].usesCheck < userCommandUsage[i].uses)
                                 {
-                                    message.channel.client.fetchUser(userID)
+                                    bot.fetchUser(userID)
                                     .then(user => {
                                             user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
