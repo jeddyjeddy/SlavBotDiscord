@@ -206,11 +206,10 @@ class ClassCommand extends command.Command
                             console.log(rejection.message);
                     });
                 }
-            }
-            
-            while(profileURLs.length < 6)
-            {
-                profileURLs.push("blank.png");
+                else
+                {
+                    profileURLs.push("blank.png");
+                }
             }
 
             Jimp.read("class.png").then(function (classImage) {
