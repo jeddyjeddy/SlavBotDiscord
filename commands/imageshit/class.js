@@ -74,22 +74,22 @@ class ClassCommand extends command.Command
                     console.log("got image");
                     var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
                     Jimp.read(urls[0]).then(function (image1) {
-                        image1.scaleToFit(196, 196)
+                        image1.cover(196, 196)
                         BG.composite(image1, 19, 89)
                         Jimp.read(urls[1]).then(function (image2) {
-                            image2.scaleToFit(201, 201)
+                            image2.cover(201, 201)
                             BG.composite(image2, 249, 86)
                             Jimp.read(urls[2]).then(function (image3) {
-                                image3.scaleToFit(197, 197)
+                                image3.cover(197, 197)
                                 BG.composite(image3, 471, 87)
                                 Jimp.read(urls[3]).then(function (image4) {
-                                    image4.scaleToFit(199, 199)
+                                    image4.cover(199, 199)
                                     BG.composite(image4, 15, 301)
                                     Jimp.read(urls[4]).then(function (image5) {
-                                        image5.scaleToFit(204, 204)
+                                        image5.cover(204, 204)
                                         BG.composite(image5, 241, 299)
                                         Jimp.read(urls[5]).then(function (image6) {
-                                            image6.scaleToFit(200, 200)
+                                            image6.cover(200, 200)
                                             BG.composite(image6, 467, 301)
                                             
                                             var mergedImage = BG.composite(classImage, 0, 0);
