@@ -195,6 +195,7 @@ var commandCounterChange = (userID) => {
                                     });
                                     userCommandUsage[i].weekendUsesCheck += 100;
                                     userCommandUsage[i].requestsSent += 1;
+                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }
                             }
                             else
@@ -210,6 +211,7 @@ var commandCounterChange = (userID) => {
                                     });
                                     userCommandUsage[i].usesCheck += 250;
                                     userCommandUsage[i].requestsSent += 1;
+                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }   
                             }
                         });
@@ -246,6 +248,8 @@ var commandCounterChange = (userID) => {
                                     {
                                         userCommandUsage[i].requestsSent = 0;
                                     }
+
+                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 });
                             }
                         }); 
@@ -258,9 +262,8 @@ var commandCounterChange = (userID) => {
     if(!isStored)
     {
         userCommandUsage.push({key: userID, uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
+        firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
     }
-
-    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
 }
 
 var ResponseFunctions = module.exports = {
