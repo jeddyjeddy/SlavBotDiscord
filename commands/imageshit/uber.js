@@ -19,7 +19,7 @@ class UberCommand extends command.Command
             name: "uber",
             group: "imageshit",
             memberName: "uber",
-            description: "Wait. Where tf my uber driver taking me? Use the last image uploaded (required).",
+            description: "***Wait. Where tf my uber driver taking me?*** Use the last image uploaded (required).",
             examples: ["`!uber`"]
         });
     }

@@ -19,7 +19,7 @@ class GrindCommand extends command.Command
             name: "grind",
             group: "imageshit",
             memberName: "grind",
-            description: "I had to grind for this view. Use the last image uploaded (required). You can also add your avatar or the avatar of the user you mentioned after the command.",
+            description: "***I had to grind for this view.*** Use the last image uploaded (required). You can also add your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!grind`", "`!grind avatar`", "`!grind @User`"]
         });
     }
