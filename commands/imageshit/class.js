@@ -169,12 +169,12 @@ class ClassCommand extends command.Command
             var profiles = [];
             console.log("users class");
             var users = message.guild.members.array()
-            while(profileURLs.length < 6)
+            while(profiles.length < 6)
             {
-                if(profileURLs.length >= users.length)
+                if(profiles.length >= users.length)
                 {
                     console.log("Added blank")
-                    profileURLs.push("blank.png")
+                    profiles.push("blank")
                 }
                 else
                 {
@@ -192,18 +192,29 @@ class ClassCommand extends command.Command
                     if(!alreadyAdded)
                     {
                         console.log("Adding user")
-                        message.channel.client.fetchUser(user)
-                            .then(User => {
-                                console.user("Added User")
-                                profiles.push(user)
-                                profileURLs.push(User.avatarURL);
-                            }, rejection => {
-                                console.log(rejection.message);
-                        });
+                        profiles.push(user)
                     }
                 }
             }    
 
+            for(var i = 0; i < profiles.length; i++)
+            {
+                if(profiles[i] == "blank")
+                {
+                    profileURLs.push("blank.png")
+                }
+                else
+                {
+                    console.log(profiles[i])
+                    message.channel.client.fetchUser(profiles[i])
+                    .then(user => {
+                        console.log("Adding")
+                        profileURLs.push(user.avatarURL);
+                    }, rejection => {
+                            console.log(rejection.message);
+                    });
+                }
+            }
 
             Jimp.read("class.png").then(function (classImage) {
                 console.log("got image");
