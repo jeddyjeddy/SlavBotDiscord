@@ -178,20 +178,20 @@ class ClassCommand extends command.Command
                 }
                 else
                 {
-                    console.log("Adding user")
                     var user = users[Math.floor(Math.random() * users.length)].id
                     var alreadyAdded = false;
                     for(var i = 0; i < profiles.length; i++)
                     {
                         if(profiles[i] == user)
                         {
+                            console.log("Cannot add user")
                             alreadyAdded = true;
                         }
                     }
 
                     if(!alreadyAdded)
                     {
-                        console.log("Added user")
+                        console.log("Adding user")
                         profiles.push(user)
                         message.channel.client.fetchUser(user)
                             .then(User => {
