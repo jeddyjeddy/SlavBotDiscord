@@ -192,10 +192,11 @@ class ClassCommand extends command.Command
                     if(!alreadyAdded)
                     {
                         console.log("Adding user")
-                        profiles.push(user)
                         message.channel.client.fetchUser(user)
                             .then(User => {
-                            profileURLs.push(User.avatarURL);
+                                console.user("Added User")
+                                profiles.push(user)
+                                profileURLs.push(User.avatarURL);
                             }, rejection => {
                                 console.log(rejection.message);
                         });
