@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class GrindforthisviewCommand extends command.Command
+class GrindwCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "grindforthisview",
+            name: "grind",
             group: "imageshit",
-            memberName: "grindforthisview",
+            memberName: "grind",
             description: "I had to grind for this view. Use the last image uploaded (required). You can also add your avatar or the avatar of the user you mentioned after the command.",
-            examples: ["`!grindforthisview`", "`!grindforthisview avatar`", "`!grindforthisview @User`"]
+            examples: ["`!grind`", "`!grind avatar`", "`!grind @User`"]
         });
     }
 
@@ -90,7 +90,7 @@ class GrindforthisviewCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help grindforthisview` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
@@ -182,7 +182,7 @@ class GrindforthisviewCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help grindforthisview` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
@@ -245,4 +245,4 @@ class GrindforthisviewCommand extends command.Command
     }
 }
 
-module.exports = GrindforthisviewCommand;
+module.exports = GrindCommand;
