@@ -201,6 +201,7 @@ class ClassCommand extends command.Command
             {
                 if(profiles[i] == "blank")
                 {
+                    console.log("Adding Blank Image")
                     profileURLs.push("blank.png")
                 }
                 else
