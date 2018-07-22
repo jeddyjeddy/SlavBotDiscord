@@ -21,6 +21,10 @@ class SayCommand extends command.Command
         if(args.length > 0)
         {
             message.channel.send(args.toString()).catch(error => console.log("Send Error - " + error));
+
+            if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
+                message.delete().catch(error => console.log("Delete Error - " + error))
+            }
         }
         else
         {
@@ -28,10 +32,6 @@ class SayCommand extends command.Command
         }
 
         message.channel.stopTyping();
-
-        if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
-            message.delete().catch(error => console.log("Delete Error - " + error))
-        }
     }
 }
 
