@@ -28,6 +28,10 @@ class SayCommand extends command.Command
         }
 
         message.channel.stopTyping();
+
+        if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
+            message.delete().catch(error => console.log("Delete Error - " + error))
+        }
     }
 }
 
