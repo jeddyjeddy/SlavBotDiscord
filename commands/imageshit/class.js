@@ -173,7 +173,6 @@ class ClassCommand extends command.Command
             {
                 if(profiles.length >= users.length)
                 {
-                    console.log("Added blank")
                     profiles.push("blank")
                 }
                 else
@@ -184,14 +183,12 @@ class ClassCommand extends command.Command
                     {
                         if(profiles[i] == user)
                         {
-                            console.log("Cannot add user")
                             alreadyAdded = true;
                         }
                     }
 
                     if(!alreadyAdded)
                     {
-                        console.log("Adding user")
                         profiles.push(user)
                     }
                 }
@@ -199,14 +196,8 @@ class ClassCommand extends command.Command
 
             for(var i = 0; i < profiles.length; i++)
             {
-                if(profiles[i] == "blank")
+                if(profiles[i] != "blank")
                 {
-                    console.log("Adding Blank Image")
-                    profileURLs.push("blank.png")
-                }
-                else
-                {
-                    console.log(profiles[i])
                     message.channel.client.fetchUser(profiles[i])
                     .then(user => {
                         console.log("Adding")
@@ -215,6 +206,11 @@ class ClassCommand extends command.Command
                             console.log(rejection.message);
                     });
                 }
+            }
+            
+            while(profileURLs.length < 6)
+            {
+                profileURLs.push("blank.png");
             }
 
             Jimp.read("class.png").then(function (classImage) {
