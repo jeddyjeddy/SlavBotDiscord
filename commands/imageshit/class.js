@@ -99,7 +99,7 @@ class ClassCommand extends command.Command
                                                 if(error) throw error;
                                                 console.log("got merged image");
                                                 console.log(file);
-                                                message.channel.send("***Choose your class:**", {
+                                                message.channel.send("***Choose your class:***", {
                                                     files: [file]
                                                 }).then(function(){
                                                     message.channel.stopTyping();
@@ -245,7 +245,7 @@ class ClassCommand extends command.Command
                                             if(error) throw error;
                                             console.log("got merged image");
                                             console.log(file);
-                                            message.channel.send("***Choose your class:**", {
+                                            message.channel.send("***Choose your class:***", {
                                                 files: [file]
                                             }).then(function(){
                                                 message.channel.stopTyping();
