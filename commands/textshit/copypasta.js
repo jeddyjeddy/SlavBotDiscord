@@ -46,7 +46,7 @@ class CopypastaCommand extends command.Command
                     slices.push(selftext.slice(index, selftext.length));
                 }
 
-                for(var i = 0; i < slice.length; i++)
+                for(var i = 0; i < slices.length; i++)
                 {
                     var shiftText = "";
                     if(i == slices.length - 1)
@@ -56,7 +56,7 @@ class CopypastaCommand extends command.Command
                             var cut = 0;
                             for(var index = slices[i].length - 1; index >= 0; index--)
                             {
-                                if(slice[i][index] == " ")
+                                if(slices[i][index] == " ")
                                 {
                                     cut = index;
                                     index = -1;
@@ -72,7 +72,7 @@ class CopypastaCommand extends command.Command
                         var cut = 0;
                         for(var index = slices[i].length - 1; index >= 0; index--)
                         {
-                            if(slice[i][index] == " ")
+                            if(slices[i][index] == " ")
                             {
                                 cut = index;
                                 index = -1;
