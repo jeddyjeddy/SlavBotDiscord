@@ -201,7 +201,10 @@ class ClassCommand extends command.Command
                     message.channel.client.fetchUser(profiles[i])
                     .then(user => {
                         console.log("Adding")
-                        profileURLs.push(user.avatarURL);
+                        if(user.avatarURL != undefined)
+                            profileURLs.push(user.avatarURL);
+                        else
+                            profileURLs.push("blank.png")
                     }, rejection => {
                             profileURLs.push("blank.png")
                             console.log(rejection.message);
