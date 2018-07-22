@@ -19,7 +19,7 @@ class ClassCommand extends command.Command
             name: "class",
             group: "imageshit",
             memberName: "class",
-            description: "***Choose your class.*** Takes random users and puts their profile pictures in the image. You can also use up to 6 uploaded images.",
+            description: "***Choose your class.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the images parameter to use the last uploaded images (up to 6 images only).",
             examples: ["`!class`", "`!class images`"]
         });
     }
@@ -167,16 +167,18 @@ class ClassCommand extends command.Command
             }
             var profileURLs = [];
             var profiles = [];
-            console.log("other class");
+            console.log("users class");
             var users = message.guild.members.array()
             while(profileURLs.length < 6)
             {
                 if(profileURLs.length >= users.length)
                 {
+                    console.log("Added blank")
                     profileURLs.push("blank.png")
                 }
                 else
                 {
+                    console.log("Adding user")
                     var user = users[Math.floor(Math.random() * users.length)].id
                     var alreadyAdded = false;
                     for(var i = 0; i < profiles.length; i++)
@@ -189,6 +191,7 @@ class ClassCommand extends command.Command
 
                     if(!alreadyAdded)
                     {
+                        console.log("Added user")
                         profiles.push(user)
                         message.channel.client.fetchUser(user)
                             .then(User => {
