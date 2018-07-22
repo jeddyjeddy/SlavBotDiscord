@@ -11,7 +11,7 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class GrindwCommand extends command.Command
+class GrindCommand extends command.Command
  {
     constructor(client)
     {
