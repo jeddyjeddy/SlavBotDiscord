@@ -193,7 +193,11 @@ var commandCounterChange = (userID) => {
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
-                                    userCommandUsage[i].weekendUsesCheck += 100;
+
+                                    while(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
+                                    {
+                                        userCommandUsage[i].weekendUsesCheck += 100;
+                                    }
                                     userCommandUsage[i].requestsSent += 1;
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }
@@ -209,7 +213,10 @@ var commandCounterChange = (userID) => {
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
-                                    userCommandUsage[i].usesCheck += 250;
+                                    while(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
+                                    {
+                                        userCommandUsage[i].usesCheck += 250;
+                                    }
                                     userCommandUsage[i].requestsSent += 1;
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }   
@@ -232,15 +239,21 @@ var commandCounterChange = (userID) => {
                                     {
                                         if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
                                         {
-                                            userCommandUsage[i].weekendUsesCheck += 100;
+                                            while(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
+                                            {
+                                                userCommandUsage[i].weekendUsesCheck += 100;
+                                            }
                                             userCommandUsage[i].requestsSent += 1;
                                         }
                                     }
                                     else
                                     {
-                                        if(userCommandUsage[i].uses < userCommandUsage[i].usesCheck)
+                                        if(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
                                         {
-                                            userCommandUsage[i].usesCheck += 250;
+                                            while(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
+                                            {
+                                                userCommandUsage[i].usesCheck += 250;
+                                            }                                      
                                             userCommandUsage[i].requestsSent += 1;
                                         }
                                     }
