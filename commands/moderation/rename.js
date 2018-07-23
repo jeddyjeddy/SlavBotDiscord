@@ -8,9 +8,9 @@ class RenameCommand extends command.Command
         super(client, {
             name: "rename",
             group: "moderation",
-            memberName: "giverole",
+            memberName: "rename",
             description: "Sets the nickname for a member or members. Keep the name parameter empty to reset nicknames.",
-            examples: ["`!rename <new-name> @User`", "`!giverole <new-name> @User1 @User2`", "`!rename @User`", "`!giverole @User1 @User2`"]
+            examples: ["`!rename <new-name> @User`", "`!rename <new-name> @User1 @User2`", "`!rename @User`", "`!rename @User1 @User2`"]
         });
     }
 
