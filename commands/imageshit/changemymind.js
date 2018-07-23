@@ -342,9 +342,9 @@ class ChangemymindCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for top text is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("character limit for the text parameter is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             else
-             message.reply("incorrect parameters, top text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("incorrect parameters, text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
         }
     }
