@@ -88,7 +88,7 @@ class ChangemymindCommand extends command.Command
 
                                 var textWidth = 200;
                                 var textHeight = 90;
-                                var textRot = 23;
+                                var textRot = -23;
                                 var textX = 313;
                                 var textY = 297;
 
@@ -103,7 +103,7 @@ class ChangemymindCommand extends command.Command
                                 userImage.resize(Jimp.AUTO, size)
                                 x = x + ((size - userImage.bitmap.width) / 2)
 
-                                userImage.rotate(24);
+                                userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
                                     if(error) throw error;
@@ -150,7 +150,7 @@ class ChangemymindCommand extends command.Command
                             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
                                 var textWidth = 200;
                                 var textHeight = 90;
-                                var textRot = 23;
+                                var textRot = -23;
                                 var textX = 313;
                                 var textY = 297;
 
@@ -163,7 +163,7 @@ class ChangemymindCommand extends command.Command
                                 var size = 60;
 
                                 userImage.resize(size, size);
-                                userImage.rotate(24);
+                                userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
                                     if(error) throw error;
@@ -239,7 +239,7 @@ class ChangemymindCommand extends command.Command
 
                                             var textWidth = 200;
                                             var textHeight = 90;
-                                            var textRot = 23;
+                                            var textRot = -23;
                                             var textX = 313;
                                             var textY = 297;
 
@@ -252,7 +252,7 @@ class ChangemymindCommand extends command.Command
                                             var size = 60;
 
                                             userImage.resize(size, size);
-                                            userImage.rotate(24);
+                                            userImage.rotate(-24);
 
                                             freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
                                                 if(error) throw error;
@@ -302,7 +302,7 @@ class ChangemymindCommand extends command.Command
                     Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
                         var textWidth = 200;
                         var textHeight = 90;
-                        var textRot = 23;
+                        var textRot = -23;
                         var textX = 313;
                         var textY = 297;
 
