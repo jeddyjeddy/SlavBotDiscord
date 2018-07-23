@@ -52,12 +52,7 @@ class ChangemymindCommand extends command.Command
                 text = args;
             }
 
-            var selectedFont = Jimp.FONT_SANS_32_BLACK;
-
-            if(text.length > 18)
-            {
-                selectedFont = Jimp.FONT_SANS_16_BLACK;
-            }
+            var selectedFont = "Arial_24.fnt";
 
             if(option != "" && text.length <= 120)
             {
