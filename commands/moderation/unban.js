@@ -86,7 +86,7 @@ class UnbanCommand extends command.Command
         for(var i = 0; i < users.length; i++)
         {
             message.guild.unban(users[i]).then(message.reply("unbanned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))).catch(function(error){
-                console.log(error.member);
+                console.log(error.message);
                 message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
                 message.channel.stopTyping();
             })

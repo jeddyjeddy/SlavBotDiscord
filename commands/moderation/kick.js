@@ -90,7 +90,7 @@ class KickCommand extends command.Command
                 message.reply("kicked <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
                 message.channel.stopTyping();
             }).catch(function(error){
-                console.log(error.member);
+                console.log(error.message);
                 message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
                 message.channel.stopTyping();
             })
