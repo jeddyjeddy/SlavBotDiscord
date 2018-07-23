@@ -54,7 +54,7 @@ class ChangemymindCommand extends command.Command
 
             var selectedFont = "Arial_24.fnt";
 
-            if(option != "" && text.length <= 120)
+            if(option != "" && text.length <= 65)
             {
                 if(option.indexOf("image") > -1)
                 {
@@ -89,7 +89,7 @@ class ChangemymindCommand extends command.Command
                             Jimp.loadFont(selectedFont).then(function (font) {
 
                                 var textWidth = 200;
-                                var textHeight = 90;
+                                var textHeight = 100;
                                 var textRot = -22;
                                 var textX = 300;
                                 var textY = 230;
@@ -151,7 +151,7 @@ class ChangemymindCommand extends command.Command
                             Jimp.read("changemymind.png").then(function (freeImage) {
                             Jimp.loadFont(selectedFont).then(function (font) {
                                 var textWidth = 200;
-                                var textHeight = 90;
+                                var textHeight = 100;
                                 var textRot = -22;
                                 var textX = 300;
                                 var textY = 230;
@@ -240,7 +240,7 @@ class ChangemymindCommand extends command.Command
                                         Jimp.loadFont(selectedFont).then(function (font) {
 
                                             var textWidth = 200;
-                                            var textHeight = 90;
+                                            var textHeight = 100;
                                             var textRot = -22;
                                             var textX = 300;
                                             var textY = 230;
@@ -303,7 +303,7 @@ class ChangemymindCommand extends command.Command
                 Jimp.read("changemymind.png").then(function (freeImage) {
                     Jimp.loadFont(selectedFont).then(function (font) {
                         var textWidth = 200;
-                        var textHeight = 90;
+                        var textHeight = 100;
                         var textRot = -22;
                         var textX = 300;
                         var textY = 230;
@@ -342,7 +342,7 @@ class ChangemymindCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for top text is 120 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("character limit for top text is 65 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             else
              message.reply("incorrect parameters, top text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
