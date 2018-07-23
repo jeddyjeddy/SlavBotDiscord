@@ -35,26 +35,26 @@ class ChangemymindCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        if(args.length > 0)
+        var text = "";
+        var option = "";
+
+        if(args.indexOf("|") > -1 && args.slice(args.indexOf("|")).length > 1)
         {
-            var text = "";
-            var option = "";
+            text = args.slice(0, args.indexOf("|"))
+            var slicedArgs = args.slice(args.indexOf("|") + 1);
+            option = slicedArgs.toString();
 
-            if(args.indexOf("|") > -1 && args.slice(args.indexOf("|")).length > 1)
-            {
-                text = args.slice(0, args.indexOf("|"))
-                var slicedArgs = args.slice(args.indexOf("|") + 1);
-                option = slicedArgs.toString();
+        }
+        else
+        {
+            text = args;
+        }
 
-            }
-            else
-            {
-                text = args;
-            }
-
+        if(args.length > 0 && text.length <= 67)
+        {
             var selectedFont = "Arial_24.fnt";
 
-            if(option != "" && text.length <= 65)
+            if(option != "")
             {
                 if(option.indexOf("image") > -1)
                 {
@@ -342,7 +342,7 @@ class ChangemymindCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for top text is 65 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("character limit for top text is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             else
              message.reply("incorrect parameters, top text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();

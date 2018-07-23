@@ -35,35 +35,35 @@ class FreerealestateCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        if(args.length > 0)
-        {
-            var text = "";
-            var textAboveImage = "";
-            var option = "";
+        var text = "";
+        var textAboveImage = "";
+        var option = "";
 
-            if(args.indexOf("|") > -1 && args.slice(args.indexOf("|")).length > 1)
+        if(args.indexOf("|") > -1 && args.slice(args.indexOf("|")).length > 1)
+        {
+            text = args.slice(0, args.indexOf("|"))
+            var slicedArgs = args.slice(args.indexOf("|") + 1);
+            if(slicedArgs.indexOf("|") > -1)
             {
-                text = args.slice(0, args.indexOf("|"))
-                var slicedArgs = args.slice(args.indexOf("|") + 1);
-                if(slicedArgs.indexOf("|") > -1)
+                textAboveImage = slicedArgs.slice(0, slicedArgs.indexOf("|"));
+                if(slicedArgs.slice(slicedArgs.indexOf("|")).length > 1)
                 {
-                    textAboveImage = slicedArgs.slice(0, slicedArgs.indexOf("|"));
-                    if(slicedArgs.slice(slicedArgs.indexOf("|")).length > 1)
-                    {
-                        option = slicedArgs.toLowerCase().slice(slicedArgs.indexOf("|") + 1);
-                    }
-                }
-                else
-                {
-                    textAboveImage = slicedArgs;
+                    option = slicedArgs.toLowerCase().slice(slicedArgs.indexOf("|") + 1);
                 }
             }
             else
             {
-                text = args;
+                textAboveImage = slicedArgs;
             }
+        }
+        else
+        {
+            text = args;
+        }
 
-            if(option != "" && text.length <= 185)
+        if(args.length > 0 && text.length <= 185)
+        {
+            if(option != "")
             {
                 if(option.indexOf("image") > -1)
                 {
