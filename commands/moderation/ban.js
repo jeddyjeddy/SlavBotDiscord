@@ -85,8 +85,16 @@ class BanCommand extends command.Command
         for(var i = 0; i < users.length; i++)
         {
             message.guild.fetchMember(users[i]).then(function(member){
-                member.ban().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
-                message.reply("banned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                if(member.id == message.guild.owner.id)
+                {
+                    message.reply("you cannot ban the owner of the server.").catch(error => console.log("Send Error - " + error));
+                }
+                else
+                {
+                    member.ban().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                    message.reply("banned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                }
+                
                 message.channel.stopTyping();
             }).catch(function(error){
                 console.log(error.member);

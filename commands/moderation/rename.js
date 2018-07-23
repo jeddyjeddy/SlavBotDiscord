@@ -92,9 +92,9 @@ class RenameCommand extends command.Command
             {
                 const user = users[i];
                 message.guild.fetchMember(user).then(function(member){
-                    if(member.id == message.author.id)
+                    if(member.id == message.guild.owner.id)
                     {
-                        message.author.setNickname(nickname).then(message.reply("<@" + user + "> now has the nickname " + nickname).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                        message.reply("you cannot set the nickname of the server owner via a command. This must be done manually.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {

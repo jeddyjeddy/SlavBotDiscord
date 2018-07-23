@@ -86,8 +86,16 @@ class KickCommand extends command.Command
         for(var i = 0; i < users.length; i++)
         {
             message.guild.fetchMember(users[i]).then(function(member){
-                member.kick().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
-                message.reply("kicked <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                if(member.id == message.guild.owner.id)
+                {
+                    message.reply("you cannot kick the owner of the server.").catch(error => console.log("Send Error - " + error));
+                }
+                else
+                {
+                    member.kick().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                    message.reply("kicked <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                }
+                
                 message.channel.stopTyping();
             }).catch(function(error){
                 console.log(error.message);

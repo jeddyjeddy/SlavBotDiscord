@@ -110,9 +110,16 @@ class RemoveroleCommand extends command.Command
                 message.guild.fetchMember(user).then(function(member){
                     for(var roleIndex = 0; roleIndex < roles.length; roleIndex++)
                     {
-                        var userRole = message.guild.roles.find("name", roles[roleIndex]);
+                        if(member.id == message.guild.owner.id)
+                        {
+                            message.reply("you cannot remove a role to the owner of the server via a command. This must be done manually.").catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            var userRole = message.guild.roles.find("name", roles[roleIndex]);
 
-                        member.removeRole(userRole).then(message.reply("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                            member.removeRole(userRole).then(message.reply("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                        }
                     }
                 }).catch(function(error){
                     console.log(error.message);
