@@ -52,6 +52,13 @@ class ChangemymindCommand extends command.Command
                 text = args;
             }
 
+            var selectedFont = Jimp.FONT_SANS_32_BLACK;
+
+            if(text.length > 20)
+            {
+                selectedFont = Jimp.FONT_SANS_16_BLACK;
+            }
+
             if(option != "" && text.length <= 185)
             {
                 if(option.indexOf("image") > -1)
@@ -84,11 +91,11 @@ class ChangemymindCommand extends command.Command
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("changemymind.png").then(function (freeImage) {
-                            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                            Jimp.loadFont(selectedFont).then(function (font) {
 
                                 var textWidth = 200;
                                 var textHeight = 90;
-                                var textRot = -23;
+                                var textRot = -21;
                                 var textX = 300;
                                 var textY = 230;
 
@@ -147,10 +154,10 @@ class ChangemymindCommand extends command.Command
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("changemymind.png").then(function (freeImage) {
-                            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                            Jimp.loadFont(selectedFont).then(function (font) {
                                 var textWidth = 200;
                                 var textHeight = 90;
-                                var textRot = -23;
+                                var textRot = -21;
                                 var textX = 300;
                                 var textY = 230;
 
@@ -235,11 +242,11 @@ class ChangemymindCommand extends command.Command
 
                                     Jimp.read(url).then(function (userImage) {
                                         Jimp.read("changemymind.png").then(function (freeImage) {
-                                        Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                                        Jimp.loadFont(selectedFont).then(function (font) {
 
                                             var textWidth = 200;
                                             var textHeight = 90;
-                                            var textRot = -23;
+                                            var textRot = -21;
                                             var textX = 300;
                                             var textY = 230;
 
@@ -299,10 +306,10 @@ class ChangemymindCommand extends command.Command
                 var file = shortid.generate() + ".png";
             
                 Jimp.read("changemymind.png").then(function (freeImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                    Jimp.loadFont(selectedFont).then(function (font) {
                         var textWidth = 200;
                         var textHeight = 90;
-                        var textRot = -23;
+                        var textRot = -21;
                         var textX = 300;
                         var textY = 230;
 
