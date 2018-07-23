@@ -103,8 +103,8 @@ class ChangemymindCommand extends command.Command
                                 textImage.print(font, 0, 0, text, textWidth)
                                 textImage.rotate(textRot)
 
-                                var y = 118;
-                                var x = 205;
+                                var y = 108;
+                                var x = 195;
                                 var size = 60;
 
                                 userImage.resize(Jimp.AUTO, size)
@@ -165,8 +165,8 @@ class ChangemymindCommand extends command.Command
                                 textImage.print(font, 0, 0, text, textWidth)
                                 textImage.rotate(textRot)
 
-                                var y = 118;
-                                var x = 205;
+                                var y = 108;
+                                var x = 195;
                                 var size = 60;
 
                                 userImage.resize(size, size);
@@ -254,8 +254,8 @@ class ChangemymindCommand extends command.Command
                                             textImage.print(font, 0, 0, text, textWidth)
                                             textImage.rotate(textRot)
 
-                                            var y = 118;
-                                            var x = 205;
+                                            var y = 108;
+                                            var x = 195;
                                             var size = 60;
 
                                             userImage.resize(size, size);
