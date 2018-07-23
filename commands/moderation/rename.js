@@ -85,7 +85,7 @@ class RenameCommand extends command.Command
             
             if(firstIndex > 0)
             {
-                nickname = args.splice(firstIndex)
+                nickname = args.slice(0, firstIndex)
             }
 
             for(var i = 0; i < users.length; i++)
