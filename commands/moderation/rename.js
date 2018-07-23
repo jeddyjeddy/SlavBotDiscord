@@ -40,7 +40,7 @@ class RenameCommand extends command.Command
             console.log("args are present");
             var getUser = false;
             var userID = "";
-            var firstIndex = 0;
+            var firstIndex = -1;
 
             for(var i = 0; i < args.length; i++)
             {
@@ -64,7 +64,7 @@ class RenameCommand extends command.Command
                 {
                     if(args[i].toString() == "<")
                     {
-                        if(firstIndex == 0)
+                        if(firstIndex == -1)
                         {
                             firstIndex = i;
                         }
