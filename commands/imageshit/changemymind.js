@@ -90,7 +90,7 @@ class ChangemymindCommand extends command.Command
                                 var textHeight = 90;
                                 var textRot = -23;
                                 var textX = 313;
-                                var textY = 297;
+                                var textY = 197;
 
                                 var textImage = new Jimp(textWidth, textHeight);
                                 textImage.print(font, 0, 0, text, textWidth)
@@ -152,7 +152,7 @@ class ChangemymindCommand extends command.Command
                                 var textHeight = 90;
                                 var textRot = -23;
                                 var textX = 313;
-                                var textY = 297;
+                                var textY = 197;
 
                                 var textImage = new Jimp(textWidth, textHeight);
                                 textImage.print(font, 0, 0, text, textWidth)
@@ -241,7 +241,7 @@ class ChangemymindCommand extends command.Command
                                             var textHeight = 90;
                                             var textRot = -23;
                                             var textX = 313;
-                                            var textY = 297;
+                                            var textY = 197;
 
                                             var textImage = new Jimp(textWidth, textHeight);
                                             textImage.print(font, 0, 0, text, textWidth)
@@ -304,7 +304,7 @@ class ChangemymindCommand extends command.Command
                         var textHeight = 90;
                         var textRot = -23;
                         var textX = 313;
-                        var textY = 297;
+                        var textY = 197;
 
                         var textImage = new Jimp(textWidth, textHeight);
                         textImage.print(font, 0, 0, text, textWidth);
