@@ -98,7 +98,14 @@ class RenameCommand extends command.Command
                     }
                     else
                     {
-                        member.setNickname(nickname).then(message.reply("<@" + user + "> now has the nickname " + nickname).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                        if(nickname == "")
+                        {
+                            member.setNickname(nickname).then(message.reply("<@" + user + "> no longer has a nickname.").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                        }
+                        else
+                        {
+                            member.setNickname(nickname).then(message.reply("<@" + user + "> now has the nickname " + nickname).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                        }
                     }
                 }).catch(function(error){
                     console.log(error.message);
