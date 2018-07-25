@@ -8,7 +8,7 @@ class GreentextCommand extends command.Command
     {
         super(client, {
             name: "greentext",
-            group: "textshit",
+            group: "imageshit",
             memberName: "greentext",
             description: "Gives a random greentext from /r/greentext.",
             examples: ["`!greentext`"]

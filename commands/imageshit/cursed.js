@@ -24,7 +24,8 @@ class CursedCommand extends command.Command
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
             var title = redditResponse[0].data.children[0].data.title;
             var url = redditResponse[0].data.children[0].data.url;
-            
+            var thumbnail = redditResponse[0].data.children[0].data.thumbnail;
+
             if(thumbnail == undefined)
             {
                 if(url == undefined)
