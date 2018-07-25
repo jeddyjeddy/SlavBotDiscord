@@ -316,9 +316,9 @@ var getLocalLeaderboardRankings = (members) =>
 function commandUsageAscending(a, b)
 {
     if (a.uses < b.uses)
-        return -1;
-    if (a.uses > b.uses)
         return 1;
+    if (a.uses > b.uses)
+        return -1;
     return 0;
 }
 
