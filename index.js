@@ -273,6 +273,55 @@ var commandCounterChange = (userID) => {
     }
 }
 
+var getLeaderboardRankings = () =>
+{
+    var leaderboardRankings = userCommandUsage.sort(commandUsageAscending);
+
+    if(leaderboardRankings.length > 10)
+        leaderboardRankings.splice(10);
+
+    return leaderboardRankings;
+}
+
+var getLocalLeaderboardRankings = (members) =>
+{
+    var leaderboardRankings = [];
+
+    for(var i = 0; i < userCommandUsage.length; i++)
+    {
+        var isGuildMember = false;
+        for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+        {
+            if(userCommandUsage[i].key == members[memberIndex])
+            {
+                isGuildMember = true;
+            }
+        }
+
+        if(isGuildMember)
+        {
+            leaderboardRankings.push(userCommandUsage[i]);
+        }
+    }
+
+    var localLeaderboardRankings = leaderboardRankings.sort(commandUsageAscending);
+
+
+    if(localLeaderboardRankings.length > 10)
+        localLeaderboardRankings.splice(10);
+
+    return localLeaderboardRankings;
+}
+
+function commandUsageAscending(a, b)
+{
+    if (a.uses < b.uses)
+        return -1;
+    if (a.uses > b.uses)
+        return 1;
+    return 0;
+}
+
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -288,6 +337,14 @@ addCommandCounter: function(userID){
 getCommandCounter: function(userID)
 {
     return getUserCommandCounter(userID)
+},
+getLeaderboards: function()
+{
+    return getLeaderboardRankings();
+},
+getLocalLeaderboards: function(members)
+{
+    return getLocalLeaderboardRankings(members);
 }
 }
 
