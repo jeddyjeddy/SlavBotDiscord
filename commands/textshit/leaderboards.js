@@ -17,7 +17,7 @@ class LeaderboardsCommand extends command.Command
     async run(message, args)
     {
         message.channel.startTyping();
-        CommandCounter.addCommandCounter(message.author.id)
+        Leaderboards.addCommandCounter(message.author.id)
 
         var commandPrefix= "!"
         if(message.guild != null)
