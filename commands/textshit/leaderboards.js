@@ -64,6 +64,7 @@ class LeaderboardsCommand extends command.Command
               icon_url: message.client.user.avatarURL,
               text: "Sent on"
             }}}).catch(error => console.log("Send Error - " + error));
+            message.channel.stopTyping();
         }
         else
         {
@@ -113,13 +114,14 @@ class LeaderboardsCommand extends command.Command
                 icon_url: message.client.user.avatarURL,
                 text: "Sent on"
                 }}}).catch(error => console.log("Send Error - " + error));
+                message.channel.stopTyping();
             })
             .catch((e) => {
                 console.log(e.message);
                 message.reply("Error - " + e.message).catch(error => console.log("Send Error - " + error));
+                message.channel.stopTyping();
             });
         }
-        message.channel.stopTyping();
     }
 }
 

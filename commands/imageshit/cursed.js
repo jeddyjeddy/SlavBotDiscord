@@ -25,29 +25,39 @@ class CursedCommand extends command.Command
             var title = redditResponse[0].data.children[0].data.title;
             var url = redditResponse[0].data.children[0].data.url;
             
-            if(redditResponse[0].data.children[0].data.thumbnail == "nsfw")
+            if(thumbnail == undefined)
             {
-                this.run(message, args)
-                return;
-            }
-            else if(url.indexOf(".png") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".gif") == -1)
-            {
-                if(thumbnail == undefined)
+                if(url == undefined)
                 {
                     this.run(message, args)
                     return; 
                 }
                 else
                 {
-                    if(thumbnail.indexOf(".png") == -1 && thumbnail.indexOf(".jpg") == -1 && thumbnail.indexOf(".jpeg") == -1 && thumbnail.indexOf(".gif") == -1)
-                    {
-                        this.run(message, args)
-                        return;
-                    }
-                    else
-                    {
-                        url = thumbnail;
-                    }
+                    thumbnail = "";
+                }
+            }
+            else if(thumbnail == "nsfw")
+            {
+                this.run(message, args)
+                return;
+            }
+            
+            if(url == undefined)
+            {
+                url = "";
+            }
+
+            if(url.indexOf(".png") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".gif") == -1)
+            {
+                if(thumbnail.indexOf(".png") == -1 && thumbnail.indexOf(".jpg") == -1 && thumbnail.indexOf(".jpeg") == -1 && thumbnail.indexOf(".gif") == -1)
+                {
+                    this.run(message, args)
+                    return;
+                }
+                else
+                {
+                    url = thumbnail;
                 }
             }
             

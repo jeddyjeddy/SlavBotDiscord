@@ -22,113 +22,62 @@ class GreentextCommand extends command.Command
         var url = "https://www.reddit.com/r/greentext/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
-            var title = "***" + redditResponse[0].data.children[0].data.title + "***";
+            var title = redditResponse[0].data.children[0].data.title;
             var url = redditResponse[0].data.children[0].data.url;
+            var thumbnail = redditResponse[0].data.children[0].data.thumbnail;
 
-            if(redditResponse[0].data.children[0].data.thumbnail == "nsfw")
+            if(thumbnail == undefined)
             {
-                this.run(message, args)
-                return;
-            }
-            else if(url.indexOf(".png") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".gif") == -1)
-            {
-                if(thumbnail == undefined)
+                if(url == undefined)
                 {
                     this.run(message, args)
                     return; 
                 }
                 else
                 {
-                    if(thumbnail.indexOf(".png") == -1 && thumbnail.indexOf(".jpg") == -1 && thumbnail.indexOf(".jpeg") == -1 && thumbnail.indexOf(".gif") == -1)
-                    {
-                        this.run(message, args)
-                        return;
-                    }
-                    else
-                    {
-                        url = thumbnail;
-                    }
+                    thumbnail = "";
                 }
             }
-           
-            if(url != null || url != "")
+            else if(thumbnail == "nsfw")
             {
-                message.channel.send(title, {files: [url]}).catch(error => console.log("Send Error - " + error))
+                this.run(message, args)
+                return;
             }
-            else
+            
+            if(url == undefined)
             {
-                var selftext = redditResponse[0].data.children[0].data.selftext;
-                message.channel.send(title).catch(error => console.log("Send Error - " + error));
-                var slices = [];
-                if(selftext.length > 2000)
-                {
-                    console.log("too long")
-                    var division = Math.floor(selftext.length / 2000);
-                    var start = 0;
-                    for(var i = 1; i <= division; i++)
-                    {
-                        slices.push(selftext.slice(start * 2000, i * 2000));
-                        start += 1;
-                    }
-    
-                    if(selftext.length / 2000 > division)
-                    {
-                        var index = 0;
-                        for(var i = 0; i < slices.length; i++)
-                        {
-                            index = index + slices[i].length;
-                        }
-    
-                        slices.push(selftext.slice(index, selftext.length - 1));
-                    }
+                url = "";
+            }
 
-                    for(var i = 0; i < slices.length; i++)
-                    {
-                        var shiftText = "";
-                        if(i == slices.length - 1)
-                        {
-                            if(slices[i].length > 2000)
-                            {
-                                var cut = 0;
-                                for(var index = slices[i].length - 1; index >= 0; index--)
-                                {
-                                    if(slices[i][index] == " ")
-                                    {
-                                        cut = index;
-                                        index = -1;
-                                    }
-                                }
-                                shiftText = slices[i].slice(cut, slices[i].length);
-                                slices[i] = slices[i].slice(0, cut);
-                                slices.push(shiftText);
-                            }
-                        }
-                        else
-                        {
-                            var cut = 0;
-                            for(var index = slices[i].length - 1; index >= 0; index--)
-                            {
-                                if(slices[i][index] == " ")
-                                {
-                                    cut = index;
-                                    index = -1;
-                                }
-                            }
-                            shiftText = slices[i].slice(cut, slices[i].length);
-                            slices[i] = slices[i].slice(0, cut);
-                            slices[i + 1] = shiftText + slices[i + 1];
-                        }
-                    }
-    
-                    for(var i = 0; i < slices.length; i++)
-                    {
-                        message.channel.send(slices[i]).catch(error => console.log("Send Error - " + error)); 
-                    }
+            if(url.indexOf(".png") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".gif") == -1)
+            {
+                if(thumbnail.indexOf(".png") == -1 && thumbnail.indexOf(".jpg") == -1 && thumbnail.indexOf(".jpeg") == -1 && thumbnail.indexOf(".gif") == -1)
+                {
+                    this.run(message, args)
+                    return;
                 }
                 else
                 {
-                    message.channel.send(selftext).catch(error => console.log("Send Error - " + error));
+                    url = thumbnail;
                 }
+            }
+            
+            if(title == "" || title == null)
+            {
+                title = "***Greentext***";
+            }
+            else
+            {
+                title = "***" + title + "***";
+            }
+
+            if(url != null || url != "")
+            {
+                message.channel.send(title, {files: [url]}).catch(error => console.log("Send Error - " + error));
+            }
+            else
+            {
+                this.run(message, args)
             }
         });
         message.channel.stopTyping();
