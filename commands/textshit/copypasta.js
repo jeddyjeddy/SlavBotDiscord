@@ -22,6 +22,13 @@ class CopypastaCommand extends command.Command
         var url = "http://www.reddit.com/r/copypasta/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
+            
+            if(redditResponse[0].data.children == undefined)
+            {
+                this.run(message, args)
+                return; 
+            }
+            
             var selftext = redditResponse[0].data.children[0].data.selftext;
 
             if(selftext == undefined || selftext == "")

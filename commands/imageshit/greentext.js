@@ -22,6 +22,13 @@ class GreentextCommand extends command.Command
         var url = "https://www.reddit.com/r/greentext/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
+            
+            if(redditResponse[0].data.children == undefined)
+            {
+                this.run(message, args)
+                return; 
+            }
+
             var title = redditResponse[0].data.children[0].data.title;
             var url = redditResponse[0].data.children[0].data.url;
             var thumbnail = redditResponse[0].data.children[0].data.thumbnail;
