@@ -2,16 +2,16 @@ const command = require("discord.js-commando");
 var dogs = require('dogs')
 var CommandCounter = require("../../index.js")
 
-class DogoCommand extends command.Command
+class DoggoCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "dogo",
+            name: "doggo",
             group: "textshit",
-            memberName: "dogo",
-            description: "Gives random dogo in ASCII art.",
-            examples: ["`!dogo`"]
+            memberName: "doggo",
+            description: "Gives random doggo in ASCII art.",
+            examples: ["`!doggo`"]
         });
     }
 
@@ -31,4 +31,4 @@ class DogoCommand extends command.Command
     }
 }
 
-module.exports = DogoCommand;
+module.exports = DoggoCommand;

@@ -96,22 +96,18 @@ class FCommand extends command.Command
                     return;
                 }
                 message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
-                Jimp.read("F.jpg").then(function (FImage) {
+                Jimp.read("F.png").then(function (FImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 270
-                        var y = 180
+                        var x = 274
+                        var y = 182
 
-                        userImage.resize(Jimp.AUTO, 100)
-
-                        x = x + ((100 - userImage.bitmap.width) / 2)
-                        
+                        userImage.cover(90, 115)                        
                         
         
-        
-                        var mergedImage = FImage.composite(userImage, x, y );
+                        var mergedImage = new Jimp(FImage.bitmap.width, FImage.bitmap.height).composite(userImage, x, y ).composite(FImage, 0, 0);
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) throw error;
@@ -171,16 +167,18 @@ class FCommand extends command.Command
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("F.jpg").then(function (FImage) {
+            Jimp.read("F.png").then(function (FImage) {
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    userImage.resize(100, 100);
+                    
+                    var x = 274
+                    var y = 182
+
+                    userImage.cover(90, 115)                        
+                    
     
-                    var x = 270
-                    var y = 180
-    
-                    var mergedImage = FImage.composite(userImage, x, y );
+                    var mergedImage = new Jimp(FImage.bitmap.width, FImage.bitmap.height).composite(userImage, x, y ).composite(FImage, 0, 0);
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) throw error;
