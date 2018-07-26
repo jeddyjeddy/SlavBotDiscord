@@ -198,6 +198,10 @@ var commandCounterChange = (userID) => {
                                     userCommandUsage[i].requestsSent += 1;
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }
+                                else
+                                {
+                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                }
                             }
                             else
                             {
@@ -213,6 +217,10 @@ var commandCounterChange = (userID) => {
                                 
                                     userCommandUsage[i].usesCheck = userCommandUsage[i].uses + 250;
                                     userCommandUsage[i].requestsSent += 1;
+                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                }
+                                else
+                                {
                                     firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
                                 }   
                             }
