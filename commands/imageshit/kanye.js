@@ -105,7 +105,7 @@ class KanyeCommand extends command.Command
                         var y = 500
 
                         userImage.cover(462, 560);
-                        userImage.rotate(2);
+                        userImage.rotate(1);
 
                         var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
                         blank.composite(userImage, x, y)        
@@ -180,7 +180,7 @@ class KanyeCommand extends command.Command
                     var y = 500
 
                     userImage.cover(462, 560);
-                    userImage.rotate(2);
+                    userImage.rotate(1);
 
                     var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
                     blank.composite(userImage, x, y)        
