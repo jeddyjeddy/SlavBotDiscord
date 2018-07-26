@@ -101,10 +101,10 @@ class KanyeCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 223
+                        var x = 218
                         var y = 500
 
-                        userImage.cover(680, 560);
+                        userImage.cover(462, 560);
                         userImage.rotate(2);
 
                         var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
@@ -176,10 +176,10 @@ class KanyeCommand extends command.Command
                     console.log("got avatar");
                     userImage.resize(100, 100);
     
-                    var x = 223
+                    var x = 218
                     var y = 500
 
-                    userImage.cover(680, 560);
+                    userImage.cover(462, 560);
                     userImage.rotate(2);
 
                     var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
