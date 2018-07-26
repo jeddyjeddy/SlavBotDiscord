@@ -116,7 +116,7 @@ class KanyeCommand extends command.Command
                             if(error) throw error;
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("**Thank you Kanye, very cool!**", {
+                            message.channel.send("***Thank you Kanye, very cool!***", {
                                 files: [file]
                             }).then(function(){
                                 message.channel.stopTyping();
@@ -191,7 +191,7 @@ class KanyeCommand extends command.Command
                         if(error) throw error;
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("**Thank you Kanye, very cool!**", {
+                        message.channel.send("***Thank you Kanye, very cool!***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
