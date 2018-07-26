@@ -151,6 +151,11 @@ class CompileCommand extends command.Command
 
                             console.log("Scaling")
 
+                            if(smallest > 500)
+                            {
+                                smallest = 500;
+                            }
+                            
                             if(image1.bitmap.height != smallest)
                                 image1.resize(smallest, smallest);
                             if(image2.bitmap.height != smallest)
@@ -159,6 +164,7 @@ class CompileCommand extends command.Command
                                 image3.resize(smallest, smallest);
                             if(image4.bitmap.height != smallest)
                                 image4.resize(smallest, smallest);
+                            
             
                             var emptyImage = new Jimp(smallest*2, smallest*2);
                             console.log("Empty Image")
