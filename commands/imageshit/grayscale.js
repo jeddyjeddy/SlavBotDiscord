@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class GreyscaleCommand extends command.Command
+class GrayscaleCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "greyscale",
+            name: "grayscale",
             group: "imageshit",
-            memberName: "greyscale",
-            description: "Adds the Greyscale effect to an image. Add the effect to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
-            examples: ["`!greyscale`", "`!greyscale avatar`", "`!greyscale @User`"]
+            memberName: "grayscale",
+            description: "Adds the Grayscale effect to an image. Add the effect to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            examples: ["`!grayscale`", "`!grayscale avatar`", "`!grayscale @User`"]
         });
     }
 
@@ -67,7 +67,7 @@ class GreyscaleCommand extends command.Command
         }
         
         var url = "";
-        console.log("greyscale");
+        console.log("grayscale");
         console.log(url);
 
 
@@ -92,13 +92,13 @@ class GreyscaleCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help greyscale` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, use `" + commandPrefix + "help grayscale` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
                 message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read(url).then(function (userImage) {
-                    console.log("got last image to greyscale");
+                    console.log("got last image to grayscale");
         
                     userImage.greyscale();
     
@@ -106,7 +106,7 @@ class GreyscaleCommand extends command.Command
                     userImage.write(file, function(error){
                         if(error) throw error;
                         console.log(file);
-                        message.channel.send("***Greyscale***", {
+                        message.channel.send("***Grayscale***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
@@ -168,7 +168,7 @@ class GreyscaleCommand extends command.Command
                     userImage.write(file, function(error){
                         if(error) throw error;
                         console.log(file);
-                        message.channel.send("***Greyscale***", {
+                        message.channel.send("***Grayscale***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
@@ -197,4 +197,4 @@ class GreyscaleCommand extends command.Command
     }
 }
 
-module.exports = GreyscaleCommand;
+module.exports = GrayscaleCommand;

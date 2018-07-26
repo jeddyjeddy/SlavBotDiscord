@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class SlavWorkerCommand extends command.Command
+class WorkerSlavCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "slavworker",
+            name: "workerslav",
             group: "imageshit",
-            memberName: "slavworker",
+            memberName: "workerslav",
             description: "Slav Up an image. Merges the worker version of Slav Bot (from the support server) to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
-            examples: ["`!slavworker`", "`!slavworker avatar`","`!slavworker @User`"]
+            examples: ["`!workerslav`", "`!workerslav avatar`","`!workerslav @User`"]
         });
     }
 
@@ -325,4 +325,4 @@ class SlavWorkerCommand extends command.Command
     }
 }
 
-module.exports = SlavWorkerCommand;
+module.exports = WorkerSlavCommand;
