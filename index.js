@@ -573,12 +573,10 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                     var muteRole;
                     var roles = guild.roles.array()
-                    console.log(data.role)
+                    console.log(roles)
                     for(var i = 0; i < roles.length; i++)
                     {
-                        console.log(roles[i].name)
-                        console.log(data.role)
-                        if(roles[i].name == data.role.toString())
+                        if(roles[i].name.toString() == data.role.toString())
                         {
                             console.log("FOUND ROLE " + roles[i].name)
 
