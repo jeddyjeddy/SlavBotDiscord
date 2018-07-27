@@ -674,14 +674,16 @@ var schedule = require('node-schedule');
                                     if(member == undefined)
                                         return;
 
+                                    const savedData = data;
+                                    const dataIndex = i;
                                     schedule.scheduleJob(date, function(){
-                                        removeMutedUser(data.key, data.data[i].key)
+                                        removeMutedUser(savedData.key, savedData.data[dataIndex].key)
     
                                         var hasRole = false;
                                         var userRoles = member.roles.array()
                                         for(var i = 0; i < userRoles.length; i++)
                                         {
-                                            if(userRoles[i].name == data.role)
+                                            if(userRoles[i].name == savedData.role)
                                             {
                                                 hasRole = true;
                                             }
