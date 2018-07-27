@@ -573,7 +573,10 @@ firebase.auth().signInAnonymously().catch(function(error) {
                         {
                             if(data.data[i].time != null)
                             {
-                                schedule.scheduleJob(new Date(data.data[i].time), function(){
+                                const date = new Date(data.data[i].time);
+
+                                if(date.getTime() < (new Date()).getTime())
+                                {
                                     removeMutedUser(data.key, data.data[i].key)
 
                                     var guild = bot.guilds.find("id", data.key)
@@ -581,8 +584,21 @@ firebase.auth().signInAnonymously().catch(function(error) {
                                     if(member.roles.find(muteRole.id))
                                     {
                                         member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                    }
-                                });
+                                    } 
+                                }
+                                else
+                                {
+                                    schedule.scheduleJob(date, function(){
+                                        removeMutedUser(data.key, data.data[i].key)
+    
+                                        var guild = bot.guilds.find("id", data.key)
+                                        var member = guild.members.find("id", data.data[i].key)
+                                        if(member.roles.find(muteRole.id))
+                                        {
+                                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                        }
+                                    });
+                                }
                             }
                         }
                     }
