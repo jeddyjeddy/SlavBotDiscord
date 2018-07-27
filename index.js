@@ -611,7 +611,7 @@ var schedule = require('node-schedule');
                         return;   
                     }
 
-                    if(data.data != null)
+                    if(data.data !== null)
                     {
                         for(var i = 0; i < data.data.length; i++)
                         {
@@ -638,9 +638,9 @@ var schedule = require('node-schedule');
 
                                     var hasRole = false;
                                     var userRoles = member.roles.array()
-                                    for(var i = 0; i < userRoles.length; i++)
+                                    for(var index = 0; index < userRoles.length; index++)
                                     {
-                                        if(userRoles[i].name == data.role)
+                                        if(userRoles[index].name == data.role)
                                         {
                                             hasRole = true;
                                         }
@@ -677,9 +677,9 @@ var schedule = require('node-schedule');
     
                                         var hasRole = false;
                                         var userRoles = memberRef.roles.array()
-                                        for(var i = 0; i < userRoles.length; i++)
+                                        for(var index = 0; index < userRoles.length; index++)
                                         {
-                                            if(userRoles[i].name == savedData.role)
+                                            if(userRoles[index].name == savedData.role)
                                             {
                                                 hasRole = true;
                                             }
