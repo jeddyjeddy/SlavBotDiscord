@@ -615,7 +615,7 @@ var schedule = require('node-schedule');
                     {
                         for(var i = 0; i < data.data.length; i++)
                         {
-                            if(data.data[i].time != null)
+                            if(data.data[i].time !== null)
                             {
                                 const date = new Date(data.data[i].time);
                                 var member;

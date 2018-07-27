@@ -153,7 +153,7 @@ class MuteCommand extends command.Command
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, null))
                                 {
-                                    member.addRole(muteRole).then(message.reply("<@" + user + "> has been muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                    member.addRole(muteRole).then(message.reply("<@" + user + "> has been permanently muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                 }
                                 else
                                 {
