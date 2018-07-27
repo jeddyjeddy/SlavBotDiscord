@@ -94,12 +94,17 @@ class MuteCommand extends command.Command
             if(muteRole == null)
             {
                 message.guild.createRole({name: IndexRef.getRoleName(message.guild.id)})
+                muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
             }
 
             for(var i = 0; i < users.length; i++)
             {
                 const user = users[i];
                 message.guild.fetchMember(user).then(function(member){
+                    if(muteRole == null)
+                    {
+                        muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
+                    }
                     if(member.id == message.guild.owner.id)
                     {
                         message.reply("you cannot mute the owner of the server.").catch(error => console.log("Send Error - " + error));

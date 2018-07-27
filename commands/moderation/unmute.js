@@ -91,6 +91,10 @@ class UnmuteCommand extends command.Command
             {
                 const user = users[i];
                 message.guild.fetchMember(user).then(function(member){
+                    if(muteRole == null)
+                    {
+                        muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
+                    }
                     if(member.id == message.guild.owner.id)
                     {
                         message.reply("you cannot mute/unmute the owner of the server.").catch(error => console.log("Send Error - " + error));
