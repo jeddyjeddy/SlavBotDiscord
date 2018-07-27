@@ -564,10 +564,9 @@ var schedule = require('node-schedule');
 
                     var muteRole;
                     var roles = guild.roles.array()
-                    console.log(roles)
                     for(var i = 0; i < roles.length; i++)
                     {
-                        console.log(roles[i])
+                        console.log(roles[i].name)
                         if(roles[i].name.toString() == data.role.toString())
                         {
                             muteRole = roles[i];
