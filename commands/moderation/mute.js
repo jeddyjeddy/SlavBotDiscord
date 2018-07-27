@@ -84,7 +84,7 @@ class MuteCommand extends command.Command
 
             var time = 0;
             var parameter = args.slice(0, firstIndex);
-            if(parameter >= 2)
+            if(parameter.length >= 2)
             {
                 time = timestring(parameter, "ms")
             }
@@ -102,7 +102,6 @@ class MuteCommand extends command.Command
             {
                 const user = users[i];
                 message.guild.fetchMember(user).then(function(member){
-                    console.log("Got member")
         
                     if(member.id == message.guild.owner.id)
                     {
@@ -110,60 +109,43 @@ class MuteCommand extends command.Command
                     }
                     else
                     {
-                        console.log("Other member")
                         if(member.roles.find("id", muteRole.id))
                         {
-                            console.log("member is muted")
                             message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                             IndexRef.addMutedUser(message.guild.id, member.id, null)
                         }
                         else
                         {
-                            console.log("member not muted")
-
                             if(time > 0)
                             {
                                 //Convert time to Date
-                                console.log("Timed")
-
                                 var date = new Date(Date.now().getTime() + time)
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
                                 {
-                                    console.log("muted")
-
                                     member.addRole(muteRole).then(message.reply("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                     schedule.scheduleJob(date, function(){
                                         IndexRef.removeMutedUser(message.guild.id, member.id)
                                         if(member.roles.find("id", muteRole.id))
                                         {
-                                            console.log("schedule mute removed")
-
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                         }
                                     });
                                 }
                                 else
                                 {
-                                    console.log("already muted")
-
                                     message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
                             {
-                                console.log("Not Timed")
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, null))
                                 {
-                                    console.log("now muted")
-
                                     member.addRole(muteRole).then(message.reply("<@" + user + "> has been muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                 }
                                 else
                                 {
-                                    console.log("member is already muted")
-
                                     message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
