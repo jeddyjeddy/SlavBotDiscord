@@ -532,15 +532,6 @@ const curseResponses = ["You people sicken me", "Do none of you have anything be
 var signedIntoFirebase = false;
 var schedule = require('node-schedule');
 
-firebase.auth().signInAnonymously().catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-
-    console.log(errorCode);
-    console.log(errorMessage);
-});
-
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log("signed in to firebase");
@@ -1101,4 +1092,12 @@ bot.on("message", (message) => {
 
 bot.login(process.env.BOT_TOKEN).then(function(){
     bot.user.setActivity('Hardbass', { type: 'LISTENING' }).catch(console.error);
+    firebase.auth().signInAnonymously().catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+    
+        console.log(errorCode);
+        console.log(errorMessage);
+    });
 });
