@@ -589,16 +589,19 @@ firebase.auth().signInAnonymously().catch(function(error) {
                     muteData.push(data)
                     if(guild == undefined)
                     {
+                        console.log("No Guild")
                         return;
                     }
                     var muteRole = guild.roles.find("name", data.role);
                     if(muteRole == null)
                     {
+                        console.log("No Role")
                         return;   
                     }
 
                     if(data.data != null)
                     {
+                        console.log("Has Data")
                         for(var i = 0; i < data.data.length; i++)
                         {
                             if(data.data[i].time != null)
