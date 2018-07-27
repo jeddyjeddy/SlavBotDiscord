@@ -111,7 +111,7 @@ class MuteCommand extends command.Command
                     else
                     {
                         console.log("Other member")
-                        if(member.roles.find(muteRole.id))
+                        if(member.roles.find("id", muteRole.id))
                         {
                             console.log("member is muted")
                             message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
@@ -135,7 +135,7 @@ class MuteCommand extends command.Command
                                     member.addRole(muteRole).then(message.reply("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                     schedule.scheduleJob(date, function(){
                                         IndexRef.removeMutedUser(message.guild.id, member.id)
-                                        if(member.roles.find(muteRole.id))
+                                        if(member.roles.find("id", muteRole.id))
                                         {
                                             console.log("schedule mute removed")
 

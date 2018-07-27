@@ -100,7 +100,7 @@ class UnmuteCommand extends command.Command
                     }
                     else
                     {
-                        if(!member.roles.find(muteRole.id))
+                        if(!member.roles.find("id", muteRole.id))
                         {
                             message.reply("<@" + member.id + "> is already unmuted.").catch(error => console.log("Send Error - " + error));
                             IndexRef.removeMutedUser(message.guild.id, member.id)
