@@ -559,7 +559,6 @@ var schedule = require('node-schedule');
                         if(guilds[i].id == data.key)
                         {
                             guild = guilds[i];
-                            console.log(guild.name)
                         }
                     }
 
@@ -570,7 +569,6 @@ var schedule = require('node-schedule');
                         if(roles[i].name == data.role)
                         {
                             muteRole = roles[i];
-                            console.log(muteRole.name)
                         }
                     }
 
@@ -606,18 +604,15 @@ var schedule = require('node-schedule');
                     muteData.push(data)
                     if(guild == undefined)
                     {
-                        console.log("No Guild")
                         return;
                     }
                     if(muteRole == undefined)
                     {
-                        console.log("No Role")
                         return;   
                     }
 
                     if(data.data != null)
                     {
-                        console.log("Has Data")
                         for(var i = 0; i < data.data.length; i++)
                         {
                             if(data.data[i].time != null)
@@ -676,11 +671,12 @@ var schedule = require('node-schedule');
 
                                     const savedData = data;
                                     const dataIndex = i;
+                                    const memberRef = member;
                                     schedule.scheduleJob(date, function(){
                                         removeMutedUser(savedData.key, savedData.data[dataIndex].key)
     
                                         var hasRole = false;
-                                        var userRoles = member.roles.array()
+                                        var userRoles = memberRef.roles.array()
                                         for(var i = 0; i < userRoles.length; i++)
                                         {
                                             if(userRoles[i].name == savedData.role)
@@ -691,8 +687,8 @@ var schedule = require('node-schedule');
 
                                         if(hasRole)
                                         {
-                                            if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
-                                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            if(memberRef.hasPermission("ADMINISTRATOR") || memberRef.hasPermission("MANAGE_ROLES")){
+                                                memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     });
