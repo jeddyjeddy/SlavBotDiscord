@@ -539,7 +539,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
     console.log(errorCode);
     console.log(errorMessage);
-  });
+});
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -565,11 +565,8 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                     for(var i = 0; i < guilds.length; i++)
                     {
-                        console.log(guilds[i].id)
                         if(guilds[i].id == data.key)
                         {
-                            console.log("FOUND GUILD " + guilds[i].id)
-
                             guild = guilds[i];
                         }
                     }
