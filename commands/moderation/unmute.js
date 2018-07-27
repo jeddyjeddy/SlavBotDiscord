@@ -8,7 +8,7 @@ class UnmuteCommand extends command.Command
         super(client, {
             name: "unmute",
             group: "moderation",
-            memberName: "mute",
+            memberName: "unmute",
             description: "Unmutes a member or members.",
             examples: ["`!unmute @User`", "`!unmute @User1 @User2`"]
         });
