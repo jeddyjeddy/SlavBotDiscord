@@ -98,7 +98,10 @@ class MuteCommand extends command.Command
                 allChannels.forEach(channel => {
                     channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                 });
-                this.run(message, args);
+                const Ref = this;
+                setTimeout(function(){
+                    Ref.run(message, args);
+                }, 1000)
                 return;
             }
 
