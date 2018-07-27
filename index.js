@@ -565,8 +565,11 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                     for(var i = 0; i < guilds.length; i++)
                     {
+                        console.log(guilds[i].id)
                         if(guilds[i].id == data.key)
                         {
+                            console.log("FOUND GUILD " + guilds[i].id)
+
                             guild = guilds[i];
                         }
                     }
@@ -579,6 +582,8 @@ firebase.auth().signInAnonymously().catch(function(error) {
                         console.log(roles[i].name)
                         if(roles[i].name == data.role)
                         {
+                            console.log("FOUND ROLE " + roles[i].name)
+
                             muteRole = roles[i];
                         }
                     }
