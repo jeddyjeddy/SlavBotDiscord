@@ -85,7 +85,7 @@ class UnmuteCommand extends command.Command
             if(muteRole == null)
             {
                 var allChannels = message.guild.channels.array()
-                message.guild.createRole({name: IndexRef.getRoleName(message.guild.id)}).then(function()
+                message.guild.createRole({name: IndexRef.getRoleName(message.guild.id), permissions: 0}).then(function()
                 {
                     allChannels.forEach(channel => {
                         channel.overwritePermissions(message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id)), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
