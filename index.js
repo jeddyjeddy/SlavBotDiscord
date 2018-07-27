@@ -573,9 +573,10 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                     var muteRole;
                     var roles = guild.roles.array()
-
+                    console.log(data.role)
                     for(var i = 0; i < roles.length; i++)
                     {
+                        console.log(roles[i].name)
                         if(roles[i].name == data.role)
                         {
                             muteRole = roles[i];
@@ -586,7 +587,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                     if(data.key != childSnap.key)
                     {
                         data.key = childSnap.key;
-                        if(muteRole != null && guild != undefined)
+                        if(muteRole != undefined && guild != undefined)
                         {
                             var member;
                             var members = guild.members.array()
