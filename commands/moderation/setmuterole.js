@@ -47,6 +47,10 @@ class SetMuteRoleCommand extends command.Command
             }
             else
             {
+                var allChannels = message.guild.channels.array()
+                allChannels.forEach(channel => {
+                    channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                });
                 IndexRef.setRoleName(message.guild.id, muteRole.name)
                 message.reply(muteRole.name + " is now the mute role.").catch(error => console.log("Send Error - " + error));
             }

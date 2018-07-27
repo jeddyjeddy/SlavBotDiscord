@@ -560,12 +560,30 @@ firebase.auth().signInAnonymously().catch(function(error) {
                 {
                     var data = JSON.parse(childSnap.child("mutedusers").val());
 
+                    var muteRole = bot.guilds.find("id", data.key).roles.find("name", data.role);
+
+                    
+
                     if(data.key != childSnap.key)
                     {
                         data.key = childSnap.key;
+                        if(muteRole != null)
+                        {
+                            if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
+                                var allChannels = bot.guilds.find("id", data.key).channels.array()
+                                allChannels.forEach(channel => {
+                                    channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                                });
+                            }
+                        }
                     }
 
                     muteData.push(data)
+
+                    if(muteRole == null)
+                    {
+                        return;   
+                    }
 
                     if(data.data != null)
                     {
@@ -581,9 +599,11 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                                     var guild = bot.guilds.find("id", data.key)
                                     var member = guild.members.find("id", data.data[i].key)
-                                    if(member.roles.find(muteRole.id))
+                                    if(member.roles.find("id", muteRole.id))
                                     {
-                                        member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                        if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
+                                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                        }
                                     } 
                                 }
                                 else
@@ -593,9 +613,11 @@ firebase.auth().signInAnonymously().catch(function(error) {
     
                                         var guild = bot.guilds.find("id", data.key)
                                         var member = guild.members.find("id", data.data[i].key)
-                                        if(member.roles.find(muteRole.id))
+                                        if(member.roles.find("id", muteRole.id))
                                         {
-                                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
+                                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            }
                                         }
                                     });
                                 }
