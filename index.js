@@ -623,20 +623,26 @@ var schedule = require('node-schedule');
             
                                 for(var index = 0; index < members.length; index++)
                                 {
-                                    if(members[index].id == data.data[i].key)
+                                    if(members[index].id == bot.user.id)
                                     {
                                         member = members[index];
                                     }
                                 }
 
-                                if(member == undefined)
+                                var botMember;                
+                                for(var index = 0; index < members.length; index++)
+                                {
+                                    if(members[index].id == bot.user.id)
+                                    {
+                                        botMember = members[index];
+                                    }
+                                }
+
+                                if(member == undefined || botMember == undefined)
                                     return;
 
                                 if(date.getTime() < (new Date()).getTime())
                                 {
-                                    console.log("Remove Instant")
-                                    removeMutedUser(data.key, data.data[i].key)
-
                                     var hasRole = false;
                                     var userRoles = member.roles.array()
                                     for(var index = 0; index < userRoles.length; index++)
@@ -649,8 +655,9 @@ var schedule = require('node-schedule');
 
                                     if(hasRole)
                                     {
-                                        if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
+                                        if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            removeMutedUser(data.key, data.data[i].key)
                                             console.log("Initialised Role Removed")
                                         }
                                     } 
@@ -670,16 +677,23 @@ var schedule = require('node-schedule');
                                         }
                                     }
 
-                                    if(member == undefined)
+                                    var botMember;                
+                                    for(var index = 0; index < members.length; index++)
+                                    {
+                                        if(members[index].id == bot.user.id)
+                                        {
+                                            botMember = members[index];
+                                        }
+                                    }
+
+                                    if(member == undefined || botMember == undefined)
                                         return;
 
                                     const savedData = data;
                                     const dataIndex = i;
                                     const memberRef = member;
+                                    const botRef = botMember;
                                     schedule.scheduleJob(date, function(){
-                                        removeMutedUser(savedData.key, savedData.data[dataIndex].key)
-                                        console.log("Execute Timed")
-
                                         var hasRole = false;
                                         var userRoles = memberRef.roles.array()
                                         for(var index = 0; index < userRoles.length; index++)
@@ -692,8 +706,9 @@ var schedule = require('node-schedule');
 
                                         if(hasRole)
                                         {
-                                            if(memberRef.hasPermission("ADMINISTRATOR") || memberRef.hasPermission("MANAGE_ROLES")){
+                                            if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
                                                 memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                removeMutedUser(savedData.key, savedData.data[dataIndex].key)
                                                 console.log("Initialised Role Removed (Timer)")
                                             }
                                         }
