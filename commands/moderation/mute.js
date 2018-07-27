@@ -119,7 +119,7 @@ class MuteCommand extends command.Command
                             if(time > 0)
                             {
                                 //Convert time to Date
-                                var date = new Date((new Date.now()).getTime() + time)
+                                var date = new Date((new Date).getTime() + time)
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
                                 {
