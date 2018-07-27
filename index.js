@@ -572,7 +572,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                     }
 
                     var muteRole;
-                    var roles = guilds.roles.array()
+                    var roles = guild.roles.array()
 
                     for(var i = 0; i < roles.length; i++)
                     {
@@ -588,8 +588,22 @@ firebase.auth().signInAnonymously().catch(function(error) {
                         data.key = childSnap.key;
                         if(muteRole != null && guild != undefined)
                         {
-                            if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
-                                var allChannels = bot.guilds.find("id", data.key).channels.array()
+                            var member;
+                            var members = guild.members.array()
+        
+                            for(var index = 0; index < members.length; index++)
+                            {
+                                if(members[index].id == data.data[i].key)
+                                {
+                                    member = members[index];
+                                }
+                            }
+
+                            if(member == undefined)
+                                return;
+
+                            if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
+                                var allChannels = guild.channels.array()
                                 allChannels.forEach(channel => {
                                     channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                                 });
@@ -618,7 +632,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                             {
                                 const date = new Date(data.data[i].time);
                                 var member;
-                                var members = guilds.members.array()
+                                var members = guild.members.array()
             
                                 for(var index = 0; index < members.length; index++)
                                 {
@@ -627,6 +641,10 @@ firebase.auth().signInAnonymously().catch(function(error) {
                                         member = members[index];
                                     }
                                 }
+
+                                if(member == undefined)
+                                    return;
+
                                 if(date.getTime() < (new Date()).getTime())
                                 {
                                     removeMutedUser(data.key, data.data[i].key)
@@ -641,7 +659,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                                 else
                                 {
                                     var member;
-                                    var members = guilds.members.array()
+                                    var members = guild.members.array()
                 
                                     for(var index = 0; index < members.length; index++)
                                     {
@@ -650,10 +668,14 @@ firebase.auth().signInAnonymously().catch(function(error) {
                                             member = members[index];
                                         }
                                     }
+
+                                    if(member == undefined)
+                                        return;
+
                                     schedule.scheduleJob(date, function(){
                                         removeMutedUser(data.key, data.data[i].key)
     
-                                        if(muteRole)
+                                        if(member.roles.find("id", muteRole.id))
                                         {
                                             if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                                 member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
