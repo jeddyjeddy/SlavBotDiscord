@@ -634,6 +634,7 @@ var schedule = require('node-schedule');
 
                                 if(date.getTime() < (new Date()).getTime())
                                 {
+                                    console.log("Remove Instant")
                                     removeMutedUser(data.key, data.data[i].key)
 
                                     var hasRole = false;
@@ -650,11 +651,14 @@ var schedule = require('node-schedule');
                                     {
                                         if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            console.log("Initialised Role Removed")
                                         }
                                     } 
                                 }
                                 else
                                 {
+                                    console.log("Remove Timed")
+
                                     var member;
                                     var members = guild.members.array()
                 
@@ -674,7 +678,8 @@ var schedule = require('node-schedule');
                                     const memberRef = member;
                                     schedule.scheduleJob(date, function(){
                                         removeMutedUser(savedData.key, savedData.data[dataIndex].key)
-    
+                                        console.log("Execute Timed")
+
                                         var hasRole = false;
                                         var userRoles = memberRef.roles.array()
                                         for(var index = 0; index < userRoles.length; index++)
@@ -689,6 +694,7 @@ var schedule = require('node-schedule');
                                         {
                                             if(memberRef.hasPermission("ADMINISTRATOR") || memberRef.hasPermission("MANAGE_ROLES")){
                                                 memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                console.log("Initialised Role Removed (Timer)")
                                             }
                                         }
                                     });
