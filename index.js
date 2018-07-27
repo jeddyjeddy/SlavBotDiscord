@@ -564,13 +564,10 @@ var schedule = require('node-schedule');
 
                     var muteRole;
                     var roles = guild.roles.array()
-                    console.log(roles)
                     for(var i = 0; i < roles.length; i++)
                     {
                         if(roles[i].name.toString() == data.role.toString())
                         {
-                            console.log("FOUND ROLE " + roles[i].name)
-
                             muteRole = roles[i];
                         }
                     }
@@ -619,6 +616,7 @@ var schedule = require('node-schedule');
                     if(data.data != null)
                     {
                         console.log("Has Data")
+                        console.log(data.data)
                         for(var i = 0; i < data.data.length; i++)
                         {
                             if(data.data[i].time != null)
