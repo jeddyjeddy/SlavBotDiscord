@@ -577,7 +577,8 @@ firebase.auth().signInAnonymously().catch(function(error) {
                     for(var i = 0; i < roles.length; i++)
                     {
                         console.log(roles[i].name)
-                        if(roles[i].name == data.role)
+                        console.log(data.role)
+                        if(roles[i].name == data.role.toString())
                         {
                             console.log("FOUND ROLE " + roles[i].name)
 
