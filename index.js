@@ -560,26 +560,38 @@ firebase.auth().signInAnonymously().catch(function(error) {
                 {
                     var data = JSON.parse(childSnap.child("mutedusers").val());
 
-                    var muteRole = bot.guilds.find("id", data.key).roles.find("name", data.role);
+                    var guild;
+                    var guilds = bot.guilds.array()
 
-                    
+                    for(var i = 0; i < guild.length; i++)
+                    {
+                        if(guilds[i].id == data.key)
+                        {
+                            guild = guilds[i];
+                        }
+                    }
+
 
                     if(data.key != childSnap.key)
                     {
                         data.key = childSnap.key;
-                        if(muteRole != null)
+                        if(muteRole != null && guild != undefined)
                         {
                             if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
                                 var allChannels = bot.guilds.find("id", data.key).channels.array()
                                 allChannels.forEach(channel => {
-                                    channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                                    channel.overwritePermissions(guild.roles.find("name", data.role), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                                 });
                             }
                         }
                     }
 
                     muteData.push(data)
-
+                    if(guild == undefined)
+                    {
+                        return;
+                    }
+                    var muteRole = guild.roles.find("name", data.role);
                     if(muteRole == null)
                     {
                         return;   
