@@ -658,14 +658,11 @@ var schedule = require('node-schedule');
                                         if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                             removeMutedUser(data.key, data.data[i].key)
-                                            console.log("Initialised Role Removed")
                                         }
                                     } 
                                 }
                                 else
                                 {
-                                    console.log("Remove Timed")
-
                                     var member;
                                     var members = guild.members.array()
                 
@@ -709,7 +706,6 @@ var schedule = require('node-schedule');
                                             if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
                                                 memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                                 removeMutedUser(savedData.key, savedData.data[dataIndex].key)
-                                                console.log("Initialised Role Removed (Timer)")
                                             }
                                         }
                                     });
