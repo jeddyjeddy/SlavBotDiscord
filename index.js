@@ -285,7 +285,7 @@ var getUserCommandCounter = (userID) => {
     }
 
     
-    if(signedIntoFirebase)
+    if(signedIntoFirebase && userCommandUsage !== [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}])
     {
         userCommandUsage.push({key: userID, uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
     }
