@@ -137,18 +137,12 @@ class FlipCommand extends command.Command
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
-                            setTimeout(function(){
-                                fs.unlink(file, resultHandler);
-                                console.log("Deleted " + file);
-                            }, 10000);
+                            fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
-                            setTimeout(function(){
-                                fs.unlink(file, resultHandler);
-                                console.log("Deleted " + file);
-                            }, 10000);
+                            fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     })
@@ -202,18 +196,12 @@ class FlipCommand extends command.Command
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
-                            setTimeout(function(){
-                                fs.unlink(file, resultHandler);
-                                console.log("Deleted " + file);
-                            }, 10000);
+                            fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
-                            setTimeout(function(){
-                                fs.unlink(file, resultHandler);
-                                console.log("Deleted " + file);
-                            }, 10000);
+                            fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     });

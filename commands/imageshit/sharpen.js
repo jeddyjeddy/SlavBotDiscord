@@ -128,22 +128,14 @@ class SharpenCommand extends command.Command
                                     files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
-                                    setTimeout(function(){
-                                        fs.unlink(file, resultHandler);
-                                        console.log("Deleted " + file);
-                                        fs.unlink(fileTemp, resultHandler);
-                                        console.log("Deleted " + fileTemp);
-                                    }, 10000);
+                                    fs.unlink(file, resultHandler);
+                                    fs.unlink(fileTemp, resultHandler);
                                 }).catch(function (err) {
                                     message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
-                                    setTimeout(function(){
-                                        fs.unlink(file, resultHandler);
-                                        console.log("Deleted " + file);
-                                        fs.unlink(fileTemp, resultHandler);
-                                        console.log("Deleted " + fileTemp);
-                                    }, 10000);
+                                    fs.unlink(file, resultHandler);
+                                    fs.unlink(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
                               }));
@@ -207,22 +199,14 @@ class SharpenCommand extends command.Command
                                     files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
-                                    setTimeout(function(){
-                                        fs.unlink(file, resultHandler);
-                                        console.log("Deleted " + file);
-                                        fs.unlink(fileTemp, resultHandler);
-                                        console.log("Deleted " + fileTemp);
-                                    }, 10000);
+                                    fs.unlink(file, resultHandler);
+                                    fs.unlink(fileTemp, resultHandler);
                                 }).catch(function (err) {
                                     message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
-                                    setTimeout(function(){
-                                        fs.unlink(file, resultHandler);
-                                        console.log("Deleted " + file);
-                                        fs.unlink(fileTemp, resultHandler);
-                                        console.log("Deleted " + fileTemp);
-                                    }, 10000);
+                                    fs.unlink(file, resultHandler);
+                                    fs.unlink(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
                               }));
