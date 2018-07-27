@@ -563,7 +563,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                     var guild;
                     var guilds = bot.guilds.array()
 
-                    for(var i = 0; i < guild.length; i++)
+                    for(var i = 0; i < guilds.length; i++)
                     {
                         if(guilds[i].id == data.key)
                         {
