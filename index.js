@@ -576,7 +576,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
                     for(var i = 0; i < roles.length; i++)
                     {
-                        if(roles[i].id == data.role)
+                        if(roles[i].name == data.role)
                         {
                             muteRole = roles[i];
                         }
