@@ -571,6 +571,17 @@ firebase.auth().signInAnonymously().catch(function(error) {
                         }
                     }
 
+                    var muteRole;
+                    var roles = guilds.roles.array()
+
+                    for(var i = 0; i < roles.length; i++)
+                    {
+                        if(roles[i].id == data.role)
+                        {
+                            muteRole = roles[i];
+                        }
+                    }
+
 
                     if(data.key != childSnap.key)
                     {
@@ -580,7 +591,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                             if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
                                 var allChannels = bot.guilds.find("id", data.key).channels.array()
                                 allChannels.forEach(channel => {
-                                    channel.overwritePermissions(guild.roles.find("name", data.role), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                                    channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                                 });
                             }
                         }
@@ -592,8 +603,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
                         console.log("No Guild")
                         return;
                     }
-                    var muteRole = guild.roles.find("name", data.role);
-                    if(muteRole == null)
+                    if(muteRole == undefined)
                     {
                         console.log("No Role")
                         return;   
