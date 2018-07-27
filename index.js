@@ -562,21 +562,12 @@ var schedule = require('node-schedule');
                         }
                     }
 
-                    var muteRole;
-                    var roles = guild.roles.array()
-                    for(var i = 0; i < roles.length; i++)
-                    {
-                        if(roles[i].name == data.role)
-                        {
-                            muteRole = roles[i];
-                        }
-                    }
-
+                    var muteRole = guild.roles.find("name", data.role)
 
                     if(data.key != childSnap.key)
                     {
                         data.key = childSnap.key;
-                        if(muteRole != undefined && guild != undefined)
+                        if(muteRole != null && guild != undefined)
                         {
                             var member;
                             var members = guild.members.array()
@@ -607,7 +598,7 @@ var schedule = require('node-schedule');
                         console.log("No Guild")
                         return;
                     }
-                    if(muteRole == undefined)
+                    if(muteRole == null)
                     {
                         console.log("No Role")
                         return;   
