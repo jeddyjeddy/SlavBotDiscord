@@ -618,7 +618,6 @@ var schedule = require('node-schedule');
                     if(data.data != null)
                     {
                         console.log("Has Data")
-                        console.log(data.data)
                         for(var i = 0; i < data.data.length; i++)
                         {
                             if(data.data[i].time != null)
@@ -642,7 +641,17 @@ var schedule = require('node-schedule');
                                 {
                                     removeMutedUser(data.key, data.data[i].key)
 
-                                    if(member.roles.find("id", muteRole.id))
+                                    var hasRole = false;
+                                    var userRoles = member.roles.array()
+                                    for(var i = 0; i < userRoles.length; i++)
+                                    {
+                                        if(userRoles[i].name == data.role)
+                                        {
+                                            hasRole = true;
+                                        }
+                                    }
+
+                                    if(hasRole)
                                     {
                                         if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
@@ -668,7 +677,17 @@ var schedule = require('node-schedule');
                                     schedule.scheduleJob(date, function(){
                                         removeMutedUser(data.key, data.data[i].key)
     
-                                        if(member.roles.find("id", muteRole.id))
+                                        var hasRole = false;
+                                        var userRoles = member.roles.array()
+                                        for(var i = 0; i < userRoles.length; i++)
+                                        {
+                                            if(userRoles[i].name == data.role)
+                                            {
+                                                hasRole = true;
+                                            }
+                                        }
+
+                                        if(hasRole)
                                         {
                                             if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                                 member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
