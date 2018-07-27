@@ -583,7 +583,7 @@ var schedule = require('node-schedule');
         
                             for(var index = 0; index < members.length; index++)
                             {
-                                if(members[index].id == data.data[i].key)
+                                if(members[index].id == bot.user.id)
                                 {
                                     member = members[index];
                                 }
