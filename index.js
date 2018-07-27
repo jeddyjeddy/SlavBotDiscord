@@ -617,30 +617,45 @@ firebase.auth().signInAnonymously().catch(function(error) {
                             if(data.data[i].time != null)
                             {
                                 const date = new Date(data.data[i].time);
-
+                                var member;
+                                var members = guilds.members.array()
+            
+                                for(var index = 0; index < members.length; index++)
+                                {
+                                    if(members[index].id == data.data[i].key)
+                                    {
+                                        member = members[index];
+                                    }
+                                }
                                 if(date.getTime() < (new Date()).getTime())
                                 {
                                     removeMutedUser(data.key, data.data[i].key)
 
-                                    var guild = bot.guilds.find("id", data.key)
-                                    var member = guild.members.find("id", data.data[i].key)
                                     if(member.roles.find("id", muteRole.id))
                                     {
-                                        if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
+                                        if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                             member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                         }
                                     } 
                                 }
                                 else
                                 {
+                                    var member;
+                                    var members = guilds.members.array()
+                
+                                    for(var index = 0; index < members.length; index++)
+                                    {
+                                        if(members[index].id == data.data[i].key)
+                                        {
+                                            member = members[index];
+                                        }
+                                    }
                                     schedule.scheduleJob(date, function(){
                                         removeMutedUser(data.key, data.data[i].key)
     
-                                        var guild = bot.guilds.find("id", data.key)
-                                        var member = guild.members.find("id", data.data[i].key)
-                                        if(member.roles.find("id", muteRole.id))
+                                        if(muteRole)
                                         {
-                                            if(bot.guilds.find("id", data.key).member(message.client.user.id).hasPermission("ADMINISTRATOR") || bot.guilds.find("id", data.key).member(message.author).hasPermission("MANAGE_ROLES")){
+                                            if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
                                                 member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
