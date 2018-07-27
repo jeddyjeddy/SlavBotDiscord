@@ -97,7 +97,7 @@ class MuteCommand extends command.Command
                 message.guild.createRole({name: IndexRef.getRoleName(message.guild.id)}).then(function()
                 {
                     allChannels.forEach(channel => {
-                        channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                        channel.overwritePermissions(message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id)), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                     })
                 })
                 
