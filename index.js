@@ -294,7 +294,7 @@ var getUserCommandCounter = (userID) => {
 }
 
 var commandCounterChange = (userID) => {
-    if(!signedIntoFirebase || userCommandUsage == [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}])
+    if(!signedIntoFirebase || userCommandUsage === [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}])
     {
         commandCounterChange(userID);
         return;
