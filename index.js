@@ -82,6 +82,138 @@ var localChangeResponse = (guildID, setting) => {
     }
 }
 
+var muteData = [{key: "Key", role: "", data: null}]
+
+var getRoleName = (guildID) => {
+    for(var i = 0; i < muteData.length; i++)
+    {
+        if(guildID == muteData[i].key)
+        {
+            return muteData[i].role;
+        }
+    }
+
+    addGuild(guildID, "Server-wide Mute")
+    return "Server-wide Mute";
+}
+
+var setRoleName = (guildID, name) => {
+    var changed = false;
+    for(var i = 0; i < muteData.length; i++)
+    {
+        if(guildID == muteData[i].key)
+        {
+            changed = true;
+            muteData[i].role = name;
+            if(signedIntoFirebase)
+            {
+                firebase.database().ref("serversettings/" + guildID + "/mutedusers").set(JSON.stringify(muteData[i]))
+            }
+        }
+    }
+
+    if(!changed)
+    {
+        addGuild(guildID, name)
+    }
+}
+
+var addMutedUser = (guildID, userID, length) => {
+    for(var i = 0; i < muteData.length; i++)
+    {
+        if(guildID == muteData[i].key)
+        {
+            if(muteData[i].data == null)
+            {
+                muteData[i].data = [{key: userID, time: length}]
+                if(signedIntoFirebase)
+                {
+                    firebase.database().ref("serversettings/" + guildID + "/mutedusers").set(JSON.stringify(muteData[i]))
+                }
+                return true;
+            }
+            else
+            {
+                var hasUser = false;
+                for(var dataIndex = 0; dataIndex < muteData[i].data.length; dataIndex++)
+                {
+                    if(muteData[i].data[dataIndex].key == userID)
+                    {
+                        hasUser = true;
+                    }
+                }
+
+                if(!hasUser)
+                {
+                    muteData[i].data.push({key: userID, time: length});
+                    if(signedIntoFirebase)
+                    {
+                        firebase.database().ref("serversettings/" + guildID + "/mutedusers").set(JSON.stringify(muteData[i]))
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    getRoleName(guildID);
+    return false;
+}
+
+var removeMutedUser = (guildID, userID) => {
+    for(var i = 0; i < muteData.length; i++)
+    {
+        if(guildID == muteData[i].key)
+        {
+            if(muteData[i].data != null)
+            {
+                for(var dataIndex = 0; dataIndex < muteData[i].data.length; dataIndex++)
+                {
+                    if(muteData[i].data[dataIndex].key == userID)
+                    {
+                        muteData[i].data.splice(dataIndex, 1);
+                        
+                        if(muteData[i].data.length == 0)
+                            muteData[i].data = null
+
+                        if(signedIntoFirebase)
+                        {
+                            firebase.database().ref("serversettings/" + guildID + "/mutedusers").set(JSON.stringify(muteData[i]))
+                        }
+
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+var addGuild = (guildID, name) => {
+    var added = false;
+    for(var i = 0; i < muteData.length; i++)
+    {
+        if(guildID == muteData[i].key)
+        {
+            added = true;
+        }
+    }
+
+    if(!added)
+    {
+        muteData.push({key: guildID, role: name, data: null})
+    }
+
+    if(signedIntoFirebase)
+    {
+        firebase.database().ref("serversettings/" + guildID + "/mutedusers").set(JSON.stringify(muteData[i]))
+    }
+}
+
 var migrateServerID = (guild) =>
 {
     //If server ID in serversettings returns null
@@ -353,6 +485,26 @@ getLeaderboards: function()
 getLocalLeaderboards: function(members)
 {
     return getLocalLeaderboardRankings(members);
+},
+
+getRoleName: function(guildID)
+{
+    return getRoleName(guildID);
+},
+
+setRoleName: function(guildID, name)
+{
+    setRoleName(guildID, name);
+},
+
+addMutedUser: function(guildID, userID, length)
+{
+    return addMutedUser(guildID, userID, length);
+},
+
+removeMutedUser: function(guildID, userID)
+{
+    removeMutedUser(guildID, userID);
 }
 }
 
@@ -378,6 +530,7 @@ const responses2 = ["still u", "undoubtedly u", "no u", "ur dad", "ur face", "do
 const curseResponses = ["You people sicken me", "Do none of you have anything better to do?", "You should have your mouth washed out with soap", "Do you kiss your mother with that mouth?", "Didn't know we had sailors here", "God is watching", "God is disappointed", "Your parents must be proud"];
 
 var signedIntoFirebase = false;
+var schedule = require('node-schedule');
 
 firebase.auth().signInAnonymously().catch(function(error) {
     // Handle Errors here.
@@ -396,6 +549,45 @@ firebase.auth().signInAnonymously().catch(function(error) {
         if(snapshot.val() != null)
         {
             userCommandUsage = JSON.parse(snapshot.val())
+        }
+      })
+
+      firebase.database().ref("serversettings").once('value').then(function(snapshot) {
+        if(snapshot.val() != null)
+        {
+            snapshot.forEach(function(childSnap){
+                if(childSnap.child("mutedusers").val() != null)
+                {
+                    var data = JSON.parse(childSnap.child("mutedusers").val());
+
+                    if(data.key != childSnap.key)
+                    {
+                        data.key = childSnap.key;
+                    }
+
+                    muteData.push(data)
+
+                    if(data.data != null)
+                    {
+                        for(var i = 0; i < data.data.length; i++)
+                        {
+                            if(data.data[i].time != null)
+                            {
+                                schedule.scheduleJob(new Date(data.data[i].time), function(){
+                                    removeMutedUser(data.key, data.data[i].key)
+
+                                    var guild = bot.guilds.find("id", data.key)
+                                    var member = guild.members.find("id", data.data[i].key)
+                                    if(member.roles.find(muteRole.id))
+                                    {
+                                        member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            })
         }
       })
     } else {
