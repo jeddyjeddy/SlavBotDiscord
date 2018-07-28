@@ -723,6 +723,50 @@ var schedule = require('node-schedule');
     }
   });
 
+bot.on("channelCreate", (channel) => {
+    var guild;
+    var guilds = bot.guilds.array()
+
+    for(var i = 0; i < guilds.length; i++)
+    {
+        var channels = guilds[i].channels.array();
+        for(var index = 0; index < channels.length; index++)
+        {
+            if(channels[index].id == channel.id)
+            {
+                guild = guilds[i];
+            }
+        }
+    }
+    
+    if(guild != undefined)
+    {
+        guild.fetchMember(bot.user.id).then((user) => {
+            if(user.hasPermission("ADMINISTRATOR") || user.hasPermission("MANAGE_ROLES"))
+            {
+                for(var i = 0; i < muteData.length; i++)
+                {
+                    if(muteData[i].key == guild.id)
+                    {
+                        var muteRole;
+                        var roles = guild.roles.array()
+                        for(var index = 0; index < roles.length; index++)
+                        {
+                            if(roles[index].name == muteData[i].role)
+                            {
+                                muteRole = roles[index];
+                            }
+                        }
+
+                        if(muteRole != undefined)
+                            channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                    }
+                }
+            }
+        }).catch((error) => console.log(error.message));
+    }
+})
+
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
     {
