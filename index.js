@@ -410,7 +410,7 @@ var commandCounterChange = (userID) => {
     {
         var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
         userCommandUsage.push(data);
-        firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data));
+        firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data.data));
     }
 }
 
