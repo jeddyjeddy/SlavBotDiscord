@@ -303,7 +303,7 @@ var commandCounterChange = (userID) => {
     var isStored = false;
     for(var index = 0; index < userCommandUsage.length; index++)
     {
-        if(userCommandUsage[index].data.key == userID) 
+        if(userCommandUsage[index].key == userID) 
         {
             isStored = true;
             userCommandUsage[index].data.uses += 1;
