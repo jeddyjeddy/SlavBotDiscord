@@ -543,7 +543,7 @@ var schedule = require('node-schedule');
 
             for(var i = 0; i < userCommandUsage.length; i++)
             {
-                var data = {uses: userCommandUsage.uses, requestsSent: userCommandUsage.requestsSent, weekendUsesCheck: userCommandUsage.weekendUsesCheck, usesCheck: userCommandUsage.usesCheck}
+                var data = {uses: userCommandUsage[i].uses, requestsSent: userCommandUsage[i].requestsSent, weekendUsesCheck: userCommandUsage[i].weekendUsesCheck, usesCheck: userCommandUsage[i].usesCheck}
                 firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(data)
             }
         }
