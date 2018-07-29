@@ -33,7 +33,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
-var userCommandUsage = [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}] 
+var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 
 var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
@@ -280,21 +280,21 @@ var getUserCommandCounter = (userID) => {
     { 
         if(userCommandUsage[i].key == userID)
         {
-            return userCommandUsage[i].uses;
+            return userCommandUsage[i].data.uses;
         }
     }
 
     
-    if(signedIntoFirebase && userCommandUsage !== [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}])
+    if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
-        userCommandUsage.push({key: userID, uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
+        userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
     }
     
     return 0;
 }
 
 var commandCounterChange = (userID) => {
-    if(!signedIntoFirebase || userCommandUsage === [{key: "Key", uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}])
+    if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
         commandCounterChange(userID);
         return;
@@ -303,57 +303,57 @@ var commandCounterChange = (userID) => {
     var isStored = false;
     for(var index = 0; index < userCommandUsage.length; index++)
     {
-        if(userCommandUsage[index].key == userID) 
+        if(userCommandUsage[index].data.key == userID) 
         {
             isStored = true;
-            userCommandUsage[index].uses += 1;
+            userCommandUsage[index].data.uses += 1;
             const i = index;
             dbl.hasVoted(userID).then(voted => {
                 if (!voted)
                 {
-                    if(userCommandUsage[i].requestsSent < 3)
+                    if(userCommandUsage[i].data.requestsSent < 3)
                     {
                         dbl.isWeekend().then(weekend => {
                             if (weekend)
                             {
-                                if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
+                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
                                 {
                                     console.log("Sending Weekend Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + userCommandUsage[i].data.uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
 
-                                    userCommandUsage[i].weekendUsesCheck = userCommandUsage[i].uses + 100;
-                                    userCommandUsage[i].requestsSent += 1;
-                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                    userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
+                                    userCommandUsage[i].data.requestsSent += 1;
+                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                                 else
                                 {
-                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                             }
                             else
                             {
-                                if(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
+                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
                                 {
                                     console.log("Sending Regular Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + userCommandUsage[i].uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + userCommandUsage[i].data.uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
                                 
-                                    userCommandUsage[i].usesCheck = userCommandUsage[i].uses + 250;
-                                    userCommandUsage[i].requestsSent += 1;
-                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                    userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
+                                    userCommandUsage[i].data.requestsSent += 1;
+                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                                 else
                                 {
-                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }   
                             }
                         });
@@ -363,8 +363,8 @@ var commandCounterChange = (userID) => {
                         dbl.getVotes().then(votes => {
                             if (votes.find(vote => vote.id == userID))
                             {
-                                userCommandUsage[i].requestsSent = 0;
-                                firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                userCommandUsage[i].data.requestsSent = 0;
+                                firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 commandCounterChange(userID)
                             }
                             else
@@ -372,27 +372,27 @@ var commandCounterChange = (userID) => {
                                 dbl.isWeekend().then(weekend => {
                                     if (weekend)
                                     {
-                                        if(userCommandUsage[i].uses >= userCommandUsage[i].weekendUsesCheck)
+                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
                                         {
-                                            userCommandUsage[i].weekendUsesCheck = userCommandUsage[i].uses + 100;
-                                            userCommandUsage[i].requestsSent += 1;
+                                            userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
+                                            userCommandUsage[i].data.requestsSent += 1;
                                         }
                                     }
                                     else
                                     {
-                                        if(userCommandUsage[i].uses >= userCommandUsage[i].usesCheck)
+                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
                                         {
-                                            userCommandUsage[i].usesCheck = userCommandUsage[i].uses + 250;                                 
-                                            userCommandUsage[i].requestsSent += 1;
+                                            userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
+                                            userCommandUsage[i].data.requestsSent += 1;
                                         }
                                     }
 
-                                    if(userCommandUsage[i].requestsSent > 5)
+                                    if(userCommandUsage[i].data.requestsSent > 5)
                                     {
-                                        userCommandUsage[i].requestsSent = 0;
+                                        userCommandUsage[i].data.requestsSent = 0;
                                     }
 
-                                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 });
                             }
                         }); 
@@ -400,7 +400,7 @@ var commandCounterChange = (userID) => {
                 }
                 else
                 {
-                    firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                 }
             });
         }
@@ -408,8 +408,9 @@ var commandCounterChange = (userID) => {
 
     if(!isStored)
     {
-        userCommandUsage.push({key: userID, uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250});
-        firebase.database().ref("commandusage").set(JSON.stringify(userCommandUsage));
+        var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
+        userCommandUsage.push(data);
+        firebase.database().ref("usersettings" + userID + "/commandusage").set(JSON.stringify(data));
     }
 }
 
@@ -455,9 +456,9 @@ var getLocalLeaderboardRankings = (members) =>
 
 function commandUsageAscending(a, b)
 {
-    if (a.uses < b.uses)
+    if (a.data.uses < b.data.uses)
         return 1;
-    if (a.uses > b.uses)
+    if (a.data.uses > b.data.uses)
         return -1;
     return 0;
 }
@@ -536,16 +537,12 @@ var schedule = require('node-schedule');
     if (user) {
       console.log("signed in to firebase");
       signedIntoFirebase = true;
-      firebase.database().ref("commandusage").once('value').then(function(snapshot) {
+      firebase.database().ref("usersettings").once('value').then(function(snapshot) {
         if(snapshot.val() != null)
         {
-            userCommandUsage = JSON.parse(snapshot.val())
-
-            for(var i = 0; i < userCommandUsage.length; i++)
-            {
-                var data = {uses: userCommandUsage.uses, requestsSent: userCommandUsage.requestsSent, weekendUsesCheck: userCommandUsage.weekendUsesCheck, usesCheck: userCommandUsage.usesCheck}
-                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(data)
-            }
+            snapshot.forEach(function(childSnap){
+                userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+            });
         }
       })
 

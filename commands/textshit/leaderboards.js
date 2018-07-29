@@ -52,7 +52,7 @@ class LeaderboardsCommand extends command.Command
 
             for(var i = 0; i < localLeaderboards.length; i++)
             {
-                descriptionList = descriptionList + (rankEmojis[i] + "``" + localLeaderboards[i].uses + "`` - **" + names[i] + "**\n");
+                descriptionList = descriptionList + (rankEmojis[i] + "``" + localLeaderboards[i].data.uses + "`` - **" + names[i] + "**\n");
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
@@ -102,7 +102,7 @@ class LeaderboardsCommand extends command.Command
 
                 for(var i = 0; i < leaderboards.length; i++)
                 {
-                    descriptionList = descriptionList + (rankEmojis[i] + "``" + leaderboards[i].uses + "`` - **" + names[i] + "**\n");
+                    descriptionList = descriptionList + (rankEmojis[i] + "``" + leaderboards[i].data.uses + "`` - **" + names[i] + "**\n");
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
