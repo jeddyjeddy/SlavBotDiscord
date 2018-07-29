@@ -540,9 +540,19 @@ var schedule = require('node-schedule');
       firebase.database().ref("usersettings").once('value').then(function(snapshot) {
         if(snapshot.val() != null)
         {
+<<<<<<< HEAD
             snapshot.forEach(function(childSnap){
                 userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
             });
+=======
+            userCommandUsage = JSON.parse(snapshot.val())
+
+            for(var i = 0; i < userCommandUsage.length; i++)
+            {
+                var data = {uses: userCommandUsage[i].uses, requestsSent: userCommandUsage[i].requestsSent, weekendUsesCheck: userCommandUsage[i].weekendUsesCheck, usesCheck: userCommandUsage[i].usesCheck}
+                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(data))
+            }
+>>>>>>> 2b62a3f2c6d01a3e8ed550dab68d1225aff0a183
         }
       })
 
