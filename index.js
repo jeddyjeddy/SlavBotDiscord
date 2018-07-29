@@ -540,6 +540,12 @@ var schedule = require('node-schedule');
         if(snapshot.val() != null)
         {
             userCommandUsage = JSON.parse(snapshot.val())
+
+            for(var i = 0; i < userCommandUsage.length; i++)
+            {
+                var data = {uses: userCommandUsage.uses, requestsSent: userCommandUsage.requestsSent, weekendUsesCheck: userCommandUsage.weekendUsesCheck, usesCheck: userCommandUsage.usesCheck}
+                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(data)
+            }
         }
       })
 
