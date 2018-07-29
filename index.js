@@ -328,11 +328,11 @@ var commandCounterChange = (userID) => {
 
                                     userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
                                     userCommandUsage[i].data.requestsSent += 1;
-                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                                 else
                                 {
-                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                             }
                             else
@@ -349,11 +349,11 @@ var commandCounterChange = (userID) => {
                                 
                                     userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
                                     userCommandUsage[i].data.requestsSent += 1;
-                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
                                 else
                                 {
-                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }   
                             }
                         });
@@ -364,7 +364,7 @@ var commandCounterChange = (userID) => {
                             if (votes.find(vote => vote.id == userID))
                             {
                                 userCommandUsage[i].data.requestsSent = 0;
-                                firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 commandCounterChange(userID)
                             }
                             else
@@ -392,7 +392,7 @@ var commandCounterChange = (userID) => {
                                         userCommandUsage[i].data.requestsSent = 0;
                                     }
 
-                                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 });
                             }
                         }); 
@@ -400,7 +400,7 @@ var commandCounterChange = (userID) => {
                 }
                 else
                 {
-                    firebase.database().ref("usersettings" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                 }
             });
         }
@@ -410,7 +410,7 @@ var commandCounterChange = (userID) => {
     {
         var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
         userCommandUsage.push(data);
-        firebase.database().ref("usersettings" + userID + "/commandusage").set(JSON.stringify(data));
+        firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data));
     }
 }
 
@@ -537,7 +537,7 @@ var schedule = require('node-schedule');
     if (user) {
       console.log("signed in to firebase");
       signedIntoFirebase = true;
-      firebase.database().ref("usersettings").once('value').then(function(snapshot) {
+      firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
         if(snapshot.val() != null)
         {
             snapshot.forEach(function(childSnap){
