@@ -9,6 +9,8 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
+
+var responses = ["Gotta go", "I'm out", "Goodbye", "Never mind", "Uh, sorry", "On second thought", "Let's forget this ever happened", "Let's not see each other ever again"]
 var CommandCounter = require("../../index.js")
 
 class GottagoCommand extends command.Command
@@ -19,7 +21,7 @@ class GottagoCommand extends command.Command
             name: "gottago",
             group: "imageshit",
             memberName: "gottago",
-            description: "***Gotta Go***. This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
+            description: "***Gotta go.*** This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
             examples: ["`!gottago`", "`!gottago avatar`", "`!gottago @User`"]
         });
     }
@@ -116,7 +118,7 @@ class GottagoCommand extends command.Command
                             if(error) throw error;
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Gotta Go***", {
+                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
                                 files: [file]
                             }).then(function(){
                                 message.channel.stopTyping();
@@ -185,7 +187,7 @@ class GottagoCommand extends command.Command
                         if(error) throw error;
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Gotta Go***", {
+                        message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
