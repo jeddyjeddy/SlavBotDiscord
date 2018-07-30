@@ -102,7 +102,7 @@ class GottagoCommand extends command.Command
                         console.log("got avatar");
                         
                         var x = 80
-                        var y = 360
+                        var y = 350
 
                         userImage.cover(185, 215);
                         userImage.rotate(10);
@@ -171,7 +171,7 @@ class GottagoCommand extends command.Command
                     userImage.resize(100, 100);
     
                     var x = 80
-                    var y = 360
+                    var y = 350
 
                     userImage.cover(185, 215);
                     userImage.rotate(10);
