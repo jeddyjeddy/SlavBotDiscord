@@ -39,7 +39,7 @@ class IllegalCommand extends command.Command
         {
             var file = shortid.generate() + ".png";
             
-                Jimp.read("trump.jpg").then(function (trumpImage) {
+                Jimp.read("trump.JPG").then(function (trumpImage) {
                     Jimp.loadFont("Arial_24.fnt").then(function (font) {
                         var textWidth = 200;
                         var textHeight = 70;
