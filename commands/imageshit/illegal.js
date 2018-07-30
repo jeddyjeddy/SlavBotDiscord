@@ -48,7 +48,7 @@ class IllegalCommand extends command.Command
                         var textY = 250;
 
                         var textImage = new Jimp(textWidth, textHeight);
-                        textImage.print(font, 0, 0, text, textWidth);
+                        textImage.print(font, 0, 0, args.toString(), textWidth);
                         textImage.rotate(textRot);
 
                         trumpImage.composite(textImage, textX, textY).write(file, function(error){  
