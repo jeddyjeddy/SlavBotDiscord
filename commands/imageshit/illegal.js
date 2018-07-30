@@ -35,7 +35,7 @@ class IllegalCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 67)
+        if(args.length > 0 && args.length <= 100)
         {
             var file = shortid.generate() + ".png";
             
@@ -43,7 +43,7 @@ class IllegalCommand extends command.Command
                     Jimp.loadFont("Arial_24.fnt").then(function (font) {
                         var textWidth = 200;
                         var textHeight = 70;
-                        var textRot = 10;
+                        var textRot = 8;
                         var textX = 400;
                         var textY = 250;
 
@@ -74,7 +74,7 @@ class IllegalCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for the text parameter is 67 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => console.log("Send Error - " + error));
+             message.reply("character limit for the text parameter is 100 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => console.log("Send Error - " + error));
             else
              message.reply("text not given, use `" + commandPrefix + "help illegal` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
