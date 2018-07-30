@@ -101,10 +101,10 @@ class GottagoCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 37
-                        var y = 165
+                        var x = 90
+                        var y = 360
 
-                        userImage.cover(90, 110);
+                        userImage.cover(185, 215);
                         userImage.rotate(10);
 
                         var blank = new Jimp(GottaGoImage.bitmap.width, GottaGoImage.bitmap.height);
@@ -170,10 +170,10 @@ class GottagoCommand extends command.Command
                     console.log("got avatar");
                     userImage.resize(100, 100);
     
-                    var x = 37
-                    var y = 165
+                    var x = 90
+                    var y = 360
 
-                    userImage.cover(90, 110);
+                    userImage.cover(185, 215);
                     userImage.rotate(10);
 
                     var blank = new Jimp(GottaGoImage.bitmap.width, GottaGoImage.bitmap.height);
