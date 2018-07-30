@@ -20,7 +20,7 @@ class IllegalCommand extends command.Command
             group: "imageshit",
             memberName: "illegal",
             description: "***President Trump's First Order.*** This command only has a text parameter.",
-            examples: ["`!illegal <text>`", "`!changemymind anime is now illegal`"]
+            examples: ["`!illegal <text>`", "`!illegal anime is now illegal`"]
         });
     }
 
