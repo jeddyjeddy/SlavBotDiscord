@@ -133,6 +133,7 @@ class CNNCommand extends command.Command
                                             files: [file]
                                         }).then(function(){
                                             fs.unlink(file, resultHandler);
+                                            message.channel.stopTyping();
                                         }).catch(function (err) {
                                             message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                             console.log(err.message);
