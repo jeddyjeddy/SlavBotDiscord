@@ -79,6 +79,8 @@ class PollCommand extends command.Command
             return;
         }
 
+        var timestamp = (new Date(Date.now()).toJSON());
+
         if(args.toLowerCase() == "end")
         {
             if(hasPoll)
@@ -132,9 +134,9 @@ class PollCommand extends command.Command
                     for(var i = 0; i < descriptions.length; i++)
                     {
                         if(i > 0)
-                            message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {description: descriptions[i], color: 25394, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 25394, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                     }
 
                     var largestVote = -1;
@@ -216,9 +218,9 @@ class PollCommand extends command.Command
                         for(var i = 0; i < winnerDescriptions.length; i++)
                         {
                             if(i > 0)
-                                message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             else
-                                message.channel.send("", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
 
@@ -278,9 +280,9 @@ class PollCommand extends command.Command
                         for(var i = 0; i < descriptions.length; i++)
                         {
                             if(i > 0)
-                                message.channel.send("", {embed: {description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {description: descriptions[i], color: 25394, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             else
-                                message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 25394}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 25394, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
     
                         var largestVote = -1;
@@ -362,9 +364,9 @@ class PollCommand extends command.Command
                             for(var i = 0; i < winnerDescriptions.length; i++)
                             {
                                 if(i > 0)
-                                    message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {description: winnerDescriptions[i], color: 11553281, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 else
-                                    message.channel.send("", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: winnerTitle.toString(), description: winnerDescriptions[i], color: 11553281, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
 
@@ -429,9 +431,9 @@ class PollCommand extends command.Command
                     for(var i = 0; i < descriptions.length; i++)
                     {
                         if(i > 0)
-                            message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {description: descriptions[i], color: 9633792, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: title.toString(), description: descriptions[i], color: 9633792, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else
@@ -553,9 +555,9 @@ class PollCommand extends command.Command
                     for(var i = 0; i < descriptions.length; i++)
                     {
                         if(i > 0)
-                            message.channel.send("", {embed: {description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {description: descriptions[i], color: 9633792, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         else
-                            message.channel.send("***Poll started***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***Poll started***", {embed: {title: title.toString(), description: descriptions[i], color: 9633792, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                     }
                 }
             } 
