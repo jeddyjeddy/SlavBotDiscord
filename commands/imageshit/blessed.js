@@ -69,6 +69,11 @@ class BlessedCommand extends command.Command
                 }
             }
             
+            if(url.substring(url.length - 5) == ".gifv")
+            {
+                url = url.substring(0, url.length - 5) + ".gif"
+            }
+
             if(title == "" || title == null)
             {
                 title = "***Blessed Image***";
