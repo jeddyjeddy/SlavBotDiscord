@@ -138,6 +138,10 @@ class SharpenCommand extends command.Command
                                     fs.unlink(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
+                              }).on('error', function(err) {
+                                console.log("Sharpen Error:" + err);
+                                fs.unlink(fileTemp, resultHandler);
+                                message.channel.stopTyping();
                               }));
                         })
                     });
@@ -209,6 +213,10 @@ class SharpenCommand extends command.Command
                                     fs.unlink(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
+                              }).on('error', function(err) {
+                                console.log("Sharpen Error:" + err);
+                                fs.unlink(fileTemp, resultHandler);
+                                message.channel.stopTyping();
                               }));
                         })
                     });
