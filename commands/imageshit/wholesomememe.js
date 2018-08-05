@@ -2,16 +2,16 @@ const request = require('request');
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 
-class WholesomeCommand extends command.Command
+class WholesomeMemeCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "wholesome",
+            name: "wholesomememe",
             group: "imageshit",
-            memberName: "wholesome",
-            description: "Gives a random Wholesome Pic from /r/wholesomepics.",
-            examples: ["`!wholesome`"]
+            memberName: "wholesomememe",
+            description: "Gives a random Wholesome Meme from /r/wholesomememes.",
+            examples: ["`!wholesomememe`"]
         });
     }
 
@@ -19,7 +19,7 @@ class WholesomeCommand extends command.Command
     {
         message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
-        var url = "https://www.reddit.com/r/wholesomepics/random/.json";
+        var url = "https://www.reddit.com/r/wholesomememes/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
             
@@ -96,4 +96,4 @@ class WholesomeCommand extends command.Command
     }
 }
 
-module.exports = WholesomeCommand;
+module.exports = WholesomeMemeCommand;
