@@ -9,7 +9,7 @@ class CleanCommand extends command.Command
             name: "clean",
             group: "moderation",
             memberName: "clean",
-            description: "Delete a specified number of messages before the command. Default: 50 messages",
+            description: "Delete a specified number of messages before the command. Default: 50 messages. Max: 100.",
             examples: ["`!clean`", "`!clean <number>`", "`!clean 25`"]
         });
     }
@@ -65,28 +65,7 @@ class CleanCommand extends command.Command
         
         if(number > 100)
         {
-            while(number > 0)
-            {
-                var tempVal = number;
-
-                if(number > 100)
-                {
-                    tempVal = 100;
-                }
-
-                message.channel.fetchMessages({ before: message.id, limit: tempVal })
-                .then(messages => {
-                    message.channel.bulkDelete(messages, true)
-                    message.delete();
-                    message.channel.stopTyping();
-                }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                    console.log(err.message);
-                    message.channel.stopTyping();
-                }); 
-
-                number -= 100;
-            }
+            message.reply("max number of messages is 100").catch(error => console.log("Send Error - " + error));
         }
         else
         {
