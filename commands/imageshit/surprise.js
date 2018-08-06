@@ -9,20 +9,18 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
-
-var responses = ["Gotta go", "I'm out", "Goodbye", "Never mind", "Uh, sorry", "On second thought", "Let's forget this ever happened", "Let's not see each other ever again"]
 var CommandCounter = require("../../index.js")
 
-class GottagoCommand extends command.Command
+class SurpriseCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "gottago",
+            name: "surprise",
             group: "imageshit",
-            memberName: "gottago",
-            description: "***Gotta go.*** This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
-            examples: ["`!gottago`", "`!gottago avatar`", "`!gottago @User`"]
+            memberName: "surprise",
+            description: "***Here's Johnny!*** This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
+            examples: ["`!surprise`", "`!surprise avatar`", "`!surprise @User`"]
         });
     }
 
@@ -93,32 +91,31 @@ class GottagoCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, , use `" + commandPrefix + "help gottago` for help.").catch(error => console.log("Send Error - " + error));
+                    message.reply("no image found, , use `" + commandPrefix + "help surprise` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
                 message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
-                Jimp.read("gottago.png").then(function (GottaGoImage) {
+                Jimp.read("surprise.png").then(function (surpriseImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 80
-                        var y = 350
+                        var x = 150
+                        var y = 370
+    
+                        userImage.cover(300, 430);
 
-                        userImage.cover(185, 215);
-                        userImage.rotate(10);
-
-                        var blank = new Jimp(GottaGoImage.bitmap.width, GottaGoImage.bitmap.height);
+                        var blank = new Jimp(surpriseImage.bitmap.width, surpriseImage.bitmap.height);
                         blank.composite(userImage, x, y)        
         
-                        var mergedImage = blank.composite(GottaGoImage, 0, 0);
+                        var mergedImage = blank.composite(surpriseImage, 0, 0);
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) throw error;
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
+                            message.channel.send("***Here's Johnny!***", {
                                 files: [file]
                             }).then(function(){
                                 message.channel.stopTyping();
@@ -150,7 +147,7 @@ class GottagoCommand extends command.Command
         {
             if(otherUser)
             {
-                console.log("other GottaGo");
+                console.log("other surprise");
                 console.log(userID);
     
                 message.channel.client.fetchUser(userID)
@@ -162,30 +159,29 @@ class GottagoCommand extends command.Command
             }
             else
             {
-                console.log("self GottaGo");
+                console.log("self surprise");
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("gottago.png").then(function (GottaGoImage) {
+            Jimp.read("surprise.png").then(function (surpriseImage) {
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");    
-                    var x = 80
-                    var y = 350
+                    var x = 150
+                    var y = 370
 
-                    userImage.cover(185, 215);
-                    userImage.rotate(10);
+                    userImage.cover(300, 430);
 
-                    var blank = new Jimp(GottaGoImage.bitmap.width, GottaGoImage.bitmap.height);
+                    var blank = new Jimp(surpriseImage.bitmap.width, surpriseImage.bitmap.height);
                     blank.composite(userImage, x, y)        
     
-                    var mergedImage = blank.composite(GottaGoImage, 0, 0);
+                    var mergedImage = blank.composite(surpriseImage, 0, 0);
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) throw error;
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
+                        message.channel.send("***Here's Johnny!***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
@@ -211,4 +207,4 @@ class GottagoCommand extends command.Command
     }
 }
 
-module.exports = GottagoCommand;
+module.exports = SurpriseCommand;

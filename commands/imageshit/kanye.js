@@ -167,9 +167,7 @@ class KanyeCommand extends command.Command
             Jimp.read("Kanye.png").then(function (KanyeImage) {
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    userImage.resize(100, 100);
-    
+                    console.log("got avatar");    
                     var x = 218
                     var y = 500
 
