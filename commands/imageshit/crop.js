@@ -165,7 +165,7 @@ class CropCommand extends command.Command
                     }
                     else if(direction.toLowerCase() == "up")
                     {
-                        if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
+                        if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
                             message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
@@ -180,7 +180,7 @@ class CropCommand extends command.Command
                     }
                     else if(direction.toLowerCase() == "down")
                     {
-                        if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
+                        if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
                             message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
@@ -294,7 +294,7 @@ class CropCommand extends command.Command
                     }
                     else if(direction.toLowerCase() == "up")
                     {
-                        if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
+                        if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
                             message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
@@ -309,7 +309,7 @@ class CropCommand extends command.Command
                     }
                     else if(direction.toLowerCase() == "down")
                     {
-                        if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
+                        if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
                             message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
