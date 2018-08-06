@@ -825,7 +825,7 @@ bot.on("channelCreate", (channel) => {
     }
 })
 
-var welcomeResponses = ["Hail, comrade", "Pass the semechki", "Nice addidas tracksuit", "You're not a Western spy, right?", "Let's see who can squat longer", "Heels touch ground when Slavs are around"];
+var welcomeResponses = ["Hail, comrade,", "Pass the semechki,", "Nice addidas tracksuit,", "You're not a Western spy, right?", "Let's see who can squat longer,", "Heels touch ground when Slavs are around,"];
 
 bot.on("guildMemberAdd", (member) => {
     var hasWelcome = false;
