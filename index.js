@@ -847,7 +847,7 @@ bot.on("guildMemberAdd", (member) => {
         {
             if(channels[i].id == channelID)
             {
-                channels[i].send(welcomeResponses[Math.floor(Math.random * welcomeResponses.length)] + " <@" + member.id + ">").catch(error => console.log("Send Error - " + error));
+                channels[i].send(welcomeResponses[Math.floor(Math.random() * welcomeResponses.length)] + " <@" + member.id + ">").catch(error => console.log("Send Error - " + error));
                 return;
             }
         }
