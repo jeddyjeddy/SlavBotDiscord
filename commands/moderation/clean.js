@@ -9,7 +9,7 @@ class CleanCommand extends command.Command
             name: "clean",
             group: "moderation",
             memberName: "clean",
-            description: "Delete a specified number of messages before the command. Default: 50 messages. Max: 100.",
+            description: "Delete a specified number of messages before the command. Default: 50 messages. Max: 100 messages.",
             examples: ["`!clean`", "`!clean <number>`", "`!clean 25`"]
         });
     }
