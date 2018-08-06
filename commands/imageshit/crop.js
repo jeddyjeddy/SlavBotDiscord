@@ -145,7 +145,7 @@ class CropCommand extends command.Command
                             x = pixelValue;
                             height = userImage.bitmap.height;
                             width = userImage.bitmap.width - pixelValue;
-                            directioDetail = "right";
+                            directioDetail = "left side";
                         }
                     }
                     else if(direction.toLowerCase() == "left")
@@ -160,7 +160,7 @@ class CropCommand extends command.Command
                         {
                             height = userImage.bitmap.height;
                             width = userImage.bitmap.width - pixelValue;
-                            directioDetail = "left";
+                            directioDetail = "right side";
                         }
                     }
                     else if(direction.toLowerCase() == "up")
@@ -274,7 +274,7 @@ class CropCommand extends command.Command
                             x = pixelValue;
                             height = userImage.bitmap.height;
                             width = userImage.bitmap.width - pixelValue;
-                            directioDetail = "right";
+                            directioDetail = "left side";
                         }
                     }
                     else if(direction.toLowerCase() == "left")
@@ -289,7 +289,7 @@ class CropCommand extends command.Command
                         {
                             height = userImage.bitmap.height;
                             width = userImage.bitmap.width - pixelValue;
-                            directioDetail = "left";
+                            directioDetail = "right side";
                         }
                     }
                     else if(direction.toLowerCase() == "up")
