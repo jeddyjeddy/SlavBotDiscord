@@ -91,7 +91,7 @@ class BanCommand extends command.Command
                 }
                 else
                 {
-                    message.reply("banned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                    message.reply("banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
                     member.ban().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
                 }
                 

@@ -842,17 +842,19 @@ bot.on("guildMemberAdd", (member) => {
     if(hasWelcome)
     {
         var channels = member.guild.channels.array();
+        var notFound = true;
 
         for(var i = 0; i < channels.length; i++)
         {
             if(channels[i].id == channelID)
             {
+                notFound = false;
                 channels[i].send(welcomeResponses[Math.floor(Math.random() * welcomeResponses.length)] + " <@" + member.id + ">").catch(error => console.log("Send Error - " + error));
-                return;
             }
         }
 
-        disableWelcomeChannel(member.guild.id);
+        if(notFound)
+            disableWelcomeChannel(member.guild.id);
     }
 })
 
