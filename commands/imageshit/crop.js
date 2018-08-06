@@ -19,7 +19,7 @@ class CropCommand extends command.Command
             name: "crop",
             group: "imageshit",
             memberName: "crop",
-            description: "Adds the crop effect to an image. Add the effect to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "Crop out a number of pixels of an image from a given direction. Crop the last image uploaded, your avatar or the avatar of the user you mentioned in the user parameter.",
             examples: ["`!crop up|200`", "`!crop up|200|@User`", "`!crop up|200|avatar`", "`!crop down|300`", "`!crop left|300`", "`!crop right|150`"]
         });
     }
@@ -201,7 +201,7 @@ class CropCommand extends command.Command
                     userImage.write(file, function(error){
                         if(error) throw error;
                         console.log(file);
-                        message.channel.send("***Cropped out " + pixelValue + "pixels from the " + directioDetail + " of the image.***", {
+                        message.channel.send("***Cropped out " + pixelValue + " pixels from the " + directioDetail + " of the image.***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
@@ -330,7 +330,7 @@ class CropCommand extends command.Command
                     userImage.write(file, function(error){
                         if(error) throw error;
                         console.log(file);
-                        message.channel.send("***Cropped out " + pixelValue + "pixels from the " + directioDetail + " of the image.***", {
+                        message.channel.send("***Cropped out " + pixelValue + " pixels from the " + directioDetail + " of the image.***", {
                             files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
