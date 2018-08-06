@@ -83,6 +83,7 @@ var localChangeResponse = (guildID, setting) => {
 }
 
 var muteData = [{key: "Key", role: "", data: null}]
+var welcomeData = [{key: "Key", channel: ""}]
 
 var getRoleName = (guildID) => {
     for(var i = 0; i < muteData.length; i++)
@@ -291,6 +292,45 @@ var getUserCommandCounter = (userID) => {
     }
     
     return 0;
+}
+
+var setWelcomeChannel = (guildID, channelID) => {
+
+    for(var i = 0; i < welcomeData.length; i++)
+    { 
+        if(welcomeData[i].key == guildID)
+        {
+            if(welcomeData[i].channel == channelID)
+            {
+                return false;
+            }
+            else
+            {
+                welcomeData[i].channel = channelID;
+                firebase.database().ref("serversettings/" + guildID + "/welcomechannel").set(channelID);
+                return true;
+            }
+        }
+    }
+
+    welcomeData.push({key: guildID, channel: channelID})
+    firebase.database().ref("serversettings/" + guildID + "/welcomechannel").set(channelID);
+    return true;
+}
+
+var disableWelcomeChannel = (guildID) => {
+
+    for(var i = 0; i < welcomeData.length; i++)
+    { 
+        if(welcomeData[i].key == guildID)
+        {
+            welcomeData.splice(i, 1);
+            firebase.database().ref("serversettings/" + guildID + "/welcomechannel").remove();
+            return true;
+        }
+    }
+
+    return false;
 }
 
 var commandCounterChange = (userID) => {
@@ -506,6 +546,16 @@ addMutedUser: function(guildID, userID, length)
 removeMutedUser: function(guildID, userID)
 {
     removeMutedUser(guildID, userID);
+},
+
+setWelcome: function(guildID, channelID)
+{
+    return setWelcomeChannel(guildID, channelID);
+},
+
+disableWelcome: function(guildID,)
+{
+    return disableWelcomeChannel(guildID);
 }
 }
 
@@ -717,6 +767,11 @@ var schedule = require('node-schedule');
                         }
                     }
                 }
+
+                if(childSnap.child("welcomechannel").val() != null)
+                {
+                    welcomeData.push({key: childSnap.key, channel: childSnap.child("welcomechannel").val().toString()});
+                }
             })
         }
       })
@@ -767,6 +822,34 @@ bot.on("channelCreate", (channel) => {
                 }
             }
         }).catch((error) => console.log(error.message));
+    }
+})
+
+var welcomeResponses = ["Hail, comrade", "Pass the semechki", "Nice addidas tracksuit", "You're not a Western spy, right?", "Let's see who can squat longer", "Heels touch ground when Slavs are around"];
+
+bot.on("guildMemberAdd", (member) => {
+    var hasWelcome = false;
+    var channelID;
+    for(var i = 0; i < welcomeData.length; i++)
+    {
+        if(welcomeData[i].key == member.guild.id)
+        {
+            channelID = welcomeData[i].channel;
+            hasWelcome = true;
+        }
+    }
+
+    if(hasWelcome)
+    {
+        var channels = member.guild.channels.array();
+
+        for(var i = 0; i < channels.length; i++)
+        {
+            if(channels[i].id == channelID)
+            {
+                channels[i].send(welcomeResponses[Math.floor(Math.random * welcomeResponses.length)] + " <@" + member.id + ">").catch(error => console.log("Send Error - " + error));
+            }
+        }
     }
 })
 
