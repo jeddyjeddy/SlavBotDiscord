@@ -9,8 +9,8 @@ class UnbanCommand extends command.Command
             name: "unban",
             group: "moderation",
             memberName: "unban",
-            description: "Unban a member or members.",
-            examples: ["`!unban @User`", "`!unban @User1 @User2`"]
+            description: "Unban a member or members. Requires the user ID of the user to unban.",
+            examples: ["`!unban <@id>`", "`!unban <@1234> <@51343214>`"]
         });
     }
 
