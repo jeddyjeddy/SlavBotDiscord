@@ -9,7 +9,7 @@ class WelcomeCommand extends command.Command
             name: "welcome",
             group: "util",
             memberName: "welcome",
-            description: "Allows you to set a channel as a welcome channel and Enable Slav Bot's welcome responses on it (for admins only). The welcome channel can be changed at any time by sending the command on another channel. The welcome feature can be disabled again by using the disable parameter.",
+            description: "Allows you to set a channel as a welcome channel and Enable Slav Bot's welcome responses on it that will be sent every time a member joins or leaves (for admins only). The welcome channel can be changed at any time by sending the command on another channel. The welcome feature can be disabled again by using the disable parameter.",
             examples: ["`!welcome`", "`!welcome disable`"]
         });
     }

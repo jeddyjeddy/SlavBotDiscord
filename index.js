@@ -858,6 +858,37 @@ bot.on("guildMemberAdd", (member) => {
     }
 })
 
+bot.on("guildMemberRemove", (member) => {
+    var hasWelcome = false;
+    var channelID;
+    for(var i = 0; i < welcomeData.length; i++)
+    {
+        if(welcomeData[i].key == member.guild.id)
+        {
+            channelID = welcomeData[i].channel;
+            hasWelcome = true;
+        }
+    }
+
+    if(hasWelcome)
+    {
+        var channels = member.guild.channels.array();
+        var notFound = true;
+
+        for(var i = 0; i < channels.length; i++)
+        {
+            if(channels[i].id == channelID)
+            {
+                notFound = false;
+                channels[i].send("We have lost a comrade, " + member.displayName + " has left us.").catch(error => console.log("Send Error - " + error));
+            }
+        }
+
+        if(notFound)
+            disableWelcomeChannel(member.guild.id);
+    }
+})
+
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
     {
