@@ -63,16 +63,44 @@ class CleanCommand extends command.Command
             }
         }
         
-        message.channel.fetchMessages({ before: message.id, limit: number })
-        .then(messages => {
-            message.channel.bulkDelete(messages, true)
-            message.delete();
-            message.channel.stopTyping();
-        }).catch(function (err) {
-            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-            console.log(err.message);
-            message.channel.stopTyping();
-        });
+        if(number > 100)
+        {
+            while(number > 0)
+            {
+                var tempVal = number;
+
+                if(number > 100)
+                {
+                    tempVal = 100;
+                }
+
+                message.channel.fetchMessages({ before: message.id, limit: tempVal })
+                .then(messages => {
+                    message.channel.bulkDelete(messages, true)
+                    message.delete();
+                    message.channel.stopTyping();
+                }).catch(function (err) {
+                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    console.log(err.message);
+                    message.channel.stopTyping();
+                }); 
+
+                number -= 100;
+            }
+        }
+        else
+        {
+            message.channel.fetchMessages({ before: message.id, limit: number })
+            .then(messages => {
+                message.channel.bulkDelete(messages, true)
+                message.delete();
+                message.channel.stopTyping();
+            }).catch(function (err) {
+                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                console.log(err.message);
+                message.channel.stopTyping();
+            });
+        }
     }
 }
 
