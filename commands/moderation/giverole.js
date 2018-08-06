@@ -118,7 +118,14 @@ class GiveroleCommand extends command.Command
                         {
                             var userRole = message.guild.roles.find("name", roles[roleIndex]);
 
-                            member.addRole(userRole).then(message.reply("<@" + user + "> has been given the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                            if(userRole == null)
+                            {
+                                message.reply("the role " + roles[roleIndex] + " does not exist.").catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                member.addRole(userRole).then(message.reply("<@" + user + "> has been given the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                            }
                         }
                     }
                 }).catch(function(error){

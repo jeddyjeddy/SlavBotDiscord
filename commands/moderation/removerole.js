@@ -118,7 +118,14 @@ class RemoveroleCommand extends command.Command
                         {
                             var userRole = message.guild.roles.find("name", roles[roleIndex]);
 
-                            member.removeRole(userRole).then(message.reply("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                            if(userRole == null)
+                            {
+                                message.reply("the role " + roles[roleIndex] + " does not exist.").catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                member.removeRole(userRole).then(message.reply("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                            }
                         }
                     }
                 }).catch(function(error){
