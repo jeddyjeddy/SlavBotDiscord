@@ -85,7 +85,7 @@ class CursedCommand extends command.Command
 
             if(url != null || url != "")
             {
-                message.channel.send(title, {files: [url]}).catch(error => console.log("Send Error - " + error));
+                message.channel.send(title, {files: [url]}).catch(function(error){console.log("Send Error - " + error); message.reply("Error - " + error);});
             }
             else
             {
