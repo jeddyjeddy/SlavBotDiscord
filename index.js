@@ -474,8 +474,8 @@ var getLeaderboardRankings = () =>
     if(leaderboardRankings.length > 10)
         leaderboardRankings.splice(10);
 
-    console.log(userCommandUsage)
-    console.log(leaderboardRankings)
+    console.log("UCU Length " + userCommandUsage.length)
+    console.log("LR Length " + leaderboardRankings)
 
     return leaderboardRankings;
 }
@@ -483,7 +483,7 @@ var getLeaderboardRankings = () =>
 var getLocalLeaderboardRankings = (members) =>
 {
     var leaderboardRankings = [];
-    console.log(userCommandUsage)
+    console.log("UCU Length " + userCommandUsage.length)
 
     for(var i = 0; i < userCommandUsage.length; i++)
     {
@@ -508,7 +508,7 @@ var getLocalLeaderboardRankings = (members) =>
     if(localLeaderboardRankings.length > 10)
         localLeaderboardRankings.splice(10);
 
-    console.log(localLeaderboardRankings)
+    console.log("LLR Length " + localLeaderboardRankings)
 
     return localLeaderboardRankings;
 }
