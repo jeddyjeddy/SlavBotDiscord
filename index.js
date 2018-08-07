@@ -13,7 +13,7 @@ var request = require('request');
 
 dbl.on('posted', () => {
     console.log('Server count posted!');
-
+    console.log(bot.guilds.size)
     // Set the headers
     var headers = {
         'Authorization': process.env.BOTS_FOR_DISCORD_API,
