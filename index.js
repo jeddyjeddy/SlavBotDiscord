@@ -475,7 +475,7 @@ var getLeaderboardRankings = () =>
         leaderboardRankings.splice(10);
 
     console.log("UCU Length " + userCommandUsage.length)
-    console.log("LR Length " + leaderboardRankings)
+    console.log("LR Length " + leaderboardRankings.length)
 
     return leaderboardRankings;
 }
@@ -508,7 +508,7 @@ var getLocalLeaderboardRankings = (members) =>
     if(localLeaderboardRankings.length > 10)
         localLeaderboardRankings.splice(10);
 
-    console.log("LLR Length " + localLeaderboardRankings)
+    console.log("LLR Length " + localLeaderboardRankings.length)
 
     return localLeaderboardRankings;
 }
