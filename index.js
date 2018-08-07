@@ -474,12 +474,16 @@ var getLeaderboardRankings = () =>
     if(leaderboardRankings.length > 10)
         leaderboardRankings.splice(10);
 
+    console.log(userCommandUsage)
+    console.log(leaderboardRankings)
+
     return leaderboardRankings;
 }
 
 var getLocalLeaderboardRankings = (members) =>
 {
     var leaderboardRankings = [];
+    console.log(userCommandUsage)
 
     for(var i = 0; i < userCommandUsage.length; i++)
     {
@@ -503,6 +507,8 @@ var getLocalLeaderboardRankings = (members) =>
 
     if(localLeaderboardRankings.length > 10)
         localLeaderboardRankings.splice(10);
+
+    console.log(localLeaderboardRankings)
 
     return localLeaderboardRankings;
 }
