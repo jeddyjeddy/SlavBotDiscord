@@ -394,10 +394,6 @@ var commandCounterChange = (userID) => {
                                     userCommandUsage[i].data.requestsSent += 1;
                                     firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
-                                else
-                                {
-                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                }
                             }
                             else
                             {
@@ -415,10 +411,6 @@ var commandCounterChange = (userID) => {
                                     userCommandUsage[i].data.requestsSent += 1;
                                     firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                 }
-                                else
-                                {
-                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                }   
                             }
                         });
                     }
@@ -461,10 +453,6 @@ var commandCounterChange = (userID) => {
                             }
                         }); 
                     }
-                }
-                else
-                {
-                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                 }
             });
         }
