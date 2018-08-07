@@ -22,9 +22,13 @@ class SayCommand extends command.Command
         {
             message.channel.send(args.toString()).catch(error => console.log("Send Error - " + error));
 
-            if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
-                message.delete().catch(error => console.log("Delete Error - " + error))
+            if(message.guild != null)
+            {
+                if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
+                    message.delete().catch(error => console.log("Delete Error - " + error))
+                }
             }
+            
         }
         else
         {
