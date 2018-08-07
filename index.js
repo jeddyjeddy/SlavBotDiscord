@@ -52,7 +52,7 @@ var localGetResponse = (guild) => {
         {
             if(snapshot.child("respond").val() == null)
             {
-                responseSettings.push({key: guild.id, respond: true})
+                responseSettings.push({key: guild.id, respond: false})
             }
             else if(snapshot.child("respond").val() === true)
             {
@@ -259,7 +259,7 @@ var migrateServerID = (guild) =>
                     }
                     else
                     {
-                        responseSettings.push({key: guild.id, respond: true});
+                        responseSettings.push({key: guild.id, respond: false});
                     }
                 }
 
