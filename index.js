@@ -468,7 +468,8 @@ var commandCounterChange = (userID) => {
 
 var getLeaderboardRankings = () =>
 {
-    var leaderboardRankings = userCommandUsage.sort(commandUsageAscending);
+    var leaderboardRankings = userCommandUsage;
+    leaderboardRankings.sort(commandUsageAscending);
 
     if(leaderboardRankings.length > 10)
         leaderboardRankings.splice(10);
