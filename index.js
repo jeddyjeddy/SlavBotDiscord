@@ -471,11 +471,14 @@ var getLeaderboardRankings = () =>
     var leaderboardRankings = userCommandUsage;
     leaderboardRankings.sort(commandUsageAscending);
 
+    console.log("UCU Length Before " + userCommandUsage.length)
+    console.log("LR Length Before " + leaderboardRankings.length)
+
     if(leaderboardRankings.length > 10)
         leaderboardRankings.splice(10);
 
-    console.log("UCU Length " + userCommandUsage.length)
-    console.log("LR Length " + leaderboardRankings.length)
+    console.log("UCU Length After " + userCommandUsage.length)
+    console.log("LR Length After " + leaderboardRankings.length)
 
     return leaderboardRankings;
 }
