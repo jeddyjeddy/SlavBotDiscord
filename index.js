@@ -22,7 +22,7 @@ dbl.on('posted', () => {
 
     // Configure the request
     var options = {
-        url: 'https://botsfordiscord.com/api/v1/',
+        url: 'https://botsfordiscord.com/api/v1/bots/' + bot.user.id,
         method: 'POST',
         headers: headers,
         form: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
