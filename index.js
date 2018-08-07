@@ -9,9 +9,32 @@ const dbl = new DBL(process.env.DBL_TOKEN, bot);
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+var request = require('request');
 
 dbl.on('posted', () => {
     console.log('Server count posted!');
+
+    // Set the headers
+    var headers = {
+        'Authorization': process.env.BOTS_FOR_DISCORD_API,
+        'Content-Type': 'application/json'
+    }
+
+    // Configure the request
+    var options = {
+        url: 'https://botsfordiscord.com/api/v1/',
+        method: 'POST',
+        headers: headers,
+        form: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
+    }
+
+    // Start the request
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            console.log(body)
+        }
+    })
 });
     
 dbl.on('error', e => {
