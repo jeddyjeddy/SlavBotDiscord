@@ -370,6 +370,7 @@ var commandCounterChange = (userID) => {
         {
             isStored = true;
             userCommandUsage[index].data.uses += 1;
+            firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
             const i = index;
             dbl.hasVoted(userID).then(voted => {
                 if (!voted)
