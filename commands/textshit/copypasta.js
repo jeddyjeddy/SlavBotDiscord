@@ -37,76 +37,7 @@ class CopypastaCommand extends command.Command
                 return;
             }
 
-            var slices = [];
-            if(selftext.length > 2000)
-            {
-                console.log("too long")
-                var division = Math.floor(selftext.length / 2000);
-                var start = 0;
-                for(var i = 1; i <= division; i++)
-                {
-                    slices.push(selftext.slice(start * 2000, i * 2000));
-                    start += 1;
-                }
-
-                if(selftext.length / 2000 > division)
-                {
-                    var index = 0;
-                    for(var i = 0; i < slices.length; i++)
-                    {
-                        index = index + slices[i].length;
-                    }
-
-                    slices.push(selftext.slice(index, selftext.length));
-                }
-
-                for(var i = 0; i < slices.length; i++)
-                {
-                    var shiftText = "";
-                    if(i == slices.length - 1)
-                    {
-                        if(slices[i].length > 2000)
-                        {
-                            var cut = 0;
-                            for(var index = slices[i].length - 1; index >= 0; index--)
-                            {
-                                if(slices[i][index] == " ")
-                                {
-                                    cut = index;
-                                    index = -1;
-                                }
-                            }
-                            shiftText = slices[i].slice(cut, slices[i].length);
-                            slices[i] = slices[i].slice(0, cut);
-                            slices.push(shiftText);
-                        }
-                    }
-                    else
-                    {
-                        var cut = 0;
-                        for(var index = slices[i].length - 1; index >= 0; index--)
-                        {
-                            if(slices[i][index] == " ")
-                            {
-                                cut = index;
-                                index = -1;
-                            }
-                        }
-                        shiftText = slices[i].slice(cut, slices[i].length);
-                        slices[i] = slices[i].slice(0, cut);
-                        slices[i + 1] = shiftText + slices[i + 1];
-                    }
-                }
-
-                for(var i = 0; i < slices.length; i++)
-                {
-                    message.channel.send(slices[i]).catch(error => console.log("Send Error - " + error)); 
-                }
-            }
-            else
-            {
-                message.channel.send(selftext).catch(error => console.log("Send Error - " + error));
-            }
+            message.channel.send(selftext, {split: true}).catch(error => console.log("Send Error - " + error));
         });
         message.channel.stopTyping();
     }
