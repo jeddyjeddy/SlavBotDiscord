@@ -17,10 +17,8 @@ class CadeCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         message.channel.send("", {embed: {color: 63487, description: "```" + catMe() + "```"}}).catch(error => console.log("Send Error - " + error));
-        message.channel.stopTyping();
     }
 }
 

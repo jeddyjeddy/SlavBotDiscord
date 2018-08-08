@@ -17,7 +17,6 @@ class Magic8BallCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id);
         if(args.length > 0)
         {
@@ -25,10 +24,8 @@ class Magic8BallCommand extends command.Command
         }
         else
         {
-            message.reply("please ask a question.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Please ask a question.").catch(error => console.log("Send Error - " + error));
         }
-
-        message.channel.stopTyping();
     }
 }
 

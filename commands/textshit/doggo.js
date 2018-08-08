@@ -17,7 +17,6 @@ class DoggoCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var random = Math.floor(Math.random() * 3);
         if(random == 0)
@@ -26,8 +25,6 @@ class DoggoCommand extends command.Command
             message.channel.send("", {embed: {color: 63487, description: "```" + dogs.dog() + "```"}}).catch(error => console.log("Send Error - " + error));
         if(random == 2)
             message.channel.send("", {embed: {color: 63487, description: "```" + dogs.bulldog() + "```"}}).catch(error => console.log("Send Error - " + error));
-            
-        message.channel.stopTyping();
     }
 }
 

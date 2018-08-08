@@ -16,14 +16,11 @@ class GayCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
 CommandCounter.addCommandCounter(message.author.id)
         message.channel.send("No home of sexuals", {files: ["gay" + Math.floor(Math.random() * 5) + ".jpg"]}).then(function(){
-            message.channel.stopTyping();
         }).catch(function (err) {
-            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
             console.log(err.message);
-            message.channel.stopTyping();
         });;
     }
 }

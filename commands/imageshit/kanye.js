@@ -91,11 +91,11 @@ class KanyeCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, , use `" + commandPrefix + "help kanye` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help kanye` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read("Kanye.png").then(function (KanyeImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -113,7 +113,7 @@ class KanyeCommand extends command.Command
                         var mergedImage = blank.composite(KanyeImage, 0, 0);
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
                             message.channel.send("***Thank you Kanye, very cool!***", {
@@ -122,7 +122,7 @@ class KanyeCommand extends command.Command
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
@@ -130,7 +130,7 @@ class KanyeCommand extends command.Command
                             console.log("Message Sent");
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -139,7 +139,7 @@ class KanyeCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -180,7 +180,7 @@ class KanyeCommand extends command.Command
                     var mergedImage = blank.composite(KanyeImage, 0, 0);
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
                         message.channel.send("***Thank you Kanye, very cool!***", {
@@ -189,7 +189,7 @@ class KanyeCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -197,7 +197,7 @@ class KanyeCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });

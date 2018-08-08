@@ -92,11 +92,11 @@ class SepiaCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help sepia` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help sepia` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image for sepia");
         
@@ -104,7 +104,7 @@ class SepiaCommand extends command.Command
     
                     var file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Sepia***", {
                             files: [file]
@@ -112,7 +112,7 @@ class SepiaCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -120,12 +120,12 @@ class SepiaCommand extends command.Command
                         console.log("Message Sent");
                     })
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 }); 
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -160,7 +160,7 @@ class SepiaCommand extends command.Command
     
                     var file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Sepia***", {
                             files: [file]
@@ -168,7 +168,7 @@ class SepiaCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -176,7 +176,7 @@ class SepiaCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });     

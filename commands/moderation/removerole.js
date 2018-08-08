@@ -22,16 +22,15 @@ class RemoveroleCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("MANAGE_ROLES")){
-            message.reply("Slav Bot does not have the Administrator or Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot does not have the Administrator or Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
         
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_ROLES")){
-            message.reply("this command is only available to those with the Administrator or Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator or Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var users = [];
 
@@ -75,8 +74,7 @@ class RemoveroleCommand extends command.Command
 
             if(users.length == 0)
             {
-                message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
                 return;
             }  
 
@@ -99,8 +97,7 @@ class RemoveroleCommand extends command.Command
 
             if(roles.length == 0)
             {
-                message.reply("no roles mentioned.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No roles mentioned.").catch(error => console.log("Send Error - " + error));
                 return;
             }
 
@@ -112,7 +109,7 @@ class RemoveroleCommand extends command.Command
                     {
                         if(member.id == message.guild.owner.id)
                         {
-                            message.reply("you cannot remove a role to the owner of the server via a command. This must be done manually.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> You cannot remove a role to the owner of the server via a command. This must be done manually.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
@@ -120,26 +117,24 @@ class RemoveroleCommand extends command.Command
 
                             if(userRole == null)
                             {
-                                message.reply("the role " + roles[roleIndex] + " does not exist.").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> The role " + roles[roleIndex] + " does not exist.").catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
-                                member.removeRole(userRole).then(message.reply("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                member.removeRole(userRole).then(message.channel.send("<@" + user + "> no longer has the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                             }
                         }
                     }
                 }).catch(function(error){
                     console.log(error.message);
-                    message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
                 })
             }
 
-            message.channel.stopTyping();
         }
         else
         {
-            message.reply("no users mentioned or roles.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> No users mentioned or roles.").catch(error => console.log("Send Error - " + error));
             return;
         }
     }

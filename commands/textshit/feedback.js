@@ -30,7 +30,6 @@ class FeedbackCommand extends command.Command
         {
             firebase.database().ref("blacklist").once('value').then(function(snapshot) {
                 var blackList = JSON.parse(snapshot.val());  
-                message.channel.startTyping();
         
                 var blackListed = false;
 
@@ -46,7 +45,7 @@ class FeedbackCommand extends command.Command
                 {
                     if(blackListed)
                     {
-                        message.reply("The owner has blacklisted you due to missuse of the feedback command. Your feedback will not be sent.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> The owner has blacklisted you due to missuse of the feedback command. Your feedback will not be sent.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {
@@ -84,15 +83,15 @@ class FeedbackCommand extends command.Command
                                 var params = args.toString().split("|");
                                 if(params.length < 2)
                                 {
-                                    message.reply("add text for reply")
+                                    message.channel.send("<@" + message.author.id + "> Add text for channel.send")
                                     return;
                                 }
                                 var text = params[1];
 
                                 message.channel.client.fetchUser(userID)
                                 .then(user => {
-                                        user.send("***Reply from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
-                                        message.reply("Message sent: " + text).catch(error => console.log("Send Error - " + error));
+                                        user.send("***channel.send from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> Message sent: " + text).catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                         console.log(rejection.message);
                                 });
@@ -103,7 +102,7 @@ class FeedbackCommand extends command.Command
                             message.channel.client.fetchUser("281876391535050762")
                             .then(user => {
                                     user.send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
-                                    message.reply("thank you for your feedback!").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + "> Thank you for your feedback!").catch(error => console.log("Send Error - " + error));
                             }, rejection => {
                                     console.log(rejection.message);
                             });
@@ -112,10 +111,8 @@ class FeedbackCommand extends command.Command
                 }
                 else
                 {
-                    message.reply("no feedback given in command.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No feedback given in command.").catch(error => console.log("Send Error - " + error));
                 }
-
-                message.channel.stopTyping();
             }); 
         } 
         else

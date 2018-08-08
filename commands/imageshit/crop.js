@@ -88,7 +88,7 @@ class CropCommand extends command.Command
         {
             if(direction.toLowerCase() != "left" && direction.toLowerCase() != "right" && direction.toLowerCase() != "up" && direction.toLowerCase() != "down")
             {
-                message.reply("invalid direction parameter, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Invalid direction parameter, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                 message.channel.stopTyping();
                 return;
             }
@@ -116,11 +116,11 @@ class CropCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to crop");
                     
@@ -136,7 +136,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the width of the given image and greater than 0 for a right directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the width of the given image and greater than 0 for a right directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -152,7 +152,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the width of the given image and greater than 0 for a left directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the width of the given image and greater than 0 for a left directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -167,7 +167,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -182,7 +182,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -199,7 +199,7 @@ class CropCommand extends command.Command
     
                     var file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Cropped out " + pixelValue + " pixels from the " + directioDetail + " of the image.***", {
                             files: [file]
@@ -208,7 +208,7 @@ class CropCommand extends command.Command
                             fs.unlink(file, resultHandler);
 
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -217,12 +217,12 @@ class CropCommand extends command.Command
                         console.log("Message Sent");
                     })
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 }); 
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -265,7 +265,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the width of the given image and greater than 0 for a right directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the width of the given image and greater than 0 for a right directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -281,7 +281,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.width || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the width of the given image and greater than 0 for a left directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the width of the given image and greater than 0 for a left directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -296,7 +296,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the height of the given image and greater than 0 for a upper directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -311,7 +311,7 @@ class CropCommand extends command.Command
                     {
                         if(pixelValue >= userImage.bitmap.height || pixelValue <= 0)
                         {
-                            message.reply("the pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> The pixel parameter given must be less than the height of the given image and greater than 0 for a downward directional crop. You have given a value of " + pixelValue + " for an image with a resolution of " + userImage.bitmap.width + "x" + userImage.bitmap.height + ". Use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -328,7 +328,7 @@ class CropCommand extends command.Command
     
                     var file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Cropped out " + pixelValue + " pixels from the " + directioDetail + " of the image.***", {
                             files: [file]
@@ -336,7 +336,7 @@ class CropCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -344,7 +344,7 @@ class CropCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });     
@@ -354,11 +354,11 @@ class CropCommand extends command.Command
         {
             if(direction == "")
             {
-                message.reply("no direction parameter given, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> No direction parameter given, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
             }
             else if(pixels == "")
             {
-                message.reply("no pixel parameter given, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> No pixel parameter given, use `" + commandPrefix + "help crop` for help.").catch(error => console.log("Send Error - " + error));
             }
 
             message.channel.stopTyping();

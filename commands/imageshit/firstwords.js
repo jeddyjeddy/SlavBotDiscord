@@ -251,11 +251,11 @@ class FirstwordsCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.reply("no image found, use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
-                        message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -281,14 +281,14 @@ class FirstwordsCommand extends command.Command
                                 firstwordsImage.composite(userImage, x, y).composite(userImage, x2, 550).composite(userImageSmaller, x3, 270).print(font, 100, 20, firstWords).print(font, 100, 410, editText).print(font, 100, 440, editTextExtra).print(font, 100, 470, editTextExtra2)
                                 .print(font, 100, 500, editTextExtra3).print(font, 190, 530, editTextExtra4).print(font, 220, 560, editTextExtra5)
                                 .print(font, 260, 600, editTextExtra6).write(file, function(error){  
-                                    if(error) throw error;
+                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 message.channel.send("***The baby's first words...***", {
                                             files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -302,7 +302,7 @@ class FirstwordsCommand extends command.Command
                             console.log(err.message);
                             message.channel.stopTyping();});
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -324,14 +324,14 @@ class FirstwordsCommand extends command.Command
                                 firstwordsImage.composite(userImage, 60, 70).composite(userImage, 20, 550).composite(userImageSmaller, 460, 270).print(font, 100, 20, firstWords).print(font, 100, 410, editText).print(font, 100, 440, editTextExtra).print(font, 100, 470, editTextExtra2)
                                 .print(font, 100, 500, editTextExtra3).print(font, 190, 530, editTextExtra4).print(font, 220, 560, editTextExtra5)
                                 .print(font, 260, 600, editTextExtra6).write(file, function(error){  
-                                    if(error) throw error;
+                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 message.channel.send("***The baby's first words...***", {
                                             files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -395,14 +395,14 @@ class FirstwordsCommand extends command.Command
                                             firstwordsImage.composite(userImage, 60, 70).composite(userImage, 20, 550).composite(userImageSmaller, 460, 270).print(font, 100, 20, firstWords).print(font, 100, 410, editText).print(font, 100, 440, editTextExtra).print(font, 100, 470, editTextExtra2)
                                             .print(font, 100, 500, editTextExtra3).print(font, 190, 530, editTextExtra4).print(font, 220, 560, editTextExtra5)
                                             .print(font, 260, 600, editTextExtra6).write(file, function(error){  
-                                                if(error) throw error;
+                                                if(error) {message.channel.stopTyping(); console.log(error); return;};
                                             message.channel.send("***The baby's first words...***", {
                                                         files: [file]
                                             }).then(function(){
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                 console.log(err.message);
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
@@ -421,7 +421,7 @@ class FirstwordsCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("no image option mentioned after seperator. Use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -437,14 +437,14 @@ class FirstwordsCommand extends command.Command
                         firstwordsImage.print(font, 100, 20, firstWords).print(font, 100, 410, editText).print(font, 100, 440, editTextExtra).print(font, 100, 470, editTextExtra2)
                         .print(font, 100, 500, editTextExtra3).print(font, 190, 530, editTextExtra4).print(font, 220, 560, editTextExtra5)
                         .print(font, 260, 600, editTextExtra6).write(file, function(error){  
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                         message.channel.send("***The baby's first words...***", {
                                     files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -460,9 +460,9 @@ class FirstwordsCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.reply("a maximum of 100 characters are only allowed.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> A maximum of 100 characters are only allowed.").catch(error => console.log("Send Error - " + error));
             else
-                message.reply("please give text for the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => console.log("Send Error - " + error));
 
             message.channel.stopTyping();
         }

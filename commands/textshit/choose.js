@@ -17,7 +17,6 @@ class ChooseCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
@@ -39,8 +38,7 @@ class ChooseCommand extends command.Command
             
             if(options.length <= 1)
             {
-                message.reply("you need to give at least 2 options.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> You need to give at least 2 options.").catch(error => console.log("Send Error - " + error));
                 return;
             }
             else
@@ -50,9 +48,8 @@ class ChooseCommand extends command.Command
         }
         else
         {
-            message.reply("no options given.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> No options given.").catch(error => console.log("Send Error - " + error))
         }
-        message.channel.stopTyping();
     }
 }
 

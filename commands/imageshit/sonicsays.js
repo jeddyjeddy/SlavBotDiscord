@@ -149,14 +149,14 @@ class SonicsaysCommand extends command.Command
                         sonicImage.print(font, 90, 70, editText).print(font, 90, 90, editTextExtra).print(font, 90, 110, editTextExtra2)
                          .print(font, 90, 130, editTextExtra3).print(font, 90, 150, editTextExtra4).print(font, 90, 170, editTextExtra5)
                          .print(font, 90, 190, editTextExtra6).write(file, function(error){ 
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                         message.channel.send("***Sonic says...***", {
                                     files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -171,9 +171,9 @@ class SonicsaysCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.reply("a maximum of 140 characters are only allowed.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> A maximum of 140 characters are only allowed.").catch(error => console.log("Send Error - " + error));
             else
-                message.reply("please give text for the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => console.log("Send Error - " + error));
 
             message.channel.stopTyping();
         }

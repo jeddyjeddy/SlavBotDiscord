@@ -16,7 +16,6 @@ class ReverseCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
 
         if(args.length > 0)
@@ -31,10 +30,8 @@ class ReverseCommand extends command.Command
         }
         else
         {
-            message.reply("no text given for command.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> No text given for command.").catch(error => console.log("Send Error - " + error))
         }
-
-        message.channel.stopTyping();
     }
 }
 

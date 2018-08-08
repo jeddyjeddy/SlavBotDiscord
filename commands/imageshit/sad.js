@@ -80,14 +80,14 @@ class SadCommand extends command.Command
                 Jimp.read("sad.png").then(function (sadImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
                          sadImage.print(font, 190, 55, editText).print(font, 190, 85, editTextExtra).print(font, 190, 115, editTextExtra2).write(file, function(error){
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                         message.channel.send("*This is so sad...*", {
                                     files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             fs.unlink(file, resultHandler);
                         });
@@ -100,14 +100,14 @@ class SadCommand extends command.Command
                 Jimp.read("sad.png").then(function (sadImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
                          sadImage.print(font, 190, 85, editText).print(font, 190, 115, editTextExtra).write(file, function(error){
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                         message.channel.send("*This is so sad...*", {
                                     files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -122,7 +122,7 @@ class SadCommand extends command.Command
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
                          sadImage.print(font, 190, 90, editText)
                                 .write(file, function(error){
-                                    if(error) throw error;
+                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 
                         message.channel.send("*This is so sad...*", {
                                     files: [file]
@@ -130,7 +130,7 @@ class SadCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -146,9 +146,9 @@ class SadCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.reply("a maximum of 86 characters are only allowed.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> A maximum of 86 characters are only allowed.").catch(error => console.log("Send Error - " + error));
             else
-                message.reply("please give text for the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => console.log("Send Error - " + error));
                 
              message.channel.stopTyping();
         }

@@ -22,16 +22,15 @@ class UnbanCommand extends command.Command
         }
         
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("BAN_MEMBERS")){
-            message.reply("Slav Bot does not have the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot does not have the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("BAN_MEMBERS")){
-            message.reply("this command is only available to those with the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
 
         var users = [];
@@ -71,27 +70,23 @@ class UnbanCommand extends command.Command
 
             if(users.length == 0)
             {
-                message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
                 return;
             }
         }
         else
         {
-            message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
             return;
         }
         
         for(var i = 0; i < users.length; i++)
         {
-            message.guild.unban(users[i]).then(message.reply("unbanned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))).catch(function(error){
+            message.guild.unban(users[i]).then(message.channel.send("Unbanned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))).catch(function(error){
                 console.log(error.message);
-                message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
             })
         }
-        message.channel.stopTyping();
     }
 }
 

@@ -59,7 +59,7 @@ class ClassCommand extends command.Command
 
                 if(urls.length == 0)
                 {
-                    message.reply("no images found, use `" + commandPrefix + "help class` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No images found, use `" + commandPrefix + "help class` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
@@ -69,7 +69,7 @@ class ClassCommand extends command.Command
                     urls.push("blank.png")
                 }
 
-                message.reply("***taking images***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking images***").catch(error => console.log("Send Error - " + error));
                 Jimp.read("class.png").then(function (classImage) {
                     console.log("got image");
                     var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
@@ -96,7 +96,7 @@ class ClassCommand extends command.Command
                                 
                                             var file = shortid.generate() + ".png"
                                             mergedImage.write(file, function(error){
-                                                if(error) throw error;
+                                                if(error) {message.channel.stopTyping(); console.log(error); return;};
                                                 console.log("got merged image");
                                                 console.log(file);
                                                 message.channel.send("***Choose your class:***", {
@@ -106,7 +106,7 @@ class ClassCommand extends command.Command
                     
                                                     fs.unlink(file, resultHandler);
                                                 }).catch(function (err) {
-                                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                     console.log(err.message);
                                                     message.channel.stopTyping();
                                                     fs.unlink(file, resultHandler);
@@ -114,32 +114,32 @@ class ClassCommand extends command.Command
                                                 console.log("Message Sent");
                                             });
                                         }).catch(function (err) {
-                                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                             console.log(err.message);
                                             message.channel.stopTyping();
                                         });
                                     }).catch(function (err) {
-                                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                         console.log(err.message);
                                         message.channel.stopTyping();
                                     });
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                 });
                             }).catch(function (err) {
-                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                 console.log(err.message);
                                 message.channel.stopTyping();
                             });
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -148,7 +148,7 @@ class ClassCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -236,7 +236,7 @@ class ClassCommand extends command.Command
                             
                                         var file = shortid.generate() + ".png"
                                         mergedImage.write(file, function(error){
-                                            if(error) throw error;
+                                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                                             console.log("got merged image");
                                             console.log(file);
                                             message.channel.send("***Choose your class:***", {
@@ -246,7 +246,7 @@ class ClassCommand extends command.Command
                 
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                 console.log(err.message);
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
@@ -254,32 +254,32 @@ class ClassCommand extends command.Command
                                             console.log("Message Sent");
                                         });
                                     }).catch(function (err) {
-                                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                         console.log(err.message);
                                         message.channel.stopTyping();
                                     });
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                 });
                             }).catch(function (err) {
-                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                 console.log(err.message);
                                 message.channel.stopTyping();
                             });
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });

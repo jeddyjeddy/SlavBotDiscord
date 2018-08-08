@@ -22,16 +22,15 @@ class BanCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("BAN_MEMBERS")){
-            message.reply("Slav Bot does not have the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot does not have the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
         
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("BAN_MEMBERS")){
-            message.reply("this command is only available to those with the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator or Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var users = [];
 
@@ -70,15 +69,13 @@ class BanCommand extends command.Command
             console.log(users)
             if(users.length == 0)
             {
-                message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
                 return;
             }
         }
         else
         {
-            message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
             return;
         }
         
@@ -87,19 +84,17 @@ class BanCommand extends command.Command
             message.guild.fetchMember(users[i]).then(function(member){
                 if(member.id == message.guild.owner.id)
                 {
-                    message.reply("you cannot ban the owner of the server.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> You cannot ban the owner of the server.").catch(error => console.log("Send Error - " + error));
                 }
                 else
                 {
-                    message.reply("banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
-                    member.ban().catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                    message.channel.send("<@" + message.author.id + "> Banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
+                    member.ban().catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                 }
                 
-                message.channel.stopTyping();
             }).catch(function(error){
                 console.log(error.member);
-                message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
             })
         }
     }

@@ -109,7 +109,7 @@ class TictacCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("incorrect response.  Please respond with either `" + commandPrefix + "tictac accept` to accept or `" + commandPrefix + "tictac decline` to decline.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> Incorrect response.  Please respond with either `" + commandPrefix + "tictac accept` to accept or `" + commandPrefix + "tictac decline` to decline.").catch(error => console.log("Send Error - " + error));
                         }
                     }
                     else if(sessions[i].started)
@@ -130,7 +130,7 @@ class TictacCommand extends command.Command
                                         var played = true;
                                         if(args.length > 2 || args.length == 0)
                                         {
-                                            message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
+                                            message.channel.send("<@" + message.author.id + "> Incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                         }
                                         else
                                         {
@@ -142,7 +142,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -154,7 +154,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -166,7 +166,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -178,7 +178,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -190,7 +190,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -202,7 +202,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -214,7 +214,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -226,7 +226,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -238,14 +238,14 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
                                             else
                                             {
                                                 played= false;
-                                                message.reply("incorrect format. Use " + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
+                                                message.channel.send("<@" + message.author.id + "> Incorrect format. Use " + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                             }
                                             if(played)
                                             {
@@ -256,7 +256,7 @@ class TictacCommand extends command.Command
                                     }
                                     else
                                     {
-                                        message.reply("it's <@" + sessions[i].user + ">'s turn.").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> It's <@" + sessions[i].user + ">'s turn.").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                                 else
@@ -266,7 +266,7 @@ class TictacCommand extends command.Command
                                         var played = true;
                                         if(args.length > 2 || args.length == 0)
                                         {
-                                            message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `"+ commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
+                                            message.channel.send("<@" + message.author.id + "> Incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `"+ commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                         }
                                         else
                                         {
@@ -278,7 +278,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -290,7 +290,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -302,7 +302,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -314,7 +314,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -326,7 +326,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -338,7 +338,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -350,7 +350,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -362,7 +362,7 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
@@ -374,14 +374,14 @@ class TictacCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.reply("that box is already occupied.").catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> That box is already occupied.").catch(error => console.log("Send Error - " + error));
                                                     played = false;
                                                 }
                                             }
                                             else
                                             {
                                                 played = false;
-                                                message.reply("incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
+                                                message.channel.send("<@" + message.author.id + "> Incorrect format. Use `" + commandPrefix + "tictac <row-column>` to place your mark. Example: `" + commandPrefix + "tictac a1`").catch(error => console.log("Send Error - " + error))
                                             }
                                             if(played)
                                             {
@@ -392,7 +392,7 @@ class TictacCommand extends command.Command
                                     }
                                     else
                                     {
-                                        message.reply("it's <@" + sessions[i].owner + ">'s turn.").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> It's <@" + sessions[i].owner + ">'s turn.").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                                 var sessionCopy = sessions[i];
@@ -1205,33 +1205,33 @@ class TictacCommand extends command.Command
                                                     }
                                                     var file = shortid.generate() + ".png"
                                                     tictacImage.write(file, function(error){
-                                                        if(error) throw error;
+                                                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                                                         message.channel.send("", {
                                                             files: [file]
                                                         }).then(function(){
                                                                 fs.unlink(file, resultHandler);
                                                               
                                                         }).catch(function (err) {
-                                                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                             console.log(err.message);
                                                             fs.unlink(file, resultHandler);
 
                                                         });
                                                 });
                                             }).catch(function (err) {
-                                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                 console.log(err.message);
                                             });
                                         }).catch(function (err) {
-                                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                             console.log(err.message);
                                         });
                                     }).catch(function (err) {
-                                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                         console.log(err.message);
                                     });
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                 });
                             }
@@ -1243,7 +1243,7 @@ class TictacCommand extends command.Command
                     }
                     else
                     {
-                        message.reply("a request for a game has already been made. Please wait until that game ends or the request expires.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> A request for a game has already been made. Please wait until that game ends or the request expires.").catch(error => console.log("Send Error - " + error));
                     }
                 }
             }
@@ -1325,7 +1325,7 @@ class TictacCommand extends command.Command
             }
             else
             {
-                message.reply("please tag another user after the command to create a game session.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please tag another user after the command to create a game session.").catch(error => console.log("Send Error - " + error));
                 message.channel.stopTyping();
                 return;
             }

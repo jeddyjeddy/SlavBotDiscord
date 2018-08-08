@@ -99,11 +99,11 @@ class SharpenCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help sharpen` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help sharpen` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to sharpen");
                     var fileTemp = "";
@@ -117,7 +117,7 @@ class SharpenCommand extends command.Command
                     }
                     
                     userImage.write(fileTemp, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(fileTemp);
 
                         Filter.render(fileTemp, imageEffect, function(result)
@@ -131,7 +131,7 @@ class SharpenCommand extends command.Command
                                     fs.unlink(file, resultHandler);
                                     fs.unlink(fileTemp, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -146,12 +146,12 @@ class SharpenCommand extends command.Command
                         })
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 }); 
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -192,7 +192,7 @@ class SharpenCommand extends command.Command
                     }
                     
                     userImage.write(fileTemp, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log(fileTemp);
 
                         Filter.render(fileTemp, imageEffect, function(result)
@@ -206,7 +206,7 @@ class SharpenCommand extends command.Command
                                     fs.unlink(file, resultHandler);
                                     fs.unlink(fileTemp, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -221,7 +221,7 @@ class SharpenCommand extends command.Command
                         })
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });     

@@ -31,7 +31,6 @@ class PollCommand extends command.Command
         if(!signedIntoFirebase)
             return;
 
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
@@ -75,7 +74,6 @@ class PollCommand extends command.Command
 
                 classRef.run(message, args);
             });
-            message.channel.stopTyping();
             return;
         }
 
@@ -229,7 +227,7 @@ class PollCommand extends command.Command
                 else
                 {
                     if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
-                        message.reply("other than the owner of the poll, only admins and those with the manage channels or manage messages permissions can end polls.").catch(error => console.log("Send Error - " + error))
+                        message.channel.send("<@" + message.author.id + "> Other than the owner of the poll, only admins and those with the manage channels or manage messages permissions can end polls.").catch(error => console.log("Send Error - " + error))
                     }
                     else
                     {
@@ -377,7 +375,7 @@ class PollCommand extends command.Command
             }
             else
             {
-                message.reply("there is no on-going poll in this channel.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> There is no on-going poll in this channel.").catch(error => console.log("Send Error - " + error));
             }
         }
         else
@@ -440,7 +438,7 @@ class PollCommand extends command.Command
                 {
                     if(isNaN(args.toString()))
                     {
-                        message.reply("you must give the number of the option you wish to vote for. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> You must give the number of the option you wish to vote for. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {
@@ -464,7 +462,7 @@ class PollCommand extends command.Command
                         
                         if(hasVoted)
                         {
-                            message.reply("you have already voted for this option.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> You have already voted for this option.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
@@ -481,7 +479,7 @@ class PollCommand extends command.Command
                             }
                             else
                             {
-                                message.reply("there is no option for the number you have given. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> There is no option for the number you have given. Use `" + commandPrefix + "poll` to show the options for the current poll.").catch(error => console.log("Send Error - " + error));
                             }
                         }
                     }
@@ -494,7 +492,7 @@ class PollCommand extends command.Command
 
                 if(parameters.length < 3)
                 {
-                    message.reply("a poll requires a title and at least 2 options.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> A poll requires a title and at least 2 options.").catch(error => console.log("Send Error - " + error));
                 }
                 else
                 {
@@ -503,7 +501,7 @@ class PollCommand extends command.Command
                     if(title.length > 256)
                     {
                         title = title.splice(256).toString();
-                        message.reply("the poll title is too long. Title has been shortened.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> The poll title is too long. Title has been shortened.").catch(error => console.log("Send Error - " + error));
                     }
 
                     parameters.shift();
@@ -571,7 +569,6 @@ class PollCommand extends command.Command
             }
         }
 
-        message.channel.stopTyping();
     }
 }
 

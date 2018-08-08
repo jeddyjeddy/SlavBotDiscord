@@ -15,9 +15,7 @@ class ShareCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
-        message.reply("Join the support server: https://discord.gg/2T259Pf").catch(error => console.log("Send Error - " + error));
-        message.channel.stopTyping();
+        message.channel.send("Join the support server: https://discord.gg/2T259Pf").catch(error => console.log("Send Error - " + error));
     }
 }
 

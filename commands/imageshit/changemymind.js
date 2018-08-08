@@ -77,11 +77,11 @@ class ChangemymindCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.reply("no image found, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
-                        message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -108,14 +108,14 @@ class ChangemymindCommand extends command.Command
                                 userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                    if(error) throw error;
+                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 message.channel.send("***Change My Mind***", {
                                             files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -129,7 +129,7 @@ class ChangemymindCommand extends command.Command
                             console.log(err.message);
                             message.channel.stopTyping();});
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -162,14 +162,14 @@ class ChangemymindCommand extends command.Command
                                 userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                    if(error) throw error;
+                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 message.channel.send("***Change My Mind***", {
                                             files: [file]
                                 }).then(function(){
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -245,14 +245,14 @@ class ChangemymindCommand extends command.Command
                                             userImage.rotate(-24);
 
                                             freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                                if(error) throw error;
+                                                if(error) {message.channel.stopTyping(); console.log(error); return;};
                                             message.channel.send("***Change My Mind***", {
                                                         files: [file]
                                             }).then(function(){
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                                 console.log(err.message);
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
@@ -271,7 +271,7 @@ class ChangemymindCommand extends command.Command
                         }
                         else
                         {
-                            message.reply("no image option mentioned after seperator. Use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
                             message.channel.stopTyping();
                             return;
                         }
@@ -295,14 +295,14 @@ class ChangemymindCommand extends command.Command
                         textImage.rotate(textRot);
 
                         freeImage.composite(textImage, textX, textY).write(file, function(error){  
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                         message.channel.send("***Change My Mind***", {
                                     files: [file]
                         }).then(function(){
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -318,10 +318,11 @@ class ChangemymindCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.reply("character limit for the text parameter is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
             else
-             message.reply("incorrect parameters, text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> Incorrect parameters, text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => console.log("Send Error - " + error));
+        
+             message.channel.stopTyping();
         }
     }
 }

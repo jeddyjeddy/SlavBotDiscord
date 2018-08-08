@@ -65,7 +65,7 @@ class CNNCommand extends command.Command
 
         if(headline == "" && ticker == "")
         {
-            message.reply("all parameters not filled. Use `" + commandPrefix + "help cnn` for help.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> all parameters not filled. Use `" + commandPrefix + "help cnn` for help.").catch(error => console.log("Send Error - " + error))
         }
         console.log(headline.toUpperCase())
         console.log(ticker.toUpperCase())
@@ -88,11 +88,11 @@ class CNNCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `!help cnn` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `!help cnn` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read("cnn.png").then(function (cnnImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -126,7 +126,7 @@ class CNNCommand extends command.Command
                                     var mergedImage = userImage.composite(cnnImage, 0, 0 );
                                     var file = shortid.generate() + ".png"
                                     mergedImage.write(file, function(error){
-                                        if(error) throw error;
+                                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                                         console.log("got merged image cnn");
                                         console.log(file);
                                         message.channel.send("***Breaking News***", {
@@ -135,7 +135,7 @@ class CNNCommand extends command.Command
                                             fs.unlink(file, resultHandler);
                                             message.channel.stopTyping();
                                         }).catch(function (err) {
-                                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                             console.log(err.message);
                                             message.channel.stopTyping();
                                             fs.unlink(file, resultHandler);
@@ -146,7 +146,7 @@ class CNNCommand extends command.Command
                             });
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -155,7 +155,7 @@ class CNNCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });

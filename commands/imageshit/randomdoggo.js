@@ -17,10 +17,8 @@ class RandomdoggoCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         randomAnimals.dog().then(dog => message.channel.send("", {files: [dog]}).catch(error => console.log("Send Error - " + error)));
-        message.channel.stopTyping();
     }
 }
 

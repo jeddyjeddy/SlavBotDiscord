@@ -78,7 +78,7 @@ class KidnapCommand extends command.Command
         }
         else
         {
-            message.reply("please tag another user after the command.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
             return;
         }
@@ -101,7 +101,7 @@ class KidnapCommand extends command.Command
                     var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
-                        if(error) throw error;
+                        if(error) {message.channel.stopTyping(); console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
                         message.channel.send("<@" + message.author.id+ "> ***kidnapped*** <@" + userID + ">", {
@@ -110,7 +110,7 @@ class KidnapCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -125,12 +125,12 @@ class KidnapCommand extends command.Command
                         }, 1000);
                     });
                 }).catch(function (err) {
-                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });

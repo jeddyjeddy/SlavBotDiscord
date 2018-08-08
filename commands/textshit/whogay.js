@@ -16,11 +16,10 @@ class WhogayCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         if(message.guild == null)
         {
-            message.reply("u bige gay").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> u bige gay").catch(error => console.log("Send Error - " + error));
         }
         else
         {
@@ -29,7 +28,6 @@ class WhogayCommand extends command.Command
             var timestamp = (new Date(Date.now()).toJSON());
             message.channel.send("", {embed: {title: "***Let's find out who bige gay***", description: "<@" + user + "> is bige gay.", color: 16711787, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
         }
-        message.channel.stopTyping();
     }
 }
 

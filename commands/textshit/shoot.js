@@ -17,7 +17,6 @@ class ShootCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
@@ -56,12 +55,9 @@ class ShootCommand extends command.Command
         {
             message.channel.send("<@" + message.author.id + "> ***shot*** <@" + userID + ">", {
                 files: ["gunshot.gif"]
-            }).then(function(){
-                message.channel.stopTyping();
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
-                message.channel.stopTyping();
             });
 
             setTimeout(function(){
@@ -75,12 +71,9 @@ class ShootCommand extends command.Command
         {
             message.channel.send("<@" + message.author.id + "> ***committed suicide***", {
                 files: ["gunshot.gif"]
-            }).then(function(){
-                message.channel.stopTyping();
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
-                message.channel.stopTyping();
             });
 
             setTimeout(function(){

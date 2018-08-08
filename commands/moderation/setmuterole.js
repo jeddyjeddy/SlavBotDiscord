@@ -22,16 +22,15 @@ class SetMuteRoleCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS"))){
-            message.reply("Slav Bot requires the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot requires the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
         
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS"))){
-            message.reply("this command is only available to those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         IndexRef.addCommandCounter(message.author.id)
 
         if(args.length > 0)
@@ -43,7 +42,7 @@ class SetMuteRoleCommand extends command.Command
 
             if(muteRole == null)
             {
-                message.reply("the role " + args.toString() + " does not exist.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> The role " + args.toString() + " does not exist.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
@@ -52,15 +51,13 @@ class SetMuteRoleCommand extends command.Command
                     channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                 });
                 IndexRef.setRoleName(message.guild.id, muteRole.name)
-                message.reply(muteRole.name + " is now the mute role.").catch(error => console.log("Send Error - " + error));
+                message.channel.send(muteRole.name + " is now the mute role.").catch(error => console.log("Send Error - " + error));
             }
 
-            message.channel.stopTyping();
         }
         else
         {
-            message.reply("role name is not mentioned.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> Role name is not mentioned.").catch(error => console.log("Send Error - " + error));
             return;
         }
     }

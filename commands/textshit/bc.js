@@ -16,7 +16,6 @@ class BcCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
@@ -57,10 +56,9 @@ class BcCommand extends command.Command
         }
         else
         {
-            message.reply("BHENCHOOT").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + ">, BHENCHOOT").catch(error => console.log("Send Error - " + error));
         }
 
-        message.channel.stopTyping();
     }
 }
 

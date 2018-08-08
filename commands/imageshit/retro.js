@@ -54,7 +54,7 @@ class RetroCommand extends command.Command
                     }
                     else
                     {
-                        message.reply("the text style option should be a number from 1-4.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> The text style option should be a number from 1-4.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;
                     }
@@ -63,7 +63,7 @@ class RetroCommand extends command.Command
                 {
                     if(args[i] != "|")
                     {
-                        message.reply("please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> Please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;                    
                     }
@@ -76,7 +76,7 @@ class RetroCommand extends command.Command
                     }
                     else
                     {
-                        message.reply("the background style option should be a number from 1-5.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> The background style option should be a number from 1-5.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;
                     }
@@ -85,7 +85,7 @@ class RetroCommand extends command.Command
                 {
                     if(args[i] != "|")
                     {
-                        message.reply("please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> Please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
                         message.channel.stopTyping();
                         return;                    
                     }
@@ -134,7 +134,7 @@ class RetroCommand extends command.Command
             Jimp.read(url).then(function (textImage) {
                 var file = shortid.generate() + ".png"
                 textImage.write(file, function(error){
-                    if(error) throw error;
+                    if(error) {message.channel.stopTyping(); console.log(error); return;};
                     console.log("got retro image");
                     console.log(file);
                     message.channel.send("Text Style: " + textStyle +  " - Background Style: " + bgStyle, {
@@ -143,7 +143,7 @@ class RetroCommand extends command.Command
                         message.channel.stopTyping();
                         fs.unlink(file, resultHandler);
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                         fs.unlink(file, resultHandler);
@@ -152,14 +152,14 @@ class RetroCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
         }
         else
         {
-            message.reply("please fill the parameters for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Please fill the parameters for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
             message.channel.stopTyping();
         }
     }

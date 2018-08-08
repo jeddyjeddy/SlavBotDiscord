@@ -114,7 +114,7 @@ class LeaderboardsCommand extends command.Command
             })
             .catch((e) => {
                 console.log(e.message);
-                message.reply("Error - " + e.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
             });
         }
     }

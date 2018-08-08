@@ -24,16 +24,15 @@ class MuteCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS"))){
-            message.reply("Slav Bot requires the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot requires the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
         
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS"))){
-            message.reply("this command is only available to those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         IndexRef.addCommandCounter(message.author.id)
         var users = [];
 
@@ -77,8 +76,7 @@ class MuteCommand extends command.Command
 
             if(users.length == 0)
             {
-                message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
                 return;
             }  
 
@@ -101,7 +99,6 @@ class MuteCommand extends command.Command
                     })
                 })
                 
-                message.channel.stopTyping();
                 const Ref = this;
                 setTimeout(function(){
                     Ref.run(message, args);
@@ -116,13 +113,13 @@ class MuteCommand extends command.Command
         
                     if(member.id == message.guild.owner.id)
                     {
-                        message.reply("you cannot mute the owner of the server.").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("<@" + message.author.id + "> You cannot mute the owner of the server.").catch(error => console.log("Send Error - " + error));
                     }
                     else
                     {
                         if(member.roles.find("id", muteRole.id))
                         {
-                            message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                             IndexRef.addMutedUser(message.guild.id, member.id, null)
                         }
                         else
@@ -134,7 +131,7 @@ class MuteCommand extends command.Command
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
                                 {
-                                    member.addRole(muteRole).then(message.reply("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                    member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                     schedule.scheduleJob(date, function(){
                                         IndexRef.removeMutedUser(message.guild.id, member.id)
                                         if(member.roles.find("id", muteRole.id))
@@ -145,7 +142,7 @@ class MuteCommand extends command.Command
                                 }
                                 else
                                 {
-                                    message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
@@ -153,27 +150,25 @@ class MuteCommand extends command.Command
 
                                 if(IndexRef.addMutedUser(message.guild.id, member.id, null))
                                 {
-                                    member.addRole(muteRole).then(message.reply("<@" + user + "> has been permanently muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.reply("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                    member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been permanently muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                 }
                                 else
                                 {
-                                    message.reply("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }                        
                     }
                 }).catch(function(error){
                     console.log(error.message);
-                    message.reply("Error - " + error.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
                 })
             }
 
-            message.channel.stopTyping();
         }
         else
         {
-            message.reply("no users mentioned.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => console.log("Send Error - " + error));
             return;
         }
     }

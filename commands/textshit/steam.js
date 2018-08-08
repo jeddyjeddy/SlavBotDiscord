@@ -15,10 +15,8 @@ class SteamCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         message.channel.send("Dark Theme https://editor.steamcustomizer.com/w1bn4").catch(error => console.log("Send Error - " + error));
         message.channel.send("Light Theme https://editor.steamcustomizer.com/xLnMV").catch(error => console.log("Send Error - " + error));
-        message.channel.stopTyping();
     }
 }
 

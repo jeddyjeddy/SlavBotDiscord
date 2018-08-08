@@ -27,16 +27,15 @@ class CleanCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
-            message.reply("Slav Bot does not have the Administrator or Manage Messages Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot does not have the Administrator or Manage Messages Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
-            message.reply("this command is only available to those with the Administrator or Manage Messages Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator or Manage Messages Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var number = 50;
 
@@ -44,8 +43,7 @@ class CleanCommand extends command.Command
         {
             if(isNaN(args))
             {
-                message.reply("invalid parameters. Use `" + commandPrefix + "help clean` for help.".catch(error => console.log("Send Error - " + error)));
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> Invalid parameters. Use `" + commandPrefix + "help clean` for help.".catch(error => console.log("Send Error - " + error)));
                 return; 
             }
             else
@@ -56,8 +54,7 @@ class CleanCommand extends command.Command
                 }
                 else
                 {
-                    message.reply("number should be greater than 0").catch(error => console.log("Send Error - " + error));
-                    message.channel.stopTyping();
+                    message.channel.send("<@" + message.author.id + "> Number should be greater than 0").catch(error => console.log("Send Error - " + error));
                     return;
                 }
             }
@@ -65,7 +62,7 @@ class CleanCommand extends command.Command
         
         if(number > 100)
         {
-            message.reply("max number of messages is 100").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Max number of messages is 100").catch(error => console.log("Send Error - " + error));
         }
         else
         {
@@ -73,11 +70,9 @@ class CleanCommand extends command.Command
             .then(messages => {
                 message.channel.bulkDelete(messages, true)
                 message.delete();
-                message.channel.stopTyping();
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
-                message.channel.stopTyping();
             });
         }
     }

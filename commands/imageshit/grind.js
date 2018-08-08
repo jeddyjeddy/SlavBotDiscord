@@ -90,11 +90,11 @@ class GrindCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read("grind.png").then(function (grindImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -104,7 +104,7 @@ class GrindCommand extends command.Command
                         var mergedImage = userImage.composite(grindImage, 0, 0);
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
-                            if(error) throw error;
+                            if(error) {message.channel.stopTyping(); console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
                             message.channel.send("***I had to grind for this view***", {
@@ -114,7 +114,7 @@ class GrindCommand extends command.Command
 
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
@@ -122,7 +122,7 @@ class GrindCommand extends command.Command
                             console.log("Message Sent");
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -131,7 +131,7 @@ class GrindCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -176,11 +176,11 @@ class GrindCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.reply("no image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
                     message.channel.stopTyping();
                     return;
                 }
-                message.reply("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
                 Jimp.read("grind.png").then(function (grindImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -193,7 +193,7 @@ class GrindCommand extends command.Command
                             mergedImage.composite(profileImage, 160, 160)
                             var file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
-                                if(error) throw error;
+                                if(error) {message.channel.stopTyping(); console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
                                 message.channel.send("***I had to grind for this view***", {
@@ -203,7 +203,7 @@ class GrindCommand extends command.Command
     
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -211,12 +211,12 @@ class GrindCommand extends command.Command
                                 console.log("Message Sent");
                             });
                         }).catch(function (err) {
-                            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                             console.log(err.message);
                             message.channel.stopTyping();
                         });
                     }).catch(function (err) {
-                        message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -225,7 +225,7 @@ class GrindCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
                 message.channel.stopTyping();
             });

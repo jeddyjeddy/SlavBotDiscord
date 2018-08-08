@@ -18,18 +18,17 @@ class KaomojiCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
 
         if(args.length < 2)
         {
             if(args.length == 0)
             {
-                message.reply("please give a search parameter after the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give a search parameter after the command.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.reply("the search parameter should have at least 2 characters.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> The search parameter should have at least 2 characters.").catch(error => console.log("Send Error - " + error));
             }
         }
         else
@@ -66,7 +65,6 @@ class KaomojiCommand extends command.Command
                 message.channel.send("No results found for ***" + args + "***").catch(error => console.log("Send Error - " + error));
             }
         }
-        message.channel.stopTyping();
     }
 }
 

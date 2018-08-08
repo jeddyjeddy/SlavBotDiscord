@@ -15,9 +15,7 @@ class ShareCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
-        message.reply("https://merriemweebster.github.io/SlavBot").catch(error => console.log("Send Error - " + error));
-        message.channel.stopTyping();
+        message.channel.send("https://merriemweebster.github.io/SlavBot").catch(error => console.log("Send Error - " + error));
     }
 }
 

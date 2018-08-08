@@ -16,9 +16,8 @@ class WelcomeCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR")){
-            message.reply("this command is only available to admins.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to admins.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
@@ -36,25 +35,24 @@ class WelcomeCommand extends command.Command
         {
             if(WelcomeChange.disableWelcome(message.guild.id))
             {
-                message.reply("welcome feature disabled.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Welcome feature disabled.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.reply("welcome feature already disabled.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Welcome feature already disabled.").catch(error => console.log("Send Error - " + error));
             }
         }
         else
         {
             if(WelcomeChange.setWelcome(message.guild.id, message.channel.id))
             {
-                message.reply("this channel has been set as the welcome channel.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> This channel has been set as the welcome channel.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.reply("this channel has already been set as the welcome channel.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> This channel has already been set as the welcome channel.").catch(error => console.log("Send Error - " + error));
             }
         }
-        message.channel.stopTyping();
     }
 }
 

@@ -17,11 +17,10 @@ class InclusiveorCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var url = "https://www.reddit.com/r/InclusiveOr/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
-            if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
+            if (err) { message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error)); return console.log(err); }
             
             if(redditResponse[0].data.children == undefined)
             {
@@ -87,8 +86,6 @@ class InclusiveorCommand extends command.Command
                 this.run(message, args)
             }
         });
-
-        message.channel.stopTyping();
     }
 }
 

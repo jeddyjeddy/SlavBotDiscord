@@ -16,7 +16,6 @@ class FellasCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
@@ -25,10 +24,8 @@ class FellasCommand extends command.Command
         }
         else
         {
-            message.reply("please provide text after the command.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Please provide text after the command.").catch(error => console.log("Send Error - " + error));
         }
-
-        message.channel.stopTyping();
     }
 }
 

@@ -18,14 +18,11 @@ class KeyCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
-        message.reply("Random Key: " + keys[Math.floor(Math.random() * (keys.length))], {files: ["key.gif"]}).then(function(){
-            message.channel.stopTyping();
+        message.channel.send("<@" + message.author.id + "> Random Key: " + keys[Math.floor(Math.random() * (keys.length))], {files: ["key.gif"]}).then(function(){
         }).catch(function (err) {
-            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
             console.log(err.message);
-            message.channel.stopTyping();
         });
     }
 }

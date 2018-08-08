@@ -17,7 +17,6 @@ class PokedexCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var url = "";
         var commandPrefix= "!"
@@ -37,8 +36,7 @@ class PokedexCommand extends command.Command
                     url = pokemonGif(parseInt(args));
                 else
                 {
-                    message.reply("use a pokedex number ranging from 1-721").catch(error => console.log("Send Error - " + error));
-                    message.channel.stopTyping();
+                    message.channel.send("<@" + message.author.id + "> Use a pokedex number ranging from 1-721").catch(error => console.log("Send Error - " + error));
                     return;
                 }
             }
@@ -47,16 +45,14 @@ class PokedexCommand extends command.Command
                 url = pokemonGif(args.toString().toLowerCase());
                 if(url.indexOf("Invalid") > -1)
                 {
-                    message.reply(url).catch(error => console.log("Send Error - " + error));
-                    message.channel.stopTyping();
+                    message.channel.send(url).catch(error => console.log("Send Error - " + error));
                     return;
                 }
             }
         }
         else
         {
-            message.reply("please fill the parameters for the command. Use `" + commandPrefix + "help pokedex` for help.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> Please fill the parameters for the command. Use `" + commandPrefix + "help pokedex` for help.").catch(error => console.log("Send Error - " + error));
             return;
         }
 
@@ -66,12 +62,9 @@ class PokedexCommand extends command.Command
 
         message.channel.send(url.replace("http://www.pokestadium.com/sprites/xy/", ""), {
             files: [url]
-        }).then(function(){
-            message.channel.stopTyping();
         }).catch(function (err) {
-            message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
             console.log(err.message);
-            message.channel.stopTyping();
         });
         console.log("Message Sent"); 
     }

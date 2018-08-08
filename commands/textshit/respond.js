@@ -16,9 +16,8 @@ class RespondCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
-            message.reply("this command is only available to admins and those with the manage channels or manage messages permissions.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> This command is only available to admins and those with the manage channels or manage messages permissions.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
@@ -35,11 +34,11 @@ class RespondCommand extends command.Command
             if(currentSetting === false)
             {
                 ResponseChange.changeResponse(message.guild.id, true);
-                message.reply("responses enabled").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Responses enabled").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.reply("responses already enabled").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Responses already enabled").catch(error => console.log("Send Error - " + error));
             }
         }
         else if (args.toLowerCase() == "disable")
@@ -47,18 +46,17 @@ class RespondCommand extends command.Command
             if(currentSetting === true)
             {
                 ResponseChange.changeResponse(message.guild.id, false);
-                message.reply("responses disabled").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Responses disabled").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.reply("responses already disabled").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Responses already disabled").catch(error => console.log("Send Error - " + error));
             }
         }
         else
         {
-            message.reply("no parameter given, use either `" + commandPrefix + "respond enable` or `" + commandPrefix + "respond disable`").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> No parameter given, use either `" + commandPrefix + "respond enable` or `" + commandPrefix + "respond disable`").catch(error => console.log("Send Error - " + error));
         }
-        message.channel.stopTyping();
     }
 }
 

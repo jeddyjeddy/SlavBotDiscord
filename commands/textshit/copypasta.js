@@ -17,11 +17,10 @@ class CopypastaCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
         CommandCounter.addCommandCounter(message.author.id)
         var url = "http://www.reddit.com/r/copypasta/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
-            if (err) { message.reply("Error - " + err.message).catch(error => console.log("Send Error - " + error)); message.channel.stopTyping(); return console.log(err); }
+            if (err) { message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error)); return console.log(err); }
             
             if(redditResponse[0].data.children == undefined)
             {
@@ -39,7 +38,6 @@ class CopypastaCommand extends command.Command
 
             message.channel.send(selftext, {split: true}).catch(error => console.log("Send Error - " + error));
         });
-        message.channel.stopTyping();
     }
 }
 
