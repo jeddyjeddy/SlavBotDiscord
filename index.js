@@ -35,6 +35,27 @@ dbl.on('posted', () => {
             console.log(body)
         }
     })
+
+    var headers2 = {
+        'Authorization': process.env.LIST_CORD_API,
+        'Content-Type': 'application/json'
+    }
+
+    // Configure the request
+    var options2 = {
+        url: 'https://listcord.com/api/bot/' + bot.user.id + "/guilds",
+        method: 'POST',
+        headers: headers2,
+        form: {'guilds': bot.guilds.size}
+    }
+
+    // Start the request
+    request(options2, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            console.log(body)
+        }
+    })
 });
     
 dbl.on('error', e => {
