@@ -16,8 +16,6 @@ class LeaderboardsCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
-
         var commandPrefix= "!"
         if(message.guild != null)
         {
@@ -64,7 +62,6 @@ class LeaderboardsCommand extends command.Command
               icon_url: message.client.user.avatarURL,
               text: "Sent on"
             }}}).catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
         }
         else
         {
@@ -114,12 +111,10 @@ class LeaderboardsCommand extends command.Command
                 icon_url: message.client.user.avatarURL,
                 text: "Sent on"
                 }}}).catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
             })
             .catch((e) => {
                 console.log(e.message);
                 message.reply("Error - " + e.message).catch(error => console.log("Send Error - " + error));
-                message.channel.stopTyping();
             });
         }
     }
