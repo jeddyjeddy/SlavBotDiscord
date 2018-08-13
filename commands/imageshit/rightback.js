@@ -119,12 +119,12 @@ class RightBackCommand extends command.Command
                     else if(position == 3)
                     {
                         x = 0;
-                        y = userImage.bitmap.height - RightBackCommand.bitmap.height;
+                        y = userImage.bitmap.height - RightBackImage.bitmap.height;
                     }
                     else if(position == 4)
                     {
                         x = userImage.bitmap.width - RightBackImage.bitmap.width;
-                        y = userImage.bitmap.height - RightBackCommand.bitmap.height;
+                        y = userImage.bitmap.height - RightBackImage.bitmap.height;
                     }
     
                     
