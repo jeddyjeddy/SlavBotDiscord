@@ -135,16 +135,16 @@ class RrCommand extends command.Command
                                 }
                             }
                         }
-                        message.channel.send("**Revolver Already Loaded**").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("**Revolver Already Loaded**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         setTimeout(function(){
-                            message.channel.send("***Pulls Trigger...***").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***Pulls Trigger...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             
                             if(bulletLoad[index].value <= 0)
                             {
                                 setTimeout(function(){
-                                    message.channel.send("***Revolver Fires...***").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("***Revolver Fires...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     setTimeout(function(){
-                                        message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                         loaded = false;
                                         Jimp.read("tombstone.png").then(function (tombImage) {
                                             Jimp.read(message.author.avatarURL).then(function (userImage) {
@@ -165,7 +165,7 @@ class RrCommand extends command.Command
                                                         fs.unlink(file, resultHandler);
                                                          
                                                     }).catch(function (err) {
-                                                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                         console.log(err.message);
                                                         message.channel.stopTyping();
                                                         fs.unlink(file, resultHandler);
@@ -186,9 +186,9 @@ class RrCommand extends command.Command
                             else
                             {
                                 setTimeout(function(){
-                                    message.channel.send("*The revolver clicks...*").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("*The revolver clicks...*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     setTimeout(function(){
-                                        message.channel.send("*You're still alive!*").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("*You're still alive!*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                         message.channel.stopTyping();
                                     }, messageDelay);
                                     isPlaying[playindex].value = false;
@@ -223,19 +223,19 @@ class RrCommand extends command.Command
                                 }
                             }
                         }
-                        message.channel.send("***Reloading Revolver...***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***Reloading Revolver...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         setTimeout(function(){
-                            message.channel.send("***Spinning Cylinder...***").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***Spinning Cylinder...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             
                             setTimeout(function(){
-                                message.channel.send("***Pulls Trigger...***").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***Pulls Trigger...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             
                                 setTimeout(function(){
                                     if(bulletLoad[index].value <= 0)
                                     {
-                                        message.channel.send("***Revolver Fires...***").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***Revolver Fires...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                         setTimeout(function(){
-                                            message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                             Jimp.read("tombstone.png").then(function (tombImage) {
                                                 Jimp.read(message.author.avatarURL).then(function (userImage) {
                                                     tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
@@ -254,7 +254,7 @@ class RrCommand extends command.Command
                                                                 fs.unlink(file, resultHandler);
                                                                
                                                         }).catch(function (err) {
-                                                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                             console.log(err.message);
                                                             message.channel.stopTyping();
                                                                 fs.unlink(file, resultHandler);
@@ -272,9 +272,9 @@ class RrCommand extends command.Command
                                     else
                                     {
                                         setTimeout(function(){
-                                            message.channel.send("*The revolver clicks...*").catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("*The revolver clicks...*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                             setTimeout(function(){
-                                                message.channel.send("*You're still alive!*").catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("*You're still alive!*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                 message.channel.stopTyping();
                                             }, messageDelay);
                                             var hasKey = false;
@@ -371,16 +371,16 @@ class RrCommand extends command.Command
                             }
                         }
                     }
-                    message.channel.send("**Revolver Already Loaded**").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("**Revolver Already Loaded**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     setTimeout(function(){
-                        message.channel.send("***Pulls Trigger...***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***Pulls Trigger...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
         
                         if(bulletLoad[index].value <= 0)
                         {
                             setTimeout(function(){
-                                message.channel.send("***Revolver Fires...***").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("***Revolver Fires...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 setTimeout(function(){
-                                    message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     loaded = false;
                                     Jimp.read("tombstone.png").then(function (tombImage) {
                                         Jimp.read(message.author.avatarURL).then(function (userImage) {
@@ -401,7 +401,7 @@ class RrCommand extends command.Command
                                                         fs.unlink(file, resultHandler);
                                                      
                                                 }).catch(function (err) {
-                                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                     console.log(err.message);
                                                     message.channel.stopTyping();
                                                         fs.unlink(file, resultHandler);
@@ -423,9 +423,9 @@ class RrCommand extends command.Command
                         else
                         {
                             setTimeout(function(){
-                                message.channel.send("*The revolver clicks...*").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("*The revolver clicks...*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 setTimeout(function(){
-                                    message.channel.send("*You're still alive!*").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("*You're still alive!*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     message.channel.stopTyping();
                                 }, messageDelay);
                                 isPlaying[playindex].value = false;
@@ -460,19 +460,19 @@ class RrCommand extends command.Command
                             }
                         }
                     }
-                    message.channel.send("***Reloading Revolver...***").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("***Reloading Revolver...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     setTimeout(function(){
-                        message.channel.send("***Spinning Cylinder...***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***Spinning Cylinder...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
         
                         setTimeout(function(){
-                            message.channel.send("***Pulls Trigger...***").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("***Pulls Trigger...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
         
                             setTimeout(function(){
                                 if(bulletLoad[index].value <= 0)
                                 {
-                                    message.channel.send("***Revolver Fires...***").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("***Revolver Fires...***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     setTimeout(function(){
-                                        message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                         Jimp.read("tombstone.png").then(function (tombImage) {
                                             Jimp.read(message.author.avatarURL).then(function (userImage) {
                                                 tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
@@ -491,7 +491,7 @@ class RrCommand extends command.Command
                                                             fs.unlink(file, resultHandler);
                                                           
                                                     }).catch(function (err) {
-                                                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                         console.log(err.message);
                                                         message.channel.stopTyping();
                                                             fs.unlink(file, resultHandler);
@@ -509,9 +509,9 @@ class RrCommand extends command.Command
                                 else
                                 {
                                     setTimeout(function(){
-                                        message.channel.send("*The revolver clicks...*").catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("*The revolver clicks...*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                         setTimeout(function(){
-                                            message.channel.send("*You're still alive!*").catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("*You're still alive!*").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                             message.channel.stopTyping();
                                         }, messageDelay);
                                         var hasKey = false;
