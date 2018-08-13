@@ -824,6 +824,27 @@ var schedule = require('node-schedule');
                 {
                     welcomeData.push({key: childSnap.key, channel: childSnap.child("welcomechannel").val().toString()});
                 }
+
+                if(childSnap.child("prefix").val() != null)
+                {
+                    var guild;
+                    var guilds = bot.guilds.array()
+
+                    for(var i = 0; i < guilds.length; i++)
+                    {
+                        if(guilds[i].id == childSnap.key)
+                        {
+                            guild = guilds[i];
+                        }
+                    }
+
+                    if(guild == undefined)
+                    {
+                        return;
+                    }
+
+                    guild.commandPrefix = childSnap.child("prefix").val().toString();
+                }
             })
         }
       })
