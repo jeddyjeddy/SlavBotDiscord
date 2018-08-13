@@ -88,7 +88,7 @@ class RotateCommand extends command.Command
 
         if(!(parseInt(option) >= -360 && parseInt(option) <= 360))
         {
-            message.channel.send("<@" + message.author.id + "> No option in parameter, use a number ranging from -360 to 360. Use `" + commandPrefix + "help rotate` for help.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> No option in parameter, use a number ranging from -360 to 360. Use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             message.channel.stopTyping();
             return;
         }
@@ -114,11 +114,11 @@ class RotateCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help rotate` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     message.channel.stopTyping();
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to rotate");
         
@@ -134,7 +134,7 @@ class RotateCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -142,12 +142,12 @@ class RotateCommand extends command.Command
                         console.log("Message Sent");
                     })
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 }); 
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -190,7 +190,7 @@ class RotateCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -198,7 +198,7 @@ class RotateCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 });     

@@ -91,11 +91,11 @@ class KanyeCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help kanye` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help kanye` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     message.channel.stopTyping();
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 Jimp.read("Kanye.png").then(function (KanyeImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -122,7 +122,7 @@ class KanyeCommand extends command.Command
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
@@ -130,7 +130,7 @@ class KanyeCommand extends command.Command
                             console.log("Message Sent");
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -139,7 +139,7 @@ class KanyeCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -189,7 +189,7 @@ class KanyeCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -197,7 +197,7 @@ class KanyeCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 });

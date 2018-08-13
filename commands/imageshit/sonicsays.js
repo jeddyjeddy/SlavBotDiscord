@@ -156,7 +156,7 @@ class SonicsaysCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -171,9 +171,9 @@ class SonicsaysCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 140 characters are only allowed.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> A maximum of 140 characters are only allowed.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             else
-                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
 
             message.channel.stopTyping();
         }

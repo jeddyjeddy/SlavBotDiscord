@@ -90,11 +90,11 @@ class GrindCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     message.channel.stopTyping();
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 Jimp.read("grind.png").then(function (grindImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -114,7 +114,7 @@ class GrindCommand extends command.Command
 
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
@@ -122,7 +122,7 @@ class GrindCommand extends command.Command
                             console.log("Message Sent");
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -131,7 +131,7 @@ class GrindCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 console.log(err.message);
                 message.channel.stopTyping();
             });
@@ -176,11 +176,11 @@ class GrindCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help grind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     message.channel.stopTyping();
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 Jimp.read("grind.png").then(function (grindImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -203,7 +203,7 @@ class GrindCommand extends command.Command
     
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -211,12 +211,12 @@ class GrindCommand extends command.Command
                                 console.log("Message Sent");
                             });
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -225,7 +225,7 @@ class GrindCommand extends command.Command
                     message.channel.stopTyping();
                 });
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 console.log(err.message);
                 message.channel.stopTyping();
             });

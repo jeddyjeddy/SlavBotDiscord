@@ -251,11 +251,11 @@ class FirstwordsCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help firstwords` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             message.channel.stopTyping();
                             return;
                         }
-                        message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -288,7 +288,7 @@ class FirstwordsCommand extends command.Command
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -302,7 +302,7 @@ class FirstwordsCommand extends command.Command
                             console.log(err.message);
                             message.channel.stopTyping();});
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -331,7 +331,7 @@ class FirstwordsCommand extends command.Command
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -402,7 +402,7 @@ class FirstwordsCommand extends command.Command
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                 console.log(err.message);
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
@@ -421,7 +421,7 @@ class FirstwordsCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help firstwords` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help firstwords` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             message.channel.stopTyping();
                             return;
                         }
@@ -444,7 +444,7 @@ class FirstwordsCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -460,9 +460,9 @@ class FirstwordsCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 100 characters are only allowed.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> A maximum of 100 characters are only allowed.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             else
-                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
 
             message.channel.stopTyping();
         }

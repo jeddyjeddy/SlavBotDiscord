@@ -82,14 +82,14 @@ class RipCommand extends command.Command
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
                             });
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -121,14 +121,14 @@ class RipCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         });
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 });

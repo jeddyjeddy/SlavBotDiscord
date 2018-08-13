@@ -86,11 +86,11 @@ class FreerealestateCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             message.channel.stopTyping();
                             return;
                         }
-                        message.channel.send("***taking image***").catch(error => console.log("Send Error - " + error));
+                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -115,7 +115,7 @@ class FreerealestateCommand extends command.Command
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -129,7 +129,7 @@ class FreerealestateCommand extends command.Command
                             console.log(err.message);
                             message.channel.stopTyping();});
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
@@ -160,7 +160,7 @@ class FreerealestateCommand extends command.Command
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -233,7 +233,7 @@ class FreerealestateCommand extends command.Command
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                                 console.log(err.message);
                                                 message.channel.stopTyping();
                                                 fs.unlink(file, resultHandler);
@@ -252,7 +252,7 @@ class FreerealestateCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             message.channel.stopTyping();
                             return;
                         }
@@ -276,7 +276,7 @@ class FreerealestateCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -292,9 +292,9 @@ class FreerealestateCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for top text is 185 characters, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+             message.channel.send("<@" + message.author.id + "> Character limit for top text is 185 characters, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             else
-             message.channel.send("<@" + message.author.id + "> Incorrect parameters, top text not given, use `" + commandPrefix + "help freerealestate` for help.").catch(error => console.log("Send Error - " + error));
+             message.channel.send("<@" + message.author.id + "> Incorrect parameters, top text not given, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             message.channel.stopTyping();
         }
     }

@@ -79,7 +79,7 @@ class UselessCommand extends command.Command
         }
         else
         {
-            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             message.channel.stopTyping();
             return;
         }
@@ -115,7 +115,7 @@ class UselessCommand extends command.Command
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 console.log(err.message);
                                 message.channel.stopTyping();
                                 fs.unlink(file, resultHandler);
@@ -125,14 +125,14 @@ class UselessCommand extends command.Command
                             setTimeout(function(){
                                 if(userID == message.client.user.id)
                                 {
-                                    message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                 }
                             }, 1000);
                     });
                     
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 });

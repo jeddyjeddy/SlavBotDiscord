@@ -76,11 +76,11 @@ class CompileCommand extends command.Command
 
             if(messageID == "" || messageID2 == "" || messageID3 == "" || messageID4 == "")
             {
-                message.channel.send("<@" + message.author.id + "> 4 images not found, use `" + commandPrefix + "help compile` for help.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> 4 images not found, use `" + commandPrefix + "help compile` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                 message.channel.stopTyping();
                 return;
             }
-            message.channel.send("***taking images***").catch(error => console.log("Send Error - " + error));
+            message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             Jimp.read(url1).then(function (image1) {
                 if(image1.bitmap.height > image1.bitmap.width)
                 {
@@ -185,7 +185,7 @@ class CompileCommand extends command.Command
                                     fs.unlink(file, resultHandler);
                                       
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                                     console.log(err.message);
                                     message.channel.stopTyping();
                                     fs.unlink(file, resultHandler);
@@ -193,17 +193,17 @@ class CompileCommand extends command.Command
                                 console.log("Message Sent");
                             });
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                         console.log(err.message);
                         message.channel.stopTyping();
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                     console.log(err.message);
                     message.channel.stopTyping();
                 });
@@ -212,7 +212,7 @@ class CompileCommand extends command.Command
                 message.channel.stopTyping();
             });
         }).catch(function (err) {
-            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             console.log(err.message);
             message.channel.stopTyping();
         });

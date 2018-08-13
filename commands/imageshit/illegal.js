@@ -59,7 +59,7 @@ class IllegalCommand extends command.Command
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
                             console.log(err.message);
                             message.channel.stopTyping();
                             fs.unlink(file, resultHandler);
@@ -74,9 +74,9 @@ class IllegalCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 135 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => console.log("Send Error - " + error));
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 135 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             else
-             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help illegal` for help.").catch(error => console.log("Send Error - " + error));
+             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
             message.channel.stopTyping();
         }
     }
