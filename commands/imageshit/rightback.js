@@ -35,7 +35,7 @@ class RightBackCommand extends command.Command
         }
 
         var position = 0;
-
+        
         if(args.length > 0)
         {
             if(!isNaN(args))
@@ -67,6 +67,8 @@ class RightBackCommand extends command.Command
             position = Math.floor(Math.random() * 4) + 1;
         }
         
+        var url = "";
+
         message.channel.fetchMessages({ around: message.id })
         .then(messages => {
             var messageID = "";
