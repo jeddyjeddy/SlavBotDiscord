@@ -1011,7 +1011,7 @@ bot.on("message", (message) => {
         || message.content.toLowerCase().indexOf("ur aunt") > -1 || message.content.toLowerCase().indexOf("ur uncle") > -1
         || message.content.toLowerCase().indexOf("ur pap") > -1 || message.content.toLowerCase().indexOf("ur grandpa") > -1
         || message.content.toLowerCase().indexOf("ur grandnan") > -1 || message.content.toLowerCase().indexOf("ur father") > -1
-        || message.content.toLowerCase().indexOf("ur nanny") > -1 || message.content.toLowerCase().indexOf("ur grandma") > -1) 
+        || message.content.toLowerCase().indexOf("ur nan") > -1 || message.content.toLowerCase().indexOf("ur grandma") > -1) 
         {
             if(message.author.id != bot.user.id)
                 message.channel.send("<@" + message.author.id + "> " + responses1[Math.floor(Math.random() * (responses1.length))]).catch(error => console.log("Send Error - " + error));	
