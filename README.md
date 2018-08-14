@@ -13,6 +13,6 @@
 <p class="mbr-text align-center mbr-white pb-3 mbr-fonts-style display-7"><a href="https://botsfordiscord.com/bot/319533843482673152">
  <img src="https://botsfordiscord.com/api/v1/bots/319533843482673152/embed?theme=dark" alt="Slav Bot"></a></p>  
 <p class="mbr-text align-center mbr-white pb-3 mbr-fonts-style display-7"><a href="https://listcord.com/bot/319533843482673152">
-  <img src="https://nuggetbot.com/listcord/embed.svg?id=319533843482673152" alt="Slav Bot">></a></p>
+  <img src="https://nuggetbot.com/listcord/embed.svg?id=319533843482673152" alt="Slav Bot"></a></p>
 </body>
 </html>
