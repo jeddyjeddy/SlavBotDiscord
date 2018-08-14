@@ -337,18 +337,11 @@ var getUserCommandCounter = (userID) => {
         firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
             if(snapshot.child("commandusage").val() != null)
             {
-                snapshot.forEach(function(childSnap){
-                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
-                });
+                userCommandUsage.push({key: snapshot.key, data: JSON.parse(childSnap.child("commandusage").val())});
             }
             else
             {
-                firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
-                    if(snapshot.child("commandusage").val() == null)
-                    {
-                        userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
-                    }
-                })
+                userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
             }
           })
     }
