@@ -330,12 +330,30 @@ var getUserCommandCounter = (userID) => {
     }
 
     
+    var promises = []
+
     if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
-        userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
+        firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
+            if(snapshot.val() != null)
+            {
+                snapshot.forEach(function(childSnap){
+                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+                });
+            }
+            else
+            {
+                firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
+                    if(snapshot.val() == null)
+                    {
+                        userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
+                    }
+                })
+            }
+          })
     }
     
-    return 0;
+    return "`Unknown CRS (Try again when fully initialised)`";
 }
 
 var setWelcomeChannel = (guildID, channelID) => {
