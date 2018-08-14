@@ -1021,6 +1021,11 @@ bot.on("message", (message) => {
             if(message.author.id != bot.user.id)
                 message.channel.send("<@" + message.author.id + "> " + responses2[Math.floor(Math.random() * (responses2.length))]).catch(error => console.log("Send Error - " + error));
         }
+        else if(message.content.toLowerCase().indexOf("ye u") > -1 || message.content.toLowerCase().indexOf("ye you") > -1 || message.content.toLowerCase().indexOf("yeah u") > -1 || message.content.toLowerCase().indexOf("yeah you") > -1)
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("<@" + message.author.id + "> " + "no you");
+        }
     
         if(message.content.toLowerCase().indexOf("traps are gay") > -1 || message.content.toLowerCase().indexOf("traps are not gay") > -1)
         {
