@@ -26,7 +26,7 @@ class IllegalCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
 
         var commandPrefix= "!"
@@ -52,32 +52,32 @@ class IllegalCommand extends command.Command
                         textImage.rotate(textRot);
 
                         trumpImage.composite(textImage, textX, textY).write(file, function(error){  
-                            if(error) {message.channel.stopTyping(); console.log(error); return;};
+                            if(error) { console.log(error); return;};
                         message.channel.send("***Trump's First Order***", {
                                     files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                             });
                     });
                  }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
         }
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 135 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 135 characters, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); });
             else
-             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-            message.channel.stopTyping();
+             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help illegal` for help.").catch(error => {console.log("Send Error - " + error); });
+            
         }
     }
 }

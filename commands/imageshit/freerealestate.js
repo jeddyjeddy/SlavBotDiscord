@@ -26,7 +26,7 @@ class FreerealestateCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
 
         var commandPrefix= "!"
@@ -86,11 +86,11 @@ class FreerealestateCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                            message.channel.stopTyping();
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); });
+                            
                             return;
                         }
-                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -108,30 +108,30 @@ class FreerealestateCommand extends command.Command
                                 var YText2 = 155
 
                                 freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
-                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                    if(error) { console.log(error); return;};
                                 message.channel.send("***It's Free Real Estate***", {
                                             files: [file]
                                 }).then(function(){
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 });
                                     });
                             });
                          }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
                 }
                 else
@@ -153,26 +153,26 @@ class FreerealestateCommand extends command.Command
                                 var YText2 = 155
 
                                 freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
-                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                    if(error) { console.log(error); return;};
                                 message.channel.send("***It's Free Real Estate***", {
                                             files: [file]
                                 }).then(function(){
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 });
                                     });
                             });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                     }
                     else
                     {
@@ -226,34 +226,34 @@ class FreerealestateCommand extends command.Command
                                             var YText2 = 155
             
                                             freeImage.composite(userImage, x, y).print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
-                                                if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                                if(error) { console.log(error); return;};
                                             message.channel.send("***It's Free Real Estate***", {
                                                         files: [file]
                                             }).then(function(){
-                                                message.channel.stopTyping();
+                                                
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                                 console.log(err.message);
-                                                message.channel.stopTyping();
+                                                
                                                 fs.unlink(file, resultHandler);
                                             });
                                                 });
                                         });
                                     }).catch(function (err) {
                                         console.log(err.message);
-                                        message.channel.stopTyping();});
+                                        });
                                     }).catch(function (err) {
                                         console.log(err.message);
-                                        message.channel.stopTyping();});
+                                        });
                             }, rejection => {
                                     console.log(rejection.message);
                             });
                         }
                         else
                         {
-                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                            message.channel.stopTyping();
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); });
+                            
                             return;
                         }
                     }
@@ -269,33 +269,33 @@ class FreerealestateCommand extends command.Command
                         var YText2 = 155
 
                         freeImage.print(font, XYText, XYText, text, freeImage.bitmap.width - XYText).print(font, XYText, YText2, textAboveImage).write(file, function(error){  
-                            if(error) {message.channel.stopTyping(); console.log(error); return;};
+                            if(error) { console.log(error); return;};
                         message.channel.send("***It's Free Real Estate***", {
                                     files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                             });
                     });
                  }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }
         }
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for top text is 185 characters, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+             message.channel.send("<@" + message.author.id + "> Character limit for top text is 185 characters, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); });
             else
-             message.channel.send("<@" + message.author.id + "> Incorrect parameters, top text not given, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-            message.channel.stopTyping();
+             message.channel.send("<@" + message.author.id + "> Incorrect parameters, top text not given, use `" + commandPrefix + "help freerealestate` for help.").catch(error => {console.log("Send Error - " + error); });
+            
         }
     }
 }

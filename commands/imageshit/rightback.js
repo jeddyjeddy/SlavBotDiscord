@@ -26,7 +26,7 @@ class RightBackCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
@@ -46,9 +46,9 @@ class RightBackCommand extends command.Command
                 {
                     message.channel.send("The position parameter must be a number from 1 to 4 (1 = Top Left, 2 = Top Right, 3 = Bottom Left, 4 = Bottom Right).").catch(function (err) {
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
-                    message.channel.stopTyping();
+                    
                     return;
                 }
             }
@@ -56,9 +56,9 @@ class RightBackCommand extends command.Command
             {
                 message.channel.send("The position parameter must be a number from 1 to 4 (1 = Top Left, 2 = Top Right, 3 = Bottom Left, 4 = Bottom Right).").catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
-                message.channel.stopTyping();
+                
                 return;
             }
         }
@@ -89,11 +89,11 @@ class RightBackCommand extends command.Command
 
             if(messageID == "")
             {
-                message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help RightBack` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help RightBack` for help.").catch(error => {console.log("Send Error - " + error); });
+                
                 return;
             }
-            message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+            message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
             Jimp.read("rightback.png").then(function (RightBackImage) {
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
@@ -132,35 +132,35 @@ class RightBackCommand extends command.Command
                     var mergedImage = userImage.composite(RightBackImage, x, y );
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
-                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                        if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
                         message.channel.send("***We'll Be Right Back***", {
                             files: [file]
                         }).then(function(){
                             fs.unlink(file, resultHandler);
-                            message.channel.stopTyping();
+                            
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
         }).catch(function (err) {
-            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
             console.log(err.message);
-            message.channel.stopTyping();
+            
         });
     }
 }

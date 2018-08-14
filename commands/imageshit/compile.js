@@ -26,7 +26,7 @@ class CompileCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
@@ -76,11 +76,11 @@ class CompileCommand extends command.Command
 
             if(messageID == "" || messageID2 == "" || messageID3 == "" || messageID4 == "")
             {
-                message.channel.send("<@" + message.author.id + "> 4 images not found, use `" + commandPrefix + "help compile` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                message.channel.stopTyping();
+                message.channel.send("<@" + message.author.id + "> 4 images not found, use `" + commandPrefix + "help compile` for help.").catch(error => {console.log("Send Error - " + error); });
+                
                 return;
             }
-            message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+            message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
             Jimp.read(url1).then(function (image1) {
                 if(image1.bitmap.height > image1.bitmap.width)
                 {
@@ -174,47 +174,47 @@ class CompileCommand extends command.Command
 
                             var file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
-                                if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
                                 message.channel.send("***Compiled***", {
                                     files: [file]
                                 }).then(function(){
-                                    message.channel.stopTyping();
+                                    
         
                                     fs.unlink(file, resultHandler);
                                       
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 });
                                 console.log("Message Sent");
                             });
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
         }).catch(function (err) {
-            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
             console.log(err.message);
-            message.channel.stopTyping();
+            
         });
     }
 }

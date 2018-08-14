@@ -26,7 +26,7 @@ class CNNCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var headline = "";
         var ticker = "";
@@ -65,7 +65,7 @@ class CNNCommand extends command.Command
 
         if(headline == "" && ticker == "")
         {
-            message.channel.send("<@" + message.author.id + "> all parameters not filled. Use `" + commandPrefix + "help cnn` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();})
+            message.channel.send("<@" + message.author.id + "> all parameters not filled. Use `" + commandPrefix + "help cnn` for help.").catch(error => {console.log("Send Error - " + error); })
         }
         console.log(headline.toUpperCase())
         console.log(ticker.toUpperCase())
@@ -88,11 +88,11 @@ class CNNCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `!help cnn` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                    message.channel.stopTyping();
+                    message.channel.send("<@" + message.author.id + "> No image found, use `!help cnn` for help.").catch(error => {console.log("Send Error - " + error); });
+                    
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("cnn.png").then(function (cnnImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
@@ -126,18 +126,18 @@ class CNNCommand extends command.Command
                                     var mergedImage = userImage.composite(cnnImage, 0, 0 );
                                     var file = shortid.generate() + ".png"
                                     mergedImage.write(file, function(error){
-                                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                        if(error) { console.log(error); return;};
                                         console.log("got merged image cnn");
                                         console.log(file);
                                         message.channel.send("***Breaking News***", {
                                             files: [file]
                                         }).then(function(){
                                             fs.unlink(file, resultHandler);
-                                            message.channel.stopTyping();
+                                            
                                         }).catch(function (err) {
-                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                             console.log(err.message);
-                                            message.channel.stopTyping();
+                                            
                                             fs.unlink(file, resultHandler);
                                         });
                                         console.log("Message Sent");
@@ -146,18 +146,18 @@ class CNNCommand extends command.Command
                             });
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
                 }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
     }
 }

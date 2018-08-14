@@ -26,7 +26,7 @@ class ChangemymindCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
 
         var commandPrefix= "!"
@@ -77,11 +77,11 @@ class ChangemymindCommand extends command.Command
                     
                         if(messageID == "")
                         {
-                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                            message.channel.stopTyping();
+                            message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); });
+                            
                             return;
                         }
-                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                         var file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
@@ -108,30 +108,30 @@ class ChangemymindCommand extends command.Command
                                 userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                    if(error) { console.log(error); return;};
                                 message.channel.send("***Change My Mind***", {
                                             files: [file]
                                 }).then(function(){
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 });
                                     });
                             });
                          }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
                 }
                 else
@@ -162,26 +162,26 @@ class ChangemymindCommand extends command.Command
                                 userImage.rotate(-24);
 
                                 freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                    if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                    if(error) { console.log(error); return;};
                                 message.channel.send("***Change My Mind***", {
                                             files: [file]
                                 }).then(function(){
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 }).catch(function (err) {
-                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
-                                    message.channel.stopTyping();
+                                    
                                     fs.unlink(file, resultHandler);
                                 });
                                     });
                             });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                         }).catch(function (err) {
                             console.log(err.message);
-                            message.channel.stopTyping();});
+                            });
                     }
                     else
                     {
@@ -245,34 +245,34 @@ class ChangemymindCommand extends command.Command
                                             userImage.rotate(-24);
 
                                             freeImage.composite(userImage, x, y).composite(textImage, textX, textY).write(file, function(error){  
-                                                if(error) {message.channel.stopTyping(); console.log(error); return;};
+                                                if(error) { console.log(error); return;};
                                             message.channel.send("***Change My Mind***", {
                                                         files: [file]
                                             }).then(function(){
-                                                message.channel.stopTyping();
+                                                
                                                 fs.unlink(file, resultHandler);
                                             }).catch(function (err) {
-                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                                 console.log(err.message);
-                                                message.channel.stopTyping();
+                                                
                                                 fs.unlink(file, resultHandler);
                                             });
                                                 });
                                         });
                                     }).catch(function (err) {
                                         console.log(err.message);
-                                        message.channel.stopTyping();});
+                                        });
                                     }).catch(function (err) {
                                         console.log(err.message);
-                                        message.channel.stopTyping();});
+                                        });
                             }, rejection => {
                                     console.log(rejection.message);
                             });
                         }
                         else
                         {
-                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                            message.channel.stopTyping();
+                            message.channel.send("<@" + message.author.id + "> No image option mentioned after seperator. Use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); });
+                            
                             return;
                         }
                     }
@@ -295,34 +295,34 @@ class ChangemymindCommand extends command.Command
                         textImage.rotate(textRot);
 
                         freeImage.composite(textImage, textX, textY).write(file, function(error){  
-                            if(error) {message.channel.stopTyping(); console.log(error); return;};
+                            if(error) { console.log(error); return;};
                         message.channel.send("***Change My Mind***", {
                                     files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                             });
                     });
                  }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }
         }
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 67 characters, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); });
             else
-                message.channel.send("<@" + message.author.id + "> Incorrect parameters, text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("<@" + message.author.id + "> Incorrect parameters, text not given, use `" + commandPrefix + "help changemymind` for help.").catch(error => {console.log("Send Error - " + error); });
         
-             message.channel.stopTyping();
+             
         }
     }
 }

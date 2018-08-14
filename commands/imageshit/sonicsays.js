@@ -26,7 +26,7 @@ class SonicsaysCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var editText = "";
         var editTextExtra = "";
@@ -149,33 +149,33 @@ class SonicsaysCommand extends command.Command
                         sonicImage.print(font, 90, 70, editText).print(font, 90, 90, editTextExtra).print(font, 90, 110, editTextExtra2)
                          .print(font, 90, 130, editTextExtra3).print(font, 90, 150, editTextExtra4).print(font, 90, 170, editTextExtra5)
                          .print(font, 90, 190, editTextExtra6).write(file, function(error){ 
-                            if(error) {message.channel.stopTyping(); console.log(error); return;};
+                            if(error) { console.log(error); return;};
                         message.channel.send("***Sonic says...***", {
                                     files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                             });
                     });
                  }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
             });
         }
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 140 characters are only allowed.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("<@" + message.author.id + "> A maximum of 140 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
             else
-                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); });
 
-            message.channel.stopTyping();
+            
         }
     }
 }

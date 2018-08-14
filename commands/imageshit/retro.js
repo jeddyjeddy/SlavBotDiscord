@@ -27,7 +27,7 @@ class RetroCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var textLine1 = "";
         var textLine2 = "";
@@ -55,7 +55,7 @@ class RetroCommand extends command.Command
                     else
                     {
                         message.channel.send("<@" + message.author.id + "> The text style option should be a number from 1-4.").catch(error => console.log("Send Error - " + error));
-                        message.channel.stopTyping();
+                        
                         return;
                     }
                 }
@@ -64,7 +64,7 @@ class RetroCommand extends command.Command
                     if(args[i] != "|")
                     {
                         message.channel.send("<@" + message.author.id + "> Please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
-                        message.channel.stopTyping();
+                        
                         return;                    
                     }
                 }
@@ -77,7 +77,7 @@ class RetroCommand extends command.Command
                     else
                     {
                         message.channel.send("<@" + message.author.id + "> The background style option should be a number from 1-5.").catch(error => console.log("Send Error - " + error));
-                        message.channel.stopTyping();
+                        
                         return;
                     }
                 }
@@ -86,7 +86,7 @@ class RetroCommand extends command.Command
                     if(args[i] != "|")
                     {
                         message.channel.send("<@" + message.author.id + "> Please use the correct format for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
-                        message.channel.stopTyping();
+                        
                         return;                    
                     }
                 }
@@ -128,39 +128,39 @@ class RetroCommand extends command.Command
                 url = await image.fetchURL() 
             } catch (err) {
               console.log(err.message);
-              message.channel.stopTyping();
+              
               return;
             }
             Jimp.read(url).then(function (textImage) {
                 var file = shortid.generate() + ".png"
                 textImage.write(file, function(error){
-                    if(error) {message.channel.stopTyping(); console.log(error); return;};
+                    if(error) { console.log(error); return;};
                     console.log("got retro image");
                     console.log(file);
                     message.channel.send("Text Style: " + textStyle +  " - Background Style: " + bgStyle, {
                         files: [file]
                     }).then(function(){
-                        message.channel.stopTyping();
+                        
                         fs.unlink(file, resultHandler);
                     }).catch(function (err) {
                         message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                         fs.unlink(file, resultHandler);
                     });
                     console.log("Message Sent");
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
                 message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
         }
         else
         {
             message.channel.send("<@" + message.author.id + "> Please fill the parameters for the command. Use `" + commandPrefix + "help retro` for help.").catch(error => console.log("Send Error - " + error));
-            message.channel.stopTyping();
+            
         }
     }
 }

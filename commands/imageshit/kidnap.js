@@ -28,7 +28,7 @@ class KidnapCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
@@ -78,8 +78,8 @@ class KidnapCommand extends command.Command
         }
         else
         {
-            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => {console.log("Send Error - " + error); });
+            
             return;
         }
 
@@ -101,18 +101,18 @@ class KidnapCommand extends command.Command
                     var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
-                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                        if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
                         message.channel.send("<@" + message.author.id+ "> ***kidnapped*** <@" + userID + ">", {
                             files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
@@ -120,23 +120,23 @@ class KidnapCommand extends command.Command
                         setTimeout(function(){
                             if(userID == message.client.user.id)
                             {
-                                message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
                             }
                         }, 1000);
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
         }).catch(function (err) {
             console.log(err.message);
-            message.channel.stopTyping();
+            
         });
     }
 }

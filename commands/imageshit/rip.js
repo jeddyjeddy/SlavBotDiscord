@@ -26,7 +26,7 @@ class RipCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
@@ -75,31 +75,31 @@ class RipCommand extends command.Command
                         var mergedImage = userImage.composite(tombImage, x, y );
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
-                            if(error) {message.channel.stopTyping(); console.log(error); return;};
+                            if(error) { console.log(error); return;};
                             message.channel.send("F <@" + user.id + ">", {
                                 files: [file]
                             }).then(function(){
-                                message.channel.stopTyping();
+                                
                                 fs.unlink(file, resultHandler);
                             }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                 console.log(err.message);
-                                message.channel.stopTyping();
+                                
                                 fs.unlink(file, resultHandler);
                             });
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
-                        message.channel.stopTyping();
+                        
                     });
                 }).catch(function (err) {
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });   
              }, rejection => {
                     console.log(rejection.message);
-                    message.channel.stopTyping();
+                    
              });
         }
         else
@@ -114,27 +114,27 @@ class RipCommand extends command.Command
                     var mergedImage = userImage.composite(tombImage, x, y );
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
-                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                        if(error) { console.log(error); return;};
                         message.channel.send("F <@" + message.author.id + ">", {
                             files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });
             }).catch(function (err) {
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });   
         }  
     }

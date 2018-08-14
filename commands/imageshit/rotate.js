@@ -26,7 +26,7 @@ class RotateCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.startTyping();
+        
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
@@ -88,8 +88,8 @@ class RotateCommand extends command.Command
 
         if(!(parseInt(option) >= -360 && parseInt(option) <= 360))
         {
-            message.channel.send("<@" + message.author.id + "> No option in parameter, use a number ranging from -360 to 360. Use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-            message.channel.stopTyping();
+            message.channel.send("<@" + message.author.id + "> No option in parameter, use a number ranging from -360 to 360. Use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); });
+            
             return;
         }
         
@@ -114,11 +114,11 @@ class RotateCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
-                    message.channel.stopTyping();
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help rotate` for help.").catch(error => {console.log("Send Error - " + error); });
+                    
                     return;
                 }
-                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to rotate");
         
@@ -126,30 +126,30 @@ class RotateCommand extends command.Command
     
                     var file = shortid.generate() + ".png";
                     userImage.write(file, function(error){
-                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                        if(error) { console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Rotated***", {
                             files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     })
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 }); 
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
-                message.channel.stopTyping();
+                
             });
         }
         else if(imageOption == "avatar" || otherUser)
@@ -182,25 +182,25 @@ class RotateCommand extends command.Command
     
                     var file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
-                        if(error) {message.channel.stopTyping(); console.log(error); return;};
+                        if(error) { console.log(error); return;};
                         console.log(file);
                         message.channel.send("***Rotated***", {
                             files: [file]
                         }).then(function(){
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            message.channel.stopTyping();
+                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); message.channel.stopTyping();});
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
-                    message.channel.stopTyping();
+                    
                 });     
             }, wait);
         }
