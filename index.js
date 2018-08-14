@@ -1029,7 +1029,8 @@ bot.on("message", (message) => {
     
         if(message.content.toLowerCase().indexOf("trap") > -1 && message.content.toLowerCase().indexOf("gay") > -1)
         {
-            message.channel.send("Traps are definitely gay").catch(error => console.log("Send Error - " + error));
+            if(message.author.id != bot.user.id)
+                message.channel.send("Traps are definitely gay").catch(error => console.log("Send Error - " + error));
         }
 
     if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
