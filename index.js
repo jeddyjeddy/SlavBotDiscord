@@ -335,7 +335,7 @@ var getUserCommandCounter = (userID) => {
     if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
         firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
-            if(snapshot.val() != null)
+            if(snapshot.child("commandusage").val() != null)
             {
                 snapshot.forEach(function(childSnap){
                     userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
@@ -344,7 +344,7 @@ var getUserCommandCounter = (userID) => {
             else
             {
                 firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
-                    if(snapshot.val() == null)
+                    if(snapshot.child("commandusage").val() == null)
                     {
                         userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
                     }
@@ -1014,7 +1014,11 @@ bot.on("message", (message) => {
     {
         if (message.content.toLowerCase().indexOf("ur mom") > -1 || message.content.toLowerCase().indexOf("ur mum") > -1
         || message.content.toLowerCase().indexOf("ur mother") > -1 || message.content.toLowerCase().indexOf("ur dad") > -1
-        || message.content.toLowerCase().indexOf("ur daddy") > -1 || message.content.toLowerCase().indexOf("ur father") > -1) 
+        || message.content.toLowerCase().indexOf("ur daddy") > -1 || message.content.toLowerCase().indexOf("ur father") > -1
+        || message.content.toLowerCase().indexOf("ur aunt") > -1 || message.content.toLowerCase().indexOf("ur uncle") > -1
+        || message.content.toLowerCase().indexOf("ur pap") > -1 || message.content.toLowerCase().indexOf("ur grandpa") > -1
+        || message.content.toLowerCase().indexOf("ur grandnan") > -1 || message.content.toLowerCase().indexOf("ur father") > -1
+        || message.content.toLowerCase().indexOf("ur nanny") > -1 || message.content.toLowerCase().indexOf("ur grandma") > -1) 
         {
             if(message.author.id != bot.user.id)
                 message.channel.send("<@" + message.author.id + "> " + responses1[Math.floor(Math.random() * (responses1.length))]).catch(error => console.log("Send Error - " + error));	
@@ -1212,7 +1216,8 @@ bot.on("message", (message) => {
       || message.content.toLowerCase().indexOf("dumbass") > -1 || message.content.toLowerCase().indexOf("bastard") > -1 
       || message.content.toLowerCase().indexOf("fack") > -1 || message.content.toLowerCase().indexOf("fock") > -1 
       || message.content.toLowerCase().indexOf("feck") > -1 || message.content.toLowerCase().indexOf("wanker") > -1
-      || message.content.toLowerCase().indexOf("tosser") > -1)
+      || message.content.toLowerCase().indexOf("tosser") > -1 || message.content.toLowerCase().indexOf("cyka") > -1
+      || message.content.toLowerCase().indexOf("blyat") > -1)
     {
         if(message.author.id != bot.user.id)
         {
@@ -1230,7 +1235,7 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length;
+            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length;
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
