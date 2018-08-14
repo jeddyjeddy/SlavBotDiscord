@@ -311,7 +311,7 @@ var migrateServerID = (guild) =>
                     if(snapshot.val() == null)
                     {
                         console.log("Adding new data for " + guild.id)
-                        firebase.database().ref("serversettings/" + guild.id + "/respond").set(true)
+                        firebase.database().ref("serversettings/" + guild.id + "/respond").set(false)
                     }
                 })
             }
