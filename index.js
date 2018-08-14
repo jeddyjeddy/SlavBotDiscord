@@ -284,7 +284,7 @@ var migrateServerID = (guild) =>
             }
 
             if(checkIndex == channels.length - 1)
-            { 
+            {p 
                 console.log("Migrating over " + guild.id)
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
@@ -1027,9 +1027,7 @@ bot.on("message", (message) => {
                 message.channel.send("<@" + message.author.id + "> " + "no you");
         }
     
-        if(message.content.toLowerCase().indexOf("traps are gay") > -1 || message.content.toLowerCase().indexOf("traps are not gay") > -1  || message.content.toLowerCase().indexOf("traps aren't gay") > -1  
-        || message.content.toLowerCase().indexOf("traps are very gay") > -1 || message.content.toLowerCase().indexOf("traps r gay") > -1 || message.content.toLowerCase().indexOf("traps r not gay") > -1 
-        || message.content.toLowerCase().indexOf("traps ain't gay") > -1 || message.content.toLowerCase().indexOf("traps gay") > -1 || message.content.toLowerCase().indexOf("traps gayn't") > -1)
+        if(message.content.toLowerCase().indexOf("trap") > -1 && message.content.toLowerCase().indexOf("gay") > -1)
         {
             message.channel.send("Traps are definitely gay").catch(error => console.log("Send Error - " + error));
         }
