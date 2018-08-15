@@ -62,9 +62,9 @@ class DanceCommand extends command.Command
 
             setTimeout(function(){
                 if(userID == message.client.user.id)
-                    message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => console.log("Send Error - " + error));
+                    message.channel.send(selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => console.log("Send Error - " + error));
                 else
-                    message.channel.send("<@" + userID + "> " + responses[Math.floor(Math.random() * (responses.length))]).catch(error => console.log("Send Error - " + error));
+                    message.channel.send(responses[Math.floor(Math.random() * (responses.length))]).catch(error => console.log("Send Error - " + error));
             }, 1000);
         }
         else
@@ -77,7 +77,7 @@ class DanceCommand extends command.Command
             });
 
             setTimeout(function(){
-                message.channel.send("<@" + message.author.id + "> " + responses[Math.floor(Math.random() * (responses.length))]).catch(error => console.log("Send Error - " + error));
+                message.channel.send(responses[Math.floor(Math.random() * (responses.length))]).catch(error => console.log("Send Error - " + error));
             }, 1000);
         }
     }
