@@ -53,7 +53,7 @@ class DanceCommand extends command.Command
         
         if(otherUser && userID != message.author.id)
         {
-            message.channel.send("<@" + message.author.id + "> ***and*** <@" + userID + "> ***dance together***", {
+            message.channel.send("<@" + message.author.id + "> ***and*** <@" + userID + "> ***dance together***\n***SLAV HARDBASS DANCE PARTY***", {
                 files: ["danceduo.gif"]
             }).catch(function (err) {
                 message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
