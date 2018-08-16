@@ -72,7 +72,7 @@ dbl.on('posted', () => {
 
     // Start the request
     request(options3, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode == 204) {
             // Print out the response body
             console.log(body)
         }
