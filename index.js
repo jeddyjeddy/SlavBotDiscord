@@ -25,7 +25,7 @@ dbl.on('posted', () => {
         url: 'https://botsfordiscord.com/api/v1/bots/' + bot.user.id,
         method: 'POST',
         headers: headers,
-        body: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
+        form: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
     }
 
     // Start the request
@@ -46,7 +46,7 @@ dbl.on('posted', () => {
         url: 'https://listcord.com/api/bot/' + bot.user.id + "/guilds",
         method: 'POST',
         headers: headers2,
-        body: {'guilds': bot.guilds.size}
+        form: {'guilds': bot.guilds.size}
     }
 
     // Start the request
