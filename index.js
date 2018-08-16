@@ -56,6 +56,27 @@ dbl.on('posted', () => {
             console.log(body)
         }
     })
+
+    var headers3 = {
+        'Authorization': process.env.BOTS_ON_DISCORD_API,
+        'Content-Type': 'application/json'
+    }
+
+    // Configure the request
+    var options3 = {
+        url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
+        method: 'POST',
+        headers: headers3,
+        form: {'guildCount': bot.guilds.size}
+    }
+
+    // Start the request
+    request(options3, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            console.log(body)
+        }
+    })
 });
     
 dbl.on('error', e => {
