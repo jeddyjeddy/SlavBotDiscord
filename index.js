@@ -67,7 +67,7 @@ dbl.on('posted', () => {
         url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
         method: 'POST',
         headers: headers3,
-        form: {'guildCount': bot.guilds.size}
+        form: {"guildCount": parseInt(bot.guilds.size)}
     }
 
     // Start the request
