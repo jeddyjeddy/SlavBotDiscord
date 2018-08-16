@@ -25,7 +25,7 @@ dbl.on('posted', () => {
         url: 'https://botsfordiscord.com/api/v1/bots/' + bot.user.id,
         method: 'POST',
         headers: headers,
-        form: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
+        body: {'count': bot.guilds.size, 'server_count': bot.guilds.size}
     }
 
     // Start the request
@@ -46,7 +46,7 @@ dbl.on('posted', () => {
         url: 'https://listcord.com/api/bot/' + bot.user.id + "/guilds",
         method: 'POST',
         headers: headers2,
-        form: {'guilds': bot.guilds.size}
+        body: {'guilds': bot.guilds.size}
     }
 
     // Start the request
@@ -67,7 +67,7 @@ dbl.on('posted', () => {
         url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
         method: 'POST',
         headers: headers3,
-        form: {"guildCount": parseInt(bot.guilds.size)}
+        body: {"guildCount": bot.guilds.size}
     }
 
     // Start the request
