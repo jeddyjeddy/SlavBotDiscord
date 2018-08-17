@@ -1058,6 +1058,12 @@ bot.on("message", (message) => {
                 message.channel.send("Traps are definitely gay").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase().indexOf("depressed"))
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("It really do be like that sometimes").catch(error => console.log("Send Error - " + error));
+        }
+
     if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
     {  
         if(message.author.id != bot.user.id)
