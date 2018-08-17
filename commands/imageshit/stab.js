@@ -11,18 +11,18 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-const selfResponses = [" I have a knife", ", they won't find your body",  " I know where you live", " can you do *anything* properly?", " you're not kidnapping me, *I'm* kidnapping you"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
+const selfResponses = [" I have a bigger knife", ", they won't find your body",  " I know where you live", " can you do *anything* properly?", " you're not stabbing me, *I'm* stabbing you"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
 
-class KidnapCommand extends command.Command
+class StabCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "kidnap",
+            name: "stab",
             group: "imageshit",
-            memberName: "kidnap",
-            description: "Kidnap another user.",
-            examples: ["`!kidnap @User`"]
+            memberName: "stab",
+            description: "Stab another user.",
+            examples: ["`!stab @User`"]
         });
     }
 
@@ -84,19 +84,18 @@ class KidnapCommand extends command.Command
         }
 
         console.log(url);
-        Jimp.read("kidnap.jpg").then(function (kidnapImage) {
+        Jimp.read("stab.jpg").then(function (kidnapImage) {
             console.log("got image");
             Jimp.read(message.author.avatarURL).then(function (authorImage) {
                 Jimp.read(url).then(function (userImage) {
                 
                     console.log("got avatar");
-                    userImage.resize(140, 140);
-                    userImage.rotate(-45);
-                    authorImage.resize(180, 180);
-                    var xKidnapper = 460
-                    var yKidnapper = 100
-                    var x = 150
-                    var y = 160
+                    userImage.resize(90, 90);
+                    authorImage.resize(80, 80);
+                    var xKidnapper = 160
+                    var yKidnapper = 160
+                    var x = 400
+                    var y = 50
                     var mergedImageKidnapper = kidnapImage.composite(authorImage, xKidnapper, yKidnapper );
                     var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
                     var file = shortid.generate() + ".png"
@@ -104,7 +103,7 @@ class KidnapCommand extends command.Command
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("<@" + message.author.id+ "> ***kidnapped*** <@" + userID + ">", {
+                        message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
                             files: [file]
                         }).then(function(){
                             
@@ -123,6 +122,7 @@ class KidnapCommand extends command.Command
                                 message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
                             }, 1000);
                         }
+                       
                     });
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -141,4 +141,4 @@ class KidnapCommand extends command.Command
     }
 }
 
-module.exports = KidnapCommand;
+module.exports = StabCommand;
