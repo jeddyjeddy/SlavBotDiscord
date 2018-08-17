@@ -105,7 +105,7 @@ class LeaderboardsCommand extends command.Command
 
                 var timestamp = (new Date(Date.now()).toJSON());
                 message.channel.send("", {embed: {title: "**Global Leaderboard - Top 10 users :trophy:**",
-                description: "**Rank** - CRS* - Name\n" + descriptionList + "\n*CRS = Command Requests Sent\nFiltered from a total of " + userCount + " users\n\nTo check the local leaderboard for your server, use `" + commandPrefix + "leaderboards local`",
+                description: "**Rank** - CRS* - Name\n" + descriptionList + "\n*CRS = Command Requests Sent\n\nFiltered from a total of " + userCount + " users\n\nTo check the local leaderboard for your server, use `" + commandPrefix + "leaderboards local`",
                 color: 16757505,
                 timestamp: timestamp,
                 footer: {
