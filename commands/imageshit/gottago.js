@@ -155,9 +155,13 @@ class GottagoCommand extends command.Command
     
                 message.channel.client.fetchUser(userID)
                  .then(user => {
+                     if(user.avatarURL != undefined && user.avatarURL != null)
                         url = user.avatarURL;
+                    else
+                        url = "no user"
                  }, rejection => {
                         console.log(rejection.message);
+                        url = "no user";
                  });
             }
             else
@@ -168,6 +172,11 @@ class GottagoCommand extends command.Command
             }
             Jimp.read("gottago.png").then(function (GottaGoImage) {
                 console.log("got image");
+                if(url == "no user")
+                {
+                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    return;
+                }
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");    
                     var x = 80

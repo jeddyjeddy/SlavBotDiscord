@@ -66,6 +66,11 @@ class RipCommand extends command.Command
             message.channel.client.fetchUser(userID)
              .then(user => {
                 Jimp.read("tombstone.png").then(function (tombImage) {
+                    if(user.avatarURL == undefined || user.avatarURL == null)
+                    {
+                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        return;
+                    }
                     Jimp.read(user.avatarURL).then(function (userImage) {
                         tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
         

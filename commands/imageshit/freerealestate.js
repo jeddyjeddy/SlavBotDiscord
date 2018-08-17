@@ -211,7 +211,13 @@ class FreerealestateCommand extends command.Command
                 
                             message.channel.client.fetchUser(userID)
                             .then(user => {
-                                    url = user.avatarURL;
+                                    if(user.avatarURL != undefined && user.avatarURL != null)
+                                        url = user.avatarURL;
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                                        return;
+                                    }
                                     var file = shortid.generate() + ".png";
 
                                     Jimp.read(url).then(function (userImage) {
