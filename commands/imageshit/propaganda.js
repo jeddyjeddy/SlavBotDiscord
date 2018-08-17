@@ -101,8 +101,8 @@ class PropagandaCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 35
-                        var y = 100
+                        var x = 100
+                        var y = 35
 
                         userImage.cover(250, 235)                        
                         
@@ -171,8 +171,8 @@ class PropagandaCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
                     
-                    var x = 35
-                    var y = 100
+                    var x = 100
+                    var y = 35
 
                     userImage.cover(250, 235)                     
                     
