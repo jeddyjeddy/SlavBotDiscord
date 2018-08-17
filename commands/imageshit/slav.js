@@ -226,11 +226,7 @@ class SlavCommand extends command.Command
 
             Jimp.read("slav.png").then(function (slavImage) {
                 console.log("got image");
-                if(url == "no user")
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    return;
-                }
+                
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
                     slavImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
@@ -310,7 +306,12 @@ class SlavCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    if(url == "no user")
+                    {
+                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    }
+                    else
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });

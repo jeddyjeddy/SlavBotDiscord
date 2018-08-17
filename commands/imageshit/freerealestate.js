@@ -254,6 +254,9 @@ class FreerealestateCommand extends command.Command
                                         });
                             }, rejection => {
                                     console.log(rejection.message);
+                         
+                                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                  
                             });
                         }
                         else

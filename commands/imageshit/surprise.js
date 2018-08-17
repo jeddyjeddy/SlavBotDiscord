@@ -169,11 +169,7 @@ class SurpriseCommand extends command.Command
             }
             Jimp.read("surprise.png").then(function (surpriseImage) {
                 console.log("got image");
-                if(url == "no user")
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    return;
-                }
+                
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");    
                     var x = 150
@@ -204,7 +200,12 @@ class SurpriseCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    if(url == "no user")
+                    {
+                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    }
+                    else
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });

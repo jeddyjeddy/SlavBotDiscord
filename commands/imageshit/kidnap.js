@@ -96,11 +96,7 @@ class KidnapCommand extends command.Command
                 return;
             }
             Jimp.read(message.author.avatarURL).then(function (authorImage) {
-                if(url == "no user")
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    return;
-                }
+                
                 Jimp.read(url).then(function (userImage) {
                 
                     console.log("got avatar");
@@ -135,7 +131,12 @@ class KidnapCommand extends command.Command
                         console.log("Message Sent");
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    if(url == "no user")
+                    {
+                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    }
+                    else
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });

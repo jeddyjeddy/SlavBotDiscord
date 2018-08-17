@@ -93,11 +93,7 @@ class UselessCommand extends command.Command
         console.log(url);
         Jimp.read("useless.jpg").then(function (uselessImage) {
             console.log("got image");
-                if(url == "no user")
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    return;
-                }
+               
                 Jimp.read(url).then(function (userImage) {
                     var fontType = Jimp.FONT_SANS_16_BLACK;
                     var textY = 105;
@@ -139,7 +135,12 @@ class UselessCommand extends command.Command
                     
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    if(url == "no user")
+                    {
+                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    }
+                    else
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });

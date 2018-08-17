@@ -188,11 +188,7 @@ class GrindCommand extends command.Command
                 Jimp.read("grind.png").then(function (grindImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
-                        if(profileURL == "no user")
-                        {
-                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                            return;
-                        }
+                        
                         Jimp.read(profileURL).then(function (profileImage) {
                         
                             userImage.cover(grindImage.bitmap.width, grindImage.bitmap.height)
@@ -220,7 +216,12 @@ class GrindCommand extends command.Command
                                 console.log("Message Sent");
                             });
                         }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            if(profileURL == "no user")
+                            {
+                                message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                            }
+                            else
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
                             
                         });
