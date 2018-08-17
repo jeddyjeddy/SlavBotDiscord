@@ -584,7 +584,7 @@ var getLocalLeaderboardRankings = (members) =>
 
 var getUserBaseCount = () =>
 {
-    return userCommandUsage.length;
+    return numberWithCommas(userCommandUsage.length);
 }
 
 function commandUsageAscending(a, b)
