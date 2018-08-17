@@ -582,6 +582,11 @@ var getLocalLeaderboardRankings = (members) =>
     return localLeaderboardRankings;
 }
 
+var getUserBaseCount = () =>
+{
+    return userCommandUsage.length;
+}
+
 function commandUsageAscending(a, b)
 {
     if (a.data.uses < b.data.uses)
@@ -614,6 +619,10 @@ getLeaderboards: function()
 getLocalLeaderboards: function(members)
 {
     return getLocalLeaderboardRankings(members);
+},
+getUserCount: function()
+{
+    return getUserBaseCount();
 },
 
 getRoleName: function(guildID)
