@@ -184,13 +184,10 @@ class EwCommand extends command.Command
                         message.channel.send("***Ew*** <@" + userID + ">", {
                             files: [file]
                         }).then(function(){
-                            
-                            setTimeout(function(){
-                                if(userID == message.client.user.id)
-                                {
-                                    message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                                }
-                            }, 1000);
+                            if(userID == message.client.user.id)
+                            {
+                                 message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
+                            }
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });

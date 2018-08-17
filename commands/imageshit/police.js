@@ -181,7 +181,10 @@ class PoliceCommand extends command.Command
                         message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***\n<@" + userID +"> ***has been arrested***", {
                             files: [file]
                         }).then(function(){
-                            
+                            if(userID == message.client.user.id)
+                            {
+                                 message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
+                            }
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -190,12 +193,6 @@ class PoliceCommand extends command.Command
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
-                        setTimeout(function(){
-                            if(userID == message.client.user.id)
-                            {
-                                message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                            }
-                        }, 1000);
                     });
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });

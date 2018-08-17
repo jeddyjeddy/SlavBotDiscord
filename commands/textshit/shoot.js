@@ -55,17 +55,15 @@ class ShootCommand extends command.Command
         {
             message.channel.send("<@" + message.author.id + "> ***shot*** <@" + userID + ">", {
                 files: ["gunshot.gif"]
-            }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                console.log(err.message);
-            });
-
-            setTimeout(function(){
+            }).then(function(){
                 if(userID == message.client.user.id)
                     message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => console.log("Send Error - " + error));
                 else
                     message.channel.send("<@" + userID + ">" + responses[Math.floor(Math.random() * (responses.length))]).catch(error => console.log("Send Error - " + error));
-            }, 1000);
+            }).catch(function (err) {
+                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                console.log(err.message);
+            });
         }
         else
         {

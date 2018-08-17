@@ -106,7 +106,10 @@ class StabCommand extends command.Command
                         message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
                             files: [file]
                         }).then(function(){
-                            
+                            if(userID == message.client.user.id)
+                            {
+                                message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
+                            }
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -115,14 +118,6 @@ class StabCommand extends command.Command
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
-                       
-                        if(userID == message.client.user.id)
-                        {
-                            setTimeout(function(){
-                                message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                            }, 1000);
-                        }
-                       
                     });
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
