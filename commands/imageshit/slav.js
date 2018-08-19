@@ -172,7 +172,7 @@ class SlavCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("Slav'd", {
+                            message.channel.send("***Slav'd***", {
                                 files: [file]
                             }).then(function(){
                                 fs.unlink(file, resultHandler);
@@ -292,7 +292,7 @@ class SlavCommand extends command.Command
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("Slav'd", {
+                        message.channel.send("***Slav'd***", {
                             files: [file]
                         }).then(function(){
                             

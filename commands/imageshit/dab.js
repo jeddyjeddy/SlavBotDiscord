@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class WorkerSlavCommand extends command.Command
+class DabCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "workerslav",
+            name: "dab",
             group: "imageshit",
-            memberName: "workerslav",
-            description: "Slav Up an image. Merges the worker version of Slav Bot (from the support server) to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
-            examples: ["`!workerslav`", "`!workerslav avatar`","`!workerslav @User`"]
+            memberName: "dab",
+            description: "You should already know what this will do. Takes the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            examples: ["`!dab`", "`!dab avatar`","`!dab @User`"]
         });
     }
 
@@ -90,30 +90,30 @@ class WorkerSlavCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help slav` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help dab` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("slavworker.png").then(function (slavImage) {
+                Jimp.read("dab.png").then(function (dabImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         if(userImage.bitmap.height > userImage.bitmap.width)
                         {
-                            slavImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.width * 0.75);
+                            dabImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.width * 0.75);
                         }
                         else if (userImage.bitmap.width > userImage.bitmap.height)
                         {
-                            slavImage.resize(userImage.bitmap.height * 0.75, userImage.bitmap.height * 0.75);
+                            dabImage.resize(userImage.bitmap.height * 0.75, userImage.bitmap.height * 0.75);
                         }
                         else
                         {
-                            slavImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+                            dabImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
                         }
-                        var x = (Math.random() * (userImage.bitmap.width)) - (slavImage.bitmap.width / 2);
+                        var x = (Math.random() * (userImage.bitmap.width)) - (dabImage.bitmap.width / 2);
                         console.log(x);
-                        var y = (Math.random() * (userImage.bitmap.height)) - (slavImage.bitmap.height / 2);
+                        var y = (Math.random() * (userImage.bitmap.height)) - (dabImage.bitmap.height / 2);
                         console.log(y);
         
                         if(Math.random() * 100 < 50)
@@ -124,22 +124,22 @@ class WorkerSlavCommand extends command.Command
                                 {
                                     if(Math.random() * 100 < 50)
                                     {
-                                        slavImage.flip(false, true);
+                                        dabImage.flip(false, true);
                                     }
                                     else
                                     {
-                                        slavImage.flip(true, true);
+                                        dabImage.flip(true, true);
                                     }
                                 }
                                 else
                                 {
                                     if(Math.random() * 100 < 50)
                                     {
-                                        slavImage.flip(false, false);
+                                        dabImage.flip(false, false);
                                     }
                                     else
                                     {
-                                        slavImage.flip(true, false);
+                                        dabImage.flip(true, false);
                                     }
                                 }
                             }
@@ -147,36 +147,36 @@ class WorkerSlavCommand extends command.Command
                             {
                                 if(x < userImage.bitmap.width / 4)
                                 {
-                                    slavImage.rotate(90);
+                                    dabImage.rotate(90);
                                 }
                                 else if(x > userImage.bitmap.width / 4)
                                 {
-                                    slavImage.rotate(-90);
+                                    dabImage.rotate(-90);
                                 }
         
                                 if(Math.random() * 100 < 50)
                                 {
-                                    slavImage.flip(false, false);
+                                    dabImage.flip(false, false);
                                 }
                                 else
                                 {
-                                    slavImage.flip(false, true);
+                                    dabImage.flip(false, true);
                                 }
                             }
                         }
         
                         
-                        var mergedImage = userImage.composite(slavImage, x, y );
+                        var mergedImage = userImage.composite(dabImage, x, y );
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Slav'd***", {
+                            message.channel.send("***oof***", {
                                 files: [file]
                             }).then(function(){
-                                 
                                 fs.unlink(file, resultHandler);
+                                
                             }).catch(function (err) {
                                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                 console.log(err.message);
@@ -204,7 +204,7 @@ class WorkerSlavCommand extends command.Command
         {
             if(otherUser)
             {
-                console.log("other slav");
+                console.log("other dab");
                 console.log(userID);
 
                 message.channel.client.fetchUser(userID)
@@ -220,20 +220,20 @@ class WorkerSlavCommand extends command.Command
             }
             else
             {
-                console.log("self slav");
+                console.log("self dab");
                 url = message.author.avatarURL;
             }
 
-            Jimp.read("slavworker.png").then(function (slavImage) {
+            Jimp.read("dab.png").then(function (dabImage) {
                 console.log("got image");
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    slavImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+                    dabImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
     
-                    var x = (Math.random() * (userImage.bitmap.width)) - (slavImage.bitmap.width / 2);
+                    var x = (Math.random() * (userImage.bitmap.width)) - (dabImage.bitmap.width / 2);
                     console.log(x);
-                    var y = (Math.random() * (userImage.bitmap.height)) - (slavImage.bitmap.height / 2);
+                    var y = (Math.random() * (userImage.bitmap.height)) - (dabImage.bitmap.height / 2);
                     console.log(y);
     
                     if(Math.random() * 100 < 50)
@@ -244,22 +244,22 @@ class WorkerSlavCommand extends command.Command
                             {
                                 if(Math.random() * 100 < 50)
                                 {
-                                    slavImage.flip(false, true);
+                                    dabImage.flip(false, true);
                                 }
                                 else
                                 {
-                                    slavImage.flip(true, true);
+                                    dabImage.flip(true, true);
                                 }
                             }
                             else
                             {
                                 if(Math.random() * 100 < 50)
                                 {
-                                    slavImage.flip(false, false);
+                                    dabImage.flip(false, false);
                                 }
                                 else
                                 {
-                                    slavImage.flip(true, false);
+                                    dabImage.flip(true, false);
                                 }
                             }
                         }
@@ -267,32 +267,32 @@ class WorkerSlavCommand extends command.Command
                         {
                             if(x < userImage.bitmap.width / 4)
                             {
-                                slavImage.rotate(90);
+                                dabImage.rotate(90);
                             }
                             else if(x > userImage.bitmap.width / 4)
                             {
-                                slavImage.rotate(-90);
+                                dabImage.rotate(-90);
                             }
     
                             if(Math.random() * 100 < 50)
                             {
-                                slavImage.flip(false, false);
+                                dabImage.flip(false, false);
                             }
                             else
                             {
-                                slavImage.flip(false, true);
+                                dabImage.flip(false, true);
                             }
                         }
                     }
     
                     
-                    var mergedImage = userImage.composite(slavImage, x, y );
+                    var mergedImage = userImage.composite(dabImage, x, y );
                     var file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Slav'd***", {
+                        message.channel.send("***oof***", {
                             files: [file]
                         }).then(function(){
                             
@@ -323,4 +323,4 @@ class WorkerSlavCommand extends command.Command
     }
 }
 
-module.exports = WorkerSlavCommand;
+module.exports = DabCommand;
