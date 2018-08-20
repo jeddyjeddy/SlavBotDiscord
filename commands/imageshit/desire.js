@@ -105,7 +105,7 @@ class DesireCommand extends command.Command
                         var y = 915
     
                         userImage.cover(535, 520) 
-                        userImage.rotate(-4);                          
+                        userImage.rotate(-2);                          
                         
         
                         var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
@@ -176,7 +176,7 @@ class DesireCommand extends command.Command
                     var y = 915
 
                     userImage.cover(535, 520) 
-                    userImage.rotate(-4);                    
+                    userImage.rotate(-2);                    
                     
     
                     var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
