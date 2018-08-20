@@ -114,7 +114,7 @@ class DesireCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("**Long live our Soviet motherland**", {
+                            message.channel.send("***Your deepest desire***", {
                                 files: [file]
                             }).then(function(){
                                 
@@ -185,7 +185,7 @@ class DesireCommand extends command.Command
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Long live our Soviet motherland***", {
+                        message.channel.send("***Your deepest desire***", {
                             files: [file]
                         }).then(function(){
                             

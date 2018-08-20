@@ -113,7 +113,7 @@ class PropagandaCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("**Long live our Soviet motherland**", {
+                            message.channel.send("***Long live our Soviet motherland***", {
                                 files: [file]
                             }).then(function(){
                                 
