@@ -102,9 +102,9 @@ class DesireCommand extends command.Command
                         console.log("got avatar");
                         
                         var x = 105
-                        var y = 905
-    
-                        userImage.cover(535, 530) 
+                        var y = 900
+
+                        userImage.cover(535, 535) 
                         userImage.rotate(-2);                          
                         
         
@@ -173,9 +173,9 @@ class DesireCommand extends command.Command
                     console.log("got avatar");
                     
                     var x = 105
-                    var y = 905
+                    var y = 900
 
-                    userImage.cover(535, 530) 
+                    userImage.cover(535, 535) 
                     userImage.rotate(-2);                    
                     
     
