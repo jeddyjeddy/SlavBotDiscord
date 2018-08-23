@@ -101,6 +101,7 @@ bot.on('guildDelete', mem => {
 
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
+var allOwOCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true}] 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 
@@ -1196,7 +1197,7 @@ bot.on("message", (message) => {
                         thotCounter.push({
                             key: message.channel.id,
                             value: 1,
-                            valueToCheck: 10,
+                            valueToCheck: 50,
                              specialCheck: 1000
                         });
                         for(var i = 0; i < thotCounter.length; i++)
@@ -1256,7 +1257,10 @@ bot.on("message", (message) => {
       || message.content.toLowerCase().indexOf("fack") > -1 || message.content.toLowerCase().indexOf("fock") > -1 
       || message.content.toLowerCase().indexOf("feck") > -1 || message.content.toLowerCase().indexOf("wanker") > -1
       || message.content.toLowerCase().indexOf("tosser") > -1 || message.content.toLowerCase().indexOf("cyka") > -1
-      || message.content.toLowerCase().indexOf("blyat") > -1)
+      || message.content.toLowerCase().indexOf("blyat") > -1 || message.content.toLowerCase().indexOf("yobany urod") > -1
+      || message.content.toLowerCase().indexOf("idi nahui") > -1 || message.content.toLowerCase().indexOf("pohui") > -1
+      || message.content.toLowerCase().indexOf("kurva") > -1 || message.content.toLowerCase().indexOf("kurwa") > -1
+      || message.content.toLowerCase().indexOf("pizdec") > -1)
     {
         if(message.author.id != bot.user.id)
         {
@@ -1274,7 +1278,7 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length;
+            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length + (msg.match(/yobany urod/g) || []).length + (msg.match(/idi nahui/g) || []).length + (msg.match(/pohui/g) || []).length + (msg.match(/kurva/g) || []).length + (msg.match(/kurwa/g) || []).length + (msg.match(/pizdec/g) || []).length;
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
@@ -1419,6 +1423,179 @@ bot.on("message", (message) => {
                     }
 
                     firebase.database().ref("serversettings/" + message.guild.id + "/swearcounter").set(JSON.stringify(swearCounter));
+                }
+            }
+        }
+
+        if(message.content.toLowerCase().indexOf("owo") > -1 || message.content.toLowerCase().indexOf("uwu") > -1  
+        || message.content.toLowerCase().indexOf("òwó") > -1)
+        {  
+            if(message.author.id != bot.user.id)
+            {
+                var owoCounter = [];
+                if(allOwOCounters.length > 0)
+                {
+                    for(var i = 0; i < allOwOCounters.length; i++)
+                    {
+                        if(allOwOCounters[i].key == message.guild.id)
+                        {
+                            owoCounter = allOwOCounters[i].counter;
+                            i = allOwOCounters.length;
+                        }
+                    }
+                }
+
+                var msg = message.content.toLowerCase();
+                var count = (msg.match(/owo/g) || []).length + (msg.match(/uwu/g) || []).length + (msg.match(/òwó/g) || []).length;
+            
+                if(owoCounter == [] || owoCounter.length == 0)
+                {       
+                    firebase.database().ref("serversettings/" + message.guild.id).once('value').then(function(snapshot) {
+                        if(snapshot.val() == null)
+                        {
+                            migrateServerID(message.guild)
+                            return;
+                        }
+
+                        if(snapshot.child("owocounter").val() != null)
+                        {
+                            owoCounter = JSON.parse(snapshot.child("owocounter").val());
+                        }
+                        else
+                        {
+                            owoCounter = [{key: "Key", value: 0, valueToCheck: 50, specialCheck: 1000}];
+                        }
+
+                        var hasKey = false;
+                        var index = 1;
+                        
+                        for(var i = 0; i < owoCounter.length; i++)
+                        {
+                            if(owoCounter[i].key == message.channel.id)
+                            {
+                                hasKey = true;
+                                owoCounter[i].value = owoCounter[i].value + count;
+                                index = i;
+
+                                if(owoCounter[i].specialCheck == null)
+                                {
+                                    owoCounter[i]["specialCheck"] = 1000;
+                                }
+                            }
+                        }
+                        if(!hasKey)
+                        {
+                            owoCounter.push({
+                                key: message.channel.id,
+                                value: 1,
+                                valueToCheck: 50,
+                                specialCheck: 1000
+                            });
+                            for(var i = 0; i < owoCounter.length; i++)
+                            {
+                                if(owoCounter[i].key == message.channel.id)
+                                {
+                                    index = i;
+                                }
+                            }
+                        }
+                        
+                            message.channel.send("OwO counter: " + numberWithCommas(owoCounter[index].value)).catch(error => console.log("Send Error - " + error));
+
+                            if(owoCounter[index].value >= owoCounter[index].valueToCheck)
+                            {
+                                owoCounter[index].valueToCheck = Math.floor((owoCounter[index].value + 50)/10) * 10;
+
+                                if(owoCounter[index].valueToCheck % 50 != 0)
+                                {
+                                    owoCounter[index].valueToCheck = (Math.floor((owoCounter[index].valueToCheck/100)) * 100) + 50
+                                }
+
+                                if(owoCounter[index].value >= owoCounter[index].specialCheck)
+                                {
+                                    message.channel.send("***Another OwO will result in death***", {files: ["owo1000.png"]}).catch(error => console.log("Send Error - " + error));
+                                    owoCounter[index].specialCheck = Math.floor((owoCounter[index].value + 1000)/1000) * 1000;
+                                }
+                                else
+                                {
+                                    message.channel.send("***This is an Anti-Weeb server***", {files: ["owo.png"]}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
+                        
+
+                        allOwOCounters.push({key: message.guild.id, counter: owoCounter})
+                        firebase.database().ref("serversettings/" + message.guild.id + "/owocounter").set(JSON.stringify(owoCounter));
+                    }); 
+                }   
+                else
+                {
+                        var hasKey = false;
+                        var index = 1;
+                        
+                        for(var i = 0; i < owoCounter.length; i++)
+                        {
+                            if(owoCounter[i].key == message.channel.id)
+                            {
+                                hasKey = true;
+                                owoCounter[i].value = owoCounter[i].value + count;
+                                index = i;
+
+                                if(owoCounter[i].specialCheck == null)
+                                {
+                                    owoCounter[i]["specialCheck"] = 1000;
+                                }
+                            }
+                        }
+                        if(!hasKey)
+                        {
+                            owoCounter.push({
+                                key: message.channel.id,
+                                value: 1,
+                                valueToCheck: 50,
+                                specialCheck: 1000
+                            });
+                            for(var i = 0; i < owoCounter.length; i++)
+                            {
+                                if(owoCounter[i].key == message.channel.id)
+                                {
+                                    index = i;
+                                }
+                            }
+                        }
+
+                        
+                            message.channel.send("OwO counter: " + numberWithCommas(owoCounter[index].value)).catch(error => console.log("Send Error - " + error));
+
+                            if(owoCounter[index].value >= owoCounter[index].valueToCheck)
+                            {
+                                owoCounter[index].valueToCheck = Math.floor((owoCounter[index].value + 50)/10) * 10;
+
+                                if(owoCounter[index].valueToCheck % 50 != 0)
+                                {
+                                    owoCounter[index].valueToCheck = (Math.floor((owoCounter[index].valueToCheck/100)) * 100) + 50
+                                }
+
+                                if(owoCounter[index].value >= owoCounter[index].specialCheck)
+                                {
+                                    message.channel.send("***Another OwO will result in death***", {files: ["owo1000.png"]}).catch(error => console.log("Send Error - " + error));
+                                    owoCounter[index].specialCheck = Math.floor((owoCounter[index].value + 1000)/1000) * 1000;
+                                }
+                                else
+                                {
+                                    message.channel.send("***This is an Anti-Weeb server***", {files: ["owo.png"]}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
+                        
+
+                        for(var i = 0; i < allOwOCounters.length; i++)
+                        {
+                            if(allOwOCounters[i].key == message.guild.id)
+                            {
+                                allOwOCounters[i].counter = owoCounter;
+                                i = allOwOCounters.length;
+                            }
+                        }
+                        firebase.database().ref("serversettings/" + message.guild.id + "/owocounter").set(JSON.stringify(owoCounter));
                 }
             }
         }
