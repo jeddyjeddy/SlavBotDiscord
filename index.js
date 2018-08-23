@@ -1083,6 +1083,18 @@ bot.on("message", (message) => {
                 message.channel.send("It really do be like that sometimes").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase().indexOf("f") > -1)
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("F").catch(error => console.log("Send Error - " + error));
+        }
+
+        if(message.content.toLowerCase().indexOf("h") > -1)
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("H").catch(error => console.log("Send Error - " + error));
+        }
+
     if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
     {  
         if(message.author.id != bot.user.id)
