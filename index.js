@@ -1454,11 +1454,16 @@ bot.on("message", (message) => {
             }
         }
 
-        if(message.content.toLowerCase().indexOf("owo") > -1 || message.content.toLowerCase().indexOf("uwu") > -1  
-        || message.content.toLowerCase().indexOf("òwó") > -1 || message.content.toLowerCase().indexOf("qwq") > -1
-        || message.content.toLowerCase().indexOf("ùwù") > -1 || message.content.toLowerCase().indexOf("ovo") > -1 
-        || message.content.toLowerCase().indexOf("uvu") > -1 || message.content.toLowerCase().indexOf("òvó") > -1 
-        || message.content.toLowerCase().indexOf("qvq") > -1 || message.content.toLowerCase().indexOf("ùvù") > -1)
+        if(message.content.toLowerCase().indexOf("owo") > -1 || message.content.toLowerCase().indexOf("omo") > -1 || message.content.toLowerCase().indexOf("ovo") > -1 
+        || message.content.toLowerCase().indexOf("uwu") > -1 || message.content.toLowerCase().indexOf("umu") > -1 || message.content.toLowerCase().indexOf("uvu") > -1
+        || message.content.toLowerCase().indexOf("qwq") > -1 || message.content.toLowerCase().indexOf("qmq") > -1 || message.content.toLowerCase().indexOf("qvq") > -1
+        || message.content.toLowerCase().indexOf("òwó") > -1 || message.content.toLowerCase().indexOf("òmó") > -1 || message.content.toLowerCase().indexOf("òvó") > -1 
+        || message.content.toLowerCase().indexOf("ùwú") > -1 || message.content.toLowerCase().indexOf("ùmú") > -1 || message.content.toLowerCase().indexOf("ùvú") > -1
+        || message.content.toLowerCase().indexOf("òwò") > -1 || message.content.toLowerCase().indexOf("òmò") > -1 || message.content.toLowerCase().indexOf("òvò") > -1 
+        || message.content.toLowerCase().indexOf("ùwù") > -1 || message.content.toLowerCase().indexOf("ùwù") > -1 || message.content.toLowerCase().indexOf("ùvù") > -1
+        || message.content.toLowerCase().indexOf("ówó") > -1 || message.content.toLowerCase().indexOf("óvó") > -1 || message.content.toLowerCase().indexOf("ómó") > -1 
+        || message.content.toLowerCase().indexOf("úwú") > -1 || message.content.toLowerCase().indexOf("úvú") > -1 || message.content.toLowerCase().indexOf("úmú") > -1
+        || message.content.toLowerCase().indexOf("ůwů") > -1 || message.content.toLowerCase().indexOf("ůvů") > -1 || message.content.toLowerCase().indexOf("ůmů") > -1)
         {  
             if(message.author.id != bot.user.id)
             {
@@ -1476,7 +1481,7 @@ bot.on("message", (message) => {
                 }
 
                 var msg = message.content.toLowerCase();
-                var count = (msg.match(/owo/g) || []).length + (msg.match(/uwu/g) || []).length + (msg.match(/òwó/g) || []).length + (msg.match(/qwq/g) || []).length  + (msg.match(/ùwù/g) || []).length + (msg.match(/ovo/g) || []).length + (msg.match(/uvu/g) || []).length + (msg.match(/òvó/g) || []).length + (msg.match(/qvq/g) || []).length  + (msg.match(/ùvù/g) || []).length;
+                var count = (msg.match(/owo/g) || []).length + (msg.match(/omo/g) || []).length  + (msg.match(/ovo/g) || []).length + (msg.match(/uwu/g) || []).length + (msg.match(/umu/g) || []).length  + (msg.match(/uvu/g) || []).length + (msg.match(/qwq/g) || []).length + (msg.match(/qmq/g) || []).length  + (msg.match(/qvq/g) || []).length + (msg.match(/òwó/g) + []).length + (msg.match(/òmó/g) + []).length + (msg.match(/òvó/g) + []).length + (msg.match(/ùwú/g) + []).length + (msg.match(/ùmú/g) + []).length + (msg.match(/ùvú/g) + []).length + (msg.match(/òwò/g) + []).length + (msg.match(/òmò/g) + []).length + (msg.match(/òvò/g) + []).length + (msg.match(/ùwù/g) + []).length + (msg.match(/ùwù/g) + []).length + (msg.match(/ùvù/g) + []).length + (msg.match(/ówó/g) + []).length + (msg.match(/óvó/g) + []).length + (msg.match(/ómó/g) + []).length + (msg.match(/úwú/g) + []).length + (msg.match(/úvú/g) + []).length + (msg.match(/úmú/g) + []).length + (msg.match(/ůwů/g) + []).length + (msg.match(/ůvů/g) + []).length + (msg.match(/ůmů/g) + []).length;
             
                 if(owoCounter == [] || owoCounter.length == 0)
                 {       
