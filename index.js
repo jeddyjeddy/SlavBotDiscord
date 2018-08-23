@@ -1260,7 +1260,8 @@ bot.on("message", (message) => {
       || message.content.toLowerCase().indexOf("blyat") > -1 || message.content.toLowerCase().indexOf("yobany urod") > -1
       || message.content.toLowerCase().indexOf("idi nahui") > -1 || message.content.toLowerCase().indexOf("pohui") > -1
       || message.content.toLowerCase().indexOf("kurva") > -1 || message.content.toLowerCase().indexOf("kurwa") > -1
-      || message.content.toLowerCase().indexOf("pizdec") > -1)
+      || message.content.toLowerCase().indexOf("pizdec") > -1 || message.content.toLowerCase().indexOf("pičo") > -1 
+      || message.content.toLowerCase().indexOf("zmrd") > -1 || message.content.toLowerCase().indexOf("kokot") > -1)
     {
         if(message.author.id != bot.user.id)
         {
@@ -1278,7 +1279,7 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length + (msg.match(/yobany urod/g) || []).length + (msg.match(/idi nahui/g) || []).length + (msg.match(/pohui/g) || []).length + (msg.match(/kurva/g) || []).length + (msg.match(/kurwa/g) || []).length + (msg.match(/pizdec/g) || []).length;
+            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length + (msg.match(/yobany urod/g) || []).length + (msg.match(/idi nahui/g) || []).length + (msg.match(/pohui/g) || []).length + (msg.match(/kurva/g) || []).length + (msg.match(/kurwa/g) || []).length + (msg.match(/pizdec/g) || []).length + (msg.match(/pičo/g) || []).length + (msg.match(/zmrd/g) || []).length + (msg.match(/kokot/g) || []).length;
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
