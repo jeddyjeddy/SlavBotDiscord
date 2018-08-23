@@ -201,7 +201,7 @@ class DoItToEmCommand extends command.Command
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("***You know I had to do it to em**", {
+                                message.channel.send("***You know I had to do it to em***", {
                                     files: [file]
                                 }).then(function(){
                                     
