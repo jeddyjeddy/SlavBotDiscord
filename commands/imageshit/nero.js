@@ -103,10 +103,10 @@ class NeroCommand extends command.Command
                         Jimp.read("nerohand.png").then(function (handImage) {
                             console.log("got avatar");
                             
-                            var x = 400
-                            var y = 300
+                            var x = 365
+                            var y = 285
     
-                            userImage.scaleToFit(250, 250) 
+                            userImage.scaleToFit(300, 300) 
                             userImage.rotate(-15);                          
                             
             
@@ -180,10 +180,10 @@ class NeroCommand extends command.Command
                     Jimp.read("nerohand.png").then(function (handImage) {
                         console.log("got avatar");
                         
-                        var x = 400
-                        var y = 300
-
-                        userImage.scaleToFit(250, 250) 
+                        var x = 365
+                        var y = 285
+    
+                        userImage.scaleToFit(300, 300) 
                         userImage.rotate(-15);                          
                         
         
