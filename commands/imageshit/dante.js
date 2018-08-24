@@ -99,9 +99,9 @@ class DanteCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
                     if(userImage.bitmap.height > userImage.bitmap.width)
-                        danteImage.resize(Jimp.AUTO, userImage.bitmap.height * 0.3);
+                        danteImage.resize(Jimp.AUTO, userImage.bitmap.height * 0.5);
                     else
-                        danteImage.resize(userImage.bitmap.height * 0.3, Jimp.AUTO);
+                        danteImage.resize(userImage.bitmap.height * 0.5, Jimp.AUTO);
                     
 
                     var x = 0;
