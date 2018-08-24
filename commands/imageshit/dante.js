@@ -19,7 +19,7 @@ class DanteCommand extends command.Command
             name: "dante",
             group: "imageshit",
             memberName: "dante",
-            description: "***Featuring Dante from the Devil May Cry™ Series*** This command takes the last image uploaded. This command also has an optional position parameter (1-4).",
+            description: "***Featuring Dante from the Devil May Cry™ Series.*** This command takes the last image uploaded. This command also has an optional position parameter (1-4).",
             examples: ["`!dante`", "`!dante <position-parameter>`","`!dante 3`"]
         });
     }
