@@ -1466,7 +1466,8 @@ bot.on("message", (message) => {
         || message.content.toLowerCase().indexOf("ùwù") > -1 || message.content.toLowerCase().indexOf("ùwù") > -1 || message.content.toLowerCase().indexOf("ùvù") > -1
         || message.content.toLowerCase().indexOf("ówó") > -1 || message.content.toLowerCase().indexOf("óvó") > -1 || message.content.toLowerCase().indexOf("ómó") > -1 
         || message.content.toLowerCase().indexOf("úwú") > -1 || message.content.toLowerCase().indexOf("úvú") > -1 || message.content.toLowerCase().indexOf("úmú") > -1
-        || message.content.toLowerCase().indexOf("ůwů") > -1 || message.content.toLowerCase().indexOf("ůvů") > -1 || message.content.toLowerCase().indexOf("ůmů") > -1)
+        || message.content.toLowerCase().indexOf("ůwů") > -1 || message.content.toLowerCase().indexOf("ůvů") > -1 || message.content.toLowerCase().indexOf("ůmů") > -1
+        || message.content.toLowerCase().indexOf("@w@") > -1 || message.content.toLowerCase().indexOf("@m@") > -1 || message.content.toLowerCase().indexOf("@v@") > -1)
         {  
             if(message.author.id != bot.user.id)
             {
