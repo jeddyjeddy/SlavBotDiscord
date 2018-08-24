@@ -1157,7 +1157,7 @@ bot.on("message", (message) => {
                     {
                         thotCounter.push({
                             key: message.channel.id,
-                            value: 1,
+                            value: count,
                             valueToCheck: 50,
                             specialCheck: 1000
                         });
@@ -1220,7 +1220,7 @@ bot.on("message", (message) => {
                     {
                         thotCounter.push({
                             key: message.channel.id,
-                            value: 1,
+                            value: count,
                             valueToCheck: 50,
                              specialCheck: 1000
                         });
@@ -1352,7 +1352,7 @@ bot.on("message", (message) => {
                     {
                         swearCounter.push({
                             key: message.channel.id,
-                            value: 1,
+                            value: count,
                             valueToCheck: 10,
                             specialCheck: 1000
                         });
@@ -1412,7 +1412,7 @@ bot.on("message", (message) => {
                 {
                     swearCounter.push({
                         key: message.channel.id,
-                        value: 1,
+                        value: count,
                         valueToCheck: 10,
                         specialCheck: 1000
                     });
@@ -1526,7 +1526,7 @@ bot.on("message", (message) => {
                         {
                             owoCounter.push({
                                 key: message.channel.id,
-                                value: 1,
+                                value: count,
                                 valueToCheck: 50,
                                 specialCheck: 1000
                             });
@@ -1589,7 +1589,7 @@ bot.on("message", (message) => {
                         {
                             owoCounter.push({
                                 key: message.channel.id,
-                                value: 1,
+                                value: count,
                                 valueToCheck: 50,
                                 specialCheck: 1000
                             });
