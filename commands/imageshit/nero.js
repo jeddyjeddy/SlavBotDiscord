@@ -104,7 +104,7 @@ class NeroCommand extends command.Command
                             console.log("got avatar");
                             
                             var x = 350
-                            var y = 225
+                            var y = 200
     
                             userImage.scaleToFit(300, 300) 
                             userImage.rotate(-20);                          
@@ -181,7 +181,7 @@ class NeroCommand extends command.Command
                         console.log("got avatar");
                         
                         var x = 350
-                        var y = 225
+                        var y = 200
     
                         userImage.scaleToFit(300, 300) 
                         userImage.rotate(-20);                         
