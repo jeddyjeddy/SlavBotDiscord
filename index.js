@@ -355,9 +355,6 @@ var getUserCommandCounter = (userID) => {
         }
     }
 
-    
-    var promises = []
-
     if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
         firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
@@ -1093,6 +1090,12 @@ bot.on("message", (message) => {
         {
             if(message.author.id != bot.user.id)
                 message.channel.send("H").catch(error => console.log("Send Error - " + error));
+        }
+
+        if(message.content.toLowerCase() == "hue")
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("Hue").catch(error => console.log("Send Error - " + error));
         }
 
     if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
