@@ -46,9 +46,8 @@ class SkyrimCommand extends command.Command
             {
                 for(var skillIndex = 0; skillIndex < skills.length; skillIndex++)
                 {
-                    if(givenSkills[i].toLowerCase() === skills[skillIndex])
+                    if(givenSkills[i].toLowerCase() == skills[skillIndex])
                     {
-                        console.log("Found match for " + givenSkills[i] + " with " + skills[skillIndex])
                         var add = true;
                         for(var repeatCheck = 0; repeatCheck < usedSkills.length; repeatCheck++)
                         {
@@ -110,9 +109,9 @@ class SkyrimCommand extends command.Command
 
                 var promises = [];
 
-                for(var i = 0; i < givenSkills.length; i++)
+                for(var i = 0; i < usedSkills.length; i++)
                 {
-                    promises.push(Jimp.read("skyrim/" + givenSkills[i] + ".jpg").then(function (skillImage) {                    
+                    promises.push(Jimp.read("skyrim/" + usedSkills[i] + ".jpg").then(function (skillImage) {                    
                         skillImage.resize(skyrimImage.bitmap.width, Jimp.AUTO)
                         const addHeight = skyrimImage.bitmap.height;
                         skyrimImage = (new Jimp(skyrimImage.bitmap.width, skyrimImage.bitmap.height + skillImage.bitmap.height)).composite(skyrimImage, 0, 0).composite(skillImage, 0, addHeight);
