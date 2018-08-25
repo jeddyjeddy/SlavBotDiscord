@@ -121,7 +121,7 @@ class SkyrimCommand extends command.Command
                     }))
                 }
 
-                Promises.all(promises).then(() => {                    
+                Promise.all(promises).then(() => {                    
                     var file = shortid.generate() + ".png"
                     skyrimImage.write(file, function(error){
                         if(error) { console.log(error); return;};
