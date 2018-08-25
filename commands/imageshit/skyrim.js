@@ -66,7 +66,7 @@ class SkyrimCommand extends command.Command
             }
         }
 
-        if(position.length == 0)
+        if(usedSkills.length == 0)
         {
             message.channel.send("You must give at least 1 skill to add to the image. Use " + commandPrefix + "help skyrim for a list of skills.").catch(function (err) {
                 console.log(err.message);
