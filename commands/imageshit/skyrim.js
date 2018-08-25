@@ -46,8 +46,9 @@ class SkyrimCommand extends command.Command
             {
                 for(var skillIndex = 0; skillIndex < skills.length; skillIndex++)
                 {
-                    if(givenSkills[i].toLowerCase() == skills[skillIndex])
+                    if(givenSkills[i].toLowerCase() === skills[skillIndex])
                     {
+                        console.log("Found match for " + givenSkills[i] + " with " + skills[skillIndex])
                         var add = true;
                         for(var repeatCheck = 0; repeatCheck < usedSkills.length; repeatCheck++)
                         {
