@@ -22,7 +22,7 @@ class SkyrimCommand extends command.Command
             group: "imageshit",
             memberName: "skyrim",
             description: "Allows you to add any of the 18 skills from Skyrim to an image. A full list of the skills is given with the examples. This command takes the last image uploaded.",
-            examples: ["`!skyrim`", "`!skyrim <name-of-skill>`","`!skyrim sneak`", "`!skyrim sneak|speech|block`", "```!skyrim alchemy|alteration|archery|block|conjuration|destruction|enchanting|heavy armor|illusion|light armor|lockpicking|one-handed|pickpocket|restoration|smithing|sneak|speech|two-handed```"]
+            examples: ["`!skyrim <name-of-skill>`","`!skyrim sneak`", "`!skyrim sneak|speech|block`", "```!skyrim alchemy|alteration|archery|block|conjuration|destruction|enchanting|heavy armor|illusion|light armor|lockpicking|one-handed|pickpocket|restoration|smithing|sneak|speech|two-handed```"]
         });
     }
 
