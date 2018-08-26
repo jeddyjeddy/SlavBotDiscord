@@ -81,6 +81,31 @@ dbl.on('posted', () => {
             console.log(error)
         }
     })
+
+    var headers4 = {
+        'Authorization': process.env.BOTS_DISCORD_PW_API,
+        'Content-Type': 'application/json'
+    }
+
+    // Configure the request
+    var options4 = {
+        url: 'https://bots.discord.pw/api/bots/' + bot.user.id + "/stats",
+        method: 'POST',
+        headers: headers4,
+        body: JSON.stringify({"server_count": bot.guilds.size})
+    }
+
+    // Start the request
+    request(options4, function (error, response, body) {
+        if (!error) {
+            // Print out the response body
+            console.log(body)
+        }
+        else
+        {
+            console.log(error)
+        }
+    })
 });
     
 dbl.on('error', e => {
