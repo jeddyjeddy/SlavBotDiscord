@@ -3,8 +3,6 @@ var IndexRef = require("../../index.js")
 const timestring = require('timestring')
 var schedule = require('node-schedule');
 
-var tries = []
-
 class MuteCommand extends command.Command
  {
     constructor(client)
@@ -93,17 +91,11 @@ class MuteCommand extends command.Command
 
             if(muteRole == null)
             {
-                for(var i = 0; i < tries.length; i++)
-                {
-                    if(tries[i] == message.id)
-                    {
-                        tries.splice(i, 1);
-                        return;
-                    }
-                }
+                
+                var promises = []
 
                 var allChannels = message.guild.channels.array()
-                message.guild.createRole({name: IndexRef.getRoleName(message.guild.id), permissions: 0}).then(function()
+                promises.push(message.guild.createRole({name: IndexRef.getRoleName(message.guild.id), permissions: 0}).then(function()
                 {
                     allChannels.forEach(channel => {
                         channel.overwritePermissions(message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id)), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
@@ -111,14 +103,16 @@ class MuteCommand extends command.Command
                 }).catch(error => 
                     {
                     console.log("Send Error - " + error); message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error))
-                })
-                
+                }))
 
                 const Ref = this;
-                setTimeout(function(){
-                    tries.push(message.id)
+                Promise.all(promises).then(() => {
                     Ref.run(message, args);
-                }, 1000)
+                }).catch((e) => {
+                    console.log(e.message);
+                    message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
+                });
+
                 return;
             }
 
