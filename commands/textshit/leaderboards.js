@@ -1,6 +1,10 @@
 const command = require("discord.js-commando");
 var Leaderboards = require("../../index.js")
 var rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 class LeaderboardsCommand extends command.Command
  {
     constructor(client)
@@ -100,7 +104,7 @@ class LeaderboardsCommand extends command.Command
 
                 for(var i = 0; i < leaderboards.length; i++)
                 {
-                    descriptionList = descriptionList + (rankEmojis[i] + "``" + leaderboards[i].data.uses + "`` - **" + names[i] + "**\n");
+                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
