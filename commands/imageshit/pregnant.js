@@ -104,7 +104,7 @@ class PregnantCommand extends command.Command
                         pregnantImage.resize(userImage.bitmap.width, Jimp.AUTO)                       
                         
         
-                        userImage.composite(pregnantImage, 0, userImage.bitmap.height);
+                        userImage.composite(pregnantImage, 0, userImage.bitmap.height - pregnantImage.bitmap.height);
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
@@ -173,7 +173,7 @@ class PregnantCommand extends command.Command
                         pregnantImage.resize(userImage.bitmap.width, Jimp.AUTO)                       
                         
         
-                        userImage.composite(pregnantImage, 0, userImage.bitmap.height);
+                        userImage.composite(pregnantImage, 0, userImage.bitmap.height - pregnantImage.bitmap.height);
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
