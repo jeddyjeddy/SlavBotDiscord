@@ -202,9 +202,9 @@ class ClassCommand extends command.Command
                 }
             }
 
-            for(var i = 0; i < profiles.length; i++)
+            for(var i = 0; i < profileURLs.length; i++)
             {
-                if(profiles[i] != "blank")
+                if(profileURLs[i] == "replace")
                 {
                     promises.push(message.channel.client.fetchUser(profiles[i])
                     .then(user => {
