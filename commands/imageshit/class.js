@@ -215,7 +215,6 @@ class ClassCommand extends command.Command
                         else
                             profileURLs[index] = "blank.png"
 
-                            console.log(profileURLs[i])    
                     }, rejection => {
                             profileURLs[index] = "blank.png"
                             console.log(rejection.message);
@@ -224,7 +223,6 @@ class ClassCommand extends command.Command
             }
 
             Promise.all(promises).then(() => { 
-                console.log(profileURLs)  
                 Jimp.read("class.png").then(function (classImage) {
                     console.log("got image");
                     var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
