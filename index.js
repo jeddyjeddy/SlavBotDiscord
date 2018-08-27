@@ -1482,7 +1482,7 @@ bot.on("message", (message) => {
             }
         }
 
-        if(message.content.toLowerCase().indexOf("owo") > -1 || message.content.toLowerCase().indexOf("omo") > -1 || message.content.toLowerCase().indexOf("ovo") > -1 
+        if(message.content.toLowerCase().indexOf("owo") > -1 || message.content.toLowerCase().indexOf("ovo") > -1 
         || message.content.toLowerCase().indexOf("uwu") > -1 || message.content.toLowerCase().indexOf("umu") > -1 || message.content.toLowerCase().indexOf("uvu") > -1
         || message.content.toLowerCase().indexOf("qwq") > -1 || message.content.toLowerCase().indexOf("qmq") > -1 || message.content.toLowerCase().indexOf("qvq") > -1
         || message.content.toLowerCase().indexOf("òwó") > -1 || message.content.toLowerCase().indexOf("òmó") > -1 || message.content.toLowerCase().indexOf("òvó") > -1 
@@ -1492,7 +1492,8 @@ bot.on("message", (message) => {
         || message.content.toLowerCase().indexOf("ówó") > -1 || message.content.toLowerCase().indexOf("óvó") > -1 || message.content.toLowerCase().indexOf("ómó") > -1 
         || message.content.toLowerCase().indexOf("úwú") > -1 || message.content.toLowerCase().indexOf("úvú") > -1 || message.content.toLowerCase().indexOf("úmú") > -1
         || message.content.toLowerCase().indexOf("ůwů") > -1 || message.content.toLowerCase().indexOf("ůvů") > -1 || message.content.toLowerCase().indexOf("ůmů") > -1
-        || message.content.toLowerCase().indexOf("@w@") > -1 || message.content.toLowerCase().indexOf("@m@") > -1 || message.content.toLowerCase().indexOf("@v@") > -1)
+        || message.content.toLowerCase().indexOf("@w@") > -1 || message.content.toLowerCase().indexOf("@m@") > -1 || message.content.toLowerCase().indexOf("@v@") > -1
+        || message.content.toLowerCase().indexOf("0w0") > -1 || message.content.toLowerCase().indexOf("0m0") > -1 || message.content.toLowerCase().indexOf("0v0") > -1)
         {  
             if(message.author.id != bot.user.id)
             {
