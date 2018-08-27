@@ -189,7 +189,7 @@ class ClassCommand extends command.Command
             }    
 
             var promises = []
-
+            
             for(var i = 0; i < profiles.length; i++)
             {
                 if(profiles[i] != "blank")
@@ -206,17 +206,18 @@ class ClassCommand extends command.Command
             {
                 if(profileURLs[i] != "blank.png")
                 {
-                    promises.push(message.channel.client.fetchUser(profileURLs[i])
+                    const index = i;
+                    promises.push(message.channel.client.fetchUser(profileURLs[index])
                     .then(user => {
                         console.log("Adding")
                         if(user.avatarURL != undefined)
-                            profileURLs[i] = user.avatarURL
+                            profileURLs[index] = user.avatarURL
                         else
-                            profileURLs[i] = "blank.png"
+                            profileURLs[index] = "blank.png"
 
                             console.log(profileURLs[i])    
                     }, rejection => {
-                            profileURLs[i] = "blank.png"
+                            profileURLs[index] = "blank.png"
                             console.log(rejection.message);
                     }));
                 }
