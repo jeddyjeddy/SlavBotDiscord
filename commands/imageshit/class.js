@@ -194,7 +194,7 @@ class ClassCommand extends command.Command
             {
                 if(profiles[i] != "blank")
                 {
-                    profileURLs.push("replace")
+                    profileURLs.push(profiles[i])
                 }
                 else
                 {
@@ -204,9 +204,9 @@ class ClassCommand extends command.Command
 
             for(var i = 0; i < profileURLs.length; i++)
             {
-                if(profileURLs[i] == "replace")
+                if(profileURLs[i] != "blank.png")
                 {
-                    promises.push(message.channel.client.fetchUser(profiles[i])
+                    promises.push(message.channel.client.fetchUser(profileURLs[i])
                     .then(user => {
                         console.log("Adding")
                         if(user.avatarURL != undefined)
@@ -214,7 +214,7 @@ class ClassCommand extends command.Command
                         else
                             profileURLs[i] = "blank.png"
 
-                            console.log(profiles[i])    
+                            console.log(profileURLs[i])    
                     }, rejection => {
                             profileURLs[i] = "blank.png"
                             console.log(rejection.message);
