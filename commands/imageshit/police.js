@@ -145,12 +145,13 @@ class PoliceCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log("other Police");
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                 .then(user => {
                     if(user.avatarURL != undefined && user.avatarURL != null)
                        url = user.avatarURL;
@@ -159,7 +160,7 @@ class PoliceCommand extends command.Command
                 }, rejection => {
                        console.log(rejection.message);
                        url = "no user";
-                });
+                }))
             }
             else
             {
@@ -167,52 +168,59 @@ class PoliceCommand extends command.Command
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("police.jpg").then(function (FImage) {
-                console.log("got image");
-               
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    userImage.resize(150, 150);
-    
-                    var x = 330
-                    var y = 190
-    
-                    var mergedImage = FImage.composite(userImage, x, y );
-                    var file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***\n<@" + userID +"> ***has been arrested***", {
-                            files: [file]
-                        }).then(function(){
-                            if(userID == message.client.user.id)
-                            {
-                                 message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                            }
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.unlink(file, resultHandler);
+
+            Promise.all(promises).then(() => {
+    Jimp.read("police.jpg").then(function (FImage) {
+                    console.log("got image");
+                
+                    Jimp.read(url).then(function (userImage) {
+                        console.log("got avatar");
+                        userImage.resize(150, 150);
+        
+                        var x = 330
+                        var y = 190
+        
+                        var mergedImage = FImage.composite(userImage, x, y );
+                        var file = shortid.generate() + ".png"
+                        mergedImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log("got merged image");
+                            console.log(file);
+                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***\n<@" + userID +"> ***has been arrested***", {
+                                files: [file]
+                            }).then(function(){
+                                if(userID == message.client.user.id)
+                                {
+                                    message.channel.send("<@" + message.author.id + "> " + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
+                                }
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
+                    }).catch(function (err) {
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
+            
         }
     }
 }

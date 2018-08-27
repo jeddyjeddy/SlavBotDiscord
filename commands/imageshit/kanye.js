@@ -146,12 +146,13 @@ class KanyeCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log("other Kanye");
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                 .then(user => {
                     if(user.avatarURL != undefined && user.avatarURL != null)
                        url = user.avatarURL;
@@ -160,7 +161,7 @@ class KanyeCommand extends command.Command
                 }, rejection => {
                        console.log(rejection.message);
                        url = "no user";
-                });
+                }))
             }
             else
             {
@@ -168,52 +169,58 @@ class KanyeCommand extends command.Command
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("Kanye.png").then(function (KanyeImage) {
-                console.log("got image");
-                
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");    
-                    var x = 218
-                    var y = 500
 
-                    userImage.cover(462, 560);
-                    userImage.rotate(1);
+            Promise.all(promises).then(() => {
+    Jimp.read("Kanye.png").then(function (KanyeImage) {
+                    console.log("got image");
+                    
+                    Jimp.read(url).then(function (userImage) {
+                        console.log("got avatar");    
+                        var x = 218
+                        var y = 500
 
-                    var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
-                    blank.composite(userImage, x, y)        
-    
-                    var mergedImage = blank.composite(KanyeImage, 0, 0);
-                    var file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("***Thank you Kanye, very cool!***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.unlink(file, resultHandler);
+                        userImage.cover(462, 560);
+                        userImage.rotate(1);
+
+                        var blank = new Jimp(KanyeImage.bitmap.width, KanyeImage.bitmap.height);
+                        blank.composite(userImage, x, y)        
+        
+                        var mergedImage = blank.composite(KanyeImage, 0, 0);
+                        var file = shortid.generate() + ".png"
+                        mergedImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log("got merged image");
+                            console.log(file);
+                            message.channel.send("***Thank you Kanye, very cool!***", {
+                                files: [file]
+                            }).then(function(){
+                                
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
+                    }).catch(function (err) {
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }

@@ -149,12 +149,13 @@ class NeroCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log("other nero");
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                  .then(user => {
                      if(user.avatarURL != undefined && user.avatarURL != null)
                         url = user.avatarURL;
@@ -163,7 +164,7 @@ class NeroCommand extends command.Command
                  }, rejection => {
                         console.log(rejection.message);
                         url = "no user";
-                 });
+                 }))
             }
             else
             {
@@ -171,58 +172,64 @@ class NeroCommand extends command.Command
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("nero.png").then(function (neroImage) {
-                console.log("got image");
-                
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
+
+            Promise.all(promises).then(() => {
+    Jimp.read("nero.png").then(function (neroImage) {
+                    console.log("got image");
                     
-                    Jimp.read("nerohand.png").then(function (handImage) {
+                    Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 340
-                        var y = 205
-    
-                        userImage.scaleToFit(300, 300) 
-                        userImage.rotate(-20);                         
-                        
+                        Jimp.read("nerohand.png").then(function (handImage) {
+                            console.log("got avatar");
+                            
+                            var x = 340
+                            var y = 205
         
-                        var mergedImage = neroImage.composite(userImage, x, y ).composite(handImage, 0, 0);
-                        var file = shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
-                            if(error) { console.log(error); return;};
-                            console.log("got merged image");
-                            console.log(file);
-                            message.channel.send("***This pulls my devil trigger***", {
-                                files: [file]
-                            }).then(function(){
-                                
-                                fs.unlink(file, resultHandler);
-                            }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                console.log(err.message);
-                                
-                                fs.unlink(file, resultHandler);
+                            userImage.scaleToFit(300, 300) 
+                            userImage.rotate(-20);                         
+                            
+            
+                            var mergedImage = neroImage.composite(userImage, x, y ).composite(handImage, 0, 0);
+                            var file = shortid.generate() + ".png"
+                            mergedImage.write(file, function(error){
+                                if(error) { console.log(error); return;};
+                                console.log("got merged image");
+                                console.log(file);
+                                message.channel.send("***This pulls my devil trigger***", {
+                                    files: [file]
+                                }).then(function(){
+                                    
+                                    fs.unlink(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    
+                                    fs.unlink(file, resultHandler);
+                                });
+                                console.log("Message Sent");
                             });
-                            console.log("Message Sent");
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }

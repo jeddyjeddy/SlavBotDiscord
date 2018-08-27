@@ -204,11 +204,12 @@ class HeilCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                  .then(user => {
                      if(user.avatarURL != undefined && user.avatarURL != null)
                         url = user.avatarURL;
@@ -217,106 +218,112 @@ class HeilCommand extends command.Command
                  }, rejection => {
                         console.log(rejection.message);
                         url = "no user";
-                 });
+                 }))
             }
             else
             {
                 url = message.author.avatarURL;
             }
-            Jimp.read("hitler.png").then(function (hitlerImage) {
-                console.log("got image");
-                
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    hitlerImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
-    
-                    var x = (Math.random() * (userImage.bitmap.width)) - (hitlerImage.bitmap.width / 2);
-                    console.log(x);
-                    var y = (Math.random() * (userImage.bitmap.height)) - (hitlerImage.bitmap.height / 2);
-                    console.log(y);
-    
-                    if(Math.random() * 100 < 50)
-                    {
+
+            Promise.all(promises).then(() => {
+                    Jimp.read("hitler.png").then(function (hitlerImage) {
+                    console.log("got image");
+                    
+                    Jimp.read(url).then(function (userImage) {
+                        console.log("got avatar");
+                        hitlerImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+        
+                        var x = (Math.random() * (userImage.bitmap.width)) - (hitlerImage.bitmap.width / 2);
+                        console.log(x);
+                        var y = (Math.random() * (userImage.bitmap.height)) - (hitlerImage.bitmap.height / 2);
+                        console.log(y);
+        
                         if(Math.random() * 100 < 50)
                         {
-                            if(y < userImage.bitmap.height / 4)
+                            if(Math.random() * 100 < 50)
                             {
-                                if(Math.random() * 100 < 50)
+                                if(y < userImage.bitmap.height / 4)
                                 {
-                                    hitlerImage.flip(false, true);
+                                    if(Math.random() * 100 < 50)
+                                    {
+                                        hitlerImage.flip(false, true);
+                                    }
+                                    else
+                                    {
+                                        hitlerImage.flip(true, true);
+                                    }
                                 }
                                 else
                                 {
-                                    hitlerImage.flip(true, true);
+                                    if(Math.random() * 100 < 50)
+                                    {
+                                        hitlerImage.flip(false, false);
+                                    }
+                                    else
+                                    {
+                                        hitlerImage.flip(true, false);
+                                    }
                                 }
                             }
                             else
                             {
+                                if(x < userImage.bitmap.width / 4)
+                                {
+                                    hitlerImage.rotate(90);
+                                }
+                                else if(x > userImage.bitmap.width / 4)
+                                {
+                                    hitlerImage.rotate(-90);
+                                }
+        
                                 if(Math.random() * 100 < 50)
                                 {
                                     hitlerImage.flip(false, false);
                                 }
                                 else
                                 {
-                                    hitlerImage.flip(true, false);
+                                    hitlerImage.flip(false, true);
                                 }
                             }
                         }
-                        else
-                        {
-                            if(x < userImage.bitmap.width / 4)
-                            {
-                                hitlerImage.rotate(90);
-                            }
-                            else if(x > userImage.bitmap.width / 4)
-                            {
-                                hitlerImage.rotate(-90);
-                            }
-    
-                            if(Math.random() * 100 < 50)
-                            {
-                                hitlerImage.flip(false, false);
-                            }
-                            else
-                            {
-                                hitlerImage.flip(false, true);
-                            }
-                        }
-                    }
-    
-                    
-                    var mergedImage = userImage.composite(hitlerImage, x, y );
-                    var file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("***SIEG HEIL!***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.unlink(file, resultHandler);
+        
+                        
+                        var mergedImage = userImage.composite(hitlerImage, x, y );
+                        var file = shortid.generate() + ".png"
+                        mergedImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log("got merged image");
+                            console.log(file);
+                            message.channel.send("***SIEG HEIL!***", {
+                                files: [file]
+                            }).then(function(){
+                                
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
+                    }).catch(function (err) {
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }

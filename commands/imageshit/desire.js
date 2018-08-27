@@ -144,12 +144,13 @@ class DesireCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log("other desire");
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                  .then(user => {
                      if(user.avatarURL != undefined && user.avatarURL != null)
                         url = user.avatarURL;
@@ -158,7 +159,7 @@ class DesireCommand extends command.Command
                  }, rejection => {
                         console.log(rejection.message);
                         url = "no user";
-                 });
+                 }))
             }
             else
             {
@@ -166,51 +167,57 @@ class DesireCommand extends command.Command
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
-            Jimp.read("desire.png").then(function (DesireImage) {
-                console.log("got image");
-                
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    
-                    var x = 105
-                    var y = 900
 
-                    userImage.cover(535, 535) 
-                    userImage.rotate(-2);                    
+            Promise.all(promises).then(() => {
+    Jimp.read("desire.png").then(function (DesireImage) {
+                    console.log("got image");
                     
-    
-                    var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
-                    var file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("***Your deepest desire***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.unlink(file, resultHandler);
+                    Jimp.read(url).then(function (userImage) {
+                        console.log("got avatar");
+                        
+                        var x = 105
+                        var y = 900
+
+                        userImage.cover(535, 535) 
+                        userImage.rotate(-2);                    
+                        
+        
+                        var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
+                        var file = shortid.generate() + ".png"
+                        mergedImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log("got merged image");
+                            console.log(file);
+                            message.channel.send("***Your deepest desire***", {
+                                files: [file]
+                            }).then(function(){
+                                
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
+                    }).catch(function (err) {
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }

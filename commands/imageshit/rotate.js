@@ -154,11 +154,12 @@ class RotateCommand extends command.Command
         }
         else if(imageOption == "avatar" || otherUser)
         {
+            var promises = []
             if(otherUser)
             {
                 console.log(userID);
     
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                 .then(user => {
                     if(user.avatarURL != undefined && user.avatarURL != null)
                        url = user.avatarURL;
@@ -167,18 +168,14 @@ class RotateCommand extends command.Command
                 }, rejection => {
                        console.log(rejection.message);
                        url = "no user";
-                });
+                }))
             }
             else
             {
                 url = message.author.avatarURL;
             }
-            var wait = 0;
 
-            if(otherUser)
-            wait = 500;
-
-            setTimeout(function(){
+            Promise.all(promises).then(() => {
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
@@ -212,7 +209,10 @@ class RotateCommand extends command.Command
                     console.log(err.message);
                     
                 });     
-            }, wait);
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
+            });
         }
     }
 }

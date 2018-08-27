@@ -202,12 +202,14 @@ class DabCommand extends command.Command
         }
         else if(args.toString().toLowerCase() == "avatar" || otherUser)
         {
+            var promises = []
+
             if(otherUser)
             {
                 console.log("other dab");
                 console.log(userID);
 
-                message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                 .then(user => {
                     if(user.avatarURL != undefined && user.avatarURL != null)
                        url = user.avatarURL;
@@ -216,7 +218,7 @@ class DabCommand extends command.Command
                 }, rejection => {
                        console.log(rejection.message);
                        url = "no user";
-                });
+                }))
             }
             else
             {
@@ -224,100 +226,105 @@ class DabCommand extends command.Command
                 url = message.author.avatarURL;
             }
 
-            Jimp.read("dab.png").then(function (dabImage) {
-                console.log("got image");
-                
-                Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    dabImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
-    
-                    var x = (Math.random() * (userImage.bitmap.width)) - (dabImage.bitmap.width / 2);
-                    console.log(x);
-                    var y = (Math.random() * (userImage.bitmap.height)) - (dabImage.bitmap.height / 2);
-                    console.log(y);
-    
-                    if(Math.random() * 100 < 50)
-                    {
+            Promise.all(promises).then(() => {
+    Jimp.read("dab.png").then(function (dabImage) {
+                    console.log("got image");
+                    
+                    Jimp.read(url).then(function (userImage) {
+                        console.log("got avatar");
+                        dabImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+        
+                        var x = (Math.random() * (userImage.bitmap.width)) - (dabImage.bitmap.width / 2);
+                        console.log(x);
+                        var y = (Math.random() * (userImage.bitmap.height)) - (dabImage.bitmap.height / 2);
+                        console.log(y);
+        
                         if(Math.random() * 100 < 50)
                         {
-                            if(y < userImage.bitmap.height / 4)
+                            if(Math.random() * 100 < 50)
                             {
-                                if(Math.random() * 100 < 50)
+                                if(y < userImage.bitmap.height / 4)
                                 {
-                                    dabImage.flip(false, true);
+                                    if(Math.random() * 100 < 50)
+                                    {
+                                        dabImage.flip(false, true);
+                                    }
+                                    else
+                                    {
+                                        dabImage.flip(true, true);
+                                    }
                                 }
                                 else
                                 {
-                                    dabImage.flip(true, true);
+                                    if(Math.random() * 100 < 50)
+                                    {
+                                        dabImage.flip(false, false);
+                                    }
+                                    else
+                                    {
+                                        dabImage.flip(true, false);
+                                    }
                                 }
                             }
                             else
                             {
+                                if(x < userImage.bitmap.width / 4)
+                                {
+                                    dabImage.rotate(90);
+                                }
+                                else if(x > userImage.bitmap.width / 4)
+                                {
+                                    dabImage.rotate(-90);
+                                }
+        
                                 if(Math.random() * 100 < 50)
                                 {
                                     dabImage.flip(false, false);
                                 }
                                 else
                                 {
-                                    dabImage.flip(true, false);
+                                    dabImage.flip(false, true);
                                 }
                             }
                         }
-                        else
-                        {
-                            if(x < userImage.bitmap.width / 4)
-                            {
-                                dabImage.rotate(90);
-                            }
-                            else if(x > userImage.bitmap.width / 4)
-                            {
-                                dabImage.rotate(-90);
-                            }
-    
-                            if(Math.random() * 100 < 50)
-                            {
-                                dabImage.flip(false, false);
-                            }
-                            else
-                            {
-                                dabImage.flip(false, true);
-                            }
-                        }
-                    }
-    
-                    
-                    var mergedImage = userImage.composite(dabImage, x, y );
-                    var file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("***oof***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.unlink(file, resultHandler);
+        
+                        
+                        var mergedImage = userImage.composite(dabImage, x, y );
+                        var file = shortid.generate() + ".png"
+                        mergedImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log("got merged image");
+                            console.log(file);
+                            message.channel.send("***oof***", {
+                                files: [file]
+                            }).then(function(){
+                                
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
+                    }).catch(function (err) {
+                        if(url == "no user")
+                        {
+                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                        }
+                        else
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
                 }).catch(function (err) {
-                    if(url == "no user")
-                    {
-                        message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                    }
-                    else
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }

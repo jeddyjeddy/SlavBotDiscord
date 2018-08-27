@@ -188,21 +188,13 @@ class ClassCommand extends command.Command
                 }
             }    
 
+            var promises = []
+
             for(var i = 0; i < profiles.length; i++)
             {
                 if(profiles[i] != "blank")
                 {
-                    message.channel.client.fetchUser(profiles[i])
-                    .then(user => {
-                        console.log("Adding")
-                        if(user.avatarURL != undefined)
-                            profileURLs.push(user.avatarURL);
-                        else
-                            profileURLs.push("blank.png")
-                    }, rejection => {
-                            profileURLs.push("blank.png")
-                            console.log(rejection.message);
-                    });
+                    profileURLs.push("replace")
                 }
                 else
                 {
@@ -210,48 +202,72 @@ class ClassCommand extends command.Command
                 }
             }
 
-            Jimp.read("class.png").then(function (classImage) {
-                console.log("got image");
-                var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
-                Jimp.read(profileURLs[0]).then(function (image1) {
-                    image1.resize(196, 196)
-                    BG.composite(image1, 19, 89)
-                    Jimp.read(profileURLs[1]).then(function (image2) {
-                        image2.resize(201, 201)
-                        BG.composite(image2, 249, 86)
-                        Jimp.read(profileURLs[2]).then(function (image3) {
-                            image3.resize(197, 197)
-                            BG.composite(image3, 471, 87)
-                            Jimp.read(profileURLs[3]).then(function (image4) {
-                                image4.resize(199, 199)
-                                BG.composite(image4, 15, 301)
-                                Jimp.read(profileURLs[4]).then(function (image5) {
-                                    image5.resize(204, 204)
-                                    BG.composite(image5, 241, 299)
-                                    Jimp.read(profileURLs[5]).then(function (image6) {
-                                        image6.resize(200, 200)
-                                        BG.composite(image6, 467, 301)
-                                        
-                                        var mergedImage = BG.composite(classImage, 0, 0);
-                            
-                                        var file = shortid.generate() + ".png"
-                                        mergedImage.write(file, function(error){
-                                            if(error) { console.log(error); return;};
-                                            console.log("got merged image");
-                                            console.log(file);
-                                            message.channel.send("***Choose your class:***", {
-                                                files: [file]
-                                            }).then(function(){
-                                                
-                
-                                                fs.unlink(file, resultHandler);
-                                            }).catch(function (err) {
-                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                console.log(err.message);
-                                                
-                                                fs.unlink(file, resultHandler);
+            for(var i = 0; i < profiles.length; i++)
+            {
+                if(profiles[i] != "blank")
+                {
+                    promises.push(message.channel.client.fetchUser(profiles[i])
+                    .then(user => {
+                        console.log("Adding")
+                        if(user.avatarURL != undefined)
+                            profileURLs[i] = user.avatarURL
+                        else
+                            profileURLs[i] = "blank.png"
+                    }, rejection => {
+                            profileURLs[i] = "blank.png"
+                            console.log(rejection.message);
+                    }));
+                }
+            }
+
+            Promise.all(promises).then(() => {   
+                Jimp.read("class.png").then(function (classImage) {
+                    console.log("got image");
+                    var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
+                    Jimp.read(profileURLs[0]).then(function (image1) {
+                        image1.resize(196, 196)
+                        BG.composite(image1, 19, 89)
+                        Jimp.read(profileURLs[1]).then(function (image2) {
+                            image2.resize(201, 201)
+                            BG.composite(image2, 249, 86)
+                            Jimp.read(profileURLs[2]).then(function (image3) {
+                                image3.resize(197, 197)
+                                BG.composite(image3, 471, 87)
+                                Jimp.read(profileURLs[3]).then(function (image4) {
+                                    image4.resize(199, 199)
+                                    BG.composite(image4, 15, 301)
+                                    Jimp.read(profileURLs[4]).then(function (image5) {
+                                        image5.resize(204, 204)
+                                        BG.composite(image5, 241, 299)
+                                        Jimp.read(profileURLs[5]).then(function (image6) {
+                                            image6.resize(200, 200)
+                                            BG.composite(image6, 467, 301)
+                                            
+                                            var mergedImage = BG.composite(classImage, 0, 0);
+                                
+                                            var file = shortid.generate() + ".png"
+                                            mergedImage.write(file, function(error){
+                                                if(error) { console.log(error); return;};
+                                                console.log("got merged image");
+                                                console.log(file);
+                                                message.channel.send("***Choose your class:***", {
+                                                    files: [file]
+                                                }).then(function(){
+                                                    
+                    
+                                                    fs.unlink(file, resultHandler);
+                                                }).catch(function (err) {
+                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                    console.log(err.message);
+                                                    
+                                                    fs.unlink(file, resultHandler);
+                                                });
+                                                console.log("Message Sent");
                                             });
-                                            console.log("Message Sent");
+                                        }).catch(function (err) {
+                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                            console.log(err.message);
+                                            
                                         });
                                     }).catch(function (err) {
                                         message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -279,13 +295,12 @@ class ClassCommand extends command.Command
                         
                     });
                 }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
                     
                 });
-            }).catch(function (err) {
-                console.log(err.message);
-                
+            }).catch((e) => {
+                console.log("User Data Error - " + e.message);
+                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
             });
         }
     }
