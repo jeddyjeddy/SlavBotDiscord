@@ -144,7 +144,7 @@ class ShotCommand extends command.Command
                             else
                             {
                                 setTimeout(function(){
-                                    message.channel.send(""<@" + message.author.id + "> *remains sober...*"").catch(error => {console.log("Send Error - " + error); });
+                                    message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
                                     setTimeout(function(){
                                         message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                         
@@ -321,7 +321,7 @@ class ShotCommand extends command.Command
                             else
                             {
                                 setTimeout(function(){
-                                    message.channel.send(""<@" + message.author.id + "> *remains sober...*"").catch(error => {console.log("Send Error - " + error); });
+                                    message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
                                     setTimeout(function(){
                                         message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                         
@@ -381,7 +381,7 @@ class ShotCommand extends command.Command
                                 else
                                 {
                                     setTimeout(function(){
-                                        message.channel.send(""<@" + message.author.id + "> *remains sober...*"").catch(error => {console.log("Send Error - " + error); });
+                                        message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
                                         setTimeout(function(){
                                             message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                             
