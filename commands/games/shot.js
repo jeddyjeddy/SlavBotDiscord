@@ -138,6 +138,7 @@ class ShotCommand extends command.Command
                                     message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                     loaded = false;
                                     message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
+                                    isPlaying[playindex].value = false;
                                 }, messageDelay);
                                 
                             }
@@ -199,6 +200,7 @@ class ShotCommand extends command.Command
                                         setTimeout(function(){
                                             message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                             message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
+                                            isPlaying[playindex].value = false;
                                         }, messageDelay);
                                     }
                                     else
@@ -313,6 +315,7 @@ class ShotCommand extends command.Command
                                     message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                     loaded = false;
                                     message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
+                                    isPlaying[playindex].value = false;
                                 }, messageDelay);
                                 
                             }
@@ -374,6 +377,7 @@ class ShotCommand extends command.Command
                                     setTimeout(function(){
                                         message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                         message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
+                                        isPlaying[playindex].value = false;
                                     }, messageDelay);
                                 }
                                 else
