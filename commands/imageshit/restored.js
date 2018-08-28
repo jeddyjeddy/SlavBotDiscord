@@ -143,7 +143,7 @@ class RestoredCommand extends command.Command
             {
                 console.log(userID);
     
-                promise.push(message.channel.client.fetchUser(userID)
+                promises.push(message.channel.client.fetchUser(userID)
                  .then(user => {
                      if(user.avatarURL != undefined && user.avatarURL != null)
                         url = user.avatarURL;
