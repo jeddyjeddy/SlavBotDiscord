@@ -108,7 +108,7 @@ class RestoredCommand extends command.Command
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
-                            message.channel.send("***His smile and optimism: RESTORED****", {
+                            message.channel.send("***His smile and optimism: RESTORED***", {
                                 files: [file]
                             }).then(function(){
                                 
