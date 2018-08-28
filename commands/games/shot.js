@@ -130,17 +130,16 @@ class ShotCommand extends command.Command
                         message.channel.send("**Bottle of Vodka not yet empty**").catch(error => {console.log("Send Error - " + error); });
                         setTimeout(function(){
                             message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
-            
-                            if(shotLoad[index].value <= 0)
+                            setTimeout(function(){
+                                message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+                                if(shotLoad[index].value <= 0)
                             {
                                 setTimeout(function(){
-                                    message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
-                                    setTimeout(function(){
-                                        message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
-                                        loaded = false;
-                                        message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
-                                    }, messageDelay);
+                                    message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
+                                    loaded = false;
+                                    message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
                                 }, messageDelay);
+                                
                             }
                             else
                             {
@@ -153,6 +152,8 @@ class ShotCommand extends command.Command
                                     isPlaying[playindex].value = false;
                                 }, messageDelay);
                             }
+                            }, messageDelay);
+                            
                         }, messageDelay);
                     }
                     else
@@ -191,9 +192,10 @@ class ShotCommand extends command.Command
                                 message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
             
                                 setTimeout(function(){
+                                    message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+
                                     if(shotLoad[index].value <= 0)
                                     {
-                                        message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                                         setTimeout(function(){
                                             message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                             message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
@@ -305,29 +307,30 @@ class ShotCommand extends command.Command
                     message.channel.send("**Bottle of Vodka not yet empty**").catch(error => {console.log("Send Error - " + error); });
                     setTimeout(function(){
                         message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
-        
-                        if(shotLoad[index].value <= 0)
-                        {
-                            setTimeout(function(){
-                                message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+                        setTimeout(function(){
+                            message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+                            if(shotLoad[index].value <= 0)
+                            {
                                 setTimeout(function(){
                                     message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                     loaded = false;
                                     message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
                                 }, messageDelay);
-                            }, messageDelay);
-                        }
-                        else
-                        {
-                            setTimeout(function(){
-                                message.channel.send("*<@" + message.author.id + "> remains sober...*").catch(error => {console.log("Send Error - " + error); });
+                                
+                            }
+                            else
+                            {
                                 setTimeout(function(){
-                                    message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
-                                    
+                                    message.channel.send("*<@" + message.author.id + "> remains sober...*").catch(error => {console.log("Send Error - " + error); });
+                                    setTimeout(function(){
+                                        message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
+                                        
+                                    }, messageDelay);
+                                    isPlaying[playindex].value = false;
                                 }, messageDelay);
-                                isPlaying[playindex].value = false;
-                            }, messageDelay);
-                        }
+                            }
+                        }, messageDelay);
+                        
                     }, messageDelay);
                 }
                 else
@@ -366,9 +369,10 @@ class ShotCommand extends command.Command
                             message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
         
                             setTimeout(function(){
+                                message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+
                                 if(shotLoad[index].value <= 0)
                                 {
-                                    message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                                     setTimeout(function(){
                                         message.channel.send("<@" + message.author.id + ">** is piss drunk...**").catch(error => {console.log("Send Error - " + error); });
                                         message.channel.send("<@" + message.author.id + "> ***" + drunkMessages[Math.floor(Math.random() * drunkMessages.length)] + "***").catch(error => {console.log("Send Error - " + error); });
