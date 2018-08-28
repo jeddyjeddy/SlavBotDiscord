@@ -240,8 +240,6 @@ class ShotCommand extends command.Command
             } //Local Storage
             else
             {
-                
-
                 var hasPlayKey = false;
                 var playindex = 1;
                 for(var i = 0; i < isPlaying.length; i++)
