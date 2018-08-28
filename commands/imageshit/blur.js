@@ -79,14 +79,14 @@ class BlurCommand extends command.Command
             .then(messages => {
                 var messageID = "";
                 messages.filter(msg => {
-                    if(msg.attachments.first() != undefined)
+                    if(msg.attachments.last() != undefined)
                     {
                         if(msg.attachments.last().height > 0)
                         {
                             if(messageID == "")
                             {
                                 messageID = msg.id;
-                                url = msg.attachments.first().url;
+                                url = msg.attachments.last().url;
                             }
                         }
                     }
