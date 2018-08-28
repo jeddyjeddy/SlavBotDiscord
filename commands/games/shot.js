@@ -129,7 +129,7 @@ class ShotCommand extends command.Command
                         }
                         message.channel.send("**Bottle of Vodka not yet empty**").catch(error => {console.log("Send Error - " + error); });
                         setTimeout(function(){
-                            message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
+                            message.channel.send("***Pouring Shot...***").catch(error => {console.log("Send Error - " + error); });
                             setTimeout(function(){
                                 message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                                 if(shotLoad[index].value <= 0)
@@ -189,7 +189,7 @@ class ShotCommand extends command.Command
                             message.channel.send("***Opening Bottle...***").catch(error => {console.log("Send Error - " + error); });
             
                             setTimeout(function(){
-                                message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
+                                message.channel.send("***Pouring Shot...***").catch(error => {console.log("Send Error - " + error); });
             
                                 setTimeout(function(){
                                     message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
@@ -306,7 +306,7 @@ class ShotCommand extends command.Command
                     }
                     message.channel.send("**Bottle of Vodka not yet empty**").catch(error => {console.log("Send Error - " + error); });
                     setTimeout(function(){
-                        message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
+                        message.channel.send("***Pouring Shot...***").catch(error => {console.log("Send Error - " + error); });
                         setTimeout(function(){
                             message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                             if(shotLoad[index].value <= 0)
@@ -366,7 +366,7 @@ class ShotCommand extends command.Command
                         message.channel.send("***Opening Bottle...***").catch(error => {console.log("Send Error - " + error); });
         
                         setTimeout(function(){
-                            message.channel.send("***Filling Glass...***").catch(error => {console.log("Send Error - " + error); });
+                            message.channel.send("***Pouring Shot...***").catch(error => {console.log("Send Error - " + error); });
         
                             setTimeout(function(){
                                 message.channel.send("***Taking " + shots + " shot(s) of Vodka...***").catch(error => {console.log("Send Error - " + error); });
