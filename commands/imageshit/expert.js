@@ -11,18 +11,18 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-var responses = ["The police have arrived", "Here comes the popo", "Stop right there, criminal scum", "Suspect is in custody", "You're under arrest", "You have the right to remain silent", "Freeze!", "Hands in the air!"]
-var selfResponses = ["I'll be back", "you haven't seen the last of me!", "I won't be gone for long", "no walls can hold me","my attorney will get me out in five minutes","you have just turned all of the gopniks against you, blyat", "you will hear hardbass in your sleep"]
-class PoliceCommand extends command.Command
+var responses = ["Make way, the expert is here", "Not to worry folks", "Only an intellectual such as I can handle this", "Did someone call for 200 IQ?", "This is far below my ability", "A simple task, nothing more", "Your tiny minds will never understand"]
+var selfResponses = ["Yes, bow down to my greatness", "Do I really have to help you fools?", "You bother me for this?", "I'd rather be torturing Western spies", "You owe me 5 bottles of vodka", "I'll have your semechki while I'm here, blyat"]
+class ExpertCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "police",
+            name: "expert",
             group: "imageshit",
-            memberName: "police",
-            description: "Is your server infested with degenerates? Call the police. This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
-            examples: ["`!police`", "`!police avatar`", "`!police @User`"]
+            memberName: "expert",
+            description: "Call the expert. This command takes the last image uploaded, your avatar or the avatar of the user you have mentioned after the command.",
+            examples: ["`!expert`", "`!expert avatar`", "`!expert @User`"]
         });
     }
 
@@ -93,20 +93,20 @@ class PoliceCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help police` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help expert` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("police.jpg").then(function (FImage) {
+                Jimp.read("expert.png").then(function (FImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 330
-                        var y = 190
-                        userImage.resize(Jimp.AUTO, 150)
-                        x = x + ((150 - userImage.bitmap.width) / 2)
+                        var x = 180
+                        var y = 15
+                        userImage.resize(Jimp.AUTO, 120)
+                        x = x + ((120 - userImage.bitmap.width) / 2)
                         
         
                         var mergedImage = FImage.composite(userImage, x, y );
@@ -148,7 +148,7 @@ class PoliceCommand extends command.Command
             var promises = []
             if(otherUser)
             {
-                console.log("other Police");
+                console.log("other expert");
                 console.log(userID);
     
                 promises.push(message.channel.client.fetchUser(userID)
@@ -164,21 +164,21 @@ class PoliceCommand extends command.Command
             }
             else
             {
-                console.log("self police");
+                console.log("self expert");
                 userID = message.author.id;
                 url = message.author.avatarURL;
             }
 
             Promise.all(promises).then(() => {
-                Jimp.read("police.jpg").then(function (FImage) {
+                Jimp.read("expert.png").then(function (FImage) {
                     console.log("got image");
                 
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
-                        userImage.resize(150, 150);
+                        userImage.resize(120, 120);
         
-                        var x = 330
-                        var y = 190
+                        var x = 180
+                        var y = 15
         
                         var mergedImage = FImage.composite(userImage, x, y );
                         var file = shortid.generate() + ".png"
@@ -186,7 +186,7 @@ class PoliceCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***\n<@" + userID +"> ***has been arrested***", {
+                            message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***", {
                                 files: [file]
                             }).then(function(){
                                 if(userID == message.client.user.id)
@@ -225,4 +225,4 @@ class PoliceCommand extends command.Command
     }
 }
 
-module.exports = PoliceCommand;
+module.exports = ExpertCommand;
