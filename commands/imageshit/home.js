@@ -69,7 +69,7 @@ class HomeCommand extends command.Command
                 
                 return;
             }
-            message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
+            message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
             Jimp.read("home.png").then(function (homeImage) {
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
@@ -78,7 +78,7 @@ class HomeCommand extends command.Command
                         var panel = userImage.cover(homeImage.bitmap.width, 209)
                         var finalPanel = userImage2.cover(homeImage.bitmap.width - 172, 209)
 
-                        var mergedImage = userImage.composite(panel, 0, 0).composite(panel, 0, 208).composite(panel, 0, 417).composite(finalPanel, 172, 417).composite(homeImage, 0, 0);
+                        var mergedImage = new Jimp(homeImage.bitmap.width, homeImage.bitmap.height).composite(panel, 0, 0).composite(panel, 0, 208).composite(panel, 0, 417).composite(finalPanel, 172, 417).composite(homeImage, 0, 0);
                         var file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
