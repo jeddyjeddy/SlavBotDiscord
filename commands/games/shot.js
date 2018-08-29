@@ -145,12 +145,9 @@ class ShotCommand extends command.Command
                             else
                             {
                                 setTimeout(function(){
-                                    message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
-                                    setTimeout(function(){
+                                        message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
                                         message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
-                                        
-                                    }, messageDelay);
-                                    isPlaying[playindex].value = false;
+                                        isPlaying[playindex].value = false;
                                 }, messageDelay);
                             }
                             }, messageDelay);
@@ -207,10 +204,7 @@ class ShotCommand extends command.Command
                                     {
                                         setTimeout(function(){
                                             message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
-                                            setTimeout(function(){
-                                                message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
-                                                
-                                            }, messageDelay);
+                                            message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                             var hasKey = false;
                                             for(var i = 0; i < shotLoad.length; i++)
                                             {
@@ -323,10 +317,7 @@ class ShotCommand extends command.Command
                             {
                                 setTimeout(function(){
                                     message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
-                                    setTimeout(function(){
-                                        message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
-                                        
-                                    }, messageDelay);
+                                    message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                     isPlaying[playindex].value = false;
                                 }, messageDelay);
                             }
@@ -384,10 +375,7 @@ class ShotCommand extends command.Command
                                 {
                                     setTimeout(function(){
                                         message.channel.send("<@" + message.author.id + "> *remains sober...*").catch(error => {console.log("Send Error - " + error); });
-                                        setTimeout(function(){
-                                            message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
-                                            
-                                        }, messageDelay);
+                                        message.channel.send("*A True Slav!*").catch(error => {console.log("Send Error - " + error); });
                                         var hasKey = false;
                                         for(var i = 0; i < shotLoad.length; i++)
                                         {
