@@ -99,7 +99,7 @@ class WTFCommand extends command.Command
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image for wtf");
-                    Jimp.read("wtf.jpeg").then(function (wtfImage) {            
+                    Jimp.read("wtf.jpg").then(function (wtfImage) {            
                         wtfImage.resize(userImage.bitmap.width, Jimp.AUTO)
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + wtfImage.bitmap.height)).composite(userImage, 0, 0).composite(wtfImage, 0, addHeight);
@@ -163,7 +163,7 @@ class WTFCommand extends command.Command
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    Jimp.read("wtf.jpeg").then(function (wtfImage) {            
+                    Jimp.read("wtf.jpg").then(function (wtfImage) {            
                         wtfImage.resize(userImage.bitmap.width, Jimp.AUTO)
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + wtfImage.bitmap.height)).composite(userImage, 0, 0).composite(wtfImage, 0, addHeight);
