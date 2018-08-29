@@ -19,7 +19,7 @@ class WTFCommand extends command.Command
             name: "wtf",
             group: "imageshit",
             memberName: "wtf",
-            description: "***Excuse me but what the fuck.*** This uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "***Excuse me what the fuck.*** This uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!wtf`", "`!wtf avatar`", "`!wtf @User`"]
         });
     }
@@ -108,7 +108,7 @@ class WTFCommand extends command.Command
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
-                            message.channel.send("***Excuse me but what the fuck.***", {
+                            message.channel.send("***Excuse me what the fuck.***", {
                                 files: [file]
                             }).then(function(){
                                 
@@ -172,7 +172,7 @@ class WTFCommand extends command.Command
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
-                            message.channel.send("***Excuse me but what the fuck.***", {
+                            message.channel.send("***Excuse me what the fuck.***", {
                                 files: [file]
                             }).then(function(){
                                 
