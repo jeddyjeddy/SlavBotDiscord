@@ -85,7 +85,7 @@ class DanteCommand extends command.Command
                         }
                     }
                 }
-                else if(msg.embeds[msg.embeds.length - 1].image != null)
+                else if(msg.embeds[msg.embeds.length - 1] != undefined)
                 {
                     if(msg.embeds[msg.embeds.length - 1].image != null)
                     {
