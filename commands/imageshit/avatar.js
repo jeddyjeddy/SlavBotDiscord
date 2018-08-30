@@ -6,7 +6,7 @@ class Avatarommand extends command.Command
     constructor(client)
     {
         super(client, {
-            name: "abatar",
+            name: "avatar",
             group: "imageshit",
             memberName: "avatar",
             description: "Gives the avatar of the tagged user or your avatar if no tagged user is given. Putting the ID of any user works as well.",
