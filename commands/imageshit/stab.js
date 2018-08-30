@@ -80,81 +80,114 @@ class StabCommand extends command.Command
                        console.log(rejection.message);
                        url = "no user";
                 }))
-        }
-        else
-        {
-            message.channel.send("<@" + message.author.id + "> Please tag another user after the command.").catch(error => {console.log("Send Error - " + error); });
-            
-            return;
-        }
 
-        console.log(url);
-        Jimp.read("stab.jpg").then(function (kidnapImage) {
-            console.log("got image");
-            if(message.author.avatarURL == undefined || message.author.avatarURL == null)
-            {
-                message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                return;
-            }
-            Jimp.read(message.author.avatarURL).then(function (authorImage) {
                 
-                Promise.all(promises).then(() => {
-                    Jimp.read(url).then(function (userImage) {
+            Jimp.read("stab.jpg").then(function (kidnapImage) {
+                console.log("got image");
+                if(message.author.avatarURL == undefined || message.author.avatarURL == null)
+                {
+                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                    return;
+                }
+                
+                Jimp.read(message.author.avatarURL).then(function (authorImage) {
                     
-                        console.log("got avatar");
-                        userImage.resize(90, 90);
-                        authorImage.resize(80, 80);
-                        var xKidnapper = 160
-                        var yKidnapper = 160
-                        var x = 400
-                        var y = 50
-                        var mergedImageKidnapper = kidnapImage.composite(authorImage, xKidnapper, yKidnapper );
-                        var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
-                        var file = shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
-                            if(error) { console.log(error); return;};
-                            console.log("got merged image");
-                            console.log(file);
-                            message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
-                                files: [file]
-                            }).then(function(){
-                                if(userID == message.client.user.id)
-                                {
-                                    message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                                }
-                                fs.unlink(file, resultHandler);
-                            }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                console.log(err.message);
-                                
-                                fs.unlink(file, resultHandler);
-                            });
-                            console.log("Message Sent");
-                        });
-                    }).catch(function (err) {
-                        if(url == "no user")
-                        {
-                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                        }
-                        else
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                        console.log(err.message);
+                    Promise.all(promises).then(() => {
+                        Jimp.read(url).then(function (userImage) {
                         
+                            console.log("got avatar");
+                            userImage.resize(90, 90);
+                            authorImage.resize(80, 80);
+                            var xKidnapper = 160
+                            var yKidnapper = 160
+                            var x = 400
+                            var y = 50
+                            var mergedImageKidnapper = kidnapImage.composite(authorImage, xKidnapper, yKidnapper );
+                            var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
+                            var file = shortid.generate() + ".png"
+                            mergedImage.write(file, function(error){
+                                if(error) { console.log(error); return;};
+                                console.log("got merged image");
+                                console.log(file);
+                                message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
+                                    files: [file]
+                                }).then(function(){
+                                    if(userID == message.client.user.id)
+                                    {
+                                        message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
+                                    }
+                                    fs.unlink(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    
+                                    fs.unlink(file, resultHandler);
+                                });
+                                console.log("Message Sent");
+                            });
+                        }).catch(function (err) {
+                            if(url == "no user")
+                            {
+                                message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                            }
+                            else
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
+                        });
+                    }).catch((e) => {
+                        console.log("User Data Error - " + e.message);
+                        message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
                     });
-                }).catch((e) => {
-                    console.log("User Data Error - " + e.message);
-                    message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
+                }).catch(function (err) {
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    console.log(err.message);
+                    
                 });
-                
             }).catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
                 
             });
-        }).catch(function (err) {
-            console.log(err.message);
-            
-        });
+        }
+        else
+        {
+            Jimp.read(message.author.avatarURL).then(function (userImage) {
+                Jimp.read("sudoku.png").then(function (kidnapImage) {     
+                    userImage.resize(160, 160);
+                    var x = 410
+                    var y = 60
+                    userImage.rotate(60)
+                    var mergedImage = kidnapImage.composite(userImage, x, y);
+                    var file = shortid.generate() + ".png"
+                    mergedImage.write(file, function(error){
+                        if(error) { console.log(error); return;};
+                        console.log("got merged image");
+                        console.log(file);
+                        message.channel.send("<@" + message.author.id+ "> ***has committed sudoku***", {
+                            files: [file]
+                        }).then(function(){
+                            fs.unlink(file, resultHandler);
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
+                            
+                            fs.unlink(file, resultHandler);
+                        });
+                        console.log("Message Sent");
+                    });
+                }).catch(function (err) {
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                    console.log(err.message);
+                });
+            }).catch(function (err) {
+                if(message.author.avatarURL == undefined || message.author.avatarURL == null)
+                {
+                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
+                }
+                else
+                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                console.log(err.message);
+            });
+        }
     }
 }
 
