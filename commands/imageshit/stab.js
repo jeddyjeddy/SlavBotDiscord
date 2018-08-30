@@ -153,8 +153,8 @@ class StabCommand extends command.Command
             Jimp.read(message.author.avatarURL).then(function (userImage) {
                 Jimp.read("sudoku.png").then(function (kidnapImage) {     
                     userImage.resize(160, 160);
-                    var x = 410
-                    var y = 60
+                    var x = 400
+                    var y = 50
                     userImage.rotate(60)
                     var mergedImage = kidnapImage.composite(userImage, x, y);
                     var file = shortid.generate() + ".png"
