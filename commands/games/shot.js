@@ -182,7 +182,7 @@ class ShotCommand extends command.Command
                                 }
                             }
                         }
-                        message.channel.send("***Gettting another bottle of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+                        message.channel.send("***Getting another bottle of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                         setTimeout(function(){
                             message.channel.send("***Opening Bottle...***").catch(error => {console.log("Send Error - " + error); });
             
@@ -353,7 +353,7 @@ class ShotCommand extends command.Command
                             }
                         }
                     }
-                    message.channel.send("***Gettting another bottle of Vodka...***").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("***Getting another bottle of Vodka...***").catch(error => {console.log("Send Error - " + error); });
                     setTimeout(function(){
                         message.channel.send("***Opening Bottle...***").catch(error => {console.log("Send Error - " + error); });
         
