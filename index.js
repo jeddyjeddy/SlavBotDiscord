@@ -1043,6 +1043,7 @@ var schedule = require('node-schedule');
   });
 
 bot.on("channelDelete", (channel) => {
+    var guild;
     var guilds = bot.guilds.array()
 
     for(var i = 0; i < guilds.length; i++)
@@ -1052,28 +1053,33 @@ bot.on("channelDelete", (channel) => {
         {
             if(channels[index].id == channel.id)
             {
-                if(localGetOverwrite(guilds[i], channel.id))
+                guild = guilds[i];
+            }
+        }
+    }
+    
+    if(guild != undefined)
+    {
+        console.log("Found guild of deleted channel")
+        if(localGetOverwrite(guilds[i], channel.id))
+        {
+            console.log("Has overwrite")
+            for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
+            {
+                if(guild.id == responseSettings[responseIndex].key)
                 {
-                    console.log("Has overwrite")
-                    for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
+                    if(responseSettings[responseIndex].overwrites != null)
                     {
-                        if(guilds[i].id == responseSettings[responseIndex].key)
+                        for(var i2 = 0; i2 < responseSettings[responseIndex].overwrites.length; i2++)
                         {
-                            if(responseSettings[responseIndex].overwrites != null)
+                            if(responseSettings[responseIndex].overwrites[i2] == channel.id)
                             {
-                                console.log("Has overwrite in responses")
-                                for(var i2 = 0; i2 < responseSettings[responseIndex].overwrites.length; i2++)
-                                {
-                                    if(responseSettings[responseIndex].overwrites[i2] == channel.id)
-                                    {
-                                        console.log("Deleting Channel")
-                                        responseSettings[responseIndex].overwrites.splice(i2, 1) 
-                                    }
-                                }
-
-                                firebase.database().ref("serversettings/" + guilds[i].id + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                                console.log("removed overwrite")
+                                responseSettings[responseIndex].overwrites.splice(i2, 1) 
                             }
                         }
+
+                        firebase.database().ref("serversettings/" + guild.id + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
             }
