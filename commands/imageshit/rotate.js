@@ -110,6 +110,17 @@ class RotateCommand extends command.Command
                             }
                         }
                     }
+                    else if(msg.embeds.last() != undefined)
+                    {
+                        if(msg.embeds.last().image.height > 0)
+                        {
+                            if(messageID == "")
+                            {
+                                messageID = msg.id;
+                                url = msg.embeds.last().image.url;
+                            }
+                        }
+                    }
                 });
             
                 if(messageID == "")

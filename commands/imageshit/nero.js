@@ -87,6 +87,17 @@ class NeroCommand extends command.Command
                             }
                         }
                     }
+                    else if(msg.embeds.last() != undefined)
+                    {
+                        if(msg.embeds.last().image.height > 0)
+                        {
+                            if(messageID == "")
+                            {
+                                messageID = msg.id;
+                                url = msg.embeds.last().image.url;
+                            }
+                        }
+                    }
                 });
 
                 if(messageID == "")
@@ -174,7 +185,7 @@ class NeroCommand extends command.Command
             }
 
             Promise.all(promises).then(() => {
-    Jimp.read("nero.png").then(function (neroImage) {
+                Jimp.read("nero.png").then(function (neroImage) {
                     console.log("got image");
                     
                     Jimp.read(url).then(function (userImage) {
