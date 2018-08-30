@@ -127,7 +127,7 @@ bot.on('guildDelete', mem => {
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var allOwOCounters = [{key: "Key", counter: null}]
-var responseSettings = [{key: "Key", respond: true}] 
+var responseSettings = [{key: "Key", respond: true, overwrites: null}] 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 
 var localGetResponse = (guild) => {
@@ -145,17 +145,23 @@ var localGetResponse = (guild) => {
         }
         else
         {
+            var overwrites = null;
+            if(snapshot.child("respondoverwrites").val() != null)
+            {
+                overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
+            }
+
             if(snapshot.child("respond").val() == null)
             {
-                responseSettings.push({key: guild.id, respond: false})
+                responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
             }
             else if(snapshot.child("respond").val() === true)
             {
-                responseSettings.push({key: guild.id, respond: true})
+                responseSettings.push({key: guild.id, respond: true, overwrites: overwrites})
             }
             else if(snapshot.child("respond").val() === false)
             {
-                responseSettings.push({key: guild.id, respond: false})
+                responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
             }
         }
         
@@ -163,15 +169,81 @@ var localGetResponse = (guild) => {
     return false;
 }
 
-var localChangeResponse = (guildID, setting) => {
+var localGetOverwrite = (guild, channel) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
-        if(guildID == responseSettings[i].key)
+        if(guild.id == responseSettings[i].key)
         {
-            responseSettings[i].respond = setting;
-            if(signedIntoFirebase)
+            if(responseSettings[i].overwrites == null)
             {
-                firebase.database().ref("serversettings/" + guildID + "/respond").set(setting);
+                return false;
+            }
+            else
+            {
+                for(var i2 = 0; i2 < responseSettings[i].overwrites.length; i2++)
+                {
+                    if(responseSettings[i].overwrites[i2] == channel)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+var localChangeResponse = (guildID, setting, channel) => {
+    if(channel == null)
+    {
+        for(var i = 0; i < responseSettings.length; i++)
+        {
+            if(guildID == responseSettings[i].key)
+            {
+                responseSettings[i].respond = setting;
+                responseSettings[i].overwrites = null; 
+                if(signedIntoFirebase)
+                {
+                    firebase.database().ref("serversettings/" + guildID + "/respond").set(setting);
+                    firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").remove();
+                }
+            }
+        }
+    }
+    else
+    {
+        for(var i = 0; i < responseSettings.length; i++)
+        {
+            if(guildID == responseSettings[i].key)
+            {
+                if(responseSettings[i].respond != setting)
+                {
+                    if(responseSettings[i].overwrites == null)
+                    {
+                        responseSettings[i].overwrites = [channel]
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                    }
+                    else
+                    {
+                        responseSettings[i].overwrites.push(channel)
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                    }
+                }
+                else
+                {
+                    if(responseSettings[i].overwrites != null)
+                    {
+                        for(var i2 = 0; i2 < responseSettings[i].overwrites.length; i2++)
+                        {
+                            if(responseSettings[i].overwrites[i2] == channel)
+                            {
+                                responseSettings[i].overwrites.splice(i2, 1) 
+                            }
+                        }
+
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                    }
+                }
             }
         }
     }
@@ -354,7 +426,7 @@ var migrateServerID = (guild) =>
                     }
                     else
                     {
-                        responseSettings.push({key: guild.id, respond: false});
+                        responseSettings.push({key: guild.id, respond: false, overwrites: null});
                     }
                 }
 
@@ -633,8 +705,12 @@ var ResponseFunctions = module.exports = {
     return localGetResponse(guild)
 },
 
- changeResponse: function(guildID, setting) {
-    localChangeResponse(guildID, setting)
+getOverwrite: function(guild, channelID) {
+    return localGetOverwrite(guild, channelID)
+},
+
+ changeResponse: function(guildID, setting, channel) {
+    localChangeResponse(guildID, setting, channel)
 },
 
 addCommandCounter: function(userID){
@@ -1067,6 +1143,13 @@ bot.on("message", (message) => {
     if(hasKey === false)
     {
         localGetResponse(message.guild);
+    }
+    else
+    {
+        if(localGetOverwrite(message.guild, message.channel.id))
+        {
+            noResponse = !noResponse;
+        }
     }
 
     if(noResponse === true)

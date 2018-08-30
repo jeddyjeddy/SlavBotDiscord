@@ -9,8 +9,8 @@ class RespondCommand extends command.Command
             name: "respond",
             group: "util",
             memberName: "respond",
-            description: "Allows you to Enable/Disable Slav Bot's responses to messages.",
-            examples: ["`!respond disable`", "`!respond enable`"]
+            description: "Allows you to Enable/Disable Slav Bot's responses to messages on the entire server or specific channels.",
+            examples: ["`!respond disable` (Disables the respond system on all channels and any new channel created)", "`!respond enable` (Enables the respond system on all channels and any new channel created)", "`!respond disable #channel1 #channel2` (Disables the respond system on specific channels)", "`!respond enable #channel1 #channel2` (Enables the respond system on specific channels)"]
         });
     }
 
@@ -28,29 +28,138 @@ class RespondCommand extends command.Command
         }
 
         var currentSetting = ResponseChange.getResponse(message.guild);
-        console.log(currentSetting)
-        if(args.toLowerCase() == "enable")
+        
+        var channels = [];
+
+        if(args.length > 0)
         {
-            if(currentSetting === false)
+            console.log("args are present");
+            var getChannel = false;
+            var channelID = "";
+            var firstIndex = -1;
+
+            for(var i = 0; i < args.length; i++)
             {
-                ResponseChange.changeResponse(message.guild.id, true);
-                message.channel.send("<@" + message.author.id + "> Responses enabled").catch(error => console.log("Send Error - " + error));
-            }
-            else
-            {
-                message.channel.send("<@" + message.author.id + "> Responses already enabled").catch(error => console.log("Send Error - " + error));
+                if(getChannel)
+                {
+                    if(args[i].toString() == ">")
+                    {
+                        channels.push(channelID);
+                        channelID = "";
+                        getChannel = false;
+                    }
+                    else
+                    {
+                        if(args[i].toString() != "#" && !isNaN(args[i].toString()))
+                        {
+                            channelID = channelID + args[i].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[i].toString() == "<")
+                    {
+                        if(firstIndex == -1)
+                        {
+                            firstIndex = i;
+                        }
+                        getChannel = true;
+                    } 
+                }
             }
         }
-        else if (args.toLowerCase() == "disable")
+            
+        if(args.toLowerCase().startsWith("enable"))
         {
-            if(currentSetting === true)
+            if(channels.length == 0)
             {
-                ResponseChange.changeResponse(message.guild.id, false);
-                message.channel.send("<@" + message.author.id + "> Responses disabled").catch(error => console.log("Send Error - " + error));
+                if(currentSetting === false)
+                {
+                    ResponseChange.changeResponse(message.guild.id, true, null);
+                    message.channel.send("<@" + message.author.id + "> Responses enabled").catch(error => console.log("Send Error - " + error));
+                }
+                else
+                {
+                    message.channel.send("<@" + message.author.id + "> Responses already enabled").catch(error => console.log("Send Error - " + error));
+                }
             }
             else
             {
-                message.channel.send("<@" + message.author.id + "> Responses already disabled").catch(error => console.log("Send Error - " + error));
+                for(var i = 0; i < channels.length; i++)
+                {
+                    var overwriteSetting = ResponseChange.getOverwrite(message.guild, channels[i])
+                    if(currentSetting)
+                    {
+                        if(overwriteSetting)
+                        {
+                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            message.channel.send("<@" + message.author.id + "> Enabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            message.channel.send("<@" + message.author.id + "> <#" + channels[i] + "> is already enabled.").catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                    else
+                    {
+                        if(!overwriteSetting)
+                        {
+                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            message.channel.send("<@" + message.author.id + "> Enabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            message.channel.send("<@" + message.author.id + "> <#" + channels[i] + "> is already enabled.").catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                }
+            }
+        }
+        else if (args.toLowerCase().startsWith("disable"))
+        {
+            if(channels.length == 0)
+            {
+                if(currentSetting === true)
+                {
+                    ResponseChange.changeResponse(message.guild.id, false, null);
+                    message.channel.send("<@" + message.author.id + "> Responses disabled").catch(error => console.log("Send Error - " + error));
+                }
+                else
+                {
+                    message.channel.send("<@" + message.author.id + "> Responses already disabled").catch(error => console.log("Send Error - " + error));
+                }
+            }
+            else
+            {
+                for(var i = 0; i < channels.length; i++)
+                {
+                    var overwriteSetting = ResponseChange.getOverwrite(message.guild, channels[i])
+                    if(!currentSetting)
+                    {
+                        if(overwriteSetting)
+                        {
+                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            message.channel.send("<@" + message.author.id + "> Disabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            message.channel.send("<@" + message.author.id + "> <#" + channels[i] + "> is already disabled.").catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                    else
+                    {
+                        if(!overwriteSetting)
+                        {
+                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            message.channel.send("<@" + message.author.id + "> Disabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
+                        }
+                        else
+                        {
+                            message.channel.send("<@" + message.author.id + "> <#" + channels[i] + "> is already disabled.").catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                }
             }
         }
         else
