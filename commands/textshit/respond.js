@@ -181,7 +181,7 @@ class RespondCommand extends command.Command
                 responseMessage = responseMessage + "\n***Overwrites:***"
                 var settingText = "";
 
-                if(currentSetting)
+                if(!currentSetting)
                 {
                     settingText = "enabled."
                 }

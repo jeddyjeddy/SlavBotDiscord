@@ -1042,6 +1042,42 @@ var schedule = require('node-schedule');
     }
   });
 
+bot.on("channelDelete", (channel) => {
+    var guilds = bot.guilds.array()
+
+    for(var i = 0; i < guilds.length; i++)
+    {
+        var channels = guilds[i].channels.array();
+        for(var index = 0; index < channels.length; index++)
+        {
+            if(channels[index].id == channel.id)
+            {
+                if(localGetOverwrite(guilds[i], channel.id))
+                {
+                    for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
+                    {
+                        if(guilds[i].id == responseSettings[responseIndex].key)
+                        {
+                            if(responseSettings[responseIndex].overwrites != null)
+                            {
+                                for(var i2 = 0; i2 < responseSettings[responseIndex].overwrites.length; i2++)
+                                {
+                                    if(responseSettings[responseIndex].overwrites[i2] == channel.id)
+                                    {
+                                        responseSettings[responseIndex].overwrites.splice(i2, 1) 
+                                    }
+                                }
+
+                                firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+})
+
 bot.on("channelCreate", (channel) => {
     var guild;
     var guilds = bot.guilds.array()
