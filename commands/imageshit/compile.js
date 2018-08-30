@@ -72,31 +72,31 @@ class CompileCommand extends command.Command
                         }
                     }
                 }
-                else if(arrayMessages[i].embeds.first() != undefined)
+                else if(arrayMessages[i].embeds[0] != undefined)
                 {
-                    for(var i2 = arrayMessages[i].embeds.array().length - 1; i2 > -1; i2--)
+                    for(var i2 = arrayMessages[i].embeds.length - 1; i2 > -1; i2--)
                     {
-                        if(arrayMessages[i].embeds.array()[i2].image.height > 0)
+                        if(arrayMessages[i].embeds[i2].image.height > 0)
                         {
                             if(messageID == "")
                             {
                                 messageID = arrayMessages[i].id;
-                                url4 = arrayMessages[i].embeds.array()[i2].image.url;
+                                url4 = arrayMessages[i].embeds[i2].image.url;
                             }
                             else if(messageID2 == "")
                             {
                                 messageID2 = arrayMessages[i].id;
-                                url3 = arrayMessages[i].embeds.array()[i2].image.url;
+                                url3 = arrayMessages[i].embeds[i2].image.url;
                             }
                             else if(messageID3 == "")
                             {
                                 messageID3 = arrayMessages[i].id;
-                                url2 = arrayMessages[i].embeds.array()[i2].image.url;
+                                url2 = arrayMessages[i].embeds[i2].image.url;
                             }
                             else if(messageID4 == "")
                             {
                                 messageID4 = arrayMessages[i].id;
-                                url1 = arrayMessages[i].embeds.array()[i2].image.url;
+                                url1 = arrayMessages[i].embeds[i2].image.url;
                             }
                         }
                     }

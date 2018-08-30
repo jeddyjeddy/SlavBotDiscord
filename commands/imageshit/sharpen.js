@@ -95,14 +95,14 @@ class SharpenCommand extends command.Command
                             }
                         }
                     }
-                    else if(msg.embeds.last() != undefined)
+                    else if(msg.embeds[msg.embeds.length - 1] != undefined)
                     {
-                        if(msg.embeds.last().image.height > 0)
+                        if(msg.embeds[msg.embeds.length - 1].image.height > 0)
                         {
                             if(messageID == "")
                             {
                                 messageID = msg.id;
-                                url = msg.embeds.last().image.url;
+                                url = msg.embeds[msg.embeds.length - 1].image.url;
                             }
                         }
                     }
