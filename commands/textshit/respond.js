@@ -139,7 +139,7 @@ class RespondCommand extends command.Command
                     {
                         if(overwriteSetting)
                         {
-                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            ResponseChange.changeResponse(message.guild.id, false, channels[i]);
                             message.channel.send("<@" + message.author.id + "> Disabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
                         }
                         else
@@ -151,7 +151,7 @@ class RespondCommand extends command.Command
                     {
                         if(!overwriteSetting)
                         {
-                            ResponseChange.changeResponse(message.guild.id, true, channels[i]);
+                            ResponseChange.changeResponse(message.guild.id, false, channels[i]);
                             message.channel.send("<@" + message.author.id + "> Disabled <#" + channels[i] + ">").catch(error => console.log("Send Error - " + error));
                         }
                         else
