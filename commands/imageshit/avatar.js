@@ -9,7 +9,7 @@ class Avatarommand extends command.Command
             name: "abatar",
             group: "imageshit",
             memberName: "avatar",
-            description: "Gives the avatar of the tagged user or your avatar if no tagged user is given. Putting the ID of any user works as well",
+            description: "Gives the avatar of the tagged user or your avatar if no tagged user is given. Putting the ID of any user works as well.",
             examples: ["`!avatar`", "`!avatar @User`", "`!avatar <user-id>`"]
         });
     }
