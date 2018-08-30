@@ -94,32 +94,9 @@ class Avatarommand extends command.Command
 
         const ID = userID;
         Promise.all(promises).then(() => {
-            Jimp.read(url).then(function (userImage) {
-                console.log("got avatar");
-                var file = shortid.generate() + "." + userImage.getExtension()
-                userImage.write(file, function(error){
-                    if(error) { console.log(error); return;};
-                    console.log(file);
-                    message.channel.send("Avatar for <@" + ID + ">", {
-                        files: [file]
-                    }).then(function(){
-                        fs.unlink(file, resultHandler);
-                    }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                        console.log(err.message);
-                        fs.unlink(file, resultHandler);
-                    });
-                    console.log("Message Sent");
-                });
-            }).catch(function (err) {
-                if(url == "no user")
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                }
-                else
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+            message.channel.send("Avatar for <@" + ID + ">\n" + url).catch(function (err) {
+                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
-                
             });
         }).catch((e) => {
             console.log("User Data Error - " + e.message);
