@@ -1043,44 +1043,16 @@ var schedule = require('node-schedule');
   });
 
 bot.on("channelDelete", (channel) => {
-    var guild;
-    var guilds = bot.guilds.array()
-
-    for(var i = 0; i < guilds.length; i++)
+    for(var i = 0; i < responseSettings.length; i++)
     {
-        var channels = guilds[i].channels.array();
-        for(var index = 0; index < channels.length; index++)
+        if(responseSettings[i].overwrites != null)
         {
-            if(channels[index].id == channel.id)
+            for(var index = 0; index < responseSettings[i].overwrites.length; index++)
             {
-                guild = guilds[i];
-            }
-        }
-    }
-    
-    if(guild != undefined)
-    {
-        console.log("Found guild of deleted channel")
-        if(localGetOverwrite(guild.id, channel.id))
-        {
-            console.log("Has overwrite")
-            for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
-            {
-                if(guild.id == responseSettings[responseIndex].key)
+                if(responseSettings[i].overwrites[index] == channel.id)
                 {
-                    if(responseSettings[responseIndex].overwrites != null)
-                    {
-                        for(var i2 = 0; i2 < responseSettings[responseIndex].overwrites.length; i2++)
-                        {
-                            if(responseSettings[responseIndex].overwrites[i2] == channel.id)
-                            {
-                                console.log("removed overwrite")
-                                responseSettings[responseIndex].overwrites.splice(i2, 1) 
-                            }
-                        }
-
-                        firebase.database().ref("serversettings/" + guild.id + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
-                    }
+                    responseSettings[i].overwrites.splice(index, 1) 
+                    firebase.database().ref("serversettings/" + responseSettings[i].key + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                 }
             }
         }
