@@ -8,7 +8,7 @@ class Bigmojiommand extends command.Command
         super(client, {
             name: "bigmoji",
             group: "imageshit",
-            memberName: "avatar",
+            memberName: "bigmoji",
             description: "Gives a high res version of an emoji from any discord server the bot is on.",
             examples: ["`!bigmoji <emoji>`"]
         });
