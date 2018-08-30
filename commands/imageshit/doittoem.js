@@ -86,9 +86,9 @@ class DoItToEmCommand extends command.Command
                             }
                         }
                     }
-                    else if(msg.embeds[msg.embeds.length - 1] != undefined)
+                    else if(msg.embeds[msg.embeds.length - 1].image != null)
                     {
-                        if(msg.embeds[msg.embeds.length - 1].image.height > 0)
+                        if(msg.embeds[msg.embeds.length - 1].image != null)
                         {
                             if(messageID == "")
                             {
@@ -188,9 +188,9 @@ class DoItToEmCommand extends command.Command
                             }
                         }
                     }
-                    else if(msg.embeds[msg.embeds.length - 1] != undefined)
+                    else if(msg.embeds[msg.embeds.length - 1].image != null)
                     {
-                        if(msg.embeds[msg.embeds.length - 1].image.height > 0)
+                        if(msg.embeds[msg.embeds.length - 1].image != null)
                         {
                             if(messageID == "")
                             {

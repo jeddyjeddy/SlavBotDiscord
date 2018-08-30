@@ -76,7 +76,7 @@ class CompileCommand extends command.Command
                 {
                     for(var i2 = arrayMessages[i].embeds.length - 1; i2 > -1; i2--)
                     {
-                        if(arrayMessages[i].embeds[i2].image.height > 0)
+                        if(arrayMessages[i].embeds[i2].image != null)
                         {
                             if(messageID == "")
                             {

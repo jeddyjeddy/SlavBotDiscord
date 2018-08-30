@@ -55,13 +55,13 @@ class AlignmentCommand extends command.Command
                             }
                         }
                     }
-                    else if(arrayMessages[i].embeds[0] != undefined)
+                    else if(arrayMessages[i].embeds.length > 0)
                     {
                         for(var i2 = arrayMessages[i].embeds.length - 1; i2 > -1; i2--)
                         {
                             if(urls.length < 9)
                             {
-                                if(arrayMessages[i].embeds[i2].image.height > 0)
+                                if(arrayMessages[i].embeds[i2].image != null)
                                 {
                                     urls.splice(0, 0, arrayMessages[i].embeds[i2].image.url)
                                 }
