@@ -10,7 +10,7 @@ class RespondCommand extends command.Command
             group: "util",
             memberName: "respond",
             description: "Allows you to Enable/Disable Slav Bot's responses to messages on the entire server or specific channels.",
-            examples: ["`!respond disable` (Disables the respond system on all channels and any new channel created)", "`!respond enable` (Enables the respond system on all channels and any new channel created)", "`!respond disable #channel1 #channel2` (Disables the respond system on specific channels)", "`!respond enable #channel1 #channel2` (Enables the respond system on specific channels)"]
+            examples: ["`!respond disable` (Disables the respond system on all channels and any new channel created)", "`!respond enable` (Enables the respond system on all channels and any new channel created)", "`!respond disable #channel1 #channel2` (Disables the respond system on specific channels)", "`!respond enable #channel1 #channel2` (Enables the respond system on specific channels)", "`!respond details` (Shows whether the respond system is enabled or disabled and also shows which channels have overwrited the setting)"]
         });
     }
 

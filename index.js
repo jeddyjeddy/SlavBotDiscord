@@ -1061,7 +1061,7 @@ bot.on("channelDelete", (channel) => {
     if(guild != undefined)
     {
         console.log("Found guild of deleted channel")
-        if(localGetOverwrite(guilds[i], channel.id))
+        if(localGetOverwrite(guild.id, channel.id))
         {
             console.log("Has overwrite")
             for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
