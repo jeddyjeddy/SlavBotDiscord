@@ -96,7 +96,7 @@ class Avatarommand extends command.Command
         Promise.all(promises).then(() => {
             Jimp.read(url).then(function (userImage) {
                 console.log("got avatar");
-                var file = shortid.generate() + ".png"
+                var file = shortid.generate() + userImage.getExtension()
                 userImage.write(file, function(error){
                     if(error) { console.log(error); return;};
                     console.log(file);
