@@ -97,7 +97,7 @@ class Bigmojiommand extends command.Command
                 }
                 else
                 {
-                    message.channel.send(emoji.toString() + '\n' + emoji.url).catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send(emoji.toString(), {files: [emoji.url]}).catch(error => {console.log("Send Error - " + error); });
                 }
             }
         }
