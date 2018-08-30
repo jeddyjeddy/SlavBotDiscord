@@ -1117,6 +1117,12 @@ bot.on("message", (message) => {
                 message.channel.send("H").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase() == "k")
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("K").catch(error => console.log("Send Error - " + error));
+        }
+
         if(message.content.toLowerCase() == "hue")
         {
             if(message.author.id != bot.user.id)
