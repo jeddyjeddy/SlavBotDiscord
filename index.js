@@ -1054,21 +1054,24 @@ bot.on("channelDelete", (channel) => {
             {
                 if(localGetOverwrite(guilds[i], channel.id))
                 {
+                    console.log("Has overwrite")
                     for(var responseIndex = 0; responseIndex < responseSettings.length; responseIndex++)
                     {
                         if(guilds[i].id == responseSettings[responseIndex].key)
                         {
                             if(responseSettings[responseIndex].overwrites != null)
                             {
+                                console.log("Has overwrite in responses")
                                 for(var i2 = 0; i2 < responseSettings[responseIndex].overwrites.length; i2++)
                                 {
                                     if(responseSettings[responseIndex].overwrites[i2] == channel.id)
                                     {
+                                        console.log("Deleting Channel")
                                         responseSettings[responseIndex].overwrites.splice(i2, 1) 
                                     }
                                 }
 
-                                firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                                firebase.database().ref("serversettings/" + guilds[i].id + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                             }
                         }
                     }
