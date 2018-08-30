@@ -414,7 +414,7 @@ class ShotCommand extends command.Command
         }
         else
         {
-            run(message, args); 
+            this.run(message, args); 
         }
     }
 }
