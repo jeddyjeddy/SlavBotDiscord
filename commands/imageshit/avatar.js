@@ -1,15 +1,5 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const Jimp = require("jimp");
-const shortid = require("shortid");
-const fs = require('fs');
-var resultHandler = function(err) { 
-    if(err) {
-       console.log("unlink failed", err);
-    } else {
-       console.log("file deleted");
-    }
-}
 
 class Avatarommand extends command.Command
  {
@@ -30,11 +20,7 @@ class Avatarommand extends command.Command
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
-        var commandPrefix= "!"
-        if(message.guild != null)
-        {
-            commandPrefix = message.guild.commandPrefix
-        }
+        
         if(args.length > 0)
         {
             console.log("args are present");
