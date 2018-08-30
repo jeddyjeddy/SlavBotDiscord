@@ -28,6 +28,10 @@ class LeaderboardsCommand extends command.Command
 
         if(args.toLowerCase() == "local")
         {
+            if(message.guild == null)
+            {
+                return;
+            }
             var members = message.guild.members.array();
             var IDs = [];
             for(var i = 0; i < members.length; i++)
