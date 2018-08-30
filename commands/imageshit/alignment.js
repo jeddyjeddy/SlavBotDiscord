@@ -46,7 +46,7 @@ class AlignmentCommand extends command.Command
                     {
                         for(var i2 = arrayMessages[i].attachments.array().length - 1; i2 > -1; i2--)
                         {
-                            if(urls.length < 6)
+                            if(urls.length < 9)
                             {
                                 if(arrayMessages[i].attachments.array()[i2].height > 0)
                                 {
