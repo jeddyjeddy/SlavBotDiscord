@@ -19,6 +19,11 @@ class Bigmojiommand extends command.Command
         CommandCounter.addCommandCounter(message.author.id)
         
         var emojiID = "";
+        var commandPrefix= "!"
+        if(message.guild != null)
+        {
+            commandPrefix = message.guild.commandPrefix
+        }
         
         if(args.length > 0)
         {
