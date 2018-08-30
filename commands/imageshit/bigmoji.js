@@ -39,7 +39,7 @@ class Bigmojiommand extends command.Command
                         {
                             if(!isNaN(args[i].toString()))
                             {
-                                userID = userID + args[i].toString();
+                                emojiID = emojiID + args[i].toString();
                             }
                         }
                         else
