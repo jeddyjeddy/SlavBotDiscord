@@ -16,17 +16,17 @@ class WelcomeCommand extends command.Command
 
     async run(message, args)
     {
+        if(message.guild == null)
+        {
+            return;
+        }
+        
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR")){
             message.channel.send("<@" + message.author.id + "> This command is only available to admins.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES")){
-            return;
-        }
-
-        if(message.guild == null)
-        {
             return;
         }
 
