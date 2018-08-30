@@ -169,6 +169,24 @@ var localGetResponse = (guild) => {
     return false;
 }
 
+var localHasOverwrite = (guild) => {
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(guild.id == responseSettings[i].key)
+        {
+            if(responseSettings[i].overwrites == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 var localGetOverwrite = (guild, channel) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
@@ -191,6 +209,17 @@ var localGetOverwrite = (guild, channel) => {
         }
     }
     return false;
+}
+
+var localGetAllOverwrite = (guild) => {
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(guild.id == responseSettings[i].key)
+        {
+            return responseSettings[i].overwrites;
+        }
+    }
+    return null;
 }
 
 var localChangeResponse = (guildID, setting, channel) => {
@@ -707,6 +736,12 @@ var ResponseFunctions = module.exports = {
 
 getOverwrite: function(guild, channelID) {
     return localGetOverwrite(guild, channelID)
+},
+getAllOverwrite: function(guild, channelID) {
+    return localGetAllOverwrite(guild)
+},
+hasOverwrite: function(guild) {
+    return localHasOverwrite(guild)
 },
 
  changeResponse: function(guildID, setting, channel) {

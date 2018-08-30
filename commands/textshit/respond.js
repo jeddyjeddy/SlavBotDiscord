@@ -27,8 +27,6 @@ class RespondCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        var currentSetting = ResponseChange.getResponse(message.guild);
-        
         var channels = [];
 
         if(args.length > 0)
@@ -69,19 +67,21 @@ class RespondCommand extends command.Command
                 }
             }
         }
-            
+          
+        var currentSetting = ResponseChange.getResponse(message.guild);
+        var hasOverwrite = ResponseChange.hasOverwrite(message.guild);
         if(args.toLowerCase().startsWith("enable"))
         {
             if(channels.length == 0)
             {
-                if(currentSetting === false)
+                if(currentSetting === false || hasOverwrite)
                 {
                     ResponseChange.changeResponse(message.guild.id, true, null);
-                    message.channel.send("<@" + message.author.id + "> Responses enabled").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> Responses enabled on all channels").catch(error => console.log("Send Error - " + error));
                 }
                 else
                 {
-                    message.channel.send("<@" + message.author.id + "> Responses already enabled").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> Responses already enabled on all channels").catch(error => console.log("Send Error - " + error));
                 }
             }
             else
@@ -120,14 +120,14 @@ class RespondCommand extends command.Command
         {
             if(channels.length == 0)
             {
-                if(currentSetting === true)
+                if(currentSetting === true || hasOverwrite)
                 {
                     ResponseChange.changeResponse(message.guild.id, false, null);
-                    message.channel.send("<@" + message.author.id + "> Responses disabled").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> Responses disabled on all channels").catch(error => console.log("Send Error - " + error));
                 }
                 else
                 {
-                    message.channel.send("<@" + message.author.id + "> Responses already disabled").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> Responses already disabled on all channels").catch(error => console.log("Send Error - " + error));
                 }
             }
             else
@@ -161,6 +161,42 @@ class RespondCommand extends command.Command
                     }
                 }
             }
+        }
+        else if (args.toLowerCase() == "details")
+        {
+            var responseMessage = ""
+            if(currentSetting)
+            {
+                responseMessage = "Responses are Enabled. All new channels will have the response system enabled."
+            }
+            else
+            {
+                responseMessage = "Responses are Disabled. All new channels will have the response system disabled."
+            }
+
+            var overwrites = ResponseChange.getAllOverwrite(message.guild);
+
+            if(overwrites != null)
+            {
+                responseMessage = responseMessage + "\n***Overwrites:***"
+                var settingText = "";
+
+                if(currentSetting)
+                {
+                    settingText = "enabled."
+                }
+                else
+                {
+                    settingText = "disabled."
+                }
+
+                for(var i = 0; i < overwrites.length; i++)
+                {
+                    responseMessage = responseMessage + "\nThe channel <#" + overwrites[i] + "> is " + settingText;
+                }
+            }
+
+            message.channel.send(responseMessage).catch(error => console.log("Send Error - " + error));
         }
         else
         {
