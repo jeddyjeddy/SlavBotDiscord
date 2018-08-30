@@ -25,10 +25,9 @@ class WelcomeCommand extends command.Command
             return;
         }
 
-        var commandPrefix= "!"
-        if(message.guild != null)
+        if(message.guild == null)
         {
-            commandPrefix = message.guild.commandPrefix
+            return;
         }
 
         if (args.toLowerCase() == "disable")
