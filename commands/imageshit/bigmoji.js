@@ -16,7 +16,6 @@ class Bigmojiommand extends command.Command
 
     async run(message, args)
     {
-        
         CommandCounter.addCommandCounter(message.author.id)
         console.log(args);
     }
