@@ -61,25 +61,6 @@ class HomeCommand extends command.Command
                         }
                     }
                 }
-                else if(arrayMessages[i].embeds.length > 0)
-                {
-                    for(var i2 = arrayMessages[i].embeds.length - 1; i2 > -1; i2--)
-                    {
-                        if(arrayMessages[i].embeds[i2].image != null)
-                        {
-                            if(messageID == "")
-                            {
-                                messageID = arrayMessages[i].id;
-                                url2 = arrayMessages[i].embeds[i2].image.url;
-                            }
-                            else if(messageID2 == "")
-                            {
-                                messageID2 = arrayMessages[i].id;
-                                url = arrayMessages[i].embeds[i2].image.url;
-                            }
-                        }
-                    }
-                }
             }
 
             if(messageID == "" || messageID2 == "")

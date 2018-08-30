@@ -73,17 +73,6 @@ class ChangemymindCommand extends command.Command
                                     }
                                 }
                             }
-                            else if(msg.embeds[msg.embeds.length - 1].image != null)
-                            {
-                                if(msg.embeds[msg.embeds.length - 1].image != null)
-                                {
-                                    if(messageID == "")
-                                    {
-                                        messageID = msg.id;
-                                        url = msg.embeds[msg.embeds.length - 1].image.url;
-                                    }
-                                }
-                            }
                         });
                     
                         if(messageID == "")

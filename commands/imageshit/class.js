@@ -55,19 +55,6 @@ class ClassCommand extends command.Command
                             }
                         }
                     }
-                    else if(arrayMessages[i].embeds.length > 0)
-                    {
-                        for(var i2 = arrayMessages[i].embeds.length - 1; i2 > -1; i2--)
-                        {
-                            if(urls.length < 6)
-                            {
-                                if(arrayMessages[i].embeds[i2].image != null)
-                                {
-                                    urls.splice(0, 0, arrayMessages[i].embeds[i2].image.url)
-                                }
-                            }
-                        }
-                    }
                 }
 
                 if(urls.length == 0)

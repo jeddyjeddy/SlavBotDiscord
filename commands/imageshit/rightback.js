@@ -85,17 +85,6 @@ class RightBackCommand extends command.Command
                         }
                     }
                 }
-                else if(msg.embeds[msg.embeds.length - 1] != undefined)
-                {
-                    if(msg.embeds[msg.embeds.length - 1].image != null)
-                    {
-                        if(messageID == "")
-                        {
-                            messageID = msg.id;
-                            url = msg.embeds[msg.embeds.length - 1].image.url;
-                        }
-                    }
-                }
             }); 
 
             if(messageID == "")
