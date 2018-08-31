@@ -1246,7 +1246,7 @@ bot.on("message", (message) => {
                 message.channel.send("Cease! You have violated the law!").catch(error => console.log("Send Error - " + error));
         }
 
-        if(message.content.toLowerCase().indexOf("despacito") > -1 || message.content.toLowerCase().indexOf("so sad"))
+        if(message.content.toLowerCase().indexOf("despacito") > -1 || message.content.toLowerCase().indexOf("so sad") > -1)
         {
             if(message.author.id != bot.user.id)
                 message.channel.send("Alexa, play despacito").catch(error => console.log("Send Error - " + error));
