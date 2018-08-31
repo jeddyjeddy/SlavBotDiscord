@@ -1251,7 +1251,7 @@ bot.on("message", (message) => {
             if(message.author.id != bot.user.id)
             {
                 message.channel.send("Alexa, play despacito").catch(error => console.log("Send Error - " + error));
-                message.channel.send("ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito 3 (Feat: Slav Bot)\n\n───────────:white_circle:────────────────────────────────\n\n◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ 1:17 / 4:20 ⠀ ───○ :loud_sound:⠀ ᴴᴰ :gear:").catch(error => console.log("Send Error - " + error));
+                message.channel.send("ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito 3 (Feat: Slav bot)\n\n:white_circle:───────────────── \n\n◄◄⠀▐▐ ⠀►►   00:01 / 04:20⠀ ───○ :loud_sound:⠀ ᴴᴰ :gear: ❐ ⊏⊐").catch(error => console.log("Send Error - " + error));
             }
         }
 
