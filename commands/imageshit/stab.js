@@ -21,8 +21,8 @@ class StabCommand extends command.Command
             name: "stab",
             group: "imageshit",
             memberName: "stab",
-            description: "Stab another user.",
-            examples: ["`!stab @User`"]
+            description: "Stab yourself or another user.",
+            examples: ["`!stab`", "`!stab @User`"]
         });
     }
 

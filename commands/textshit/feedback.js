@@ -1,9 +1,14 @@
 const command = require("discord.js-commando");
 var firebase = require("firebase");
 var signedIntoFirebase = false;
+var blackList = []
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        signedIntoFirebase = true;
+        Promise.all([firebase.database().ref("blacklist").once('value').then(function(snapshot) {
+            blackList = JSON.parse(snapshot.val());  
+        })]).then(() => {
+            signedIntoFirebase = true;
+        })
     } 
     else
     {
@@ -28,21 +33,18 @@ class FeedbackCommand extends command.Command
     {
         if(signedIntoFirebase)
         {
-            firebase.database().ref("blacklist").once('value').then(function(snapshot) {
-                var blackList = JSON.parse(snapshot.val());  
-        
-                var blackListed = false;
-
-                for(var i = 0; i < blackList.length; i++)
-                {
-                    if(blackList[i] == message.author.id)
-                    {
-                        blackListed = true;
-                    }
-                }
-
                 if(args.length > 0)
-                {
+                {    
+                    var blackListed = false;
+
+                    for(var i = 0; i < blackList.length; i++)
+                    {
+                        if(blackList[i] == message.author.id)
+                        {
+                            blackListed = true;
+                        }
+                    }
+
                     if(blackListed)
                     {
                         message.channel.send("<@" + message.author.id + "> The owner has blacklisted you due to missuse of the feedback command. Your feedback will not be sent.").catch(error => console.log("Send Error - " + error));
@@ -80,21 +82,60 @@ class FeedbackCommand extends command.Command
                                     }
                                 }
 
-                                var params = args.toString().split("|");
-                                if(params.length < 2)
+                                if(args.startsWith("blacklist"))
                                 {
-                                    message.channel.send("<@" + message.author.id + "> Add text for channel.send")
-                                    return;
-                                }
-                                var text = params[1];
+                                    var alreadyBlackListed = false;
 
-                                message.channel.client.fetchUser(userID)
-                                .then(user => {
-                                        user.send("***channel.send from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("<@" + message.author.id + "> Message sent: " + text).catch(error => console.log("Send Error - " + error));
-                                }, rejection => {
-                                        console.log(rejection.message);
-                                });
+                                    for(var i = 0; i < blackList.length; i++)
+                                    {
+                                        if(blackList[i] == userID)
+                                        {
+                                            alreadyBlackListed = true;
+                                        }
+                                    }
+
+                                    if(alreadyBlackListed)
+                                    {
+                                        if(args.startsWith("blacklist remove"))
+                                        {
+                                            for(var i = 0; i < blackList.length; i++)
+                                            {
+                                                if(blackList[i] == userID)
+                                                {
+                                                    blackList.splice(i, 1);
+                                                    firebase.database().ref("blacklist").set(blackList)
+                                                    message.channel.send("<@" + userID + "> is no longer blacklisted").catch(error => console.log("Send Error - " + error));
+                                                }
+                                            }
+                                        }
+                                        else
+                                            message.channel.send("User already blacklisted").catch(error => console.log("Send Error - " + error));
+                                    }
+                                    else
+                                    {
+                                        blackList.push(userID.toString());
+                                        firebase.database().ref("blacklist").set(blackList)
+                                        message.channel.send("<@" + userID + "> has been blacklisted").catch(error => console.log("Send Error - " + error));
+                                    }
+                                }
+                                else
+                                {
+                                    var params = args.toString().split("|");
+                                    if(params.length < 2)
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> Add text for channel.send")
+                                        return;
+                                    }
+                                    var text = params[1];
+    
+                                    message.channel.client.fetchUser(userID)
+                                    .then(user => {
+                                            user.send("***channel.send from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("<@" + message.author.id + "> Message sent: " + text).catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                            console.log(rejection.message);
+                                    });
+                                }
                             }
                         }
                         else
@@ -113,11 +154,10 @@ class FeedbackCommand extends command.Command
                 {
                     message.channel.send("<@" + message.author.id + "> No feedback given in command.").catch(error => console.log("Send Error - " + error));
                 }
-            }); 
         } 
         else
         {
-            run(message, args);
+            this.run(message, args);
         } 
     }
 }
