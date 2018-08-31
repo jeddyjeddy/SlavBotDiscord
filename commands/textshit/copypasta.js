@@ -36,7 +36,7 @@ class CopypastaCommand extends command.Command
                 return;
             }
 
-            message.channel.send(selftext, {split: true}).catch(error => console.log("Send Error - " + error));
+            message.channel.send(selftext, {split: true}).catch(error => {console.log("Send Error - " + error); message.channel.send("Failed To Send Copypasta - " + error).catch(error => {console.log("Send Error 2 - " + error);});});
         });
     }
 }
