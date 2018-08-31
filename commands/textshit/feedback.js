@@ -5,7 +5,8 @@ var blackList = []
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         Promise.all([firebase.database().ref("blacklist").once('value').then(function(snapshot) {
-            blackList = JSON.parse(snapshot.val());  
+            if(snapshot.val() != null)
+                blackList = JSON.parse(snapshot.val());  
         })]).then(() => {
             signedIntoFirebase = true;
         })
@@ -103,7 +104,7 @@ class FeedbackCommand extends command.Command
                                                 if(blackList[i] == userID)
                                                 {
                                                     blackList.splice(i, 1);
-                                                    firebase.database().ref("blacklist").set(blackList)
+                                                    firebase.database().ref("blacklist").set(JSON.stringify(blackList))
                                                     message.channel.send("<@" + userID + "> is no longer blacklisted").catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
@@ -114,7 +115,7 @@ class FeedbackCommand extends command.Command
                                     else
                                     {
                                         blackList.push(userID.toString());
-                                        firebase.database().ref("blacklist").set(blackList)
+                                        firebase.database().ref("blacklist").set(JSON.stringify(blackList))
                                         message.channel.send("<@" + userID + "> has been blacklisted").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
