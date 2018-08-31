@@ -1243,7 +1243,10 @@ bot.on("message", (message) => {
         if(message.content.toLowerCase().indexOf("cease") > -1)
         {
             if(message.author.id != bot.user.id)
+            {
                 message.channel.send("Cease! You have violated the law!").catch(error => console.log("Send Error - " + error));
+                message.channel.send("ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito 3 (Feat: Slav Bot)\n\n───────────:white_circle:────────────────────────────────\n\n◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ 1:17 / 4:20 ⠀ ───○ :loud_sound:⠀ ᴴᴰ :gear:").catch(error => console.log("Send Error - " + error));
+            }
         }
 
         if(message.content.toLowerCase().indexOf("despacito") > -1 || message.content.toLowerCase().indexOf("so sad") > -1)
