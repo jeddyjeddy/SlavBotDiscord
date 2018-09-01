@@ -98,38 +98,42 @@ class PantCommand extends command.Command
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("pant.png").then(function (pantImage) {
                     console.log("got image");
-                    Jimp.read(url).then(function (userImage) {
-                        console.log("got avatar");
-                        
-                        var x = 710
-                        var y = 240
-
-                        userImage.cover(420, 465)                        
-                        
-        
-                        var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(userImage, x, y ).composite(pantImage, 0, 0);
-                        var file = shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
-                            if(error) { console.log(error); return;};
-                            console.log("got merged image");
-                            console.log(file);
-                            message.channel.send("***Eat Pant***", {
-                                files: [file]
-                            }).then(function(){
-                                
-                                fs.unlink(file, resultHandler);
-                            }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                console.log(err.message);
-                                
-                                fs.unlink(file, resultHandler);
+                    Jimp.read("pantbg.png").then(function (pantBGImage) {
+                        Jimp.read(url).then(function (userImage) {
+                            console.log("got avatar");
+                            
+                            var x = 710
+                            var y = 240
+    
+                            userImage.cover(420, 465)                        
+                            
+            
+                            var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(pantBGImage, 0, 0).composite(userImage, x, y ).composite(pantImage, 0, 0);
+                            var file = shortid.generate() + ".png"
+                            mergedImage.write(file, function(error){
+                                if(error) { console.log(error); return;};
+                                console.log("got merged image");
+                                console.log(file);
+                                message.channel.send("***Eat Pant***", {
+                                    files: [file]
+                                }).then(function(){
+                                    
+                                    fs.unlink(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    
+                                    fs.unlink(file, resultHandler);
+                                });
+                                console.log("Message Sent");
                             });
-                            console.log("Message Sent");
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
+                            
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                        console.log(err.message);
-                        
+                        console.log(err.message); 
                     });
                 }).catch(function (err) {
                     console.log(err.message);
@@ -170,44 +174,42 @@ class PantCommand extends command.Command
             Promise.all(promises).then(() => {
                 Jimp.read("pant.png").then(function (pantImage) {
                     console.log("got image");
-                    
-                    Jimp.read(url).then(function (userImage) {
-                        console.log("got avatar");
-                        
-                        var x = 710
-                        var y = 240
-
-                        userImage.cover(420, 465)                        
-                        
-        
-                        var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(userImage, x, y ).composite(pantImage, 0, 0);
-                        var file = shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
-                            if(error) { console.log(error); return;};
-                            console.log("got merged image");
-                            console.log(file);
-                            message.channel.send("***Eat Pant***", {
-                                files: [file]
-                            }).then(function(){
-                                
-                                fs.unlink(file, resultHandler);
-                            }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                console.log(err.message);
-                                
-                                fs.unlink(file, resultHandler);
+                    Jimp.read("pantbg.png").then(function (pantBGImage) {
+                        Jimp.read(url).then(function (userImage) {
+                            console.log("got avatar");
+                            
+                            var x = 710
+                            var y = 240
+    
+                            userImage.cover(420, 465)                        
+                            
+            
+                            var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(pantBGImage, 0, 0).composite(userImage, x, y ).composite(pantImage, 0, 0);
+                            var file = shortid.generate() + ".png"
+                            mergedImage.write(file, function(error){
+                                if(error) { console.log(error); return;};
+                                console.log("got merged image");
+                                console.log(file);
+                                message.channel.send("***Eat Pant***", {
+                                    files: [file]
+                                }).then(function(){
+                                    
+                                    fs.unlink(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    
+                                    fs.unlink(file, resultHandler);
+                                });
+                                console.log("Message Sent");
                             });
-                            console.log("Message Sent");
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
+                            
                         });
                     }).catch(function (err) {
-                        if(url == "no user")
-                        {
-                            message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                        }
-                        else
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                        console.log(err.message);
-                        
+                        console.log(err.message); 
                     });
                 }).catch(function (err) {
                     console.log(err.message);
