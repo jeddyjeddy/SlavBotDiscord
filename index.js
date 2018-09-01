@@ -1283,7 +1283,8 @@ bot.on("message", (message) => {
     {
         if(message.content.toLowerCase().indexOf("hi") > -1 || message.content.toLowerCase().indexOf("hello") > -1)
         {
-            message.channel.send("ваша мать шлюха вокзальная сука блять").catch(error => console.log("Send Error - " + error));
+            const helloResponses = ["hi", "hello", "ваша мать шлюха вокзальная сука блять"]
+            message.channel.send(helloResponses[Math.floor(Math.random() * helloResponses.length)]).catch(error => console.log("Send Error - " + error));
         }
 
         if(message.content.toLowerCase().indexOf("you there?") > -1)
@@ -1292,7 +1293,7 @@ bot.on("message", (message) => {
         }
     }
 
-    if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
+    if(message.content.toLowerCase().indexOf("thot") > -1 || message.content.toLowerCase().indexOf("t h o t") > -1 || message.content.toLowerCase().indexOf("whore") > -1)
     {  
         if(message.author.id != bot.user.id)
         {
@@ -1310,7 +1311,7 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/thot/g) || []).length + (msg.match(/whore/g) || []).length;
+            var count = (msg.match(/thot/g) || []).length + (msg.match(/t h o t/g) || []).length + (msg.match(/whore/g) || []).length;
            
             if(thotCounter == [] || thotCounter.length == 0)
             {       
