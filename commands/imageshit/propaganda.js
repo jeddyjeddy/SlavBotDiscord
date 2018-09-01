@@ -168,7 +168,7 @@ class PropagandaCommand extends command.Command
             }
 
             Promise.all(promises).then(() => {
-    Jimp.read("poster.png").then(function (PosterImage) {
+                Jimp.read("poster.png").then(function (PosterImage) {
                     console.log("got image");
                     
                     Jimp.read(url).then(function (userImage) {
