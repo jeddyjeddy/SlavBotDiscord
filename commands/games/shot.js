@@ -1,7 +1,7 @@
 const command = require("discord.js-commando");
 var isPlaying = [{key: "Key", value: true}];
 var loaded = false;
-const drunkMessages = ["is pissing on the train tracks", "is fighting with a random bear", "is hearing Hardbass from everywhere", "is pissing their tracksuit while squatting", "is trying to complete a series of backflips", "is pointing at random people and accusing them of being American spies", "is having visions of their dead babushka giving one last meal", "is putting their head in a particle accelerator"]
+const drunkMessages = ["is pissing on the train tracks", "is fighting with a random bear", "is hearing Hardbass from everywhere", "is pissing their tracksuit while squatting", "is trying to complete a series of backflips", "is pointing at random people and accusing them of being American spies", "is having visions of their dead babushka giving one last meal", "is putting their head in a particle accelerator", "is having visions of drinking together with Stalin", "is driving a tank while playing our anthem", "is squatting while radiating energy as A Legendary Super Saiyan"]
 var firebase = require("firebase");
 var signedIntoFirebase = false;
 firebase.auth().onAuthStateChanged(function(user) {
