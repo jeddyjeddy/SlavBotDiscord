@@ -131,8 +131,9 @@ class FeedbackCommand extends command.Command
     
                                     message.channel.client.fetchUser(userID)
                                     .then(user => {
-                                            user.send("***channel.send from the owner:*** " + text).catch(error => console.log("Send Error - " + error));
-                                            message.channel.send("<@" + message.author.id + "> Message sent: " + text).catch(error => console.log("Send Error - " + error));
+                                            user.send("***channel.send from the owner:*** " + text).then(() => { 
+                                                message.channel.send("<@" + message.author.id + "> Message sent: " + text).catch(error => console.log("Send Error - " + error));
+                                        }).catch(error => {console.log("Send Error - " + error); message.channel.send("Failed to send DM").catch(error => console.log("Send Error - " + error));});
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
