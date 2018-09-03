@@ -821,13 +821,55 @@ const responses2 = ["still u", "undoubtedly u", "no u", "ur dad", "ur face", "do
 const curseResponses = ["You people sicken me", "Do none of you have anything better to do?", "You should have your mouth washed out with soap", "Do you kiss your mother with that mouth?", "Didn't know we had sailors here", "God is watching", "God is disappointed", "Your parents must be proud"];
 
 var signedIntoFirebase = false;
+var signedIntoDiscord = false;
+
+firebase.auth().signInAnonymously().catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    console.log(errorCode);
+    console.log(errorMessage);
+});
+
 var schedule = require('node-schedule');
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log("signed in to firebase");
       signedIntoFirebase = true;
-      firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
+
+      if(signedIntoDiscord)
+      {
+        initData();
+      }
+    } else {
+      console.log("signed out of firebase");
+      signedIntoFirebase = false;
+    }
+  });
+
+bot.on("channelDelete", (channel) => {
+    for(var i = 0; i < responseSettings.length; i++)
+    {
+        if(responseSettings[i].overwrites != null)
+        {
+            for(var index = 0; index < responseSettings[i].overwrites.length; index++)
+            {
+                if(responseSettings[i].overwrites[index] == channel.id)
+                {
+                    responseSettings[i].overwrites.splice(index, 1) 
+                    firebase.database().ref("serversettings/" + responseSettings[i].key + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                }
+            }
+        }
+    }
+})
+
+var initData = () => {
+    console.log("Init Data")
+    
+    firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
         if(snapshot.val() != null)
         {
             snapshot.forEach(function(childSnap){
@@ -1036,28 +1078,7 @@ var schedule = require('node-schedule');
             })
         }
       })
-    } else {
-      console.log("signed out of firebase");
-      signedIntoFirebase = false;
-    }
-  });
-
-bot.on("channelDelete", (channel) => {
-    for(var i = 0; i < responseSettings.length; i++)
-    {
-        if(responseSettings[i].overwrites != null)
-        {
-            for(var index = 0; index < responseSettings[i].overwrites.length; index++)
-            {
-                if(responseSettings[i].overwrites[index] == channel.id)
-                {
-                    responseSettings[i].overwrites.splice(index, 1) 
-                    firebase.database().ref("serversettings/" + responseSettings[i].key + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
-                }
-            }
-        }
-    }
-})
+}
 
 bot.on("channelCreate", (channel) => {
     var guild;
@@ -1858,13 +1879,10 @@ bot.on("message", (message) => {
 });
 
 bot.login(process.env.BOT_TOKEN).then(function(){
+    signedIntoDiscord = true;
     bot.user.setActivity('Hardbass', { type: 'LISTENING' }).catch(console.error);
-    firebase.auth().signInAnonymously().catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    
-        console.log(errorCode);
-        console.log(errorMessage);
-    });
+    if(signedIntoFirebase)
+    {
+        initData()
+    }
 });
