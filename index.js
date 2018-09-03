@@ -35,15 +35,15 @@ dbl.on('posted', () => {
             console.log(body)
         }
     })
-
+    //Disabled due to Listcord going down
+    /*
     var headers2 = {
         'Authorization': process.env.LIST_CORD_API,
         'Content-Type': 'application/json'
     }
 
     // Configure the request
-    //Disabled due to Listcord going down
-    /*
+    
     var options2 = {
         url: 'https://listcord.com/api/bot/' + bot.user.id + "/guilds",
         method: 'POST',
