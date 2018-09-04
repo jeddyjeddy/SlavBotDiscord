@@ -35,20 +35,19 @@ dbl.on('posted', () => {
             console.log(body)
         }
     })
-    //Disabled due to Listcord going down
-    /*
+    
     var headers2 = {
-        'Authorization': process.env.LIST_CORD_API,
+        'Authorization': process.env.DISCORD_SERVICES,
         'Content-Type': 'application/json'
     }
 
     // Configure the request
     
     var options2 = {
-        url: 'https://listcord.com/api/bot/' + bot.user.id + "/guilds",
+        url: 'https://discord.services/api/bots/' + bot.user.id,
         method: 'POST',
         headers: headers2,
-        body: JSON.stringify({'guilds': bot.guilds.size})
+        body: JSON.stringify({'guild_count': bot.guilds.size})
     }
 
     // Start the request
@@ -57,7 +56,7 @@ dbl.on('posted', () => {
             // Print out the response body
             console.log(body)
         }
-    })*/
+    })
 
     var headers3 = {
         'Authorization': process.env.BOTS_ON_DISCORD_API,
@@ -99,6 +98,54 @@ dbl.on('posted', () => {
 
     // Start the request
     request(options4, function (error, response, body) {
+        if (!error) {
+            // Print out the response body
+            console.log(body)
+        }
+        else
+        {
+            console.log(error)
+        }
+    })
+
+    var headers5 = {
+        'Authorization': process.env.DISCORD_BOTS_GROUP,
+        'Content-Type': 'application/json'
+    }
+
+    var options5 = {
+        url: 'https://discordbots.group/api/bots/' + bot.user.id,
+        method: 'POST',
+        headers: headers5,
+        body: JSON.stringify({"count": bot.guilds.size})
+    }
+
+    // Start the request
+    request(options5, function (error, response, body) {
+        if (!error) {
+            // Print out the response body
+            console.log(body)
+        }
+        else
+        {
+            console.log(error)
+        }
+    })
+
+    var headers6 = {
+        'Authorization': process.env.DISCORD_BOT_LIST,
+        'Content-Type': 'application/json'
+    }
+
+    var options6 = {
+        url: 'https://discordbotlist.com/api/bots/' + bot.user.id + "/stats",
+        method: 'POST',
+        headers: headers5,
+        body: JSON.stringify({"guilds": bot.guilds.size})
+    }
+
+    // Start the request
+    request(options6, function (error, response, body) {
         if (!error) {
             // Print out the response body
             console.log(body)
