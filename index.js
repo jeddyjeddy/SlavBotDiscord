@@ -114,7 +114,7 @@ dbl.on('posted', () => {
     }
 
     var options5 = {
-        url: 'https://discordbots.group/api/bots/' + bot.user.id,
+        url: 'https://discordbots.group/api/bot/' + bot.user.id,
         method: 'POST',
         headers: headers5,
         body: JSON.stringify({"count": bot.guilds.size})
@@ -140,7 +140,7 @@ dbl.on('posted', () => {
     var options6 = {
         url: 'https://discordbotlist.com/api/bots/' + bot.user.id + "/stats",
         method: 'POST',
-        headers: headers5,
+        headers: headers6,
         body: JSON.stringify({"guilds": bot.guilds.size})
     }
 
