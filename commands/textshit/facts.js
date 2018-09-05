@@ -36,6 +36,19 @@ class FactsCommand extends command.Command
                 return;
             }
 
+            var title = redditResponse[0].data.children[0].data.title;
+
+            if(title == null)
+            {
+                title = "";
+            }
+            else
+            {
+                title = "***" + title + "***";
+            }
+
+            selftext = title + "\n" + selftext
+
             message.channel.send(selftext, {split: true}).catch(error => {console.log("Send Error - " + error); message.channel.send("Failed To Send Copypasta - " + error).catch(error => {console.log("Send Error 2 - " + error);});});
         });
     }
