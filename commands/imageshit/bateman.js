@@ -120,7 +120,7 @@ class BatemanCommand extends command.Command
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("***Look at that***", {
+                                message.channel.send("***Impressive, very nice***", {
                                     files: [file]
                                 }).then(function(){
                                     
@@ -200,7 +200,7 @@ class BatemanCommand extends command.Command
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("***Look at that***", {
+                                message.channel.send("***Impressive, very nice***", {
                                     files: [file]
                                 }).then(function(){
                                     
