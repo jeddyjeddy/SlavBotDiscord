@@ -110,7 +110,7 @@ class BatemanCommand extends command.Command
                             var x = 525
                             var y = 260
     
-                            userImage.scaleToFit(300, 300) 
+                            userImage.resize(Jimp.AUTO, 300) 
                             userImage.rotate(20);                          
                             
             
@@ -190,7 +190,7 @@ class BatemanCommand extends command.Command
                             var x = 525
                             var y = 260
         
-                            userImage.scaleToFit(300, 300) 
+                            userImage.resize(Jimp.AUTO, 300) 
                             userImage.rotate(20);                         
                             
             
