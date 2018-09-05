@@ -107,8 +107,8 @@ class BatemanCommand extends command.Command
                         Jimp.read("batemanhand.png").then(function (handImage) {
                             console.log("got avatar");
                             
-                            var x = 525
-                            var y = 260
+                            var x = 505
+                            var y = 250
     
                             userImage.resize(Jimp.AUTO, 300) 
                             userImage.rotate(20);                          
@@ -187,8 +187,8 @@ class BatemanCommand extends command.Command
                         Jimp.read("batemanhand.png").then(function (handImage) {
                             console.log("got avatar");
                             
-                            var x = 525
-                            var y = 260
+                            var x = 505
+                            var y = 250
         
                             userImage.resize(Jimp.AUTO, 300) 
                             userImage.rotate(20);                         
