@@ -223,6 +223,7 @@ class ClassCommand extends command.Command
             }
 
             Promise.all(promises).then(() => { 
+                message.channel.send("***creating classes***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("class.png").then(function (classImage) {
                     console.log("got image");
                     var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)

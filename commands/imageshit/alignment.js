@@ -245,8 +245,8 @@ class AlignmentCommand extends command.Command
                     }));
                 }
             }
-
             Promise.all(promises).then(() => { 
+                message.channel.send("***creating chart***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("chart.png").then(function (alignmentImage) {
                     console.log("got image");
                     var BG = new Jimp(alignmentImage.bitmap.width, alignmentImage.bitmap.height)
