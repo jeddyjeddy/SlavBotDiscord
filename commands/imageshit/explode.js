@@ -104,7 +104,7 @@ class ExplodeCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image for explode");
                     Jimp.read("explode.png").then(function (displacementMask) {
-                        displacementMask.scale(userImage.bitmap.width, userImage.bitmap.height)
+                        displacementMask.cover(userImage.bitmap.width, userImage.bitmap.height)
                         userImage.displace(displacementMask, 10)
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
@@ -164,7 +164,7 @@ class ExplodeCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
                     Jimp.read("explode.png").then(function (displacementMask) {
-                        displacementMask.scale(userImage.bitmap.width, userImage.bitmap.height)
+                        displacementMask.cover(userImage.bitmap.width, userImage.bitmap.height)
                         userImage.displace(displacementMask, 10)
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
