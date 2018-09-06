@@ -4,6 +4,12 @@ const uniqueNamesGenerator = require('unique-names-generator');
 const ranks = ["A", "B", "C", "D", "E"]
 const responses = ["NANI?!", "STANDO POWA", "MUDA MUDA MUDA MUDA", "OH MY GOD", "OOOOH SHEEEET", "Yare Yare Daze...", "WHAT DID YOU SAY ABOUT MY HAIR?", "THIS, THIS IS THE TASTE OF A LIAR !", "ARRIVEDERCI", "GERMAN MEDICINE IS THE GREATEST IN THE WORLD!"]
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
 class StandGeneratorCommand extends command.Command
  {
     constructor(client)
@@ -59,7 +65,7 @@ class StandGeneratorCommand extends command.Command
         }
 
 
-        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + uniqueNamesGenerator.generate(' ') + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
+        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase(uniqueNamesGenerator.generate(' ')) + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
         + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
         + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
 
