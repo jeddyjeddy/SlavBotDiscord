@@ -28,7 +28,8 @@
     "rebuild": "^0.1.2",
     "retrotext": "^2.1.2",
     "shortid": "^2.2.8",
-    "timestring": "^5.0.1"
+    "timestring": "^5.0.1",
+    "unique-names-generator": "^1.0.13"
   },
   "devDependencies": {
     "ws": "3.3.2"
