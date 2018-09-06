@@ -9,7 +9,7 @@ class TriviaCommand extends command.Command
     {
         super(client, {
             name: "trivia",
-            group: "textshit",
+            group: "games",
             memberName: "trivia",
             description: "Get a trivia question. You can assign a difficulty or category using the difficulty and category parameter. Easy questions are given by default.",
             examples: ["`!trivia`", "`!trivia <difficulty>`", "`!trivia easy/medium/hard` (3 Difficulties)", "`!trivia categories` (Get all categories)", "`!trivia <difficulty>|<category-id>`", "`!trivia easy|9`"]
@@ -27,7 +27,7 @@ class TriviaCommand extends command.Command
         {
             if(args.toLowerCase() == "categories")
             {
-                var categories = trivia.getCategories()
+                var categories = trivia.getCategories().trivia_categories;
                 var titles = []
                 var IDs = []
                 var messageText = "***ID - Category***";
@@ -86,7 +86,7 @@ class TriviaCommand extends command.Command
                 }
     
                 trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions.array().toString()).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.results.toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
             }
         }
@@ -97,7 +97,7 @@ class TriviaCommand extends command.Command
             };
 
             trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions.array().toString()).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.results.toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
         }
     }
