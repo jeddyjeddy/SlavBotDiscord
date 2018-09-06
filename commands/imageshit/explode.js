@@ -67,7 +67,7 @@ class ExplodeCommand extends command.Command
         }
         
         var url = "";
-        console.log("emboss");
+        console.log("explode");
         console.log(url);
 
 
@@ -96,18 +96,16 @@ class ExplodeCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help emboss` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help explode` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
-                    console.log("got last image for emboss");
-                    Jimp.read("explode.png").then(function (displacementMask) {
-                        displacementMask.scaleToFit(userImage.bitmap.width, userImage.bitmap.height)
-                        userImage.displace(displacementMask, 10)
-                        var file = shortid.generate() + ".png"
-                        userImage.write(file, function(error){
+                    console.log("got last image for explode");
+                    userImage.fisheye()
+                    var file = shortid.generate() + ".png"
+                    userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
                         console.log(file);
                         message.channel.send("***Explode***", {
@@ -120,10 +118,7 @@ class ExplodeCommand extends command.Command
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
-                    });
-                    }).catch(function (err) {
-                        console.log(err.message);
-                    });   
+                    }); 
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
