@@ -27,7 +27,23 @@ class TriviaCommand extends command.Command
         {
             if(args.toLowerCase() == "categories")
             {
-                message.channel.send(trivia.getCategories()).catch(error => console.log("Send Error - " + error))
+                var categories = trivia.getCategories()
+                var titles = []
+                var IDs = []
+                var message = "***ID - Category***";
+
+                for(var i = 0; i < categories.length; i++)
+                {
+                    titles.push(categories[i].name);
+                    IDs.push(categories[i].id)
+                }
+
+                for(var i = 0; i < titles.length; i++)
+                {
+                    message = + "\n" + IDs[i] + " - " + titles[i]
+                }
+
+                message.channel.send(message).catch(error => console.log("Send Error - " + error))
             }
             else
             {
@@ -70,7 +86,7 @@ class TriviaCommand extends command.Command
                 }
     
                 trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
             }
         }
@@ -81,7 +97,7 @@ class TriviaCommand extends command.Command
             };
 
             trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
         }
     }
