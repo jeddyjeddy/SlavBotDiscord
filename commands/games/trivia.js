@@ -27,24 +27,27 @@ class TriviaCommand extends command.Command
         {
             if(args.toLowerCase() == "categories")
             {
-                Promise.all([trivia.getCategories()]).then(results => {
-                    var categories = results.trivia_categories;
-                    var titles = []
-                    var IDs = []
-                    var messageText = "***ID - Category***";
-    
-                    for(var i = 0; i < categories.length; i++)
+                trivia.getCategories().then(results => {
+                    if(results != undefined)
                     {
-                        titles.push(categories[i].name);
-                        IDs.push(categories[i].id)
+                        var categories = results.trivia_categories;
+                        var titles = []
+                        var IDs = []
+                        var messageText = "***ID - Category***";
+        
+                        for(var i = 0; i < categories.length; i++)
+                        {
+                            titles.push(categories[i].name);
+                            IDs.push(categories[i].id)
+                        }
+        
+                        for(var i = 0; i < titles.length; i++)
+                        {
+                            message = + "\n" + IDs[i] + " - " + titles[i]
+                        }
+        
+                        message.channel.send(messageText).catch(error => console.log("Send Error - " + error))
                     }
-    
-                    for(var i = 0; i < titles.length; i++)
-                    {
-                        message = + "\n" + IDs[i] + " - " + titles[i]
-                    }
-    
-                    message.channel.send(messageText).catch(error => console.log("Send Error - " + error))
                 }).catch(error => console.log(error))
             }
             else
@@ -87,8 +90,8 @@ class TriviaCommand extends command.Command
                     };
                 }
     
-                Promise.all([trivia.getQuestions(options)])
-                .then(questions => message.channel.send(questions.results.toString()).catch(error => console.log("Send Error - " + error)))
+                trivia.getQuestions(options)
+                .then(questions => {if(questions != undefined) message.channel.send(questions.results[0].toString()).catch(error => console.log("Send Error - " + error))})
                 .catch(console.error);
             }
         }
@@ -98,8 +101,8 @@ class TriviaCommand extends command.Command
                 amount: 1
             };
 
-            Promise.all([trivia.getQuestions(options)])
-            .then(questions => message.channel.send(questions.results.toString()).catch(error => console.log("Send Error - " + error)))
+            trivia.getQuestions(options)
+            .then(questions => {if(questions != undefined) message.channel.send(questions.results[0].toString()).catch(error => console.log("Send Error - " + error))})
             .catch(error => console.log(error));
                 
         }
