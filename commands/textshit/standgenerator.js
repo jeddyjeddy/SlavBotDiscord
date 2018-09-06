@@ -2,7 +2,7 @@ const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 const uniqueNamesGenerator = require('unique-names-generator');
 const ranks = ["A", "B", "C", "D", "E"]
-const responses = ["NANI?!", "STANDO POWA", "MUDA MUDA MUDA MUDA", "OH MY GOD", "OOOOH SHEEEET", "Yare Yare Daze...", "WHAT DID YOU SAY ABOUT MY HAIR?"]
+const responses = ["NANI?!", "STANDO POWA", "MUDA MUDA MUDA MUDA", "OH MY GOD", "OOOOH SHEEEET", "Yare Yare Daze...", "WHAT DID YOU SAY ABOUT MY HAIR?", "THIS, THIS IS THE TASTE OF A LIAR !", "ARRIVEDERCI", "GERMAN MEDICINE IS THE GREATEST IN THE WORLD!"]
 
 class StandGeneratorCommand extends command.Command
  {
@@ -59,10 +59,9 @@ class StandGeneratorCommand extends command.Command
         }
 
 
-        var standText = "***『Stand User』<@" + userID + ">***\n***『Stand Name』" + uniqueNamesGenerator.generate(' ') + "***\nPower - " + ranks[Math.floor(Math.random() * ranks.length)]
-        + "***\n" + "***\nSpeed - " + ranks[Math.floor(Math.random() * ranks.length)] + "***\n" + "***\nRange - " + ranks[Math.floor(Math.random() * ranks.length)] + "***\n"
-        + "***\nDurability - " + ranks[Math.floor(Math.random() * ranks.length)] + "***\n" + "***\nPrecision - " + ranks[Math.floor(Math.random() * ranks.length)] + "***\n"
-        + "***\nPotential - " + ranks[Math.floor(Math.random() * ranks.length)] + "***"
+        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + uniqueNamesGenerator.generate(' ') + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
+        + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
+        + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
 
         message.channel.send(standText, {files: ["jojo.gif"]}).then(() => {message.channel.send(responses[Math.floor(Math.random() * responses.length)]).catch(error => console.log("Send Error - " + error));}).catch(error => console.log("Send Error - " + error));
     }
