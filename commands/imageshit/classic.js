@@ -40,7 +40,7 @@ class ClassicCommand extends command.Command
             var file = shortid.generate() + ".png";
             
                 Jimp.read("classic.jpg").then(function (trumpImage) {
-                    Jimp.loadFont("Arial_24.fnt").then(function (font) {
+                    Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function (font) {
                         var textWidth = 480;
                         var textHeight = 405;
                         var textRot = -3;
