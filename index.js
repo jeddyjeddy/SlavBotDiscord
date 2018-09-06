@@ -179,6 +179,30 @@ dbl.on('posted', () => {
             console.log(error)
         }
     })
+
+    var headers8 = {
+        'Authorization': process.env.DISCORDBOT_WORLD,
+        'Content-Type': 'application/json'
+    }
+
+    var options8 = {
+        url: 'https://discordbot.world/api/bot/' + bot.user.id + "/stats",
+        method: 'POST',
+        headers: headers8,
+        body: JSON.stringify({"guild_count": bot.guilds.size})
+    }
+
+    // Start the request
+    request(options8, function (error, response, body) {
+        if (!error) {
+            // Print out the response body
+            console.log(body)
+        }
+        else
+        {
+            console.log(error)
+        }
+    })
 });
     
 dbl.on('error', e => {
