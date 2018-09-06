@@ -12,9 +12,9 @@ var resultHandler = function(err) {
 const Filter = require('node-image-filter');
 function imageEffect(pixels) {
     return Filter.convolution(pixels,
-           [-2, -1, 0,
-            -1, 1, 1,
-            0, 1, 2], 1);
+           [-4, -2, 0,
+            -2, 2, 2,
+            0, 2, 3], 1);
 }
 var CommandCounter = require("../../index.js")
 
