@@ -30,7 +30,7 @@ class TriviaCommand extends command.Command
                 var categories = trivia.getCategories()
                 var titles = []
                 var IDs = []
-                var message = "***ID - Category***";
+                var messageText = "***ID - Category***";
 
                 for(var i = 0; i < categories.length; i++)
                 {
@@ -43,7 +43,7 @@ class TriviaCommand extends command.Command
                     message = + "\n" + IDs[i] + " - " + titles[i]
                 }
 
-                message.channel.send(message).catch(error => console.log("Send Error - " + error))
+                message.channel.send(messageText).catch(error => console.log("Send Error - " + error))
             }
             else
             {
@@ -86,7 +86,7 @@ class TriviaCommand extends command.Command
                 }
     
                 trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions.toString()).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.array().toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
             }
         }
@@ -97,7 +97,7 @@ class TriviaCommand extends command.Command
             };
 
             trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions.toString()).catch(error => console.log("Send Error - " + error)))
+                .then(questions => message.channel.send(questions.array().toString()).catch(error => console.log("Send Error - " + error)))
                 .catch(console.error);
         }
     }
