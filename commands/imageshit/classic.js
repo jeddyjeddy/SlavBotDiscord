@@ -35,17 +35,17 @@ class ClassicCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 135)
+        if(args.length > 0 && args.length <= 80)
         {
             var file = shortid.generate() + ".png";
             
                 Jimp.read("classic.jpg").then(function (trumpImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function (font) {
                         var textWidth = 480;
-                        var textHeight = 405;
+                        var textHeight = 425;
                         var textRot = -3;
                         var textX = 305;
-                        var textY = 645;
+                        var textY = 625;
 
                         var textImage = new Jimp(textWidth, textHeight);
                         textImage.print(font, 0, 0, args.toString(), textWidth);
@@ -74,7 +74,7 @@ class ClassicCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 135 characters, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 80 characters, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
             else
              message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
             
