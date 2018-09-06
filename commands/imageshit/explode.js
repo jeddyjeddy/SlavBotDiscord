@@ -103,22 +103,27 @@ class ExplodeCommand extends command.Command
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image for explode");
-                    userImage.fisheye()
-                    var file = shortid.generate() + ".png"
-                    userImage.write(file, function(error){
+                    Jimp.read("explode.png").then(function (displacementMask) {
+                        displacementMask.scale(userImage.bitmap.width, userImage.bitmap.height)
+                        userImage.displace(displacementMask, 10)
+                        var file = shortid.generate() + ".png"
+                        userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
-                        console.log(file);
-                        message.channel.send("***Explode***", {
-                            files: [file]
-                        }).then(function(){
-                            fs.unlink(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            fs.unlink(file, resultHandler);
+                            console.log(file);
+                            message.channel.send("***Explode***", {
+                                files: [file]
+                            }).then(function(){
+                                fs.unlink(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                fs.unlink(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
-                    }); 
+                    }).catch(function (err) {
+                        console.log(err.message);
+                    });   
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
@@ -159,7 +164,7 @@ class ExplodeCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
                     Jimp.read("explode.png").then(function (displacementMask) {
-                        displacementMask.scaleToFit(userImage.bitmap.width, userImage.bitmap.height)
+                        displacementMask.scale(userImage.bitmap.width, userImage.bitmap.height)
                         userImage.displace(displacementMask, 10)
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
