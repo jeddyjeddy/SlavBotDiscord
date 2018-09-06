@@ -69,7 +69,7 @@ class StandGeneratorCommand extends command.Command
         + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
         + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
 
-        message.channel.send(standText, {files: ["jojo.gif"]}).then(() => {message.channel.send("***" + responses[Math.floor(Math.random() * responses.length) + "***"]).catch(error => console.log("Send Error - " + error));}).catch(error => console.log("Send Error - " + error));
+        message.channel.send(standText, {files: ["jojo.gif"]}).then(() => {message.channel.send("***" + responses[Math.floor(Math.random() * responses.length)] + "***").catch(error => console.log("Send Error - " + error));}).catch(error => console.log("Send Error - " + error));
     }
 }
 
