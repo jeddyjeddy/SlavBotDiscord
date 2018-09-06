@@ -23,6 +23,8 @@ class TriviaCommand extends command.Command
 
         var options = null;
 
+        console.log(trivia.getCategories())
+
         if(args.length > 0)
         {
             if(args.toLowerCase() == "categories")
@@ -97,7 +99,7 @@ class TriviaCommand extends command.Command
             };
 
             trivia.getQuestions(options)
-                .then(questions => message.channel.send(questions.results.toString()).catch(error => console.log("Send Error - " + error)))
+                .then(questions => console.log(questions))
                 .catch(console.error);
         }
     }
