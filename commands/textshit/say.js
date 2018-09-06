@@ -19,7 +19,8 @@ class SayCommand extends command.Command
         CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
-            message.channel.send(args.toString()).catch(error => console.log("Send Error - " + error));
+
+            message.channel.send(args.toString().replace(/@everyone/g, "everyone").replace(/@here/g, "here")).catch(error => console.log("Send Error - " + error));
 
             if(message.guild != null)
             {
