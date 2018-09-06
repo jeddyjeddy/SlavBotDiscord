@@ -67,7 +67,7 @@ class ExplodeCommand extends command.Command
         }
         
         var url = "";
-        console.log("deepfry");
+        console.log("emboss");
         console.log(url);
 
 
@@ -96,33 +96,33 @@ class ExplodeCommand extends command.Command
             
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help deepfry` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No image found, use `" + commandPrefix + "help emboss` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
-                    console.log("got last image to deepfry");
-        
-                    userImage.displace("explode.png", 0)
-    
-                    var file = shortid.generate() + ".png"
-                    userImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
+                    console.log("got last image for emboss");
+                    Jimp.read("explode.png").then(function (displacementMask) {
+                        userImage.displace(displacementMask, 0)
+                        var file = shortid.generate() + ".png"
+                        userImage.write(file, function(error){
+                        if(error) {{ console.log(error); return;}; };
                         console.log(file);
                         message.channel.send("***Explode***", {
                             files: [file]
                         }).then(function(){
-                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
-                    })
+                    });
+                    }).catch(function (err) {
+                        console.log(err.message);
+                    });   
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
@@ -162,26 +162,26 @@ class ExplodeCommand extends command.Command
                
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    
-                    userImage.displace("explode.png", 0)
-    
-                    var file = shortid.generate() + ".png"
+                    Jimp.read("explode.png").then(function (displacementMask) {
+                        userImage.displace(displacementMask, 0)
+                        var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
                         console.log(file);
                         message.channel.send("***Explode***", {
                             files: [file]
                         }).then(function(){
-                            
                             fs.unlink(file, resultHandler);
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                             console.log(err.message);
-                            
                             fs.unlink(file, resultHandler);
                         });
                         console.log("Message Sent");
                     });
+                    }).catch(function (err) {
+                        console.log(err.message);
+                    });    
                 }).catch(function (err) {
                     if(url == "no user")
                     {
