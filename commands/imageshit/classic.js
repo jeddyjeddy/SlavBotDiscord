@@ -35,7 +35,7 @@ class ClassicCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 85)
+        if(args.length > 0 && args.length <= 80)
         {
             var file = shortid.generate() + ".png";
             
@@ -74,7 +74,7 @@ class ClassicCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 85 characters, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 80 characters, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
             else
              message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help classic` for help.").catch(error => {console.log("Send Error - " + error); });
             
