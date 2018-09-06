@@ -105,7 +105,7 @@ class ExplodeCommand extends command.Command
                     console.log("got last image for explode");
                     Jimp.read("radialmask.png").then(function (displacementMask) {
                         displacementMask.cover(userImage.bitmap.width, userImage.bitmap.height)
-                        userImage.displace(displacementMask, 500)
+                        userImage.displace(displacementMask, 10)
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
@@ -165,7 +165,7 @@ class ExplodeCommand extends command.Command
                     console.log("got avatar");
                     Jimp.read("radialmask.png").then(function (displacementMask) {
                         displacementMask.cover(userImage.bitmap.width, userImage.bitmap.height)
-                        userImage.displace(displacementMask, 500)
+                        userImage.displace(displacementMask, 10)
                         var file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
