@@ -1,6 +1,41 @@
 const request = require('request');
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
+var counterCheck = [{key: "Key", tries: 0}]
+
+function messageCheck(messageID)
+{
+    for(var i = 0; i < counterCheck.length; i++)
+    {
+        if(counterCheck[i].key == messageID)
+        {
+            if(counterCheck[i].tries < 5)
+            {
+                counterCheck[i].tries += 1;
+                return true;
+            }
+            else
+            {
+                counterCheck.splice(i, 1)
+                return false;
+            }
+        }
+    }
+
+    counterCheck.push({key: messageID, tries: 1})
+    return true;
+}
+
+function completeCheck(messageID)
+{
+    for(var i = 0; i < counterCheck.length; i++)
+    {
+        if(counterCheck[i].key == messageID)
+        {
+            counterCheck.splice(i, 1)
+        }
+    }
+}
 
 class BlessedCommand extends command.Command
  {
@@ -17,14 +52,15 @@ class BlessedCommand extends command.Command
 
     async run(message, args)
     {
-        CommandCounter.addCommandCounter(message.author.id)
         var url = "https://www.reddit.com/r/blessedimages/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error)); return console.log(err); }
             
             if(redditResponse[0].data.children == undefined)
             {
-                this.run(message, args)
+                if(messageCheck(message.id))
+                    this.run(message, args)
+
                 return; 
             }
             
@@ -36,7 +72,9 @@ class BlessedCommand extends command.Command
             {
                 if(url == undefined)
                 {
+                    if(messageCheck(message.id))
                     this.run(message, args)
+                    
                     return; 
                 }
                 else
@@ -46,7 +84,9 @@ class BlessedCommand extends command.Command
             }
             else if(thumbnail == "nsfw")
             {
-                this.run(message, args)
+                if(messageCheck(message.id))
+                    this.run(message, args)
+                    
                 return;
             }
             
@@ -59,7 +99,9 @@ class BlessedCommand extends command.Command
             {
                 if(thumbnail.indexOf(".png") == -1 && thumbnail.indexOf(".jpg") == -1 && thumbnail.indexOf(".jpeg") == -1 && thumbnail.indexOf(".gif") == -1)
                 {
+                    if(messageCheck(message.id))
                     this.run(message, args)
+                    
                     return;
                 }
                 else
@@ -85,10 +127,13 @@ class BlessedCommand extends command.Command
             if(url != null || url != "")
             {
                 message.channel.send(title, {files: [url]}).catch(function(error){console.log("Send Error - " + error); message.channel.send("Error - " + error);});
+                CommandCounter.addCommandCounter(message.author.id)
+                completeCheck(message.id)
             }
             else
             {
-                this.run(message, args)
+                if(messageCheck(message.id))
+                    this.run(message, args)
             }            
         });
     }
