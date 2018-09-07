@@ -16,11 +16,22 @@ class SayCommand extends command.Command
 
     async run(message, args)
     {
-        CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
+            CommandCounter.addCommandCounter(message.author.id)
+            var sayText = args.toString();
 
-            message.channel.send(args.toString().replace(/@everyone/g, "everyone").replace(/@here/g, "here")).catch(error => console.log("Send Error - " + error));
+            while(sayText.indexOf("@everyone") > -1)
+            {
+                sayText.replace(/@everyone/g, "everyone")
+            }
+
+            while(sayText.indexOf("@here") > -1)
+            {
+                sayText.replace(/@here/g, "here")
+            }
+
+            message.channel.send().catch(error => console.log("Send Error - " + error));
 
             if(message.guild != null)
             {
