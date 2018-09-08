@@ -1,7 +1,7 @@
 const command = require("discord.js-commando");
 const Jimp = require("jimp");
 const shortid = require("shortid");
-const fs = require('fs');
+const fs = require('fs-extra');
 var resultHandler = function(err) { 
     if(err) {
        console.log("unlink failed", err);
@@ -118,12 +118,12 @@ class PregnantCommand extends command.Command
                                 files: [file]
                             }).then(function(){
                                 
-                                fs.unlink(file, resultHandler);
+                                fs.remove(file, resultHandler);
                             }).catch(function (err) {
                                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                 console.log(err.message);
                                 
-                                fs.unlink(file, resultHandler);
+                                fs.remove(file, resultHandler);
                             });
                             console.log("Message Sent");
                         });
@@ -187,12 +187,12 @@ class PregnantCommand extends command.Command
                                 files: [file]
                             }).then(function(){
                                 
-                                fs.unlink(file, resultHandler);
+                                fs.remove(file, resultHandler);
                             }).catch(function (err) {
                                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                 console.log(err.message);
                                 
-                                fs.unlink(file, resultHandler);
+                                fs.remove(file, resultHandler);
                             });
                             console.log("Message Sent");
                         });

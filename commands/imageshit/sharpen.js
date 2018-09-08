@@ -1,7 +1,7 @@
 const command = require("discord.js-commando");
 const Jimp = require("jimp");
 const shortid = require("shortid");
-const fs = require('fs');
+const fs = require('fs-extra');
 var resultHandler = function(err) { 
     if(err) {
        console.log("unlink failed", err);
@@ -132,19 +132,19 @@ class SharpenCommand extends command.Command
                                     files: [file]
                                 }).then(function(){
                                     
-                                    fs.unlink(file, resultHandler);
-                                    fs.unlink(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                    fs.remove(fileTemp, resultHandler);
                                 }).catch(function (err) {
                                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
                                     
-                                    fs.unlink(file, resultHandler);
-                                    fs.unlink(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                    fs.remove(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
                               }).on('error', function(err) {
                                 console.log("Sharpen Error:" + err);
-                                fs.unlink(fileTemp, resultHandler);
+                                fs.remove(fileTemp, resultHandler);
                                 
                               }));
                         })
@@ -209,19 +209,19 @@ class SharpenCommand extends command.Command
                                     files: [file]
                                 }).then(function(){
                                     
-                                    fs.unlink(file, resultHandler);
-                                    fs.unlink(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                    fs.remove(fileTemp, resultHandler);
                                 }).catch(function (err) {
                                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                     console.log(err.message);
                                     
-                                    fs.unlink(file, resultHandler);
-                                    fs.unlink(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                    fs.remove(fileTemp, resultHandler);
                                 });
                                 console.log("Message Sent");
                               }).on('error', function(err) {
                                 console.log("Sharpen Error:" + err);
-                                fs.unlink(fileTemp, resultHandler);
+                                fs.remove(fileTemp, resultHandler);
                                 
                               }));
                         })
