@@ -637,7 +637,6 @@ var disableWelcomeChannel = (guildID) => {
 var commandCounterChange = (userID) => {
     if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
     {
-        commandCounterChange(userID);
         return;
     }
 
@@ -1369,7 +1368,7 @@ bot.on("message", (message) => {
             if(message.author.id != bot.user.id)
             {
                 message.channel.send("Alexa, play despacito").catch(error => console.log("Send Error - " + error));
-                message.channel.send("ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito 3 (Feat: Slav bot)\n\n:white_circle:───────────────── \n\n◄◄⠀▐▐ ⠀►►   00:01 / 04:20⠀ ───○ :loud_sound:⠀ ᴴᴰ :gear: ❐ ⊏⊐").catch(error => console.log("Send Error - " + error));
+                message.channel.send("ɴᴏᴡ ᴘʟᴀʏɪɴɢ: Despacito " + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " (Feat: Slav bot)\n\n:white_circle:───────────────── \n\n◄◄⠀▐▐ ⠀►►   00:01 / 04:20⠀ ───○ :loud_sound:⠀ ᴴᴰ :gear: ❐ ⊏⊐").catch(error => console.log("Send Error - " + error));
             }
         }
 
