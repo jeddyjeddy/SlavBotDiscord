@@ -19,7 +19,7 @@ class SpiderManCommand extends command.Command
             name: "spiderman",
             group: "imageshit",
             memberName: "spiderman",
-            description: "The new Marvels Spider-Man game looking good. Use the last image uploaded (required).",
+            description: "The new Marvel's Spider-Man game looking good. Use the last image uploaded (required).",
             examples: ["`!spiderman`"]
         });
     }
@@ -74,7 +74,7 @@ class SpiderManCommand extends command.Command
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Marvels Spider-Man***", {
+                        message.channel.send("***Marvel's Spider-Man***", {
                             files: [file]
                         }).then(function(){
                             
