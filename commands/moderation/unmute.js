@@ -79,10 +79,10 @@ class UnmuteCommand extends command.Command
             }  
 
             var muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
+            var promises = []
 
             if(muteRole == null)
             {
-                var promises = []
                 var allChannels = message.guild.channels.array()
                 promises.push(message.guild.createRole({name: IndexRef.getRoleName(message.guild.id), permissions: 0}).then(function()
                 {
@@ -90,45 +90,41 @@ class UnmuteCommand extends command.Command
                         channel.overwritePermissions(message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id)), {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
                     })
                 }))
-                
-                const Ref = this;
-                Promise.all(promises).then(() => {
-                    Ref.run(message, args);
-                }).catch((e) => {
-                    console.log(e.message);
-                    message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
-                });
-                return;
             }
 
-            for(var i = 0; i < users.length; i++)
-            {
-                const user = users[i];
-                message.guild.fetchMember(user).then(function(member){
-                    
-                    if(member.id == message.guild.owner.id)
-                    {
-                        message.channel.send("<@" + message.author.id + "> You cannot mute/unmute the owner of the server.").catch(error => console.log("Send Error - " + error));
-                    }
-                    else
-                    {
-                        if(!member.roles.find("id", muteRole.id))
+            Promise.all(promises).then(() => {
+                for(var i = 0; i < users.length; i++)
+                {
+                    const user = users[i];
+                    message.guild.fetchMember(user).then(function(member){
+                        
+                        if(member.id == message.guild.owner.id)
                         {
-                            message.channel.send("<@" + member.id + "> is already unmuted.").catch(error => console.log("Send Error - " + error));
-                            IndexRef.removeMutedUser(message.guild.id, member.id)
+                            message.channel.send("<@" + message.author.id + "> You cannot mute/unmute the owner of the server.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
-                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                            IndexRef.removeMutedUser(message.guild.id, member.id)
-                            message.channel.send("<@" + member.id + "> has been unmuted.").catch(error => console.log("Send Error - " + error));
-                        }                        
-                    }
-                }).catch(function(error){
-                    console.log(error.message);
-                    message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
-                })
-            }
+                            if(!member.roles.find("id", muteRole.id))
+                            {
+                                message.channel.send("<@" + member.id + "> is already unmuted.").catch(error => console.log("Send Error - " + error));
+                                IndexRef.removeMutedUser(message.guild.id, member.id)
+                            }
+                            else
+                            {
+                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                IndexRef.removeMutedUser(message.guild.id, member.id)
+                                message.channel.send("<@" + member.id + "> has been unmuted.").catch(error => console.log("Send Error - " + error));
+                            }                        
+                        }
+                    }).catch(function(error){
+                        console.log(error.message);
+                        message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
+                    })
+                }   
+            }).catch((e) => {
+                console.log(e.message);
+                message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
+            });    
         }
         else
         {

@@ -88,12 +88,10 @@ class MuteCommand extends command.Command
             }
 
             var muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
+            var promises = []
 
             if(muteRole == null)
             {
-                
-                var promises = []
-
                 var allChannels = message.guild.channels.array()
                 promises.push(message.guild.createRole({name: IndexRef.getRoleName(message.guild.id), permissions: 0}).then(function()
                 {
@@ -104,77 +102,71 @@ class MuteCommand extends command.Command
                     {
                     console.log("Send Error - " + error); message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error))
                 }))
-
-                const Ref = this;
-                Promise.all(promises).then(() => {
-                    Ref.run(message, args);
-                }).catch((e) => {
-                    console.log(e.message);
-                    message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
-                });
-
-                return;
             }
 
-            for(var i = 0; i < users.length; i++)
-            {
-                const user = users[i];
-                message.guild.fetchMember(user).then(function(member){
-        
-                    if(member.id == message.guild.owner.id)
-                    {
-                        message.channel.send("<@" + message.author.id + "> You cannot mute the owner of the server.").catch(error => console.log("Send Error - " + error));
-                    }
-                    else
-                    {
-                        if(member.roles.find("id", muteRole.id))
+            Promise.all(promises).then(() => {   
+                for(var i = 0; i < users.length; i++)
+                {
+                    const user = users[i];
+                    message.guild.fetchMember(user).then(function(member){
+            
+                        if(member.id == message.guild.owner.id)
                         {
-                            message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
-                            IndexRef.addMutedUser(message.guild.id, member.id, null)
+                            message.channel.send("<@" + message.author.id + "> You cannot mute the owner of the server.").catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
-                            if(time > 0)
+                            if(member.roles.find("id", muteRole.id))
                             {
-                                //Convert time to Date
-                                var date = new Date((new Date).getTime() + time)
-
-                                if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
-                                {
-                                    member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
-                                    schedule.scheduleJob(date, function(){
-                                        IndexRef.removeMutedUser(message.guild.id, member.id)
-                                        if(member.roles.find("id", muteRole.id))
-                                        {
-                                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
-                                }
+                                message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                                IndexRef.addMutedUser(message.guild.id, member.id, null)
                             }
                             else
                             {
-
-                                if(IndexRef.addMutedUser(message.guild.id, member.id, null))
+                                if(time > 0)
                                 {
-                                    member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been permanently muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                    //Convert time to Date
+                                    var date = new Date((new Date).getTime() + time)
+
+                                    if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
+                                    {
+                                        member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                        schedule.scheduleJob(date, function(){
+                                            IndexRef.removeMutedUser(message.guild.id, member.id)
+                                            if(member.roles.find("id", muteRole.id))
+                                            {
+                                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                            }
+                                        });
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                                    }
                                 }
                                 else
                                 {
-                                    message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
-                                }
-                            }
-                        }                        
-                    }
-                }).catch(function(error){
-                    console.log(error.message);
-                    message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
-                })
-            }
 
+                                    if(IndexRef.addMutedUser(message.guild.id, member.id, null))
+                                    {
+                                        member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been permanently muted.").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + member.id + "> is already muted.").catch(error => console.log("Send Error - " + error));
+                                    }
+                                }
+                            }                        
+                        }
+                    }).catch(function(error){
+                        console.log(error.message);
+                        message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
+                    })
+                }
+            }).catch((e) => {
+                console.log(e.message);
+                message.channel.send("Error - " + e.message).catch(error => console.log("Send Error - " + error));
+            });
         }
         else
         {

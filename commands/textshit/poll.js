@@ -31,7 +31,6 @@ class PollCommand extends command.Command
         if(!signedIntoFirebase)
             return;
 
-        CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
         {
@@ -78,6 +77,7 @@ class PollCommand extends command.Command
         }
 
         var timestamp = (new Date(Date.now()).toJSON());
+        CommandCounter.addCommandCounter(message.author.id)
 
         if(args.toLowerCase() == "end")
         {
