@@ -74,7 +74,7 @@ class SpiderManCommand extends command.Command
                         if(error) { console.log(error); return;};
                         console.log("got merged image");
                         console.log(file);
-                        message.channel.send("***Our spiderman***", {
+                        message.channel.send("***Marvels Spider-Man***", {
                             files: [file]
                         }).then(function(){
                             
