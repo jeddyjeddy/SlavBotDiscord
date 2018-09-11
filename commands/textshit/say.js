@@ -31,15 +31,14 @@ class SayCommand extends command.Command
                 sayText.replace(/@here/g, "here")
             }
 
-            message.channel.send().catch(error => console.log("Send Error - " + error));
-
-            if(message.guild != null)
-            {
-                if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
-                    message.delete().catch(error => console.log("Delete Error - " + error))
+            message.channel.send(sayText).then(() => {
+                if(message.guild != null)
+                {
+                    if(message.guild.member(message.client.user.id).hasPermission("MANAGE_MESSAGES")){
+                        message.delete().catch(error => console.log("Delete Error - " + error))
+                    }
                 }
-            }
-            
+            }).catch(error => {console.log("Send Error - " + error); message.channel.send("Send Error - " + error);}); 
         }
         else
         {
