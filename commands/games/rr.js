@@ -154,7 +154,7 @@ class RrCommand extends command.Command
                                                 var y = tombImage.bitmap.height;
                                                         
                                                 var mergedImage = userImage.composite(tombImage, x, y );
-                                                var file = shortid.generate() + ".png"
+                                                const file = shortid.generate() + ".png"
                                                 mergedImage.write(file, function(error){
                                                     if(error) { console.log(error); return;};
                                                     message.channel.send("F", {
@@ -244,7 +244,7 @@ class RrCommand extends command.Command
                                                     var y = tombImage.bitmap.height;
                                                             
                                                     var mergedImage = userImage.composite(tombImage, x, y );
-                                                    var file = shortid.generate() + ".png"
+                                                    const file = shortid.generate() + ".png"
                                                     mergedImage.write(file, function(error){
                                                         if(error) { console.log(error); return;};
                                                         message.channel.send("F", {
@@ -390,7 +390,7 @@ class RrCommand extends command.Command
                                             var y = tombImage.bitmap.height;
                                                     
                                             var mergedImage = userImage.composite(tombImage, x, y );
-                                            var file = shortid.generate() + ".png"
+                                            const file = shortid.generate() + ".png"
                                             mergedImage.write(file, function(error){
                                                 if(error) { console.log(error); return;};
                                                 message.channel.send("F", {
@@ -481,7 +481,7 @@ class RrCommand extends command.Command
                                                 var y = tombImage.bitmap.height;
                                                         
                                                 var mergedImage = userImage.composite(tombImage, x, y );
-                                                var file = shortid.generate() + ".png"
+                                                const file = shortid.generate() + ".png"
                                                 mergedImage.write(file, function(error){
                                                     if(error) { console.log(error); return;};
                                                     message.channel.send("F", {

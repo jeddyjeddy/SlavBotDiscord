@@ -69,7 +69,7 @@ class UberCommand extends command.Command
                     userImage.cover(uberImage.bitmap.width, uberImage.bitmap.height)
     
                     var mergedImage = userImage.composite(uberImage, 0, 0);
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

@@ -201,7 +201,7 @@ class CropCommand extends command.Command
 
                     userImage.crop(x, y, width, height);
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -333,7 +333,7 @@ class CropCommand extends command.Command
 
                     userImage.crop(x, y, width, height);
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

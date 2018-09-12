@@ -134,7 +134,7 @@ class RightBackCommand extends command.Command
     
                     
                     var mergedImage = userImage.composite(RightBackImage, x, y );
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

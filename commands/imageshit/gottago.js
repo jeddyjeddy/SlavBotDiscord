@@ -117,7 +117,7 @@ class GottagoCommand extends command.Command
                         blank.composite(userImage, x, y)        
         
                         var mergedImage = blank.composite(GottaGoImage, 0, 0);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -192,7 +192,7 @@ class GottagoCommand extends command.Command
                         blank.composite(userImage, x, y)        
         
                         var mergedImage = blank.composite(GottaGoImage, 0, 0);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

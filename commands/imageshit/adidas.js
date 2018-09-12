@@ -109,7 +109,7 @@ class AdidasCommand extends command.Command
                         
         
                         userImage.composite(adidasImage, 0, userImage.bitmap.height - adidasImage.bitmap.height);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -178,7 +178,7 @@ class AdidasCommand extends command.Command
                         
         
                         userImage.composite(adidasImage, 0, userImage.bitmap.height - adidasImage.bitmap.height);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

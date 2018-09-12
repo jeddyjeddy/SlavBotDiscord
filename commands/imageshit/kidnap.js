@@ -110,7 +110,7 @@ class KidnapCommand extends command.Command
                         var y = 160
                         var mergedImageKidnapper = kidnapImage.composite(authorImage, xKidnapper, yKidnapper );
                         var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

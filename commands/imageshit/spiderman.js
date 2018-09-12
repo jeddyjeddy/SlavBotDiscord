@@ -69,7 +69,7 @@ class SpiderManCommand extends command.Command
                     userImage.cover(spidermanImage.bitmap.width, spidermanImage.bitmap.height)
     
                     var mergedImage = userImage.composite(spidermanImage, 0, 0);
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

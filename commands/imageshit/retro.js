@@ -132,7 +132,7 @@ class RetroCommand extends command.Command
               return;
             }
             Jimp.read(url).then(function (textImage) {
-                var file = shortid.generate() + ".png"
+                const file = shortid.generate() + ".png"
                 textImage.write(file, function(error){
                     if(error) { console.log(error); return;};
                     console.log("got retro image");

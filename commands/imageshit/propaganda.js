@@ -112,7 +112,7 @@ class PropagandaCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(PosterImage.bitmap.width, PosterImage.bitmap.height).composite(userImage, x, y ).composite(PosterImage, 0, 0);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -185,7 +185,7 @@ class PropagandaCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(PosterImage.bitmap.width, PosterImage.bitmap.height).composite(userImage, x, y ).composite(PosterImage, 0, 0);
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

@@ -108,7 +108,7 @@ class WTFCommand extends command.Command
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + wtfImage.bitmap.height)).composite(userImage, 0, 0).composite(wtfImage, 0, addHeight);
         
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
@@ -172,7 +172,7 @@ class WTFCommand extends command.Command
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + wtfImage.bitmap.height)).composite(userImage, 0, 0).composite(wtfImage, 0, addHeight);
         
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);

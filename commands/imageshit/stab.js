@@ -104,7 +104,7 @@ class StabCommand extends command.Command
                             var y = 50
                             var mergedImageKidnapper = kidnapImage.composite(authorImage, xKidnapper, yKidnapper );
                             var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
-                            var file = shortid.generate() + ".png"
+                            const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
@@ -157,7 +157,7 @@ class StabCommand extends command.Command
                     var y = 30
                     userImage.rotate(60)
                     var mergedImage = kidnapImage.composite(userImage, x, y);
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

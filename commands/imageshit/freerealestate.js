@@ -95,7 +95,7 @@ class FreerealestateCommand extends command.Command
                             return;
                         }
                         message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("free.jpg").then(function (freeImage) {
@@ -143,7 +143,7 @@ class FreerealestateCommand extends command.Command
                     if(option.indexOf("avatar") > -1)
                     {
                         var url = message.author.avatarURL;
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("free.jpg").then(function (freeImage) {
@@ -222,7 +222,7 @@ class FreerealestateCommand extends command.Command
                                         message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
                                         return;
                                     }
-                                    var file = shortid.generate() + ".png";
+                                    const file = shortid.generate() + ".png";
 
                                     Jimp.read(url).then(function (userImage) {
                                         Jimp.read("free.jpg").then(function (freeImage) {
@@ -274,7 +274,7 @@ class FreerealestateCommand extends command.Command
             }
             else
             {
-                var file = shortid.generate() + ".png";
+                const file = shortid.generate() + ".png";
             
                 Jimp.read("free.jpg").then(function (freeImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {

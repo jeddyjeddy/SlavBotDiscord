@@ -171,7 +171,7 @@ class WorkerSlavCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(slavImage, x, y );
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -293,7 +293,7 @@ class WorkerSlavCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(slavImage, x, y );
-                        var file = shortid.generate() + ".png"
+                        const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

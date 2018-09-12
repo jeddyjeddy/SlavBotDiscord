@@ -114,7 +114,7 @@ class DeepfryCommand extends command.Command
                     userImage.contrast(1);
                     userImage.resize(orgWidth, orgHeight);
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -181,7 +181,7 @@ class DeepfryCommand extends command.Command
                     ]); 
                     userImage.contrast(1);
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                         userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
                         console.log(file);

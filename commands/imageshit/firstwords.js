@@ -260,7 +260,7 @@ class FirstwordsCommand extends command.Command
                             return;
                         }
                         message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("firstwords.jpg").then(function (firstwordsImage) {
@@ -316,7 +316,7 @@ class FirstwordsCommand extends command.Command
                     if(param.indexOf("avatar") > -1)
                     {
                         var url = message.author.avatarURL;
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("firstwords.jpg").then(function (firstwordsImage) {
@@ -393,7 +393,7 @@ class FirstwordsCommand extends command.Command
                                         message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
                                         return;
                                     }
-                                    var file = shortid.generate() + ".png";
+                                    const file = shortid.generate() + ".png";
 
                                     Jimp.read(url).then(function (userImage) {
                                         Jimp.read("firstwords.jpg").then(function (firstwordsImage) {
@@ -443,7 +443,7 @@ class FirstwordsCommand extends command.Command
             }
             else
             {
-                var file = shortid.generate() + ".png";
+                const file = shortid.generate() + ".png";
             
                 Jimp.read("firstwords.jpg").then(function (firstwordsImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {

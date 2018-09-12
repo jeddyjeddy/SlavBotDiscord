@@ -106,7 +106,7 @@ class GrayscaleCommand extends command.Command
         
                     userImage.greyscale();
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -164,7 +164,7 @@ class GrayscaleCommand extends command.Command
                     
                     userImage.greyscale();
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

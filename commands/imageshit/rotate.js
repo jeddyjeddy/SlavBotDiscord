@@ -128,7 +128,7 @@ class RotateCommand extends command.Command
         
                     userImage.rotate(parseInt(option))
     
-                    var file = shortid.generate() + ".png";
+                    const file = shortid.generate() + ".png";
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -186,7 +186,7 @@ class RotateCommand extends command.Command
                     
                     userImage.rotate(parseInt(option))
     
-                    var file = shortid.generate() + ".png"
+                    const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

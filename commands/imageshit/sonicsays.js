@@ -141,7 +141,7 @@ class SonicsaysCommand extends command.Command
                 else
                     editText = editText + args[i].toString();
             }
-            var file = shortid.generate() + ".png";
+            const file = shortid.generate() + ".png";
             console.log("1: " + editText + "\n2:" + editTextExtra + "\n3:" + editTextExtra2);
             
                 Jimp.read("sonic.jpg").then(function (sonicImage) {

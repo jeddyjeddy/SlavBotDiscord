@@ -86,7 +86,7 @@ class ChangemymindCommand extends command.Command
                             return;
                         }
                         message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("changemymind.png").then(function (freeImage) {
@@ -143,7 +143,7 @@ class ChangemymindCommand extends command.Command
                     if(option.indexOf("avatar") > -1)
                     {
                         var url = message.author.avatarURL;
-                        var file = shortid.generate() + ".png";
+                        const file = shortid.generate() + ".png";
 
                         Jimp.read(url).then(function (userImage) {
                             Jimp.read("changemymind.png").then(function (freeImage) {
@@ -232,7 +232,7 @@ class ChangemymindCommand extends command.Command
                                     return;
                                 }
                                     
-                                    var file = shortid.generate() + ".png";
+                                    const file = shortid.generate() + ".png";
 
                                     Jimp.read(url).then(function (userImage) {
                                         Jimp.read("changemymind.png").then(function (freeImage) {
@@ -294,7 +294,7 @@ class ChangemymindCommand extends command.Command
             }
             else
             {
-                var file = shortid.generate() + ".png";
+                const file = shortid.generate() + ".png";
             
                 Jimp.read("changemymind.png").then(function (freeImage) {
                     Jimp.loadFont(selectedFont).then(function (font) {

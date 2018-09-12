@@ -110,23 +110,14 @@ class SharpenCommand extends command.Command
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to sharpen");
-                    var fileTemp = "";
-                    if(userImage.getExtension() == "gif")
-                    {
-                        fileTemp = shortid.generate() + ".jpg"
-                    }
-                    else
-                    {
-                        fileTemp = shortid.generate() + "." + userImage.getExtension();
-                    }
-                    
+                    const fileTemp = shortid.generate() + ".png";  
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
                         console.log(fileTemp);
 
                         Filter.render(fileTemp, imageEffect, function(result)
                         {
-                            var file = shortid.generate() + `.${result.type}`
+                            const file = shortid.generate() + `.${result.type}`
                             result.data.pipe(fs.createWriteStream(file).on('finish', function(){
                                 message.channel.send("***Sharpen***", {
                                     files: [file]
@@ -187,7 +178,7 @@ class SharpenCommand extends command.Command
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    var fileTemp = "";
+                    const fileTemp = "";
                     if(userImage.getExtension() == "gif")
                     {
                         fileTemp = shortid.generate() + ".jpg"
@@ -203,7 +194,7 @@ class SharpenCommand extends command.Command
 
                         Filter.render(fileTemp, imageEffect, function(result)
                         {
-                            var file = shortid.generate() + `.${result.type}`
+                            const file = shortid.generate() + `.${result.type}`
                             result.data.pipe(fs.createWriteStream(file).on('finish', function(){
                                 message.channel.send("***Sharpen***", {
                                     files: [file]
