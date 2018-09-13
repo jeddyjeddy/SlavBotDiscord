@@ -246,37 +246,7 @@ var localGetResponse = (guild) => {
         }
     }
 
-    firebase.database().ref("serversettings/" + guild.id).once('value').then(function(snapshot) {
-        if(snapshot.val() == null)
-        {
-            migrateServerID(guild);
-        }
-        else
-        {
-            var overwrites = null;
-            if(snapshot.child("respondoverwrites").val() != null)
-            {
-                overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
-            }
-
-            if(snapshot.child("respond").val() == null)
-            {
-                responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
-                return false;
-            }
-            else if(snapshot.child("respond").val() === true)
-            {
-                responseSettings.push({key: guild.id, respond: true, overwrites: overwrites})
-                return true;
-            }
-            else if(snapshot.child("respond").val() === false)
-            {
-                responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
-                return false;
-            }
-        }
-        
-    })
+    return false;
 }
 
 var localHasOverwrite = (guild) => {
@@ -1183,6 +1153,28 @@ var initData = () => {
                     }
 
                     guild.commandPrefix = childSnap.child("prefix").val().toString();
+                }
+
+                if(childSnap.child("respond").val() != null)
+                {
+                    var overwrites = null;
+                    if(childSnap.child("respondoverwrites").val() != null)
+                    {
+                        overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
+                    }
+
+                    if(childSnap.child("respond").val() == null)
+                    {
+                        responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                    }
+                    else if(childSnap.child("respond").val() === true)
+                    {
+                        responseSettings.push({key: guild.id, respond: true, overwrites: overwrites})
+                    }
+                    else if(childSnap.child("respond").val() === false)
+                    {
+                        responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                    }
                 }
             })
         }
