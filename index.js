@@ -1165,15 +1165,15 @@ var initData = () => {
 
                     if(childSnap.child("respond").val() == null)
                     {
-                        responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
                     }
                     else if(childSnap.child("respond").val() === true)
                     {
-                        responseSettings.push({key: guild.id, respond: true, overwrites: overwrites})
+                        responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
                     }
                     else if(childSnap.child("respond").val() === false)
                     {
-                        responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
                     }
                 }
             })
