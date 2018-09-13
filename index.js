@@ -34,6 +34,10 @@ dbl.on('posted', () => {
             // Print out the response body
             console.log(body)
         }
+        else
+        {
+            console.log(error)
+        }
     })
     
     var headers2 = {
@@ -55,6 +59,10 @@ dbl.on('posted', () => {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             console.log(body)
+        }
+        else
+        {
+            console.log(error)
         }
     })
 
@@ -237,6 +245,7 @@ var localGetResponse = (guild) => {
             return responseSettings[i].respond;
         }
     }
+
     firebase.database().ref("serversettings/" + guild.id).once('value').then(function(snapshot) {
         if(snapshot.val() == null)
         {
@@ -253,19 +262,21 @@ var localGetResponse = (guild) => {
             if(snapshot.child("respond").val() == null)
             {
                 responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                return false;
             }
             else if(snapshot.child("respond").val() === true)
             {
                 responseSettings.push({key: guild.id, respond: true, overwrites: overwrites})
+                return true;
             }
             else if(snapshot.child("respond").val() === false)
             {
                 responseSettings.push({key: guild.id, respond: false, overwrites: overwrites})
+                return false;
             }
         }
         
     })
-    return false;
 }
 
 var localHasOverwrite = (guild) => {
