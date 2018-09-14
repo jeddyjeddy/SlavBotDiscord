@@ -1,7 +1,8 @@
 const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: "281876391535050762",
-    unknownCommandResponse: false});
+    unknownCommandResponse: false,
+    autoReconnect: true});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
@@ -1940,6 +1941,13 @@ bot.on("message", (message) => {
         }
     }
 });
+
+bot.on("disconnect", () => {
+    console.log("Reconnecting")
+    bot.login(process.env.BOT_TOKEN).then(function(){
+        console.log("Reconnected")
+    });  
+})
 
 bot.login(process.env.BOT_TOKEN).then(function(){
     signedIntoDiscord = true;
