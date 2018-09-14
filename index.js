@@ -354,7 +354,13 @@ var localChangeResponse = (guildID, setting, channel) => {
                             }
                         }
 
-                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                        if(responseSettings[i].overwrites.length == 0)
+                        {
+                            responseSettings[i].overwrites = null
+                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").remove();
+                        }
+                        else
+                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
             }
@@ -1052,7 +1058,16 @@ var initData = () => {
                                 if(data.data[i].time !== null)
                                 {
                                     const date = new Date(data.data[i].time);
-    
+                                    var members = guild.members.array()
+                                    var member;
+                                    for(var index = 0; index < members.length; index++)
+                                    {
+                                        if(members[index].id == data.data[i].key)
+                                        {
+                                            member = members[index];
+                                        }
+                                    }
+
                                     var botMember;                
                                     for(var index = 0; index < members.length; index++)
                                     {
