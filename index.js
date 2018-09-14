@@ -1155,19 +1155,15 @@ var initData = () => {
                     guild.commandPrefix = childSnap.child("prefix").val().toString();
                 }
 
-                if(childSnap.child("respond").val() != null)
+                var overwrites = null;
+                if(childSnap.child("respondoverwrites").val() != null)
                 {
-                    var overwrites = null;
-                    if(childSnap.child("respondoverwrites").val() != null)
-                    {
-                        overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
-                    }
+                    overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
+                }
 
-                    if(childSnap.child("respond").val() == null)
-                    {
-                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
-                    }
-                    else if(childSnap.child("respond").val() === true)
+                if(childSnap.child("respond").val() != null)
+                {   
+                    if(childSnap.child("respond").val() === true)
                     {
                         responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
                     }
@@ -1175,6 +1171,10 @@ var initData = () => {
                     {
                         responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
                     }
+                }
+                else(childSnap.child("respond").val() == null)
+                {
+                    responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
                 }
             })
         }
