@@ -249,6 +249,10 @@ var localGetResponse = (guild) => {
     return false;
 }
 
+var localInitResponse = (guildID) => {
+    
+}
+
 var localHasOverwrite = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
     {
@@ -966,6 +970,28 @@ var initData = () => {
         if(snapshot.val() != null)
         {
             snapshot.forEach(function(childSnap){
+                var overwrites = null;
+                if(childSnap.child("respondoverwrites").val() != null)
+                {
+                    overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
+                }
+
+                if(childSnap.child("respond").val() != null)
+                {   
+                    if(childSnap.child("respond").val() === true)
+                    {
+                        responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
+                    }
+                    else if(childSnap.child("respond").val() === false)
+                    {
+                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
+                    }
+                }
+                else(childSnap.child("respond").val() == null)
+                {
+                    responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
+                }
+
                 if(childSnap.child("mutedusers").val() != null)
                 {
                     var data = JSON.parse(childSnap.child("mutedusers").val());
@@ -1008,91 +1034,39 @@ var initData = () => {
                                 }
                             }
 
-                            if(member == undefined)
-                                return;
-
-                            if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
-                                var allChannels = guild.channels.array()
-                                allChannels.forEach(channel => {
-                                    channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
-                                });
+                            if(member != undefined)
+                            {
+                                if(member.hasPermission("ADMINISTRATOR") || member.hasPermission("MANAGE_ROLES")){
+                                    var allChannels = guild.channels.array()
+                                    allChannels.forEach(channel => {
+                                        channel.overwritePermissions(muteRole, {SEND_MESSAGES: false, ATTACH_FILES: false, ADD_REACTIONS: false})
+                                    });
+                                }
                             }
                         }
                     }
 
                     muteData.push(data)
-                    if(guild == undefined)
+                    if(muteRole != undefined && guild == undefined)
                     {
-                        return;
-                    }
-                    if(muteRole == undefined)
-                    {
-                        return;   
-                    }
-
-                    if(data.data !== null)
-                    {
-                        for(var i = 0; i < data.data.length; i++)
+                        if(data.data !== null)
                         {
-                            if(data.data[i].time !== null)
+                            for(var i = 0; i < data.data.length; i++)
                             {
-                                const date = new Date(data.data[i].time);
-                                var member;
-                                var members = guild.members.array()
-            
-                                for(var index = 0; index < members.length; index++)
+                                if(data.data[i].time !== null)
                                 {
-                                    if(members[index].id == bot.user.id)
-                                    {
-                                        member = members[index];
-                                    }
-                                }
-
-                                var botMember;                
-                                for(var index = 0; index < members.length; index++)
-                                {
-                                    if(members[index].id == bot.user.id)
-                                    {
-                                        botMember = members[index];
-                                    }
-                                }
-
-                                if(member == undefined || botMember == undefined)
-                                    return;
-
-                                if(date.getTime() < (new Date()).getTime())
-                                {
-                                    var hasRole = false;
-                                    var userRoles = member.roles.array()
-                                    for(var index = 0; index < userRoles.length; index++)
-                                    {
-                                        if(userRoles[index].name == data.role)
-                                        {
-                                            hasRole = true;
-                                        }
-                                    }
-
-                                    if(hasRole)
-                                    {
-                                        if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
-                                            member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                            removeMutedUser(data.key, data.data[i].key)
-                                        }
-                                    } 
-                                }
-                                else
-                                {
+                                    const date = new Date(data.data[i].time);
                                     var member;
                                     var members = guild.members.array()
                 
                                     for(var index = 0; index < members.length; index++)
                                     {
-                                        if(members[index].id == data.data[i].key)
+                                        if(members[index].id == bot.user.id)
                                         {
                                             member = members[index];
                                         }
                                     }
-
+    
                                     var botMember;                
                                     for(var index = 0; index < members.length; index++)
                                     {
@@ -1101,36 +1075,82 @@ var initData = () => {
                                             botMember = members[index];
                                         }
                                     }
-
+    
                                     if(member == undefined || botMember == undefined)
                                         return;
-
-                                    const savedData = data;
-                                    const dataIndex = i;
-                                    const memberRef = member;
-                                    const botRef = botMember;
-                                    schedule.scheduleJob(date, function(){
+    
+                                    if(date.getTime() < (new Date()).getTime())
+                                    {
                                         var hasRole = false;
-                                        var userRoles = memberRef.roles.array()
+                                        var userRoles = member.roles.array()
                                         for(var index = 0; index < userRoles.length; index++)
                                         {
-                                            if(userRoles[index].name == savedData.role)
+                                            if(userRoles[index].name == data.role)
                                             {
                                                 hasRole = true;
                                             }
                                         }
-
+    
                                         if(hasRole)
                                         {
-                                            if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
-                                                memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                                removeMutedUser(savedData.key, savedData.data[dataIndex].key)
+                                            if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
+                                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                removeMutedUser(data.key, data.data[i].key)
+                                            }
+                                        } 
+                                    }
+                                    else
+                                    {
+                                        var member;
+                                        var members = guild.members.array()
+                    
+                                        for(var index = 0; index < members.length; index++)
+                                        {
+                                            if(members[index].id == data.data[i].key)
+                                            {
+                                                member = members[index];
                                             }
                                         }
-                                    });
+    
+                                        var botMember;                
+                                        for(var index = 0; index < members.length; index++)
+                                        {
+                                            if(members[index].id == bot.user.id)
+                                            {
+                                                botMember = members[index];
+                                            }
+                                        }
+    
+                                        if(member == undefined || botMember == undefined)
+                                            return;
+    
+                                        const savedData = data;
+                                        const dataIndex = i;
+                                        const memberRef = member;
+                                        const botRef = botMember;
+                                        schedule.scheduleJob(date, function(){
+                                            var hasRole = false;
+                                            var userRoles = memberRef.roles.array()
+                                            for(var index = 0; index < userRoles.length; index++)
+                                            {
+                                                if(userRoles[index].name == savedData.role)
+                                                {
+                                                    hasRole = true;
+                                                }
+                                            }
+    
+                                            if(hasRole)
+                                            {
+                                                if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
+                                                    memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                    removeMutedUser(savedData.key, savedData.data[dataIndex].key)
+                                                }
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
+                        }   
                     }
                 }
 
@@ -1152,34 +1172,10 @@ var initData = () => {
                         }
                     }
 
-                    if(guild == undefined)
+                    if(guild != undefined)
                     {
-                        return;
+                        guild.commandPrefix = childSnap.child("prefix").val().toString();
                     }
-
-                    guild.commandPrefix = childSnap.child("prefix").val().toString();
-                }
-
-                var overwrites = null;
-                if(childSnap.child("respondoverwrites").val() != null)
-                {
-                    overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
-                }
-
-                if(childSnap.child("respond").val() != null)
-                {   
-                    if(childSnap.child("respond").val() === true)
-                    {
-                        responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
-                    }
-                    else if(childSnap.child("respond").val() === false)
-                    {
-                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
-                    }
-                }
-                else(childSnap.child("respond").val() == null)
-                {
-                    responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
                 }
             })
         }
