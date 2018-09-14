@@ -1308,27 +1308,11 @@ bot.on("message", (message) => {
     if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") || !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
         return;
     }
-    var noResponse = false;
-    var hasKey = false;
-    for(var i = 0; i < responseSettings.length; i++)
+    var noResponse = localGetResponse(message.guild);
+    
+    if(localGetOverwrite(message.guild, message.channel.id))
     {
-        if(message.guild.id == responseSettings[i].key)
-        {
-            noResponse = responseSettings[i].respond;
-            hasKey = true;
-        }
-    }
-
-    if(hasKey === false)
-    {
-        localGetResponse(message.guild);
-    }
-    else
-    {
-        if(localGetOverwrite(message.guild, message.channel.id))
-        {
-            noResponse = !noResponse;
-        }
+        noResponse = !noResponse;
     }
 
     if(noResponse === true)
