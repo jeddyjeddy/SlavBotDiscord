@@ -965,10 +965,7 @@ var initData = () => {
                 userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
             });
         }
-      }).then(() => {
-        console.log("User Init Over")
-    })
-
+      })
       firebase.database().ref("serversettings").once('value').then(function(snapshot) {
         if(snapshot.val() != null)
         {
@@ -1157,8 +1154,6 @@ var initData = () => {
                 }
             })
         }
-      }).then(() => {
-          console.log("Server Init Over")
       })
 }
 
