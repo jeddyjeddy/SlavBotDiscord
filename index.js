@@ -351,6 +351,8 @@ var localChangeResponse = (guildID, setting, channel) => {
                             if(responseSettings[i].overwrites[i2] == channel)
                             {
                                 responseSettings[i].overwrites.splice(i2, 1) 
+                                console.log("Removed")
+                                console.log(responseSettings[i].overwrites)
                             }
                         }
 
