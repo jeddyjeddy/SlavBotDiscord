@@ -350,6 +350,11 @@ var localChangeResponse = (guildID, setting, channel) => {
                             }
                         }
 
+                        if(responseSettings[i].overwrites.length == 0)
+                        {
+                            responseSettings[i].overwrites = null;
+                        }
+
                         firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
