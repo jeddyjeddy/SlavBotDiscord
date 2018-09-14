@@ -1051,7 +1051,7 @@ var initData = () => {
                     muteData.push(data)
                     if(muteRole != undefined && guild != undefined)
                     {
-                        if(data.data !== null)
+                        if(data.data != null && data.data != undefined)
                         {
                             for(var i = 0; i < data.data.length; i++)
                             {
