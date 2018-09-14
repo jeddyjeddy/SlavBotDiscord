@@ -1350,6 +1350,15 @@ bot.on("message", (message) => {
                 message.channel.send("H").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase() == "lmao" || message.content.toLowerCase() == "lmfao")
+        {
+            if(message.author.id != bot.user.id)
+            {
+                message.channel.send(":peach:").catch(error => console.log("Send Error - " + error));
+                message.channel.send("You've laughed your ass off, here's a new one.").catch(error => console.log("Send Error - " + error));
+            }
+        }
+
         if(message.content.toLowerCase() == "k")
         {
             if(message.author.id != bot.user.id)
