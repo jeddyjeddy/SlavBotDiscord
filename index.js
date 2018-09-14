@@ -954,30 +954,6 @@ bot.on("channelDelete", (channel) => {
     }
 })
 
-var respondDataInit = (childSnap) => {
-    var overwrites = null;
-    if(childSnap.child("respondoverwrites").val() != null)
-    {
-        overwrites = JSON.parse(snapshot.child("respondoverwrites").val())
-    }
-
-    if(childSnap.child("respond").val() != null)
-    {   
-        if(childSnap.child("respond").val() === true)
-        {
-            responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
-        }
-        else if(childSnap.child("respond").val() === false)
-        {
-            responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
-        }
-    }
-    else(childSnap.child("respond").val() == null)
-    {
-        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
-    }
-}
-
 var initData = () => {
     console.log("Init Data")
     
@@ -996,8 +972,27 @@ var initData = () => {
         if(snapshot.val() != null)
         {
             snapshot.forEach(function(childSnap){
-                
-                respondDataInit(childSnap);
+                var overwrites = null;
+                if(childSnap.child("respondoverwrites").val() != null)
+                {
+                    overwrites = JSON.parse(childSnap.child("respondoverwrites").val())
+                }
+
+                if(childSnap.child("respond").val() != null)
+                {   
+                    if(childSnap.child("respond").val() === true)
+                    {
+                        responseSettings.push({key: childSnap.key, respond: true, overwrites: overwrites})
+                    }
+                    else if(childSnap.child("respond").val() === false)
+                    {
+                        responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
+                    }
+                }
+                else(childSnap.child("respond").val() == null)
+                {
+                    responseSettings.push({key: childSnap.key, respond: false, overwrites: overwrites})
+                }
 
                 if(childSnap.child("mutedusers").val() != null)
                 {
