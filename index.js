@@ -1076,77 +1076,77 @@ var initData = () => {
                                         }
                                     }
     
-                                    if(member == undefined || botMember == undefined)
-                                        return;
-    
-                                    if(date.getTime() < (new Date()).getTime())
+                                    if(member != undefined && botMember != undefined)
                                     {
-                                        var hasRole = false;
-                                        var userRoles = member.roles.array()
-                                        for(var index = 0; index < userRoles.length; index++)
+                                        if(date.getTime() < (new Date()).getTime())
                                         {
-                                            if(userRoles[index].name == data.role)
-                                            {
-                                                hasRole = true;
-                                            }
-                                        }
-    
-                                        if(hasRole)
-                                        {
-                                            if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
-                                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                                removeMutedUser(data.key, data.data[i].key)
-                                            }
-                                        } 
-                                    }
-                                    else
-                                    {
-                                        var member;
-                                        var members = guild.members.array()
-                    
-                                        for(var index = 0; index < members.length; index++)
-                                        {
-                                            if(members[index].id == data.data[i].key)
-                                            {
-                                                member = members[index];
-                                            }
-                                        }
-    
-                                        var botMember;                
-                                        for(var index = 0; index < members.length; index++)
-                                        {
-                                            if(members[index].id == bot.user.id)
-                                            {
-                                                botMember = members[index];
-                                            }
-                                        }
-    
-                                        if(member == undefined || botMember == undefined)
-                                            return;
-    
-                                        const savedData = data;
-                                        const dataIndex = i;
-                                        const memberRef = member;
-                                        const botRef = botMember;
-                                        schedule.scheduleJob(date, function(){
                                             var hasRole = false;
-                                            var userRoles = memberRef.roles.array()
+                                            var userRoles = member.roles.array()
                                             for(var index = 0; index < userRoles.length; index++)
                                             {
-                                                if(userRoles[index].name == savedData.role)
+                                                if(userRoles[index].name == data.role)
                                                 {
                                                     hasRole = true;
                                                 }
                                             }
-    
+        
                                             if(hasRole)
                                             {
-                                                if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
-                                                    memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
-                                                    removeMutedUser(savedData.key, savedData.data[dataIndex].key)
+                                                if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
+                                                    member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                    removeMutedUser(data.key, data.data[i].key)
+                                                }
+                                            } 
+                                        }
+                                        else
+                                        {
+                                            var member;
+                                            var members = guild.members.array()
+                        
+                                            for(var index = 0; index < members.length; index++)
+                                            {
+                                                if(members[index].id == data.data[i].key)
+                                                {
+                                                    member = members[index];
                                                 }
                                             }
-                                        });
+        
+                                            var botMember;                
+                                            for(var index = 0; index < members.length; index++)
+                                            {
+                                                if(members[index].id == bot.user.id)
+                                                {
+                                                    botMember = members[index];
+                                                }
+                                            }
+        
+                                            if(member != undefined && botMember != undefined)
+                                            {
+                                                const savedData = data;
+                                                const dataIndex = i;
+                                                const memberRef = member;
+                                                const botRef = botMember;
+                                                schedule.scheduleJob(date, function(){
+                                                    var hasRole = false;
+                                                    var userRoles = memberRef.roles.array()
+                                                    for(var index = 0; index < userRoles.length; index++)
+                                                    {
+                                                        if(userRoles[index].name == savedData.role)
+                                                        {
+                                                            hasRole = true;
+                                                        }
+                                                    }
+            
+                                                    if(hasRole)
+                                                    {
+                                                        if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
+                                                            memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                            removeMutedUser(savedData.key, savedData.data[dataIndex].key)
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
                                     }
                                 }
                             }
