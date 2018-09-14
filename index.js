@@ -1067,7 +1067,6 @@ var initData = () => {
                                     {
                                         if(members[index].id == bot.user.id)
                                         {
-                                            console.log("Found member")
                                             member = members[index];
                                         }
                                     }
@@ -1077,7 +1076,6 @@ var initData = () => {
                                     {
                                         if(members[index].id == bot.user.id)
                                         {
-                                            console.log("Found bot member")
                                             botMember = members[index];
                                         }
                                     }
@@ -1086,6 +1084,7 @@ var initData = () => {
                                     {
                                         if(date.getTime() < (new Date()).getTime())
                                         {
+                                            console.log("Checking unmute without schedule")
                                             var hasRole = false;
                                             var userRoles = member.roles.array()
                                             for(var index = 0; index < userRoles.length; index++)
@@ -1093,12 +1092,12 @@ var initData = () => {
                                                 if(userRoles[index].name == data.role)
                                                 {
                                                     hasRole = true;
+                                                    console.log("User was muted")
                                                 }
                                             }
         
                                             if(hasRole)
                                             {
-                                                console.log("User was muted")
                                                 if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
                                                     member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                                     removeMutedUser(data.key, data.data[i].key)
