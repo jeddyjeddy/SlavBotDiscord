@@ -997,7 +997,6 @@ var initData = () => {
                 if(childSnap.child("mutedusers").val() != null)
                 {
                     var data = JSON.parse(childSnap.child("mutedusers").val());
-                    console.log("Found muted users")
                     var guild;
                     var guilds = bot.guilds.array()
 
@@ -1006,7 +1005,6 @@ var initData = () => {
                         if(guilds[i].id == data.key)
                         {
                             guild = guilds[i];
-                            console.log("Found guild")
                         }
                     }
 
@@ -1017,7 +1015,6 @@ var initData = () => {
                         if(roles[i].name == data.role)
                         {
                             muteRole = roles[i];
-                            console.log("Found mute role")
                         }
                     }
 
@@ -1051,12 +1048,10 @@ var initData = () => {
                     }
 
                     muteData.push(data)
-                    if(muteRole != undefined && guild == undefined)
+                    if(muteRole != undefined && guild != undefined)
                     {
-                        console.log("Found mute role and guild")
                         if(data.data !== null)
                         {
-                            console.log("Starting loop")
                             for(var i = 0; i < data.data.length; i++)
                             {
                                 if(data.data[i].time !== null)
