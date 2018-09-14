@@ -1355,7 +1355,6 @@ bot.on("message", (message) => {
             if(message.author.id != bot.user.id)
             {
                 message.channel.send(":peach:").catch(error => console.log("Send Error - " + error));
-                message.channel.send("You've laughed your ass off, here's a new one.").catch(error => console.log("Send Error - " + error));
             }
         }
 
