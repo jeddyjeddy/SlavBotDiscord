@@ -1087,8 +1087,10 @@ var initData = () => {
                                             console.log("Checking unmute without schedule")
                                             var hasRole = false;
                                             var userRoles = member.roles.array()
+                                            console.log("Role to find: " + data.role)
                                             for(var index = 0; index < userRoles.length; index++)
                                             {
+                                                console.log(userRoles[index].name)
                                                 if(userRoles[index].name == data.role)
                                                 {
                                                     hasRole = true;
