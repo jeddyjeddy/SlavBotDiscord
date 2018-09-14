@@ -351,20 +351,10 @@ var localChangeResponse = (guildID, setting, channel) => {
                             if(responseSettings[i].overwrites[i2] == channel)
                             {
                                 responseSettings[i].overwrites.splice(i2, 1) 
-                                console.log("Removed")
-                                console.log(responseSettings[i].overwrites)
                             }
                         }
 
-                        if(responseSettings[i].overwrites.length == 0)
-                        {
-                            responseSettings[i].overwrites = null;
-                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").remove();
-                        }
-                        else
-                        {
-                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
-                        }
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
             }
@@ -1062,16 +1052,6 @@ var initData = () => {
                                 if(data.data[i].time !== null)
                                 {
                                     const date = new Date(data.data[i].time);
-                                    var member;
-                                    var members = guild.members.array()
-                
-                                    for(var index = 0; index < members.length; index++)
-                                    {
-                                        if(members[index].id == bot.user.id)
-                                        {
-                                            member = members[index];
-                                        }
-                                    }
     
                                     var botMember;                
                                     for(var index = 0; index < members.length; index++)
@@ -1086,17 +1066,13 @@ var initData = () => {
                                     {
                                         if(date.getTime() < (new Date()).getTime())
                                         {
-                                            console.log("Checking unmute without schedule")
                                             var hasRole = false;
                                             var userRoles = member.roles.array()
-                                            console.log("Role to find: " + data.role)
                                             for(var index = 0; index < userRoles.length; index++)
                                             {
-                                                console.log(userRoles[index].name)
                                                 if(userRoles[index].name == data.role)
                                                 {
                                                     hasRole = true;
-                                                    console.log("User was muted")
                                                 }
                                             }
         
@@ -1105,7 +1081,6 @@ var initData = () => {
                                                 if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
                                                     member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
                                                     removeMutedUser(data.key, data.data[i].key)
-                                                    console.log("Unmuted")
                                                 }
                                             } 
                                         }
