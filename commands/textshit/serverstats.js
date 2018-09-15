@@ -19,7 +19,7 @@ class ServerStatsCommand extends command.Command
     async run(message, args)
     {
         if(message.guild != null)
-            message.channel.send("Server Name: ***" + message.guild.name + "***\nServer Owner: ***" + message.guild.owner.user.username + "***\nNumber of Members: ***" + numberWithCommas(message.guild.memberCount) + " Members***\nNumber of Custom Emojis: ***" + numberWithCommas(message.guild.emojis.size()) + "***", {files: [message.guild.iconURL]}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Server Name: ***" + message.guild.name + "***\nServer Owner: ***" + message.guild.owner.user.username + "***\nNumber of Members: ***" + numberWithCommas(message.guild.memberCount) + " Members***\nNumber of Custom Emojis: ***" + numberWithCommas(message.guild.emojis.array().length) + "***", {files: [message.guild.iconURL]}).catch(error => console.log("Send Error - " + error));
     }
 }
 
