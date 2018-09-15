@@ -1,5 +1,8 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 class UserStatsCommand extends command.Command
  {
@@ -17,7 +20,7 @@ class UserStatsCommand extends command.Command
     async run(message, args)
     {
         var count = CommandCounter.getCommandCounter(message.author.id);
-        message.channel.send("<@" + message.author.id + "> You have sent " + count + " command requests to Slav Bot.").catch(error => console.log("Send Error - " + error));
+        message.channel.send("<@" + message.author.id + "> You have sent " + numberWithCommas(count) + " command requests to Slav Bot.").catch(error => console.log("Send Error - " + error));
     }
 }
 
