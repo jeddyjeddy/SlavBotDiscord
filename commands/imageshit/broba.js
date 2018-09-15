@@ -105,8 +105,8 @@ class BrobaCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 460
-                        var y = 16
+                        var x = 16
+                        var y = 460
 
                         userImage.cover(324, 410);
                         
@@ -179,8 +179,8 @@ class BrobaCommand extends command.Command
                     
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");    
-                        var x = 460
-                        var y = 16
+                        var x = 16
+                        var y = 460
 
                         userImage.cover(324, 410);
 
