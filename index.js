@@ -247,6 +247,7 @@ var localGetResponse = (guild) => {
         }
     }
 
+    migrateServerID(guild)
     return false;
 }
 
@@ -1280,6 +1281,7 @@ bot.on("message", (message) => {
     if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") || !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
         return;
     }
+
     var noResponse = localGetResponse(message.guild);
     
     if(localGetOverwrite(message.guild, message.channel.id))
