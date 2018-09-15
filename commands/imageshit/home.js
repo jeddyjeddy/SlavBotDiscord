@@ -33,7 +33,6 @@ class HomeCommand extends command.Command
         {
             commandPrefix = message.guild.commandPrefix
         }
-        var url = "";
         message.channel.fetchMessages({ around: message.id })
         .then(messages => {
             var messageID = "";
