@@ -148,6 +148,14 @@ class RrCommand extends command.Command
                                         loaded = false;
                                         Jimp.read("tombstone.png").then(function (tombImage) {
                                             Jimp.read(message.author.avatarURL).then(function (userImage) {
+                                                isPlaying[playindex].value = false;
+
+                                                if(userImage == undefined || userImage == null)
+                                                {
+                                                    message.channel.send("F").catch(function (err) {console.log(err.message);});
+                                                    return;
+                                                }
+
                                                 tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
                         
                                                 var x = userImage.bitmap.width - tombImage.bitmap.width;
@@ -170,7 +178,6 @@ class RrCommand extends command.Command
                                                         
                                                         fs.remove(file, resultHandler);
                                                     });
-                                                    isPlaying[playindex].value = false;
                                                 });
                                             }).catch(function (err) {
                                                 console.log(err.message);
@@ -238,6 +245,14 @@ class RrCommand extends command.Command
                                             message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); });
                                             Jimp.read("tombstone.png").then(function (tombImage) {
                                                 Jimp.read(message.author.avatarURL).then(function (userImage) {
+                                                    isPlaying[playindex].value = false;
+
+                                                    if(userImage == undefined || userImage == null)
+                                                    {
+                                                        message.channel.send("F").catch(function (err) {console.log(err.message);});
+                                                        return;
+                                                    }
+
                                                     tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
                             
                                                     var x = userImage.bitmap.width - tombImage.bitmap.width;
@@ -260,7 +275,6 @@ class RrCommand extends command.Command
                                                                 fs.remove(file, resultHandler);
                                                               
                                                         })
-                                                        isPlaying[playindex].value = false;
                                                     });
                                                 });
                                             }).catch(function (err) {
@@ -384,6 +398,14 @@ class RrCommand extends command.Command
                                     loaded = false;
                                     Jimp.read("tombstone.png").then(function (tombImage) {
                                         Jimp.read(message.author.avatarURL).then(function (userImage) {
+                                            isPlaying[playindex].value = false;
+
+                                            if(userImage == undefined || userImage == null)
+                                            {
+                                                message.channel.send("F").catch(function (err) {console.log(err.message);});
+                                                return;
+                                            }
+
                                             tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
                     
                                             var x = userImage.bitmap.width - tombImage.bitmap.width;
@@ -407,7 +429,6 @@ class RrCommand extends command.Command
                                                         fs.remove(file, resultHandler);
                                                       
                                                 });
-                                                isPlaying[playindex].value = false;
                                             });
                                         }).catch(function (err) {
                                             console.log(err.message);
@@ -475,6 +496,14 @@ class RrCommand extends command.Command
                                         message.channel.send("<@" + message.author.id + ">** is dead...**").catch(error => {console.log("Send Error - " + error); });
                                         Jimp.read("tombstone.png").then(function (tombImage) {
                                             Jimp.read(message.author.avatarURL).then(function (userImage) {
+                                                isPlaying[playindex].value = false;
+
+                                                if(userImage == undefined || userImage == null)
+                                                {
+                                                    message.channel.send("F").catch(function (err) {console.log(err.message);});
+                                                    return;
+                                                }
+
                                                 tombImage.resize(userImage.bitmap.width / 2, userImage.bitmap.height / 2);
                         
                                                 var x = userImage.bitmap.width - tombImage.bitmap.width;
@@ -497,7 +526,6 @@ class RrCommand extends command.Command
                                                             fs.remove(file, resultHandler);
                                                          
                                                     })
-                                                    isPlaying[playindex].value = false;
                                                 });
                                             });
                                         }).catch(function (err) {
