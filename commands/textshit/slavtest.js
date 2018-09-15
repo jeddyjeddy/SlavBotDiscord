@@ -25,7 +25,7 @@ class SlavTestCommand extends command.Command
         }
         else
         {
-            var userID = "";
+            var user = "";
 
             if(args.length > 0)
             {
@@ -42,7 +42,7 @@ class SlavTestCommand extends command.Command
                         {
                             if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
                             {
-                                userID = userID + args[i].toString();
+                                user = user + args[i].toString();
                             }
                         }
                     }
@@ -56,7 +56,7 @@ class SlavTestCommand extends command.Command
                 }
             }
             
-            if(userID == "")
+            if(user == "")
             {
                 var users = message.guild.members.array()
                 user = users[Math.floor(Math.random() * users.length)].id
