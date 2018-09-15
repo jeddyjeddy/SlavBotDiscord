@@ -95,10 +95,10 @@ class SlamCommand extends command.Command
                             console.log("got avatar");
                             authorImage.resize(150, 150);
                             userImage.resize(220, 220);
-                            var x = 0
-                            var y = 320
+                            var x = 20
+                            var y = 300
                             var x2 = 440
-                            var y2 = 350
+                            var y2 = 380
                             var mergedImage = slamImage.composite(authorImage, x, y).composite(userImage, x2, y2);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
@@ -192,10 +192,10 @@ class SlamCommand extends command.Command
                         Jimp.read("slam.jpg").then(function (slamImage) {     
                             userImage.resize(150, Jimp.AUTO);
                             userImage2.resize(220, Jimp.AUTO);
-                            var x = 0
-                            var y = 320
+                            var x = 20
+                            var y = 300
                             var x2 = 440
-                            var y2 = 350
+                            var y2 = 380
                             var mergedImage = slamImage.composite(userImage, x, y).composite(userImage2, x2, y2);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
