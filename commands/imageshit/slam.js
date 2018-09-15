@@ -94,7 +94,7 @@ class SlamCommand extends command.Command
                         Jimp.read(url).then(function (userImage) {
                             console.log("got avatar");
                             authorImage.scaleToFit(150, 150);
-                            userImage.scaleToFit(220, 90);
+                            userImage.scaleToFit(220, 190);
                             var x = 20
                             var y = 300
                             var x2 = 440
@@ -191,7 +191,7 @@ class SlamCommand extends command.Command
                     Jimp.read(url2).then(function (userImage2) {
                         Jimp.read("slam.jpg").then(function (slamImage) {     
                             userImage.scaleToFit(150, 150);
-                            userImage2.scaleToFit(220, 90);
+                            userImage2.scaleToFit(220, 190);
                             var x = 20
                             var y = 300
                             var x2 = 440
