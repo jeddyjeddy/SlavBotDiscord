@@ -9,7 +9,7 @@ class OurAnthemCommand extends command.Command
             name: "ouranthem",
             group: "textshit",
             memberName: "ouranthem",
-            description: "The lyrics to ***OUR***anthem.",
+            description: "The lyrics to ***OUR*** anthem.",
             examples: ["`!ouranthem`"]
         });
     }
