@@ -10,7 +10,7 @@ class ServerStatsCommand extends command.Command
         super(client, {
             name: "serverstats",
             group: "util",
-            memberName: "botstats",
+            memberName: "serverstats",
             description: "Shows the name, owner, number of members, number of custom emojis and icon of the server.",
             examples: ["`!serverstats`"]
         });
