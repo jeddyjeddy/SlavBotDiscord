@@ -189,6 +189,7 @@ class SlamCommand extends command.Command
                     return;
                 }
 
+                message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     Jimp.read(url2).then(function (userImage2) {
                         Jimp.read("slam.jpg").then(function (slamImage) {     
