@@ -1,17 +1,17 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const sizes = ["bige", "small", "non-existant"]
+const ratings = ["Western Hostile", "Western Spy", "Western Citizen", "Slavaboo, Communist Ally", "Gopnik, Slav", "Strong Slav", "True Slav", "Lover of Stalin"]
 
-class PeePeeCommand extends command.Command
+class SlavTestCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "peepee",
+            name: "slavtest",
             group: "textshit",
-            memberName: "peepee",
-            description: "PeePee Inspection.",
-            examples: ["`!peepee`", "`!peepee @User`"]
+            memberName: "slavtest",
+            description: "Take the Slav Test.",
+            examples: ["`!slavtest`", "`!slavtest @User`"]
         });
     }
 
@@ -21,7 +21,7 @@ class PeePeeCommand extends command.Command
 
         if(message.guild == null)
         {
-            message.channel.send("<@" + message.author.id + "> you have a " + sizes[Math.floor(Math.random() * sizes.length)] + " peepee").catch(error => console.log("Send Error - " + error));
+            message.channel.send("<@" + message.author.id + "> The test results have come back - you are a ***" + ratings[Math.floor(Math.random() * ratings.length)] + "***").catch(error => console.log("Send Error - " + error));
         }
         else
         {
@@ -55,7 +55,7 @@ class PeePeeCommand extends command.Command
                     }
                 }
             }
-
+            
             if(userID == "")
             {
                 var users = message.guild.members.array()
@@ -63,9 +63,9 @@ class PeePeeCommand extends command.Command
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
-            message.channel.send("", {embed: {title: "***PeePee Inspection Time***", description: "<@" + user + "> has a " + sizes[Math.floor(Math.random() * sizes.length)] + " peepee.", color: 16711787, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("", {embed: {title: "***Slav Test***", description: "<@" + user + "> The test results have come back -  you are a ***" + ratings[Math.floor(Math.random() * ratings.length)] + "***.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
         }
     }
 }
 
-module.exports = PeePeeCommand;
+module.exports = SlavTestCommand;
