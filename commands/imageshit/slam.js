@@ -99,7 +99,7 @@ class SlamCommand extends command.Command
                             var y = 320
                             var x2 = 440
                             var y2 = 350
-                            var mergedImage = slamImage.composite(userImage, x, y).composite(userImage2, x2, y2);
+                            var mergedImage = slamImage.composite(authorImage, x, y).composite(userImage, x2, y2);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
