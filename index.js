@@ -247,12 +247,11 @@ var localGetResponse = (guild) => {
         }
     }
 
-    migrateServerID(guild)
+    firebase.database().ref("serversettings/" + guild.id + "/respond").once('value').then(function(snapshot) {
+        if(snapshot.val() == null)
+            migrateServerID(guild)
+    })
     return false;
-}
-
-var localInitResponse = (guildID) => {
-    
 }
 
 var localHasOverwrite = (guild) => {
