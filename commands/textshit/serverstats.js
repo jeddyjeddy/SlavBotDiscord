@@ -11,7 +11,7 @@ class ServerStatsCommand extends command.Command
             name: "serverstats",
             group: "util",
             memberName: "serverstats",
-            description: "Shows the name, owner, number of members, number of custom emojis and icon of the server.",
+            description: "Shows the name, owner, number of members and the number of custom emojis on the server.",
             examples: ["`!serverstats`"]
         });
     }
@@ -19,7 +19,7 @@ class ServerStatsCommand extends command.Command
     async run(message, args)
     {
         if(message.guild != null)
-            message.channel.send("Server Name: ***" + message.guild.name + "***\nServer Owner: ***" + message.guild.owner.user.username + "***\nNumber of Members: ***" + numberWithCommas(message.guild.memberCount) + " Members***\nNumber of Custom Emojis: ***" + numberWithCommas(message.guild.emojis.array().length) + "***", {files: [message.guild.iconURL]}).catch(error => console.log("Send Error - " + error));
+            message.channel.send("Server Name: ***" + message.guild.name + "***\nServer Owner: ***" + message.guild.owner.user.username + "***\nNumber of Members: ***" + numberWithCommas(message.guild.memberCount) + " Members***\nNumber of Custom Emojis: ***" + numberWithCommas(message.guild.emojis.array().length) + "***").catch(error => console.log("Send Error - " + error));
     }
 }
 
