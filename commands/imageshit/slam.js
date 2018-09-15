@@ -96,8 +96,10 @@ class SlamCommand extends command.Command
                             authorImage.scaleToFit(150, 150);
                             userImage.scaleToFit(220, 190);
                             var x = 20
+                            x = x + ((150 - authorImage.bitmap.width) / 2)
                             var y = 300
                             var x2 = 440
+                            x2 = x2 + ((220 - userImage.bitmap.width) / 2)
                             var y2 = 330
                             var mergedImage = slamImage.composite(authorImage, x, y).composite(userImage, x2, y2);
                             const file = shortid.generate() + ".png"
@@ -193,8 +195,10 @@ class SlamCommand extends command.Command
                             userImage.scaleToFit(150, 150);
                             userImage2.scaleToFit(220, 190);
                             var x = 20
+                            x = x + ((150 - userImage.bitmap.width) / 2)
                             var y = 300
                             var x2 = 440
+                            x2 = x2 + ((220 - userImage2.bitmap.width) / 2)
                             var y2 = 330
                             var mergedImage = slamImage.composite(userImage, x, y).composite(userImage2, x2, y2);
                             const file = shortid.generate() + ".png"
