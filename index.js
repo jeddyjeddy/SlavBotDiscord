@@ -732,11 +732,7 @@ var commandCounterChange = (userID) => {
     if(!isStored)
     {
         firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
-            if(snapshot.child("commandusage").val() != null)
-            {
-                userCommandUsage.push({key: snapshot.key, data: JSON.parse(snapshot.child("commandusage").val())});
-            }
-            else
+            if(snapshot.child("commandusage").val() == null)
             {
                 var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
                 userCommandUsage.push(data);
