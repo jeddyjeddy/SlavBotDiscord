@@ -1318,6 +1318,12 @@ bot.on("message", (message) => {
                 message.channel.send("Traps are definitely gay").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase().indexOf("luft") > -1)
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("LUUUUUUUUFT").catch(error => console.log("Send Error - " + error));
+        }
+
         if(message.content.toLowerCase().indexOf("depress") > -1)
         {
             if(message.author.id != bot.user.id)

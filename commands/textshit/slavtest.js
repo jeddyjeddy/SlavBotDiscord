@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const ratings = ["Western Hostile", "Western Spy", "Western Citizen", "Slavaboo", "Communist Ally", "Gopnik", "Slav", "Strong Slav", "True Slav", "Lover of Stalin"]
+const ratings = ["Western Hostile", "Western Spy", "Lover of Trotsky", "Lover of Lenin", "Western Citizen", "Slavaboo", "Communist Ally", "Gopnik", "Slav", "Strong Slav", "True Slav", "Lover of Stalin"]
 
 class SlavTestCommand extends command.Command
  {
