@@ -105,10 +105,10 @@ class PaintingCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 90
-                        var y = 10
+                        var x = 80
+                        var y = 5
 
-                        userImage.cover(190, 310);
+                        userImage.cover(195, 320);
                         userImage.rotate(-1);
                         
                         var blank = new Jimp(paintingImage.bitmap.width, paintingImage.bitmap.height);
@@ -180,10 +180,10 @@ class PaintingCommand extends command.Command
                     
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");    
-                        var x = 90
-                        var y = 10
+                        var x = 80
+                        var y = 5
 
-                        userImage.cover(190, 310);
+                        userImage.cover(195, 320);
                         userImage.rotate(-1);
 
                         var blank = new Jimp(paintingImage.bitmap.width, paintingImage.bitmap.height);
