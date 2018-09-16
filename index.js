@@ -1321,7 +1321,7 @@ bot.on("message", (message) => {
         if(message.content.toLowerCase().indexOf("luft") > -1)
         {
             if(message.author.id != bot.user.id)
-                message.channel.send("LUUUUUUUUFT").catch(error => console.log("Send Error - " + error));
+                message.channel.send("LUUUUUUUFT").catch(error => console.log("Send Error - " + error));
         }
 
         if(message.content.toLowerCase().indexOf("depress") > -1)
