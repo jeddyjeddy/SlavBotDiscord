@@ -234,6 +234,7 @@ bot.on('guildDelete', mem => {
 
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
+var allOofCounters = [{key: "Key", counter: null}]
 var allOwOCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true, overwrites: null}] 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
@@ -1999,6 +2000,196 @@ bot.on("message", (message) => {
                 {
                     message.channel.send("OwO").catch(error => console.log("Send Error - " + error));
                 }
+            }
+        }
+
+        if(message.content.toLowerCase().indexOf("oof") > -1)
+        {  
+            var checked = true;
+            if(message.content.toLowerCase().indexOf("oof") > 0)
+            {
+                var character = message.content.toLowerCase()[message.content.toLowerCase().indexOf("oof") - 1]
+                if(character != "o" && character.match(/^[^a-zA-Z]+$/))
+                {
+                    checked = false;
+                }
+            }
+
+            if(checked)
+            {
+                if(message.author.id != bot.user.id)
+                {
+                    var oofCounter = [];
+                    if(allOofCounters.length > 0)
+                    {
+                        for(var i = 0; i < allOofCounters.length; i++)
+                        {
+                            if(allOofCounters[i].key == message.guild.id)
+                            {
+                                oofCounter = allOofCounters[i].counter;
+                                i = allOofCounters.length;
+                            }
+                        }
+                    }
+        
+                    var msg = message.content.toLowerCase();
+                    var count = (msg.match(/oof/g) || []).length;
+                
+                    if(oofCounter == [] || oofCounter.length == 0)
+                    {       
+                        firebase.database().ref("serversettings/" + message.guild.id).once('value').then(function(snapshot) {
+                            if(snapshot.val() == null)
+                            {
+                                migrateServerID(message.guild)
+                                return;
+                            }
+        
+                            if(snapshot.child("oofcounter").val() != null)
+                            {
+                                oofCounter = JSON.parse(snapshot.child("oofcounter").val());
+                            }
+                            else
+                            {
+                                oofCounter = [{key: "Key", value: 0, valueToCheck: 50, specialCheck: 1000}];
+                            }
+        
+                            var hasKey = false;
+                            var index = 1;
+                            
+                            for(var i = 0; i < oofCounter.length; i++)
+                            {
+                                if(oofCounter[i].key == message.channel.id)
+                                {
+                                    hasKey = true;
+                                    oofCounter[i].value = oofCounter[i].value + count;
+                                    index = i;
+        
+                                    if(oofCounter[i].specialCheck == null)
+                                    {
+                                        oofCounter[i]["specialCheck"] = 1000;
+                                    }
+                                }
+                            }
+                            if(!hasKey)
+                            {
+                                oofCounter.push({
+                                    key: message.channel.id,
+                                    value: count,
+                                    valueToCheck: 50,
+                                    specialCheck: 1000
+                                });
+                                for(var i = 0; i < oofCounter.length; i++)
+                                {
+                                    if(oofCounter[i].key == message.channel.id)
+                                    {
+                                        index = i;
+                                    }
+                                }
+                            }
+                            
+                                message.channel.send("Oof counter: " + numberWithCommas(oofCounter[index].value)).catch(error => console.log("Send Error - " + error));
+        
+                                if(oofCounter[index].value >= oofCounter[index].valueToCheck)
+                                {
+                                    oofCounter[index].valueToCheck = Math.floor((oofCounter[index].value + 50)/10) * 10;
+        
+                                    if(oofCounter[index].valueToCheck % 50 != 0)
+                                    {
+                                        oofCounter[index].valueToCheck = (Math.floor((oofCounter[index].valueToCheck/100)) * 100) + 50
+                                    }
+        
+                                    if(oofCounter[index].value >= oofCounter[index].specialCheck)
+                                    {
+                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
+                                        oofCounter[index].specialCheck = Math.floor((oofCounter[index].value + 1000)/1000) * 1000;
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
+                                    }
+                                }
+                            
+        
+                            allOofCounters.push({key: message.guild.id, counter: oofCounter})
+                            firebase.database().ref("serversettings/" + message.guild.id + "/oofcounter").set(JSON.stringify(oofCounter));
+                        }); 
+                    }   
+                    else
+                    {
+                            var hasKey = false;
+                            var index = 1;
+                            
+                            for(var i = 0; i < oofCounter.length; i++)
+                            {
+                                if(oofCounter[i].key == message.channel.id)
+                                {
+                                    hasKey = true;
+                                    oofCounter[i].value = oofCounter[i].value + count;
+                                    index = i;
+        
+                                    if(oofCounter[i].specialCheck == null)
+                                    {
+                                        oofCounter[i]["specialCheck"] = 1000;
+                                    }
+                                }
+                            }
+                            if(!hasKey)
+                            {
+                                oofCounter.push({
+                                    key: message.channel.id,
+                                    value: count,
+                                    valueToCheck: 50,
+                                    specialCheck: 1000
+                                });
+                                for(var i = 0; i < oofCounter.length; i++)
+                                {
+                                    if(oofCounter[i].key == message.channel.id)
+                                    {
+                                        index = i;
+                                    }
+                                }
+                            }
+        
+                            
+                                message.channel.send("Oof counter: " + numberWithCommas(oofCounter[index].value)).catch(error => console.log("Send Error - " + error));
+        
+                                if(oofCounter[index].value >= oofCounter[index].valueToCheck)
+                                {
+                                    oofCounter[index].valueToCheck = Math.floor((oofCounter[index].value + 50)/10) * 10;
+        
+                                    if(oofCounter[index].valueToCheck % 50 != 0)
+                                    {
+                                        oofCounter[index].valueToCheck = (Math.floor((oofCounter[index].valueToCheck/100)) * 100) + 50
+                                    }
+        
+                                    if(oofCounter[index].value >= oofCounter[index].specialCheck)
+                                    {
+                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
+                                        oofCounter[index].specialCheck = Math.floor((oofCounter[index].value + 1000)/1000) * 1000;
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
+                                    }
+                                }
+                            
+        
+                            for(var i = 0; i < allOofCounters.length; i++)
+                            {
+                                if(allOofCounters[i].key == message.guild.id)
+                                {
+                                    allOofCounters[i].counter = oofCounter;
+                                    i = allOofCounters.length;
+                                }
+                            }
+                            firebase.database().ref("serversettings/" + message.guild.id + "/oofcounter").set(JSON.stringify(oofCounter));
+                    }
+        
+                    if(message.isMentioned(bot.user))
+                    {
+                        message.channel.send("no u").catch(error => console.log("Send Error - " + error));
+                    }
+                } 
             }
         }
     }
