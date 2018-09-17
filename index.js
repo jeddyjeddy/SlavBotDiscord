@@ -1357,7 +1357,7 @@ bot.on("message", (message) => {
                 message.channel.send("F").catch(error => console.log("Send Error - " + error));
         }
 
-        if(message.content.toLowerCase() == "perhaps")
+        if(message.content.toLowerCase().indexOf("perhaps") > -1)
         {
             if(message.author.id != bot.user.id)
                 message.channel.send("Perhaps").catch(error => console.log("Send Error - " + error));
