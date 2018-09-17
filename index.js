@@ -1379,7 +1379,7 @@ bot.on("message", (message) => {
         {
             if(message.author.id != bot.user.id)
             {
-                message.channel.send(":peach:").catch(error => console.log("Send Error - " + error));
+                message.channel.send(":peach: new ass").catch(error => console.log("Send Error - " + error));
             }
         }
 
