@@ -1659,7 +1659,7 @@ bot.on("message", (message) => {
                         console.log(langs.where("3", alpha3Code))
                     }
 
-                    message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> ***" + response +"***").catch(error => console.log("Send Error - " + error));
                     
                     var hasKey = false;
                     var index = 1;
