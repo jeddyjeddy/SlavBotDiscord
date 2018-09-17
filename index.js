@@ -1652,9 +1652,7 @@ bot.on("message", (message) => {
                     }
 
                     var alpha3Code = franc(message.content);
-                    var alpha1Code = langs.where("3", alpha3Code).first()["2"];
-                    console.log(langs.where("3", alpha3Code))
-                    console.log(alpha1Code)
+                    console.log(alpha3Code)
 
                     message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                     
