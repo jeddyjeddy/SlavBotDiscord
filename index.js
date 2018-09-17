@@ -2100,12 +2100,12 @@ bot.on("message", (message) => {
         
                                     if(oofCounter[index].value >= oofCounter[index].specialCheck)
                                     {
-                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
                                         oofCounter[index].specialCheck = Math.floor((oofCounter[index].value + 1000)/1000) * 1000;
                                     }
                                     else
                                     {
-                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             
@@ -2164,12 +2164,12 @@ bot.on("message", (message) => {
         
                                     if(oofCounter[index].value >= oofCounter[index].specialCheck)
                                     {
-                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
                                         oofCounter[index].specialCheck = Math.floor((oofCounter[index].value + 1000)/1000) * 1000;
                                     }
                                     else
                                     {
-                                        message.channel.send("***Only people with big peepee oof***", {files: ["oof.png"]}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***Every time you oof, you gain " + ((Math.floor(Math.random() * 9) + 1) * 10) + " IQ points***", {files: ["oof.gif"]}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             
