@@ -656,7 +656,7 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Weekend Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + userCommandUsage[i].data.uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
@@ -673,7 +673,7 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Regular Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + userCommandUsage[i].data.uses + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
@@ -1407,7 +1407,8 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/thot/g) || []).length + (msg.match(/t h o t/g) || []).length + (msg.match(/whore/g) || []).length + (msg.match(/daddy/g) || []).length + (msg.match(/papi/g) || []).length;
+            var count = (msg.match(/thot/g) || []).length + (msg.match(/t h o t/g) || []).length 
+            + (msg.match(/whore/g) || []).length + (msg.match(/daddy/g) || []).length + (msg.match(/papi/g) || []).length;
            
             if(thotCounter == [] || thotCounter.length == 0)
             {       
@@ -1589,7 +1590,9 @@ bot.on("message", (message) => {
       || message.content.toLowerCase().indexOf("yob tvoyu mat") > -1 || message.content.toLowerCase().indexOf("faggot") > -1
       || message.content.toLowerCase().indexOf("сука") > -1 || message.content.toLowerCase().indexOf("блядь") > -1
       || message.content.toLowerCase().indexOf("пиздець") > -1 || message.content.toLowerCase().indexOf("arsehole") > -1
-      || message.content.toLowerCase().indexOf("bellend") > -1 || message.content.toLowerCase().indexOf("bollocks") > -1)
+      || message.content.toLowerCase().indexOf("bellend") > -1 || message.content.toLowerCase().indexOf("bollocks") > -1
+      || message.content.toLowerCase().indexOf("nojoda") > -1 || message.content.toLowerCase().indexOf("coño") > -1
+      || message.content.toLowerCase().indexOf("puta") > -1 || message.content.toLowerCase().indexOf("mierda") > -1)
     {
         if(message.author.id != bot.user.id)
         {
@@ -1607,7 +1610,24 @@ bot.on("message", (message) => {
             }
 
             var msg = message.content.toLowerCase();
-            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length + (msg.match(/yobany urod/g) || []).length + (msg.match(/idi nahui/g) || []).length + (msg.match(/pohui/g) || []).length + (msg.match(/kurva/g) || []).length + (msg.match(/kurwa/g) || []).length + (msg.match(/pizdec/g) || []).length + (msg.match(/pičo/g) || []).length + (msg.match(/zmrd/g) || []).length + (msg.match(/kokot/g) || []).length + (msg.match(/debil/g) || []).length + (msg.match(/nahui pidar/g) || []).length + (msg.match(/vošukal/g) || []).length + (msg.match(/čůrák/g) || []).length + (msg.match(/do prdele/g) || []).length + (msg.match(/v prdeli/g) || []).length + (msg.match(/zasranej/g) || []).length + (msg.match(/yob tvoyu maht/g) || []).length + (msg.match(/yob tvoyu mat/g) || []).length + (msg.match(/faggot/g) || []).length + (msg.match(/сука/g) || []).length + (msg.match(/блядь/g) || []).length + (msg.match(/пиздець/g) || []).length + (msg.match(/arsehole/g) || []).length + (msg.match(/bellend/g) || []).length + (msg.match(/bollocks/g) || []).length;
+            var count = (msg.match(/fuck/g) || []).length + (msg.match(/bitch/g) || []).length + (msg.match(/cunt/g) || []).length 
+            + (msg.match(/twat/g) || []).length + (msg.match(/dick/g) || []).length + (msg.match(/slut/g) || []).length 
+            + (msg.match(/fok/g) || []).length + (msg.match(/fuk/g) || []).length + (msg.match(/fek/g) || []).length 
+            + (msg.match(/facc/g) || []).length + (msg.match(/focc/g) || []).length + (msg.match(/fucc/g) || []).length 
+            + (msg.match(/fecc/g) || []).length + (msg.match(/asshole/g) || []).length + (msg.match(/dumbass/g) || []).length 
+            + (msg.match(/bastard/g) || []).length + (msg.match(/fack/g) || []).length + (msg.match(/fock/g) || []).length 
+            + (msg.match(/feck/g) || []).length + (msg.match(/wanker/g) || []).length + (msg.match(/tosser/g) || []).length 
+            + (msg.match(/cyka/g) || []).length + (msg.match(/blyat/g) || []).length + (msg.match(/yobany urod/g) || []).length 
+            + (msg.match(/idi nahui/g) || []).length + (msg.match(/pohui/g) || []).length + (msg.match(/kurva/g) || []).length 
+            + (msg.match(/kurwa/g) || []).length + (msg.match(/pizdec/g) || []).length + (msg.match(/pičo/g) || []).length 
+            + (msg.match(/zmrd/g) || []).length + (msg.match(/kokot/g) || []).length + (msg.match(/debil/g) || []).length 
+            + (msg.match(/nahui pidar/g) || []).length + (msg.match(/vošukal/g) || []).length + (msg.match(/čůrák/g) || []).length 
+            + (msg.match(/do prdele/g) || []).length + (msg.match(/v prdeli/g) || []).length + (msg.match(/zasranej/g) || []).length
+            + (msg.match(/yob tvoyu maht/g) || []).length + (msg.match(/yob tvoyu mat/g) || []).length 
+            + (msg.match(/faggot/g) || []).length + (msg.match(/сука/g) || []).length + (msg.match(/блядь/g) || []).length 
+            + (msg.match(/пиздець/g) || []).length + (msg.match(/arsehole/g) || []).length + (msg.match(/bellend/g) || []).length 
+            + (msg.match(/bollocks/g) || []).length + (msg.match(/nojoda/g) || []).length + (msg.match(/coño/g) || []).length
+            + (msg.match(/puta/g) || []).length + (msg.match(/mierda/g) || []).length;
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
@@ -1794,7 +1814,21 @@ bot.on("message", (message) => {
                 }
 
                 var msg = message.content.toLowerCase();
-                var count = (msg.match(/owo/g) || []).length + (msg.match(/ovo/g) || []).length + (msg.match(/uwu/g) || []).length + (msg.match(/umu/g) || []).length  + (msg.match(/uvu/g) || []).length + (msg.match(/qwq/g) || []).length + (msg.match(/qmq/g) || []).length  + (msg.match(/qvq/g) || []).length + (msg.match(/òwó/g) || []).length + (msg.match(/òmó/g) || []).length + (msg.match(/òvó/g) || []).length + (msg.match(/ùwú/g) || []).length + (msg.match(/ùmú/g) || []).length + (msg.match(/ùvú/g) || []).length + (msg.match(/òwò/g) || []).length + (msg.match(/òmò/g) || []).length + (msg.match(/òvò/g) || []).length + (msg.match(/ùwù/g) || []).length + (msg.match(/ùwù/g) || []).length + (msg.match(/ùvù/g) || []).length + (msg.match(/ówó/g) || []).length + (msg.match(/óvó/g) || []).length + (msg.match(/ómó/g) || []).length + (msg.match(/úwú/g) || []).length + (msg.match(/úvú/g) || []).length + (msg.match(/úmú/g) || []).length + (msg.match(/ůwů/g) || []).length + (msg.match(/ůvů/g) || []).length + (msg.match(/ůmů/g) || []).length + (msg.match(/0v0/g) || []).length + (msg.match(/0w0/g) || []).length + (msg.match(/0m0/g) || []).length + (msg.match(/>w</g) || []).length + (msg.match(/>v</g) || []).length + (msg.match(/>m</g) || []).length + (msg.match(/^w^/g) || []).length + (msg.match(/^v^/g) || []).length + (msg.match(/^m^/g) || []).length + (msg.match(/ôwô/g) || []).length + (msg.match(/ôvô/g) || []).length + (msg.match(/ômô/g) || []).length + (msg.match(/õwõ/g) || []).length + (msg.match(/õvõ/g) || []).length + (msg.match(/õmõ/g) || []).length;
+                var count = (msg.match(/owo/g) || []).length + (msg.match(/ovo/g) || []).length 
+                + (msg.match(/uwu/g) || []).length + (msg.match(/umu/g) || []).length  + (msg.match(/uvu/g) || []).length 
+                + (msg.match(/qwq/g) || []).length + (msg.match(/qmq/g) || []).length  + (msg.match(/qvq/g) || []).length 
+                + (msg.match(/òwó/g) || []).length + (msg.match(/òmó/g) || []).length + (msg.match(/òvó/g) || []).length 
+                + (msg.match(/ùwú/g) || []).length + (msg.match(/ùmú/g) || []).length + (msg.match(/ùvú/g) || []).length 
+                + (msg.match(/òwò/g) || []).length + (msg.match(/òmò/g) || []).length + (msg.match(/òvò/g) || []).length 
+                + (msg.match(/ùwù/g) || []).length + (msg.match(/ùwù/g) || []).length + (msg.match(/ùvù/g) || []).length 
+                + (msg.match(/ówó/g) || []).length + (msg.match(/óvó/g) || []).length + (msg.match(/ómó/g) || []).length 
+                + (msg.match(/úwú/g) || []).length + (msg.match(/úvú/g) || []).length + (msg.match(/úmú/g) || []).length 
+                + (msg.match(/ůwů/g) || []).length + (msg.match(/ůvů/g) || []).length + (msg.match(/ůmů/g) || []).length 
+                + (msg.match(/0v0/g) || []).length + (msg.match(/0w0/g) || []).length + (msg.match(/0m0/g) || []).length 
+                + (msg.match(/>w</g) || []).length + (msg.match(/>v</g) || []).length + (msg.match(/>m</g) || []).length 
+                + (msg.match(/^w^/g) || []).length + (msg.match(/^v^/g) || []).length + (msg.match(/^m^/g) || []).length 
+                + (msg.match(/ôwô/g) || []).length + (msg.match(/ôvô/g) || []).length + (msg.match(/ômô/g) || []).length 
+                + (msg.match(/õwõ/g) || []).length + (msg.match(/õvõ/g) || []).length + (msg.match(/õmõ/g) || []).length;
             
                 if(owoCounter == [] || owoCounter.length == 0)
                 {       
