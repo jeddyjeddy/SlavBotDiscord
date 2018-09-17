@@ -1375,11 +1375,11 @@ bot.on("message", (message) => {
                 message.channel.send("H").catch(error => console.log("Send Error - " + error));
         }
 
-        if(message.content.toLowerCase() == "lmao" || message.content.toLowerCase() == "lmfao")
+        if(message.content.toLowerCase() == "lmfao")
         {
             if(message.author.id != bot.user.id)
             {
-                message.channel.send("lm:peach:o").catch(error => console.log("Send Error - " + error));
+                message.channel.send("lmf:peach:o").catch(error => console.log("Send Error - " + error));
             }
         }
 
