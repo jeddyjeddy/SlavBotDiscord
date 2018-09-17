@@ -1263,8 +1263,6 @@ bot.on("guildMemberRemove", (member) => {
 })
 
 const franc = require('franc')
-const langs = require('langs');
-const translate = require('translate');
 
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
@@ -1657,8 +1655,10 @@ bot.on("message", (message) => {
 
                     if(alpha3Code != "und" && alpha3Code != "eng")
                     {
-                        var code = langs.where("3", alpha3Code)["1"]
-                        promises.push(translate(response, code))
+                        if(alpha3Code == "spa")
+                        {
+                            response = "like este es un servidor cristiano"
+                        }
                     }
 
                     Promise.all(promises).then(() => {
@@ -1729,8 +1729,10 @@ bot.on("message", (message) => {
 
                 if(alpha3Code != "und" && alpha3Code != "eng")
                 {
-                    var code = langs.where("3", alpha3Code)["1"]
-                    promises.push(translate(response, code))
+                    if(alpha3Code == "spa")
+                    {
+                        response = "like este es un servidor cristiano"
+                    }
                 }
 
                 Promise.all(promises).then(() => {
