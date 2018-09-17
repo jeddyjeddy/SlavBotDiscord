@@ -1363,6 +1363,12 @@ bot.on("message", (message) => {
                 message.channel.send("Perhaps").catch(error => console.log("Send Error - " + error));
         }
 
+        if(message.content.toLowerCase().indexOf("maybe") > -1)
+        {
+            if(message.author.id != bot.user.id)
+                message.channel.send("Keyword: Maybe").catch(error => console.log("Send Error - " + error));
+        }
+
         if(message.content.toLowerCase() == "h")
         {
             if(message.author.id != bot.user.id)
