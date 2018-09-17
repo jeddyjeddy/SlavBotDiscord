@@ -1652,7 +1652,12 @@ bot.on("message", (message) => {
                     }
 
                     var alpha3Code = franc(message.content);
-                    console.log(alpha3Code)
+                    var response = "this is a christian server"
+
+                    if(alpha3Code != "und")
+                    {
+                        console.log(langs.where("3", alpha3Code))
+                    }
 
                     message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                     
