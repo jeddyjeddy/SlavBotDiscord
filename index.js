@@ -1651,7 +1651,6 @@ bot.on("message", (message) => {
 
                     var alpha3Code = franc(message.content);
                     var response = "this is a christian server"
-                    var promises = []
 
                     if(alpha3Code != "und" && alpha3Code != "eng")
                     {
@@ -1661,9 +1660,8 @@ bot.on("message", (message) => {
                         }
                     }
 
-                    Promise.all(promises).then(() => {
-                        message.channel.send("<@" + message.author.id + "> ***" + response +"***").catch(error => console.log("Send Error - " + error));
-                    })
+                    message.channel.send("<@" + message.author.id + "> ***" + response +"***").catch(error => console.log("Send Error - " + error));
+                   
                     
                     var hasKey = false;
                     var index = 1;
@@ -1725,7 +1723,6 @@ bot.on("message", (message) => {
             {
                 var alpha3Code = franc(message.content);
                 var response = "this is a christian server"
-                var promises = []
 
                 if(alpha3Code != "und" && alpha3Code != "eng")
                 {
@@ -1735,9 +1732,7 @@ bot.on("message", (message) => {
                     }
                 }
 
-                Promise.all(promises).then(() => {
-                    message.channel.send("<@" + message.author.id + "> ***" + response + "***").catch(error => console.log("Send Error - " + error));
-                })
+                message.channel.send("<@" + message.author.id + "> ***" + response + "***").catch(error => console.log("Send Error - " + error));
                 
                 var hasKey = false;
                 var index = 1;
