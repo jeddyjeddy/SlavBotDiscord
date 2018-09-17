@@ -1262,6 +1262,10 @@ bot.on("guildMemberRemove", (member) => {
     }
 })
 
+const franc = require('franc')
+const langs = require('langs');
+const translate = require('translate');
+
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
     {
@@ -1647,6 +1651,10 @@ bot.on("message", (message) => {
                         swearCounter = [{key: "Key", value: 0, valueToCheck: 10, specialCheck: 1000}];
                     }
 
+                    var alpha3Code = franc(message.content);
+                    var alpha1Code = langs.where("3", alpha3Code).first()["2"];
+                    console.log(langs.where("3", alpha3Code))
+                    console.log(alpha1Code)
 
                     message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                     
