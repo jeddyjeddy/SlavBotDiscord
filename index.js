@@ -2009,7 +2009,7 @@ bot.on("message", (message) => {
             if(message.content.toLowerCase().indexOf("oof") > 0)
             {
                 var character = message.content.toLowerCase()[message.content.toLowerCase().indexOf("oof") - 1]
-                if(character != "o" && character.match(/^[^a-zA-Z]+$/))
+                if(character != "o" && !character.match(/^[^a-zA-Z]+$/))
                 {
                     checked = false;
                 }
