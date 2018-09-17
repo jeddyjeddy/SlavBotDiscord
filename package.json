@@ -17,7 +17,6 @@
     "discord.js-commando": "^0.10.0",
     "dogs": "^0.2.0",
     "firebase": "^5.2.0",
-    "franc": "^4.0.0",
     "fs-extra": "^7.0.0",
     "git": "^0.1.5",
     "googleapis": "^27.0.0",

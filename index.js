@@ -1262,7 +1262,6 @@ bot.on("guildMemberRemove", (member) => {
     }
 })
 
-const franc = require('franc')
 
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
@@ -1649,19 +1648,7 @@ bot.on("message", (message) => {
                         swearCounter = [{key: "Key", value: 0, valueToCheck: 10, specialCheck: 1000}];
                     }
 
-                    var alpha3Code = franc(message.content);
-                    var response = "this is a christian server"
-
-                    if(alpha3Code != "und" && alpha3Code != "eng")
-                    {
-                        console.log(alpha3Code)
-                        if(alpha3Code == "spa")
-                        {
-                            response = "like este es un servidor cristiano"
-                        }
-                    }
-
-                    message.channel.send("<@" + message.author.id + "> ***" + response +"***").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                    
                     
                     var hasKey = false;
@@ -1722,19 +1709,7 @@ bot.on("message", (message) => {
             }
             else
             {
-                var alpha3Code = franc(message.content);
-                var response = "this is a christian server"
-
-                if(alpha3Code != "und" && alpha3Code != "eng")
-                {
-                    console.log(alpha3Code)
-                    if(alpha3Code == "spa")
-                    {
-                        response = "like este es un servidor cristiano"
-                    }
-                }
-
-                message.channel.send("<@" + message.author.id + "> ***" + response + "***").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
                 
                 var hasKey = false;
                 var index = 1;
