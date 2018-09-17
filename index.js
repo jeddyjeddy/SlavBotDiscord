@@ -1654,6 +1654,7 @@ bot.on("message", (message) => {
 
                     if(alpha3Code != "und" && alpha3Code != "eng")
                     {
+                        console.log(alpha3Code)
                         if(alpha3Code == "spa")
                         {
                             response = "like este es un servidor cristiano"
@@ -1726,6 +1727,7 @@ bot.on("message", (message) => {
 
                 if(alpha3Code != "und" && alpha3Code != "eng")
                 {
+                    console.log(alpha3Code)
                     if(alpha3Code == "spa")
                     {
                         response = "like este es un servidor cristiano"
