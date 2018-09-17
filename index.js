@@ -1329,7 +1329,7 @@ bot.on("message", (message) => {
         if(message.content.toLowerCase().indexOf("cease") > -1)
         {
             if(message.author.id != bot.user.id)
-                message.channel.send("Cease! You have violated the law!").catch(error => console.log("Send Error - " + error));
+                message.channel.send("Stop! You have violated the law!").catch(error => console.log("Send Error - " + error));
         }
 
         if(message.content.toLowerCase().indexOf("so sad") > -1)
@@ -1592,7 +1592,7 @@ bot.on("message", (message) => {
       || message.content.toLowerCase().indexOf("пиздець") > -1 || message.content.toLowerCase().indexOf("arsehole") > -1
       || message.content.toLowerCase().indexOf("bellend") > -1 || message.content.toLowerCase().indexOf("bollocks") > -1
       || message.content.toLowerCase().indexOf("nojoda") > -1 || message.content.toLowerCase().indexOf("coño") > -1
-      || message.content.toLowerCase().indexOf("puta") > -1 || message.content.toLowerCase().indexOf("mierda") > -1)
+      || message.content.toLowerCase().indexOf("mierda") > -1)
     {
         if(message.author.id != bot.user.id)
         {
@@ -1627,7 +1627,7 @@ bot.on("message", (message) => {
             + (msg.match(/faggot/g) || []).length + (msg.match(/сука/g) || []).length + (msg.match(/блядь/g) || []).length 
             + (msg.match(/пиздець/g) || []).length + (msg.match(/arsehole/g) || []).length + (msg.match(/bellend/g) || []).length 
             + (msg.match(/bollocks/g) || []).length + (msg.match(/nojoda/g) || []).length + (msg.match(/coño/g) || []).length
-            + (msg.match(/puta/g) || []).length + (msg.match(/mierda/g) || []).length;
+            + (msg.match(/mierda/g) || []).length;
 
             if(swearcounter == [] || swearcounter.length == 0)
             {
