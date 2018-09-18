@@ -19,7 +19,7 @@ class TPoseCommand extends command.Command
             name: "tpose",
             group: "imageshit",
             memberName: "tpose",
-            description: "***Asserting Dominance.*** Merges the avatar of the bot to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "***Asserting Dominance.*** Uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!tpose`", "`!tpose avatar`","`!tpose @User`"]
         });
     }
