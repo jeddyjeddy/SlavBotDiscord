@@ -111,9 +111,10 @@ class UnmuteCommand extends command.Command
                             }
                             else
                             {
-                                member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                member.removeRole(muteRole).then(() => {
+                                    message.channel.send("<@" + member.id + "> has been unmuted.").catch(error => console.log("Send Error - " + error));
+                                }).catch(error => console.log("Send Error - " + error));
                                 IndexRef.removeMutedUser(message.guild.id, member.id)
-                                message.channel.send("<@" + member.id + "> has been unmuted.").catch(error => console.log("Send Error - " + error));
                             }                        
                         }
                     }).catch(function(error){

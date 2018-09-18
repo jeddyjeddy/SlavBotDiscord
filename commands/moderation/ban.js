@@ -88,8 +88,9 @@ class BanCommand extends command.Command
                 }
                 else
                 {
-                    message.channel.send("<@" + message.author.id + "> Banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
-                    member.ban().catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                    member.ban().then(() => {
+                        message.channel.send("<@" + message.author.id + "> Banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
+                    }).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                 }
                 
             }).catch(function(error){

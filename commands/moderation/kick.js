@@ -89,8 +89,9 @@ class KickCommand extends command.Command
                 }
                 else
                 {
-                    message.channel.send("<@" + message.author.id + "> Kicked <@" + member.id + ">").catch(error => console.log("Send Error - " + error))
-                    member.kick().catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                    member.kick().then(() => {
+                        message.channel.send("<@" + message.author.id + "> Kicked <@" + member.id + ">").catch(error => console.log("Send Error - " + error))
+                    }).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                 }
                 
             }).catch(function(error){
