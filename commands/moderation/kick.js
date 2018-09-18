@@ -27,8 +27,8 @@ class KickCommand extends command.Command
         }
         
 
-        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("KICK_MEMBERS")){
-            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator or Kick Members Permission.").catch(error => console.log("Send Error - " + error))
+        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("KICK_MEMBERS") && message.author.id != message.guild.owner.id){
+            message.channel.send("<@" + message.author.id + "> This command is only available to the owner, or those with the Administrator or Kick Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 

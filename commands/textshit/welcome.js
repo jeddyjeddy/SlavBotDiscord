@@ -21,8 +21,8 @@ class WelcomeCommand extends command.Command
             return;
         }
         
-        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR")){
-            message.channel.send("<@" + message.author.id + "> This command is only available to admins.").catch(error => console.log("Send Error - " + error))
+        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && message.author.id != message.guild.owner.id){
+            message.channel.send("<@" + message.author.id + "> This command is only available to the owner and admins.").catch(error => console.log("Send Error - " + error))
             return;
         }
 

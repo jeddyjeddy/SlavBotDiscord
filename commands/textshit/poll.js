@@ -226,8 +226,8 @@ class PollCommand extends command.Command
                 }
                 else
                 {
-                    if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")){
-                        message.channel.send("<@" + message.author.id + "> Other than the owner of the poll, only admins and those with the manage channels or manage messages permissions can end polls.").catch(error => console.log("Send Error - " + error))
+                    if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") && !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES") && message.author.id != message.guild.owner.id){
+                        message.channel.send("<@" + message.author.id + "> Other than the owner of the poll and the owner of the server, only admins and those with the manage channels or manage messages permissions can end polls.").catch(error => console.log("Send Error - " + error))
                     }
                     else
                     {

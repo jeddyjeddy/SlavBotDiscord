@@ -28,8 +28,8 @@ class MuteCommand extends command.Command
             return;
         }
         
-        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS"))){
-            message.channel.send("<@" + message.author.id + "> This command is only available to those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
+        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_ROLES") || !message.guild.member(message.author).hasPermission("MUTE_MEMBERS")) && message.author.id != message.guild.owner.id){
+            message.channel.send("<@" + message.author.id + "> This command is only available to the owner, or those with the Administrator Permission or both Manage Roles and Mute Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
