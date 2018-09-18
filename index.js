@@ -1337,7 +1337,6 @@ bot.on("message", (message) => {
         {
             if(message.author.id != bot.user.id)
             {
-                message.channel.send("Really makes ya thonk").catch(error => console.log("Send Error - " + error));
                 message.channel.send(":thinking:").catch(error => console.log("Send Error - " + error));
             }
         }
