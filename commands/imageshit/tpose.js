@@ -105,15 +105,15 @@ class TPoseCommand extends command.Command
                         console.log("got avatar");
                         if(userImage.bitmap.height > userImage.bitmap.width)
                         {
-                            tposeImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.width * 0.75);
+                            tposeImage.resize(userImage.bitmap.width, userImage.bitmap.width);
                         }
                         else if (userImage.bitmap.width > userImage.bitmap.height)
                         {
-                            tposeImage.resize(userImage.bitmap.height * 0.75, userImage.bitmap.height * 0.75);
+                            tposeImage.resize(userImage.bitmap.height, userImage.bitmap.height);
                         }
                         else
                         {
-                            tposeImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+                            tposeImage.resize(userImage.bitmap.width, userImage.bitmap.height);
                         }
                         var x = (Math.random() * (userImage.bitmap.width)) - (tposeImage.bitmap.width / 2);
                         console.log(x);
@@ -235,7 +235,7 @@ class TPoseCommand extends command.Command
                     
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
-                        tposeImage.resize(userImage.bitmap.width * 0.75, userImage.bitmap.height * 0.75);
+                        tposeImage.resize(userImage.bitmap.width, userImage.bitmap.height);
         
                         var x = (Math.random() * (userImage.bitmap.width)) - (tposeImage.bitmap.width / 2);
                         console.log(x);
