@@ -29,13 +29,13 @@ class SwoleSpidermanCommand extends command.Command
         
         CommandCounter.addCommandCounter(message.author.id)
 
-        if(args.length > 0 && args.length < 81)
+        if(args.length > 0 && args.length < 66)
         {
             const file = shortid.generate() + ".png";
             var editText = args.toString()
                 Jimp.read("swolespiderman.png").then(function (spidermanImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-                        spidermanImage.print(font, 16, 16, editText, 260).write(file, function(error){ 
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK   ).then(function (font) {
+                        spidermanImage.print(font, 16, 10, editText, 260).write(file, function(error){ 
                             if(error) { console.log(error); return;};
                         message.channel.send("***Swole Spider-Man says...***", {
                                     files: [file]
@@ -58,7 +58,7 @@ class SwoleSpidermanCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 80 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
+                message.channel.send("<@" + message.author.id + "> A maximum of 65 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
             else
                 message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); });
 
