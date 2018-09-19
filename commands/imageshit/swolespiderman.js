@@ -20,7 +20,7 @@ class SwoleSpidermanCommand extends command.Command
             group: "imageshit",
             memberName: "swolespiderman",
             description: "Make Swole Spider-Man say something. This command only has a text parameter.",
-            examples: ["`!swolespiderman You retard`"]
+            examples: ["`!swolespiderman <text>`", "`!swolespiderman You retard`"]
         });
     }
 
