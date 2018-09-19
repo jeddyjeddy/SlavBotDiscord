@@ -34,7 +34,7 @@ class SwoleSpidermanCommand extends command.Command
             const file = shortid.generate() + ".png";
             var editText = args.toString()
                 Jimp.read("swolespiderman.png").then(function (spidermanImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font) {
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
                         spidermanImage.print(font, 16, 16, editText, 260).write(file, function(error){ 
                             if(error) { console.log(error); return;};
                         message.channel.send("***Swole Spider-Man says...***", {
