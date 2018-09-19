@@ -112,7 +112,7 @@ class NeroCommand extends command.Command
     
                             userImage.scaleToFit(300, 300) 
                             
-                            var mainImage = new Jimp(300, 300).composite(userImage, userImage.bitmap.width - 300, 0).rotate(-20); 
+                            var mainImage = new Jimp(300, 300).composite(userImage, 300 - userImage.bitmap.width, 0).rotate(-20); 
                             
                             var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
                             const file = shortid.generate() + ".png"
@@ -192,7 +192,7 @@ class NeroCommand extends command.Command
         
                             userImage.scaleToFit(300, 300) 
                             
-                            var mainImage = new Jimp(300, 300).composite(userImage, userImage.bitmap.width - 300, 0).rotate(-20); 
+                            var mainImage = new Jimp(300, 300).composite(userImage, 300 - userImage.bitmap.width, 0).rotate(-20); 
                             
                             var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
                             const file = shortid.generate() + ".png"
