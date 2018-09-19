@@ -19,8 +19,8 @@ class SwoleSpidermanCommand extends command.Command
             name: "swolespiderman",
             group: "imageshit",
             memberName: "swolespiderman",
-            description: "Make Swole Spider-Man say something",
-            examples: ["`!swolespiderman please don't spam.`"]
+            description: "Make Swole Spider-Man say something. This command only has a text parameter.",
+            examples: ["`!swolespiderman You retard`"]
         });
     }
 
