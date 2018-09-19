@@ -33,10 +33,9 @@ class SonicsaysCommand extends command.Command
         {
             const file = shortid.generate() + ".png";
             var editText = args.toString()
-            
                 Jimp.read("sonic.png").then(function (sonicImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function (font) {
-                        sonicImage.print(font, 30, 115, editText, 700).write(file, function(error){ 
+                        sonicImage.print(font, 30, 115, editText, 720).write(file, function(error){ 
                             if(error) { console.log(error); return;};
                         message.channel.send("***Sonic says...***", {
                                     files: [file]
