@@ -110,11 +110,10 @@ class NeroCommand extends command.Command
                             var x = 340
                             var y = 205
     
-                            userImage.scaleToFit(300, 300) 
-                            userImage.rotate(-20);                          
-                            
+                            userImage.scaleToFit(300, 300)
+                            var mainImage = new Jimp(300, 300).composite(userImage, 0, 0).rotate(-20)                            
             
-                            var mergedImage = neroImage.composite(userImage, x, y ).composite(handImage, 0, 0);
+                            var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
@@ -191,10 +190,9 @@ class NeroCommand extends command.Command
                             var y = 205
         
                             userImage.scaleToFit(300, 300) 
-                            userImage.rotate(-20);                         
-                            
+                            var mainImage = new Jimp(300, 300).composite(userImage, 0, 0).rotate(-20)                            
             
-                            var mergedImage = neroImage.composite(userImage, x, y ).composite(handImage, 0, 0);
+                            var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
