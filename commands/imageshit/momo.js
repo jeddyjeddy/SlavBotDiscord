@@ -29,7 +29,7 @@ class MomoCommand extends command.Command
         
         CommandCounter.addCommandCounter(message.author.id)
 
-        if(args.length > 0 && args.length < 101)
+        if(args.length > 0 && args.length < 201)
         {
             const file = shortid.generate() + ".png";
             var editText = args.toString()
@@ -58,7 +58,7 @@ class MomoCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 100 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
+                message.channel.send("<@" + message.author.id + "> A maximum of 200 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
             else
                 message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); });
 
