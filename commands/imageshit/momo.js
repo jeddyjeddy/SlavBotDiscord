@@ -29,13 +29,13 @@ class MomoCommand extends command.Command
         
         CommandCounter.addCommandCounter(message.author.id)
 
-        if(args.length > 0 && args.length < 201)
+        if(args.length > 0 && args.length < 181)
         {
             const file = shortid.generate() + ".png";
             var editText = args.toString()
                 Jimp.read("momo.jpg").then(function (spidermanImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK   ).then(function (font) {
-                        spidermanImage.print(font, 500, 90, editText, 450).write(file, function(error){ 
+                        spidermanImage.print(font, 520, 90, editText, 450).write(file, function(error){ 
                             if(error) { console.log(error); return;};
                         message.channel.send("***Momo says...***", {
                                     files: [file]
@@ -58,7 +58,7 @@ class MomoCommand extends command.Command
         else
         {
             if(args.length > 0)
-                message.channel.send("<@" + message.author.id + "> A maximum of 200 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
+                message.channel.send("<@" + message.author.id + "> A maximum of 180 characters are only allowed.").catch(error => {console.log("Send Error - " + error); });
             else
                 message.channel.send("<@" + message.author.id + "> Please give text for the command.").catch(error => {console.log("Send Error - " + error); });
 
