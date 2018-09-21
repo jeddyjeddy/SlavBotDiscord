@@ -1158,40 +1158,32 @@ var initData = () => {
                     snapshot.forEach(function(cmdOrGrpSnap){
                         cmdOrGroup = cmdOrGrpSnap.key;
                         var cmdOrGroupRef = null;
-                        var promises = []
-                        promises.push(bot.registry.resolveGroup(cmdOrGroup).then(group => {
-                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
-                                cmdOrGroupRef = group;
-                        }))
-                        promises.push(bot.registry.resolveCommand(cmdOrGroup).then(command => {
-                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
-                                cmdOrGroupRef = command;
-                        }))
-                        Promise.all(promises).then(() => {
+                        
+                        cmdOrGroupRef = bot.registry.resolveGroup(cmdOrGroup);
 
-                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                        if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                                cmdOrGroupRef = bot.registry.resolveCommand(cmdOrGroup);
+                    
+                        if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                        {
+                            return;
+                        }
+
+                        var guild;
+                        var guilds = bot.guilds.array()
+
+                        for(var i = 0; i < guilds.length; i++)
+                        {
+                            if(guilds[i].id == childSnap.key)
                             {
-                                return;
+                                guild = guilds[i];
                             }
+                        }
 
-                            var guild;
-                            var guilds = bot.guilds.array()
-
-                            for(var i = 0; i < guilds.length; i++)
-                            {
-                                if(guilds[i].id == childSnap.key)
-                                {
-                                    guild = guilds[i];
-                                }
-                            }
-
-                            if(guild != undefined)
-                            {
-                                cmdOrGroupRef.isEnabled(guild, false)
-                            }
-                        }).catch(error => {
-                            console.log("Failed Disables: " + error)
-                        })
+                        if(guild != undefined)
+                        {
+                            cmdOrGroupRef.isEnabled(guild, false)
+                        }
                     });
                 }
             })
