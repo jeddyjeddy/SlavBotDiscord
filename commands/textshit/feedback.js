@@ -144,7 +144,6 @@ class FeedbackCommand extends command.Command
                         {
                             message.client.owners[0].send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
                             message.channel.send("<@" + message.author.id + "> Thank you for your feedback!").catch(error => console.log("Send Error - " + error));
-                            
                         }
                     }
                 }
