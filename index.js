@@ -1160,14 +1160,12 @@ var initData = () => {
                         var cmdOrGroupRef = null;
                         var promises = []
                         promises.push(bot.registry.resolveGroup(cmdOrGroup).then(group => {
-                            cmdOrGroupRef = group;
-                        }).catch(error => {
-                            bot.registry.resolveCommand(cmdOrGroup).then(command => {
+                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                                cmdOrGroupRef = group;
+                        }))
+                        promises.push(bot.registry.resolveCommand(cmdOrGroup).then(command => {
+                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
                                 cmdOrGroupRef = command;
-                            }).catch(error2 => {
-                                console.log("group Failed: " + error)
-                                console.log("cmd Failed: " + error2)
-                            })
                         }))
                         Promise.all(promises).then(() => {
 

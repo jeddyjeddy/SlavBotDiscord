@@ -95,7 +95,7 @@ class FailCommand extends command.Command
 
                 if(messageID == "")
                 {
-                    message.channel.send("<@" + message.author.id + "> No image found, , use `" + commandPrefix + "help fail` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No image found, use`" + commandPrefix + "help fail` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
