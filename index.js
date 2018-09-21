@@ -3,8 +3,7 @@ const bot = new commando.Client({
     owner: "281876391535050762",
     unknownCommandResponse: false,
     invite: "https://discord.gg/2T259Pf",
-    messageCacheMaxSize: 50,
-    fetchAllMembers: true});
+    messageCacheMaxSize: 50});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
