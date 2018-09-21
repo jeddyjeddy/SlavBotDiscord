@@ -2,8 +2,9 @@ const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: "281876391535050762",
     unknownCommandResponse: false,
-    autoReconnect: true,
-    invite: "https://discord.gg/2T259Pf"});
+    invite: "https://discord.gg/2T259Pf",
+    messageCacheMaxSize: 50,
+    fetchAllMembers: true});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);

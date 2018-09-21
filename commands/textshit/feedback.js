@@ -52,9 +52,8 @@ class FeedbackCommand extends command.Command
                     }
                     else
                     {
-                        if(message.author.id == "281876391535050762")
+                        if(message.author.id == message.client.owners[0].id)
                         {
-                            console.log(message.client.owners)
                             if(args.length > 0)
                             {
                                 var userID = "";
