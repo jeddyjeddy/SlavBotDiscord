@@ -54,6 +54,7 @@ class FeedbackCommand extends command.Command
                     {
                         if(message.author.id == "281876391535050762")
                         {
+                            console.log(message.client.owners)
                             if(args.length > 0)
                             {
                                 var userID = "";
