@@ -1152,6 +1152,50 @@ var initData = () => {
                         guild.commandPrefix = childSnap.child("prefix").val().toString();
                     }
                 }
+
+                if(childSnap.child("disable").val() != null)
+                {
+                    snapshot.forEach(function(cmdOrGrpSnap){
+                        cmdOrGroup = cmdOrGrpSnap.val();
+                        var cmdOrGroupRef = null;
+                        var promises = []
+                        promises.push(bot.registry.resolveGroup(cmdOrGroup).then(group => {
+                            cmdOrGroupRef = group;
+                        }).catch(error => {
+                            bot.registry.resolveCommand(cmdOrGroup).then(command => {
+                                cmdOrGroupRef = command;
+                            }).catch(error2 => {
+                                console.log("group Failed: " + error)
+                                console.log("cmd Failed: " + error2)
+                            })
+                        }))
+                        Promise.all(promises).then(() => {
+
+                            if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                            {
+                                return;
+                            }
+
+                            var guild;
+                            var guilds = bot.guilds.array()
+
+                            for(var i = 0; i < guilds.length; i++)
+                            {
+                                if(guilds[i].id == childSnap.key)
+                                {
+                                    guild = guilds[i];
+                                }
+                            }
+
+                            if(guild != undefined)
+                            {
+                                cmdOrGroupRef.isEnabled(guild, false)
+                            }
+                        }).catch(error => {
+                            console.log("Failed Disables: " + error)
+                        })
+                    });
+                }
             })
         }
       })
