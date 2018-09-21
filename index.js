@@ -1158,12 +1158,11 @@ var initData = () => {
                     snapshot.forEach(function(cmdOrGrpSnap){
                         cmdOrGroup = cmdOrGrpSnap.key;
                         var cmdOrGroupRef = null;
-                        
-                        cmdOrGroupRef = bot.registry.resolveGroup(cmdOrGroup);
 
-                        if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
-                                cmdOrGroupRef = bot.registry.resolveCommand(cmdOrGroup);
-                    
+                        cmdOrGroupRef = bot.registry.findGroups(cmdOrGroup)
+                        console.log(cmdOrGroupRef)
+                        return;
+
                         if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
                         {
                             return;
