@@ -1156,7 +1156,7 @@ var initData = () => {
                 if(childSnap.child("disable").val() != null)
                 {
                     snapshot.forEach(function(cmdOrGrpSnap){
-                        cmdOrGroup = cmdOrGrpSnap.key();
+                        cmdOrGroup = cmdOrGrpSnap.key;
                         var cmdOrGroupRef = null;
                         var promises = []
                         promises.push(bot.registry.resolveGroup(cmdOrGroup).then(group => {
