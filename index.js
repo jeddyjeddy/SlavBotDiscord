@@ -1153,7 +1153,7 @@ var initData = () => {
                     }
                 }
 
-                if(childSnap.child("disable").val() != null)
+                if(childSnap.child("disabled").val() != null)
                 {
                     snapshot.forEach(function(cmdOrGrpSnap){
                         cmdOrGroup = cmdOrGrpSnap.key;
