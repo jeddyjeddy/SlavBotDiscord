@@ -124,7 +124,7 @@ class FeedbackCommand extends command.Command
                                     var params = args.toString().split("|");
                                     if(params.length < 2)
                                     {
-                                        message.channel.send("<@" + message.author.id + "> Add text for channel.send")
+                                        message.channel.send("<@" + message.author.id + "> Add text for Message")
                                         return;
                                     }
                                     var text = params[1];
