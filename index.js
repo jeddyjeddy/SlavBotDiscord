@@ -1183,7 +1183,7 @@ var initData = () => {
 
                         if(guild != undefined)
                         {
-                            cmdOrGroupRef[0].isEnabled(guild, false)
+                            cmdOrGroupRef[0].setEnabledIn(guild, false)
                         }
                     });
                 }
