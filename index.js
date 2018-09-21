@@ -1160,12 +1160,14 @@ var initData = () => {
                         var cmdOrGroupRef = null;
 
                         cmdOrGroupRef = bot.registry.findGroups(cmdOrGroup)
-                        console.log(cmdOrGroupRef)
-                        return;
 
-                        if(cmdOrGroupRef == null || cmdOrGroupRef == undefined)
+                        if(cmdOrGroupRef.length == 0)
                         {
-                            return;
+                            cmdOrGroupRef = bot.registry.findCommands(cmdOrGroup)
+                            if(cmdOrGroupRef.length == 0)
+                            {
+                                return;
+                            }
                         }
 
                         var guild;
@@ -1181,7 +1183,7 @@ var initData = () => {
 
                         if(guild != undefined)
                         {
-                            cmdOrGroupRef.isEnabled(guild, false)
+                            cmdOrGroupRef[0].isEnabled(guild, false)
                         }
                     });
                 }
