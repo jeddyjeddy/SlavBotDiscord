@@ -142,13 +142,9 @@ class FeedbackCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.client.fetchUser("281876391535050762")
-                            .then(user => {
-                                    user.send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
-                                    message.channel.send("<@" + message.author.id + "> Thank you for your feedback!").catch(error => console.log("Send Error - " + error));
-                            }, rejection => {
-                                    console.log(rejection.message);
-                            });
+                            message.client.owners[0].send("***Feedback (from <@" + message.author.id + ">):*** " + args).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> Thank you for your feedback!").catch(error => console.log("Send Error - " + error));
+                            
                         }
                     }
                 }
