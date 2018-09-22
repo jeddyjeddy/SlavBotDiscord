@@ -11,18 +11,18 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-const selfResponses = [" I have a bigger knife", ", they won't find your body",  " I know where you live", " can you do *anything* properly?", " you're not stabbing me, *I'm* stabbing you"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
+const responses = ["They will turn the world red again.", "May god protect them from the capatalist and nationalist pigs.",  "A new era shall begin.", "The ultimate alliance has been formed.", "True comrades.","Aiming towards one mutual goal."];
 
-class StabCommand extends command.Command
+class AllyCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "stab",
+            name: "ally",
             group: "imageshit",
-            memberName: "stab",
-            description: "Stab yourself or another user.",
-            examples: ["`!stab`", "`!stab @User`"]
+            memberName: "ally",
+            description: "Form an alliance with another user.",
+            examples: ["`!ally @User`"]
         });
     }
 
@@ -30,7 +30,6 @@ class StabCommand extends command.Command
     {
         
         CommandCounter.addCommandCounter(message.author.id)
-        var otherUser = false;
         var userID = "";
 
         if(args.length > 0)
@@ -44,7 +43,6 @@ class StabCommand extends command.Command
                     if(args[i].toString() == ">")
                     {
                         i = args.length;
-                        otherUser = true;
                     }
                     else
                     {
@@ -66,7 +64,7 @@ class StabCommand extends command.Command
         
         var promises = []
         var url = "";
-        if(otherUser && userID != message.author.id)
+        if(userID != message.author.id)
         {
             console.log(userID);
 
@@ -82,7 +80,7 @@ class StabCommand extends command.Command
                 }))
 
                 
-            Jimp.read("stab.jpg").then(function (kidnapImage) {
+            Jimp.read("ally.jpg").then(function (allyImage) {
                 console.log("got image");
                 if(message.author.avatarURL == undefined || message.author.avatarURL == null)
                 {
@@ -98,24 +96,21 @@ class StabCommand extends command.Command
                             console.log("got avatar");
                             userImage.resize(90, 90);
                             authorImage.resize(80, 80);
-                            var xAuthor = 160
-                            var yAuthor = 160
-                            var x = 400
-                            var y = 50
-                            var mergedImageKidnapper = kidnapImage.composite(authorImage, xAuthor, yAuthor );
+                            var xAuthor = 80
+                            var yAuthor= 45
+                            var x = 450
+                            var y = 20
+                            var mergedImageKidnapper = allyImage.composite(authorImage, xAuthor, yAuthor );
                             var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
                             const file = shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
+                                message.channel.send("<@" + message.author.id+ "> ***has formed an alliance with*** <@" + userID + ">", {
                                     files: [file]
                                 }).then(function(){
-                                    if(userID == message.client.user.id)
-                                    {
-                                        message.channel.send("<@" + message.author.id + ">" + selfResponses[Math.floor(Math.random() * (selfResponses.length))]).catch(error => {console.log("Send Error - " + error); });
-                                    }
+                                     message.channel.send(responses[Math.floor(Math.random() * (responses.length))]).catch(error => {console.log("Send Error - " + error); });
                                     fs.remove(file, resultHandler);
                                 }).catch(function (err) {
                                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -150,45 +145,9 @@ class StabCommand extends command.Command
         }
         else
         {
-            Jimp.read(message.author.avatarURL).then(function (userImage) {
-                Jimp.read("sudoku.png").then(function (kidnapImage) {     
-                    userImage.resize(160, 160);
-                    var x = 380
-                    var y = 30
-                    userImage.rotate(60)
-                    var mergedImage = kidnapImage.composite(userImage, x, y);
-                    const file = shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("<@" + message.author.id+ "> ***has committed sudoku***", {
-                            files: [file]
-                        }).then(function(){
-                            fs.remove(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.remove(file, resultHandler);
-                        });
-                        console.log("Message Sent");
-                    });
-                }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                    console.log(err.message);
-                });
-            }).catch(function (err) {
-                if(message.author.avatarURL == undefined || message.author.avatarURL == null)
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                }
-                else
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                console.log(err.message);
-            });
+            message.channel.send("<@" + message.author.id + "> Please tag another user.").catch(error => {console.log("Send Error - " + error); });
         }
     }
 }
 
-module.exports = StabCommand;
+module.exports = AllyCommand;
