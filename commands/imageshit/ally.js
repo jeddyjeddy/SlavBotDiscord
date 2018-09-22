@@ -11,7 +11,7 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-const responses = ["They will turn the world red again.", "May god protect them from the capatalist and nationalist pigs.",  "A new era shall begin.", "The ultimate alliance has been formed.", "True comrades.","Aiming towards one mutual goal."];
+const responses = ["They will turn the world red again.", "May God protect them from the capitalist and nationalist pigs.",  "A new era shall begin.", "The ultimate alliance has been formed.", "True comrades.","Aiming towards one mutual goal."];
 
 class AllyCommand extends command.Command
  {
