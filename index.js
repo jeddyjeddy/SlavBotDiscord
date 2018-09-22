@@ -2237,10 +2237,22 @@ bot.on("message", (message) => {
 });
 
 bot.on("disconnect", () => {
-    console.log("Reconnecting")
+    console.log("Disconnected")
     bot.login(process.env.BOT_TOKEN).then(function(){
         console.log("Reconnected")
     });  
+})
+
+bot.on("reconnecting", () => {
+    console.log("Reconnecting")
+})
+
+bot.on("ready", () => {
+    console.log("Ready")
+})
+
+bot.on("resume", () => {
+    console.log("Resume")
 })
 
 bot.login(process.env.BOT_TOKEN).then(function(){
