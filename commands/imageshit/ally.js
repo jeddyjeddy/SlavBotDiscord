@@ -64,7 +64,7 @@ class AllyCommand extends command.Command
         
         var promises = []
         var url = "";
-        if(userID != message.author.id)
+        if(userID != message.author.id && userID != "")
         {
             console.log(userID);
 
