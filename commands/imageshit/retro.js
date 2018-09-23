@@ -120,57 +120,9 @@ class RetroCommand extends command.Command
                     }
                 }
             }
-
-            var mainBGStyle = "";
-            if(bgStyle == 1)
-            {
-                mainBGStyle = "basicRainbow"
-            }
-            else if (bgStyle == 2)
-            {
-                mainBGStyle = "colorRainbow"
-            }
-            else if(bgStyle == 3)
-            {
-                mainBGStyle = "palmTri"
-            }
-            else if(bgStyle == 4)
-            {
-                mainBGStyle = "palmCircle"
-            }
-            else if(bgStyle == 5)
-            {
-                mainBGStyle = "outlineTri"
-            }
-
-            var mainTextStyle = "";
-            if(textStyle == 1)
-            {
-                mainTextStyle = "cyan"
-            }
-            else if (textStyle == 2)
-            {
-                mainTextStyle = "redOutlined"
-            }
-            else if(textStyle == 3)
-            {
-                mainTextStyle = "redOutlinedThick"
-            }
-            else if(textStyle == 4)
-            {
-                mainTextStyle = "chrome"
-            }
-
-            var image = new RetroText().setBackgroundStyle(mainBGStyle).setTextStyle(mainTextStyle);
-            if(textLine1 != "")
-                image.setLine1(textLine1.replace(/[^a-zA-Z0-9. ]/g, ''))
-
-            if(textLine2 != "")
-                image.setLine2(textLine2.replace(/[^a-zA-Z0-9. ]/g, ''))
-
-            if(textLine3 != "")
-                image.setLine3(textLine3.replace(/[^a-zA-Z0-9. ]/g, ''))
-                
+            
+            const image = new RetroText().setLine1(textLine1.replace(/[^a-zA-Z0-9. ]/g, '')).setLine2(textLine2.replace(/[^a-zA-Z0-9. ]/g, ''))
+            .setLine3(textLine3.replace(/[^a-zA-Z0-9. ]/g, '')).setBackgroundStyle(bgStyle).setTextStyle(textStyle);
             let url
             try {
                 url = await image.fetchURL() 
