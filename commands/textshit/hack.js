@@ -12,7 +12,7 @@ class HackCommand extends command.Command
             name: "hack",
             group: "textshit",
             memberName: "hack",
-            description: "Call someone a hack. Replies to  you or any user that you have mentioned after the command.",
+            description: "Hack someone.",
             examples: ["`!hack`", "`!hack @User`"]
         });
     }
