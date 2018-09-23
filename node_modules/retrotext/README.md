@@ -10,13 +10,9 @@
 
 <h5 align='center'>API Bindings for the Retro Text Generator on PhotoFunia. Licensed under ISC License.</h5>
 
-<h2 align='center'><i>NOTE: As of Version 2.0.0 Nodejs 8 or higher is REQUIRED</i></h2>
-
 ## Installation
-<div style='width: 100%; display: flex; justify-content: space-around;'>
-  <span>Using NPM: <code>npm install retrotext</code></span>
-  <span>Using Yarn: <code>yarn add retrotext</code></span>
-</div>
+Using NPM: `npm install retrotext`  
+Using Yarn: `yarn add retrotext`
 
 ## Usage
 First, create a new instance of the RetroText class:
@@ -28,11 +24,11 @@ const text = new RetroText()
 Next, add details as appropriate:
 ```js
 const text = new RetroText()
-  .setLine1('Line 1')
-  .setLine1('Line 1')
-  .setLine1('Line 1')
-  .setBackgroundStyle(1)
-  .setTextStyle(4)
+  .setLine1('Top')
+  .setLine2('Middle')
+  .setLine(3, 'Bottom')
+  .setBackgroundStyle('palmCircle')
+  .setTextStyle('chrome')
 ```
 
 Finally, fetch either a URL to the final image, or the image downloaded as a `Buffer` object:  

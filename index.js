@@ -34,11 +34,7 @@ dbl.on('posted', () => {
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("Bots for discord success")
         }
     })
     
@@ -60,11 +56,7 @@ dbl.on('posted', () => {
     request(options2, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("Discord services success")
         }
     })
 
@@ -85,11 +77,7 @@ dbl.on('posted', () => {
     request(options3, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("Bots on discord success")
         }
     })
 
@@ -110,11 +98,7 @@ dbl.on('posted', () => {
     request(options4, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("Bots discord pw success")
         }
     })
 
@@ -134,11 +118,7 @@ dbl.on('posted', () => {
     request(options5, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("discordbots.group success")
         }
     })
 
@@ -158,11 +138,7 @@ dbl.on('posted', () => {
     request(options6, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("DBL.com success")
         }
     })
 
@@ -182,11 +158,7 @@ dbl.on('posted', () => {
     request(options7, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("Botlist space success")
         }
     })
 
@@ -206,11 +178,7 @@ dbl.on('posted', () => {
     request(options8, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log(body)
-        }
-        else
-        {
-            console.log(error)
+            console.log("discord bot world success")
         }
     })
 
