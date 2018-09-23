@@ -53,13 +53,24 @@ class HackCommand extends command.Command
             }
         }
         
+        var user = ""
+        var users = message.guild.members.array()
         if(userID == "")
         {
-            var users = message.guild.members.array()
-            userID = users[Math.floor(Math.random() * users.length)].id
+            user = users[Math.floor(Math.random() * users.length)].username
+        }
+        else
+        {
+            for(var i = 0; i < users.length; i++)
+            {
+                if(users[i].id == userID)
+                {
+                    user = users[i].username;
+                }
+            }
         }
 
-        message.channel.send("`Hacking <@" + userID + ">`").catch(error => console.log("Send Error - " + error));
+        message.channel.send("`Hacking " + user + "`").catch(error => console.log("Send Error - " + error));
         setTimeout(() => {
             message.channel.send("`Getting IP...`").catch(error => console.log("Send Error - " + error)); 
             setTimeout(() => {
@@ -67,7 +78,7 @@ class HackCommand extends command.Command
                 setTimeout(() => {
                     message.channel.send("`Accessing Local Files...`").catch(error => console.log("Send Error - " + error)); 
                     setTimeout(() => {
-                        message.channel.send("`" + responses[Math.floor(Math.random() * responses.length)] + " has been found on <@" + userID + ">'s device`").catch(error => console.log("Send Error - " + error)); 
+                        message.channel.send("`" + responses[Math.floor(Math.random() * responses.length)] + " has been found on " + user + "'s device`").catch(error => console.log("Send Error - " + error)); 
                     }, 1000)
                 }, 1000)
             }, 1000)
