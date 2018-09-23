@@ -120,10 +120,16 @@ class RetroCommand extends command.Command
                     }
                 }
             }
-            console.log("Got retro info")
-            const image = new RetroText().setLine1(textLine1.replace(/[^a-zA-Z0-9. ]/g, '')).setLine2(textLine2.replace(/[^a-zA-Z0-9. ]/g, ''))
-            .setLine3(textLine3.replace(/[^a-zA-Z0-9. ]/g, '')).setBackgroundStyle(bgStyle).setTextStyle(textStyle);
-            console.log("Created retro")
+            var image = new RetroText().setBackgroundStyle(bgStyle).setTextStyle(textStyle);
+            if(textLine1 != "")
+                image.setLine1(textLine1.replace(/[^a-zA-Z0-9. ]/g, ''))
+
+            if(textLine2 != "")
+                image.setLine2(textLine2.replace(/[^a-zA-Z0-9. ]/g, ''))
+
+            if(textLine3 != "")
+                image.setLine3(textLine3.replace(/[^a-zA-Z0-9. ]/g, ''))
+                
             let url
             try {
                 url = await image.fetchURL() 
