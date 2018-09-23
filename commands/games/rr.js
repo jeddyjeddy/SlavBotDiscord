@@ -314,8 +314,6 @@ class RrCommand extends command.Command
                             }, messageDelay);
                         }, messageDelay);
                     }
-                    console.log(bulletLoad);
-
                     allBulletLoads.push({key: message.guild.id, counter: bulletLoad})
                     firebase.database().ref("serversettings/" + message.guild.id + "/bulletload").set(JSON.stringify(bulletLoad));
                 }); 
@@ -565,7 +563,6 @@ class RrCommand extends command.Command
                         }, messageDelay);
                     }, messageDelay);
                 }
-                console.log(bulletLoad);
 
                 for(var i = 0; i < allBulletLoads.length; i++)
                 {

@@ -228,7 +228,6 @@ class ShotCommand extends command.Command
                             }, messageDelay);
                         }, messageDelay);
                     }
-                    console.log(shotLoad);
 
                     allShotLoads.push({key: message.guild.id, counter: shotLoad})
                     firebase.database().ref("serversettings/" + message.guild.id + "/shotLoad").set(JSON.stringify(shotLoad));
@@ -399,7 +398,6 @@ class ShotCommand extends command.Command
                         }, messageDelay);
                     }, messageDelay);
                 }
-                console.log(shotLoad);
 
                 for(var i = 0; i < allShotLoads.length; i++)
                 {
