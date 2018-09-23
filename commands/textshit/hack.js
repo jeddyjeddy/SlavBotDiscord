@@ -68,12 +68,11 @@ class HackCommand extends command.Command
                     user = users[i].user.username;
                 }
             }
-        }
-
-        if(user == "")
-        {
-            message.channel.send("<@" + message.author.id + "> No user tagged.").catch(error => console.log("Send Error - " + error));
-            return; 
+            
+            if(user == "")
+            {
+                user = users[Math.floor(Math.random() * users.length)].user.username
+            }
         }
 
         message.channel.send("`Hacking " + user + "`").catch(error => console.log("Send Error - " + error));
