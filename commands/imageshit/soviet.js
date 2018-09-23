@@ -104,7 +104,7 @@ class SovietCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
 
-                        sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.25);
+                        sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.5);
                         userImage.composite(sovietImage, 0, 0)
 
                         const file = shortid.generate() + ".png"
@@ -174,7 +174,7 @@ class SovietCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.25);
+                        sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.5);
                         userImage.composite(sovietImage, 0, 0)
 
                         const file = shortid.generate() + ".png"
