@@ -57,7 +57,7 @@ class HackCommand extends command.Command
         var users = message.guild.members.array()
         if(userID == "")
         {
-            user = users[Math.floor(Math.random() * users.length)].username
+            user = users[Math.floor(Math.random() * users.length)].user.username
         }
         else
         {
@@ -65,7 +65,7 @@ class HackCommand extends command.Command
             {
                 if(users[i].id == userID)
                 {
-                    user = users[i].username;
+                    user = users[i].user.username;
                 }
             }
         }
