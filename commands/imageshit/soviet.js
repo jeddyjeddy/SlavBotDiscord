@@ -19,7 +19,7 @@ class SovietCommand extends command.Command
             name: "soviet",
             group: "imageshit",
             memberName: "soviet",
-            description: "For easy translation of images sent by - and being sent to - Upside Down people. Use the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "Sovietize an image. Use the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!soviet`", "`!soviet avatar`", "`!soviet @User`"]
         });
     }
@@ -112,7 +112,7 @@ class SovietCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Translated For The Emu War***", {
+                            message.channel.send("***Sovietized***", {
                                 files: [file]
                             }).then(function(){
                                 
@@ -182,7 +182,7 @@ class SovietCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Translated For The Emu War***", {
+                            message.channel.send("***Sovietized***", {
                                 files: [file]
                             }).then(function(){
                                 
