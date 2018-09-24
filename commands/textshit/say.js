@@ -23,12 +23,12 @@ class SayCommand extends command.Command
 
             while(sayText.indexOf("@everyone") > -1)
             {
-                sayText.replace(/@everyone/g, "everyone")
+                sayText = sayText.replace(/@everyone/g, "everyone")
             }
 
             while(sayText.indexOf("@here") > -1)
             {
-                sayText.replace(/@here/g, "here")
+                sayText = sayText.replace(/@here/g, "here")
             }
 
             message.channel.send(sayText).then(() => {
