@@ -130,7 +130,7 @@ class MuteCommand extends command.Command
 
                                     if(IndexRef.addMutedUser(message.guild.id, member.id, date.toJSON()))
                                     {
-                                        member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been muted for " + parameter + ".").catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                        member.addRole(muteRole).then(message.channel.send("<@" + user + "> has been muted for " + parameter).catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
                                         schedule.scheduleJob(date, function(){
                                             IndexRef.removeMutedUser(message.guild.id, member.id)
                                             if(member.roles.find("id", muteRole.id))
