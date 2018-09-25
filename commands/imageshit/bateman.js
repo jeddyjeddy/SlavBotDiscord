@@ -111,7 +111,7 @@ class BatemanCommand extends command.Command
                             var y = 250
     
                             userImage.resize(Jimp.AUTO, 300) 
-                            userImage.rotate(20);                          
+                            userImage.rotate(20, false);                          
                             
             
                             var mergedImage = batemanImage.composite(userImage, x, y ).composite(handImage, 0, 0);
