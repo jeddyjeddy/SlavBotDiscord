@@ -106,13 +106,26 @@ class DeepfryCommand extends command.Command
         
                     var orgWidth = userImage.bitmap.width, orgHeight = userImage.bitmap.height;
                     
+                    console.log("Width and height stored")
+                    
                     userImage.resize(userImage.bitmap.width / 6, userImage.bitmap.height / 6);
+                    
+                    console.log("Resized")
+                    
                     userImage.color([
                         { apply: 'saturate', params: [ 100 ] },
                         { apply: 'red', params: [ 50 ] }
                     ]) 
+                    
+                    console.log("color applied")
+                    
                     userImage.contrast(1);
+                    
+                    console.log("contrast applied")
+                    
                     userImage.resize(orgWidth, orgHeight);
+                    
+                    console.log("Resized")
     
                     const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
