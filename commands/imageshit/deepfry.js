@@ -113,7 +113,7 @@ class DeepfryCommand extends command.Command
                     console.log("Resized")
                     
                     userImage.color([
-                        { apply: 'saturate', params: [ 100 ] },
+                       // { apply: 'saturate', params: [ 100 ] },
                         { apply: 'red', params: [ 50 ] }
                     ]) 
                     
