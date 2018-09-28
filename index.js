@@ -24,7 +24,7 @@ dbl.on('posted', () => {
 
     // Configure the request
     var options = {
-        url: 'https://botsfordiscord.com/api/v1/bots/' + bot.user.id,
+        url: 'https://botsfordiscord.com/api/bot/' + bot.user.id,
         method: 'POST',
         headers: headers,
         body: JSON.stringify({'count': bot.guilds.size, 'server_count': bot.guilds.size})
