@@ -1337,13 +1337,6 @@ bot.on("message", (message) => {
             if(message.author.id != bot.user.id)
                 message.channel.send("Stop! You have violated the law!").catch(error => console.log("Send Error - " + error));
         }
-        if(message.content.toLowerCase().indexOf("thonk") > -1 || message.content.toLowerCase().indexOf("think") > -1)
-        {
-            if(message.author.id != bot.user.id)
-            {
-                message.channel.send(":thinking:").catch(error => console.log("Send Error - " + error));
-            }
-        }
 
         if(message.content.toLowerCase().indexOf("so sad") > -1)
         {
