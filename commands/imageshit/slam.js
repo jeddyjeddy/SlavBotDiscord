@@ -107,7 +107,7 @@ class SlamCommand extends command.Command
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("<@" + message.author.id+ "> ***Slammed*** <@" + userID + ">", {
+                                message.channel.send("<@" + message.author.id+ "> ***slammed*** <@" + userID + ">", {
                                     files: [file]
                                 }).then(function(){
                                     if(userID == message.client.user.id)

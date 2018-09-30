@@ -109,7 +109,7 @@ class ExecuteCommand extends command.Command
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("<@" + message.author.id+ "> ***Executed*** <@" + userID + ">", {
+                                message.channel.send("<@" + message.author.id+ "> ***executed*** <@" + userID + ">", {
                                     files: [file]
                                 }).then(function(){
                                     if(userID == message.client.user.id)
