@@ -942,7 +942,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     if(newGopnikSupporter)
                     {
                         var channels = newMemberData.guild.channels.array();
-
+                        var userIDText = "\n<@" + newMemberData.id + ">"
+                        var added = false;
                         for(var index = 0; index < channels.length; index++)
                         {
                             if(channels[index].id == supportChannelID)
@@ -951,9 +952,18 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                     messages.filter(msg => {
                                         if(msg.author.id == bot.user.id)
                                         {
-                                            msg.edit(msg.content + "\n<@" + newMemberData.id + ">").catch(error => console.log("Message Edit Error - " + error));
+                                            if(msg.content.length < (2000 - userIDText.length))
+                                            {
+                                                msg.edit(msg.content + userIDText).catch(error => console.log("Message Edit Error - " + error));
+                                                added = true;
+                                            }
                                         }
                                     })
+
+                                    if(!added)
+                                    {
+                                        channels[index].send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                    }
                                 })
                             }
                         }
