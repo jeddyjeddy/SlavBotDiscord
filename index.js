@@ -626,7 +626,9 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Weekend Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                                user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
+                                            }).catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
@@ -643,7 +645,9 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Regular Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                                user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
+                                            }).catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                     });
@@ -904,6 +908,70 @@ var schedule = require('node-schedule');
       signedIntoFirebase = false;
     }
   });
+
+//Code for new Patreon supporters
+const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
+slavRole = "495514096200974359", supportChannelID = "495564950383886336";
+
+bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
+    if(newMemberData.guild.id == supportServerID)
+    {
+        var newGopnikSupporter = true;
+        var newSlavSupporter = true;
+        var oldRoles = oldMemberData.roles.array();
+        for(var i = 0; i < oldRoles.length; i++)
+        {
+            if(oldRoles[i].id == gopnikRole)
+            {
+                newGopnikSupporter = false;
+            }
+            else if(oldRoles[i].id == slavRole)
+            {
+                newSlavSupporter = false;
+            }
+        }
+
+        if(newGopnikSupporter || newSlavSupporter)
+        {
+            var newRoles = newMemberData.roles.array();
+
+            for(var i = 0; i < newRoles.length; i++)
+            {
+                if(newRoles[i].id == gopnikRole)
+                {
+                    if(newGopnikSupporter)
+                    {
+                        var channels = newMemberData.guild.channels.array();
+
+                        for(var index = 0; index < channels.length; index++)
+                        {
+                            if(channels[index].id == supportChannelID)
+                            {
+                                channels[index].fetchMessages().then((messages) => {
+                                    messages.filter(msg => {
+                                        if(msg.author.id == bot.user.id)
+                                        {
+                                            msg.edit(msg.content + "\n<@" + newMemberData.id + ">").catch(error => console.log("Message Edit Error - " + error));
+                                        }
+                                    })
+                                })
+                            }
+                        }
+
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Gopnik Supporter's Republic* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support.").catch(error => console.log("Send Error - " + error));
+                    }
+                }
+                else if(newRoles[i].id == slavRole)
+                {
+                    if(newSlavSupporter)
+                    {
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Slavic Supporter's Republic* role.").catch(error => console.log("Send Error - " + error));
+                    }
+                }
+            }
+        }
+    }
+})
 
 bot.on("channelDelete", (channel) => {
     for(var i = 0; i < responseSettings.length; i++)
