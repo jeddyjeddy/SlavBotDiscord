@@ -952,7 +952,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                     messages.filter(msg => {
                                         if(msg.author.id == bot.user.id)
                                         {
-                                            if(msg.content.length < (2000 - userIDText.length))
+                                            if(msg.content.length < (2000 - userIDText.length) && !added)
                                             {
                                                 msg.edit(msg.content + userIDText).catch(error => console.log("Message Edit Error - " + error));
                                                 added = true;
