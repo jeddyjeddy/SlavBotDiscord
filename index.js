@@ -320,7 +320,7 @@ var localChangeResponse = (guildID, setting, channel) => {
                         var channelIndex = responseSettings[i].overwrites.indexOf(channel)
 
                         if(channelIndex > -1)
-                            responseSettings[i].overwrites = responseSettings[i].overwrites.splice(channelIndex, 1) 
+                            responseSettings[i].overwrites.splice(channelIndex, 1) 
 
                         if(responseSettings[i].overwrites.length == 0)
                         {
