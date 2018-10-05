@@ -20,7 +20,7 @@ class AlignmentCommand extends command.Command
             group: "imageshit",
             memberName: "alignment",
             description: "Takes random users and puts their profile pictures in an Alignment Chart. Alternatively, you can use the image parameter to use the last uploaded images (up to 9 images only).",
-            examples: ["`!alignment`", "`!alignment image`"]
+            examples: ["`!alignment`", "`!alignment image`", "`!alignment @User1 @User2 @User3` (9 users Max)"]
         });
     }
 
@@ -186,31 +186,78 @@ class AlignmentCommand extends command.Command
             var profileURLs = [];
             var profiles = [];
             console.log("users alignment");
-            var users = message.guild.members.array()
-            while(profiles.length < 9)
+
+            if(args.length > 0)
             {
-                if(profiles.length >= users.length)
+                var getUser = false;
+                var userID = "";
+                for(var i = 0; i < args.length; i++)
                 {
-                    profiles.push("blank")
-                }
-                else
-                {
-                    var user = users[Math.floor(Math.random() * users.length)].id
-                    var alreadyAdded = false;
-                    for(var i = 0; i < profiles.length; i++)
+                    if(profiles.length < 9)
                     {
-                        if(profiles[i] == user)
+                        if(getUser)
                         {
-                            alreadyAdded = true;
+                            if(args[i].toString() == ">")
+                            {
+                                profiles.push(userID);
+                                userID = "";
+                                getUser = false;
+                            }
+                            else
+                            {
+                                if(args[i].toString() != "@" && !isNaN(args[i].toString()))
+                                {
+                                    userID = userID + args[i].toString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if(args[i].toString() == "<")
+                            {
+                                    getUser = true;
+                            } 
                         }
                     }
+                }
 
-                    if(!alreadyAdded)
+                if(profiles.length > 0)
+                {
+                    while(profiles.length < 9)
                     {
-                        profiles.push(user)
+                        profiles.push("blank")
                     }
                 }
-            }    
+            }
+
+            if(profiles.length == 0)
+            {
+                var users = message.guild.members.array()
+                while(profiles.length < 9)
+                {
+                    if(profiles.length >= users.length)
+                    {
+                        profiles.push("blank")
+                    }
+                    else
+                    {
+                        var user = users[Math.floor(Math.random() * users.length)].id
+                        var alreadyAdded = false;
+                        for(var i = 0; i < profiles.length; i++)
+                        {
+                            if(profiles[i] == user)
+                            {
+                                alreadyAdded = true;
+                            }
+                        }
+    
+                        if(!alreadyAdded)
+                        {
+                            profiles.push(user)
+                        }
+                    }
+                }   
+            }
 
             var promises = []
             
