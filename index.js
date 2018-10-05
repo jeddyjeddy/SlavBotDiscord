@@ -794,7 +794,7 @@ var ResponseFunctions = module.exports = {
 getOverwrite: function(guild, channelID) {
     return localGetOverwrite(guild, channelID)
 },
-getAllOverwrite: function(guild, channelID) {
+getAllOverwrite: function(guild) {
     return localGetAllOverwrite(guild)
 },
 hasOverwrite: function(guild) {
