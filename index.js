@@ -317,21 +317,25 @@ var localChangeResponse = (guildID, setting, channel) => {
                 {
                     if(responseSettings[i].overwrites != null)
                     {
-                        for(var i2 = 0; i2 < responseSettings[i].overwrites.length; i2++)
+                        var newOVW = responseSettings[i].overwrites;
+                        for(var i2 = 0; i2 < newOVW.length; i2++)
                         {
-                            if(responseSettings[i].overwrites[i2] == channel)
+                            if(newOVW[i2] == channel)
                             {
-                                responseSettings[i].overwrites.splice(i2, 1) 
+                                newOVW.splice(i2, 1) 
                             }
                         }
 
-                        if(responseSettings[i].overwrites.length == 0)
+                        if(newOVW.length == 0)
                         {
                             responseSettings[i].overwrites = null
                             firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").remove();
                         }
                         else
-                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
+                        {
+                            responseSettings[i].overwrites = newOVW;
+                            firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(newOVW));
+                        }
                     }
                 }
             }
