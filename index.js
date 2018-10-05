@@ -317,10 +317,13 @@ var localChangeResponse = (guildID, setting, channel) => {
                 {
                     if(responseSettings[i].overwrites != null)
                     {
-                        var channelIndex = responseSettings[i].overwrites.indexOf(channel)
+                        var ovw = responseSettings[i].overwrites;
+                        var channelIndex = ovw.indexOf(channel)
 
                         if(channelIndex > -1)
-                            responseSettings[i].overwrites.splice(channelIndex, 1) 
+                            ovw.splice(channelIndex, 1) 
+
+                        responseSettings[i].overwrites = ovw;
 
                         if(responseSettings[i].overwrites.length == 0)
                         {
