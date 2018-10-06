@@ -110,15 +110,8 @@ class EmbossCommand extends command.Command
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to emboss");
-                    const fileTemp = "";
-                    if(userImage.getExtension() == "gif")
-                    {
-                        fileTemp = shortid.generate() + ".jpg"
-                    }
-                    else
-                    {
-                        fileTemp = shortid.generate() + "." + userImage.getExtension();
-                    }
+                    
+                    fileTemp = shortid.generate() + ".png"
                     
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
