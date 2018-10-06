@@ -125,7 +125,7 @@ class RrCommand extends command.Command
                         {
                             bulletLoad.push({
                                 key: message.channel.id,
-                                value: Math.floor(Math.random() * 6)
+                                value: Math.floor(Math.random() * 5)
                             });
                             for(var i = 0; i < bulletLoad.length; i++)
                             {
@@ -212,7 +212,7 @@ class RrCommand extends command.Command
                             if(bulletLoad[i].key == message.channel.id)
                             {
                                 hasKey = true;
-                                bulletLoad[i].value = Math.floor(Math.random() * 6);
+                                bulletLoad[i].value = Math.floor(Math.random() * 5);
                                 index = i
                             }
                         }
@@ -220,7 +220,7 @@ class RrCommand extends command.Command
                         {
                             bulletLoad.push({
                                 key: message.channel.id,
-                                value: Math.floor(Math.random() * 6)
+                                value: Math.floor(Math.random() * 5)
                             });
                             for(var i = 0; i < bulletLoad.length; i++)
                             {
@@ -303,7 +303,7 @@ class RrCommand extends command.Command
                                             {
                                                 bulletLoad.push({
                                                     key: message.channel.id,
-                                                    value: Math.floor(Math.random() * 6)
+                                                    value: Math.floor(Math.random() * 5)
                                                 });
                                             }
                                             loaded = true;
@@ -373,7 +373,7 @@ class RrCommand extends command.Command
                     {
                         bulletLoad.push({
                             key: message.channel.id,
-                            value: Math.floor(Math.random() * 6)
+                            value: Math.floor(Math.random() * 5)
                         });
                         for(var i = 0; i < bulletLoad.length; i++)
                         {
@@ -461,7 +461,7 @@ class RrCommand extends command.Command
                         if(bulletLoad[i].key == message.channel.id)
                         {
                             hasKey = true;
-                            bulletLoad[i].value = Math.floor(Math.random() * 6);
+                            bulletLoad[i].value = Math.floor(Math.random() * 5);
                             index = i
                         }
                     }
@@ -469,7 +469,7 @@ class RrCommand extends command.Command
                     {
                         bulletLoad.push({
                             key: message.channel.id,
-                            value: Math.floor(Math.random() * 6)
+                            value: Math.floor(Math.random() * 5)
                         });
                         for(var i = 0; i < bulletLoad.length; i++)
                         {
@@ -552,7 +552,7 @@ class RrCommand extends command.Command
                                         {
                                             bulletLoad.push({
                                                 key: message.channel.id,
-                                                value: Math.floor(Math.random() * 6)
+                                                value: Math.floor(Math.random() * 5)
                                             });
                                         }
                                         loaded = true;
