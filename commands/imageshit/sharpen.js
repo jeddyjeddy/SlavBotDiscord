@@ -178,8 +178,8 @@ class SharpenCommand extends command.Command
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    
-                    fileTemp = shortid.generate() + ".png"
+
+                    var fileTemp = shortid.generate() + ".png"
                     
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
