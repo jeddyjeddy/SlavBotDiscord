@@ -274,10 +274,10 @@ class WWCommand extends command.Command
                                 var ruled = false;
                                 for(var countryIndex = 0; countryIndex < wars[i].countries.length; countryIndex++)
                                 {
-                                    if(wars[i].countries[countryIndex].key == allCountries[index])
+                                    if(wars[i].countries[countryIndex].key == allCountries[index].toLowerCase())
                                     {
                                         ruled = true;
-                                        text = text + " - Conquered by <@" +  wars[i].countries[countryIndex] + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
+                                        text = text + " - Conquered by <@" +  wars[i].countries[countryIndex].ruler + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
                                     }
                                 }
 
