@@ -366,7 +366,7 @@ class WWCommand extends command.Command
                                             var countryFound = true;
                                             for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
                                             {
-                                                if(wars[i].countries[warCountryIndex].key == allCountries[countryIndex])
+                                                if(wars[i].countries[warCountryIndex].key == allCountries[countryIndex].toLowerCase())
                                                 {
                                                     countryFound = false;
                                                     wars[i].countries[warCountryIndex].value = wars[i].countries[warCountryIndex].value + 500;
