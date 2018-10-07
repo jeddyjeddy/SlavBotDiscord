@@ -325,6 +325,7 @@ class WWCommand extends command.Command
                                 {
                                     notFound = false;
                                     var value = 500;
+                                    var previousRuler = ""
                                     for(var index = 0; index < wars[i].countries.length; index++)
                                     {
                                         if(wars[i].countries[index].key == allCountries[countryIndex].toLowerCase())
@@ -333,6 +334,10 @@ class WWCommand extends command.Command
                                             if(wars[i].countries[index].ruler == message.author.id)
                                             {
                                                 canBuy = false;
+                                            }
+                                            else
+                                            {
+                                                previousRuler = wars[i].countries[index].ruler
                                             }
                                         }
                                     }
@@ -345,11 +350,18 @@ class WWCommand extends command.Command
                                     {
                                         if(!IndexRef.subtractTokens(message.author.id, value))
                                         {
-                                            message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {
-                                            message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            var prevMessage = ""
+
+                                            if(previousRuler != "")
+                                            {
+                                                prevMessage = " from <@" + previousRuler + ">"
+                                            }
+                                            
+                                            message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You have conquered " + allCountries[countryIndex] + prevMessage + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             
                                             var countryFound = true;
                                             for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
