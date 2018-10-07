@@ -792,6 +792,104 @@ function commandUsageAscending(a, b)
     return 0;
 }
 
+var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
+
+var getUserTokens = (userID) =>
+{
+
+    for(var index = 0; index < tokens.length; index++)
+    {
+        if(tokens[index].key == userID)
+        {
+            return tokens[index].tokens;
+        }
+    }
+
+    var timestamp = (new Date(Date.now()).toJSON());
+    var token = {key: userID, tokens: 0, collectDate: timestamp}
+    tokens.push(token);
+    firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+}
+
+var addUserTokens = (userID, amount) =>
+{
+    for(var index = 0; index < tokens.length; index++)
+    {
+        if(tokens[index].key == userID)
+        {
+            tokens[index].tokens = tokens[index].tokens + amount;
+            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+        }
+    }
+}
+
+//const giveawayToken = 10000;
+var listener = require("contentful-webhook-listener");
+var webhook = listener.createServer({
+    "Authorization": "TestAuth"
+}, function requestListener (request, response) {
+ 
+    console.log("request received");
+ 
+});
+var port = 5000;
+ 
+webhook.on("publish", function (payload) {
+ 
+    console.log(payload);
+ 
+});
+ 
+webhook.listen(port, function callback () {
+ 
+    console.log("server is listening");
+ 
+});
+
+var subtractUserTokens = (userID, amount) =>
+{
+    for(var index = 0; index < tokens.length; index++)
+    {
+        if(tokens[index].key == userID)
+        {
+            if(tokens[index].tokens >= amount)
+            {
+                tokens[index].tokens = tokens[index].tokens - amount;
+                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+var getTokenCooldown = (userID) =>
+{
+    for(var index = 0; index < tokens.length; index++)
+    {
+        if(tokens[index].key == userID)
+        {
+            return tokens[index].collectDate;
+        }
+    }
+
+    return (new Date(Date.now()).toJSON());
+}
+
+var setTokenCooldown = (userID, cooldown) =>
+{
+    for(var index = 0; index < tokens.length; index++)
+    {
+        if(tokens[index].key == userID)
+        {
+            tokens[index].collectDate = cooldown;
+            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+        }
+    }
+}
+
+
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -856,9 +954,29 @@ setWelcome: function(guildID, channelID)
     return setWelcomeChannel(guildID, channelID);
 },
 
-disableWelcome: function(guildID,)
+disableWelcome: function(guildID)
 {
     return disableWelcomeChannel(guildID);
+},
+getTokens: function(userID)
+{
+    return getUserTokens(userID)
+},
+addTokens: function(userID, amount)
+{
+    addUserTokens(userID, amount)
+},
+subtractTokens: function(userID, amount)
+{
+    return subtractUserTokens(userID, amount)
+},
+getCooldown: function(userID)
+{
+    return getTokenCooldown(userID)
+},
+setCooldown: function(userID, cooldown)
+{
+    setTokenCooldown(userID, cooldown)
 }
 }
 
@@ -1012,6 +1130,12 @@ var initData = () => {
         {
             snapshot.forEach(function(childSnap){
                 userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+
+                if(childSnap.child("tokens").val() != null)
+                {
+                    var token = JSON.parse(childSnap.child("tokens").val())
+                    tokens.push(token)
+                }
             });
         }
       })
