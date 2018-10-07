@@ -387,6 +387,14 @@ class WWCommand extends command.Command
                                             {
                                                 wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 1000}) 
                                             }
+
+                                            if(previousRuler == "")
+                                            {
+                                                if(wars[i].countries.length == allCountries.length)
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Last Ruler Standing***", description: "All countries have been conquered. First one to take them all wins.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                            }
                                         }
                                     }
                                 }
