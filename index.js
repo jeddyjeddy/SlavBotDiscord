@@ -1145,7 +1145,8 @@ var initData = () => {
         if(snapshot.val() != null)
         {
             snapshot.forEach(function(childSnap){
-                userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+                if(childSnap.child("commandusage".val() != null))
+                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
 
                 if(childSnap.child("tokens").val() != null)
                 {
