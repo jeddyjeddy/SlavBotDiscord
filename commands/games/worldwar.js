@@ -121,8 +121,13 @@ class WWCommand extends command.Command
                             }
                         }
 
-                        var options = args.toLowerCase()
-                        options.splice(endIndex)
+                        var options = ""
+
+                        for(var index = 0; index < endIndex; i++)
+                        {
+                            options = options + args[index];
+                        }
+
                         var amount = options.match(/\d+/g).map(Number);
                         
                         if(amount.length > 0)
