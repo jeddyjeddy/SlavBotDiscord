@@ -820,14 +820,21 @@ var addUserTokens = (userID, amount) =>
         {
             tokens[index].tokens = tokens[index].tokens + amount;
             firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+            return;
         }
+    }
+
+    if(signedIntoDiscord)
+    {
+        getUserTokens(userID)
+        addUserTokens(userID, amount)
     }
 }
 
-//const giveawayToken = 10000;
+const giveawayToken = 10000;
 var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
-    "Authorization": "TestAuth"
+    "Authorization": process.env.VOTE_AUTH
 }, function requestListener (request, response) {
     console.log("request received");
     var body = []
@@ -835,8 +842,7 @@ var webhook = listener.createServer({
         body.push(chunk);
       }).on('end', () => {
         body = Buffer.concat(body).toString();
-        // at this point, `body` has the entire request body stored in it as a string
-        console.log(body)
+        addUserTokens(body.user, giveawayToken)
       });
 });
 var port = 5000;
