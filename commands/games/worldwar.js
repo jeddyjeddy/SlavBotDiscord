@@ -496,9 +496,8 @@ class WWCommand extends command.Command
                             }
                         }
                     }
+                    firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
                 }
-
-                firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
             }
         })
     }
