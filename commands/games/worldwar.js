@@ -272,7 +272,7 @@ class WWCommand extends command.Command
                                     if(wars[i].countries[countryIndex].key == allCountries[index])
                                     {
                                         ruled = true;
-                                        text = text + " - Conquered by <@" +  wars[i].countries[countryIndex] + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + "tokens"
+                                        text = text + " - Conquered by <@" +  wars[i].countries[countryIndex] + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
                                     }
                                 }
 
@@ -323,11 +323,11 @@ class WWCommand extends command.Command
 
                                     if(!IndexRef.subtractTokens(message.author.id, value))
                                     {
-                                        message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + "tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + "tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         
                                         var countryFound = true;
                                         for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
@@ -437,7 +437,7 @@ class WWCommand extends command.Command
                                 thumbnail = message.author.avatarURL
 
                             var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + "countries out of " + allCountries.length + ". You have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + " countries out of " + allCountries.length + ". You have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
