@@ -847,7 +847,7 @@ var webhook = listener.createServer({
         body.push(chunk);
       }).on('end', () => {
         body = Buffer.concat(body).toString();
-        if(body != undefined)
+        if(body["user"] != undefined)
         {
             console.log(body["user"])
             addUserTokens(body["user"], giveawayToken)
