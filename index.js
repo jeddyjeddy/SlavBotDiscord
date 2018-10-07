@@ -1105,7 +1105,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                             }
                         }
 
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Gopnik Supporter's Republic* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support.").catch(error => console.log("Send Error - " + error));
+                        addUserTokens(newMemberData.user.id, 50000)
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Gopnik Supporter's Republic* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else if(newRoles[i].id == slavRole)
