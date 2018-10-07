@@ -149,6 +149,12 @@ class WWCommand extends command.Command
                         }
                         return;
                     }
+                    else if(message.author.id == message.client.owners[0].id && args.toLowerCase() == "end")
+                    {
+                        wars[i].ended = true;
+                        message.channel.send("<@" + message.author.id + "> Ended WW Session").catch(error => {console.log("Send Error - " + error); });
+                        return;
+                    }
 
                     if(wars[i].ended)
                     {
