@@ -318,6 +318,7 @@ class WWCommand extends command.Command
                         {
                             var countryName = args.toLowerCase().replace(/buy /g, "")
                             var notFound = true;
+                            var canBuy = true;
                             for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
                             {
                                 if(allCountries[countryIndex].toLowerCase() == countryName)
@@ -329,31 +330,42 @@ class WWCommand extends command.Command
                                         if(wars[i].countries[index].key == allCountries[countryIndex].toLowerCase())
                                         {
                                             value = wars[i].countries[index].value;
+                                            if(wars[i].countries[index].ruler == message.author.id)
+                                            {
+                                                canBuy = false;
+                                            }
                                         }
                                     }
 
-                                    if(!IndexRef.subtractTokens(message.author.id, value))
+                                    if(!canBuy)
                                     {
-                                        message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Already Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You have already conquered " + allCountries[countryIndex], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        
-                                        var countryFound = true;
-                                        for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
+                                        if(!IndexRef.subtractTokens(message.author.id, value))
                                         {
-                                            if(wars[i].countries[warCountryIndex].key == allCountries[countryIndex])
-                                            {
-                                                countryFound = false;
-                                                wars[i].countries[warCountryIndex].value = wars[i].countries[warCountryIndex].value + 500;
-                                                wars[i].countries[warCountryIndex].ruler = message.author.id;
-                                            }
+                                            message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
-
-                                        if(countryFound)
+                                        else
                                         {
-                                            wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 1000}) 
+                                            message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            
+                                            var countryFound = true;
+                                            for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
+                                            {
+                                                if(wars[i].countries[warCountryIndex].key == allCountries[countryIndex])
+                                                {
+                                                    countryFound = false;
+                                                    wars[i].countries[warCountryIndex].value = wars[i].countries[warCountryIndex].value + 500;
+                                                    wars[i].countries[warCountryIndex].ruler = message.author.id;
+                                                }
+                                            }
+    
+                                            if(countryFound)
+                                            {
+                                                wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 1000}) 
+                                            }
                                         }
                                     }
                                 }
