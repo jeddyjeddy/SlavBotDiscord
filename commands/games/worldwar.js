@@ -320,7 +320,7 @@ class WWCommand extends command.Command
                                     var value = 500;
                                     for(var index = 0; index < wars[i].countries.length; index++)
                                     {
-                                        if(wars[i].countries[index].key == allCountries[countryIndex])
+                                        if(wars[i].countries[index].key == allCountries[countryIndex].toLowerCase())
                                         {
                                             value = wars[i].countries[index].value;
                                         }
@@ -332,7 +332,7 @@ class WWCommand extends command.Command
                                     }
                                     else
                                     {
-                                        message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         
                                         var countryFound = true;
                                         for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
