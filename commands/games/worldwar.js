@@ -441,7 +441,7 @@ class WWCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("<@ " + message.author.id + "> No parameter given. Use `" + commandPrefix + "help ww` for help.").catch(error => {console.log("Send Error - " + error); });
+                            message.channel.send("<@" + message.author.id + "> No parameter given. Use `" + commandPrefix + "help ww` for help.").catch(error => {console.log("Send Error - " + error); });
                         }
 
                         if(wars[i].countries.length == allCountries.length)
