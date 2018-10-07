@@ -249,10 +249,10 @@ class WWCommand extends command.Command
 
                             if(date.getTime() <= (new Date()).getTime())
                             {
-                                var collected = Math.floor(Math.random() * 1000)
+                                var collected = Math.floor(Math.random() * 1000) + 1
                                 var timestamp = (new Date(Date.now()).toJSON());
 
-                                IndexRef.addTokens(collected)
+                                IndexRef.addTokens(message.author.id, collected)
                                 IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
 
                                 message.channel.send("", {embed: {title: "***Resources Collected***", description: "You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
