@@ -261,11 +261,11 @@ class WWCommand extends command.Command
                                 IndexRef.addTokens(message.author.id, collected)
                                 IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
 
-                                message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@ " + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***Cooldown***", description: "<@ " + message.author.id + "> You cannot collect more resources until the 2 minute cooldown is over.", color: 65339, timestamp: IndexRef.getCooldown(message.author.id), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Cooldown***", description: "<@" + message.author.id + "> You cannot collect more resources until the 2 minute cooldown is over.", color: 65339, timestamp: IndexRef.getCooldown(message.author.id), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                             }
                                 
                             
@@ -339,17 +339,17 @@ class WWCommand extends command.Command
 
                                     if(!canBuy)
                                     {
-                                        message.channel.send("", {embed: {title: "***Already Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@ " + message.author.id + "> You have already conquered " + allCountries[countryIndex], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Already Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You have already conquered " + allCountries[countryIndex], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
                                         if(!IndexRef.subtractTokens(message.author.id, value))
                                         {
-                                            message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@ " + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + value + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {
-                                            message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@ " + message.author.id + "> You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Successfully Conquered " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You have conquered " + allCountries[countryIndex] + ". You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             
                                             var countryFound = true;
                                             for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
