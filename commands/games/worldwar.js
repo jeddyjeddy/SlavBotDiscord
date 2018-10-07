@@ -229,7 +229,7 @@ class WWCommand extends command.Command
                                 thumbnail = message.author.avatarURL
 
                             var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: thumbnail, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
@@ -437,7 +437,7 @@ class WWCommand extends command.Command
                                 thumbnail = message.author.avatarURL
 
                             var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + "countries out of " + allCountries.length + ". You have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: thumbnail, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + "countries out of " + allCountries.length + ". You have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {
@@ -482,7 +482,7 @@ class WWCommand extends command.Command
                                         thumbnail = user.avatarURL
         
                                     var timestamp = (new Date(Date.now()).toJSON());
-                                    message.channel.send("", {embed: {title: "***Game Over***", description: user.username + " has won the game.", color: 16711680, thumbnail: thumbnail, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Game Over***", description: user.username + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                         console.log(rejection.message);
                                         var timestamp = (new Date(Date.now()).toJSON());
