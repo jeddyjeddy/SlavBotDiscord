@@ -842,13 +842,16 @@ var webhook = listener.createServer({
         body.push(chunk);
       }).on('end', () => {
         body = Buffer.concat(body).toString();
-        console.log(body)
-        addUserTokens(body.user, giveawayToken)
-        bot.fetchUser(body.user).then(user => {
-                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body.user)) + " tokens.").catch(error => console.log("Send Error - " + error));
-        }, rejection => {
-                console.log(rejection.message);
-        });
+        if(body != undefined)
+        {
+            console.log(body["user"])
+            addUserTokens(body["user"], giveawayToken)
+            bot.fetchUser(body["user"]).then(user => {
+                    user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
+            }, rejection => {
+                    console.log(rejection.message);
+            });
+        }
       });
 });
 var port = 5000;
