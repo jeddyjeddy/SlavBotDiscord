@@ -846,7 +846,7 @@ var webhook = listener.createServer({
             body = JSON.parse(Buffer.concat(body).toString());
             bot.fetchUser(body["user"]).then(user => {
                 addUserTokens(body["user"], giveawayToken)
-                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
+                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens. Use `help ww` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
             }, rejection => {
                     console.log(rejection.message);
             });
