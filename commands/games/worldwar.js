@@ -232,7 +232,7 @@ class WWCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("<@ " + message.author.id + "> There is no on-going WW session. Use `" + commandPrefix + "ww start` to start a new one.").catch(error => {console.log("Send Error - " + error); });
+                            message.channel.send("<@" + message.author.id + "> There is no on-going WW session. Use `" + commandPrefix + "ww start` to start a new one.").catch(error => {console.log("Send Error - " + error); });
                         }
                     }
                     else
