@@ -247,7 +247,7 @@ class WWCommand extends command.Command
                         {  
                             const date = new Date(IndexRef.getCooldown(message.author.id))
 
-                            if(date.getTime() >= (new Date()).getTime())
+                            if(date.getTime() <= (new Date()).getTime())
                             {
                                 var collected = Math.floor(Math.random() * 1000)
                                 var timestamp = (new Date(Date.now()).toJSON());
