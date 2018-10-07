@@ -7,6 +7,7 @@ const bot = new commando.Client({
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
+const giveawayToken = 10000;
 
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -629,7 +630,7 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Weekend Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes! https://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
                                                 user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
@@ -648,7 +649,7 @@ var commandCounterChange = (userID) => {
                                     console.log("Sending Regular Request")
                                     bot.fetchUser(userID)
                                     .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. https://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
                                                 user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
@@ -831,7 +832,6 @@ var addUserTokens = (userID, amount) =>
     }
 }
 
-const giveawayToken = 10000;
 var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
     "Authorization": process.env.VOTE_AUTH
@@ -843,6 +843,12 @@ var webhook = listener.createServer({
       }).on('end', () => {
         body = Buffer.concat(body).toString();
         addUserTokens(body.user, giveawayToken)
+        bot.fetchUser(body.user)
+        .then(user => {
+                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(user.id)) + " tokens.").catch(error => console.log("Send Error - " + error));
+        }, rejection => {
+                console.log(rejection.message);
+        });
       });
 });
 var port = 5000;
