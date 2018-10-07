@@ -830,6 +830,7 @@ var webhook = listener.createServer({
     "Authorization": "TestAuth"
 }, function requestListener (request, response) {
     console.log("request received");
+    var body = []
     request.on('data', (chunk) => {
         body.push(chunk);
       }).on('end', () => {
@@ -838,12 +839,6 @@ var webhook = listener.createServer({
       });
 });
 var port = 5000;
- 
-webhook.on("data", function (payload) {
- 
-    console.log(payload);
- 
-});
  
 webhook.listen(port, function callback () {
  
