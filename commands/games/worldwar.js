@@ -305,9 +305,7 @@ class WWCommand extends command.Command
                         }
                         else if (args.toLowerCase().startsWith("buy "))
                         {
-                            var countryName = args.toLowerCase().array()
-                            countryName.splice(4)
-                            countryName = countryName.toString()
+                            var countryName = args.toLowerCase().replace(/buy /g, "")
                             var notFound = true;
                             for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
                             {
