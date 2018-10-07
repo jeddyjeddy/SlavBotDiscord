@@ -347,7 +347,7 @@ class WWCommand extends command.Command
 
                                         if(countryFound)
                                         {
-                                            wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 500}) 
+                                            wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 1000}) 
                                         }
                                     }
                                 }
