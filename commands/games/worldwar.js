@@ -288,7 +288,7 @@ class WWCommand extends command.Command
                                 else
                                 {
                                     lists.push(item);
-                                    item = "Country - Ruler - Value\n\n" + text;
+                                    item = "Country - Ruler - Value\n\n" + text + "\n";
                                 }
                             }
 
