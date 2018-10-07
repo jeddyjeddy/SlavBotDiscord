@@ -214,11 +214,14 @@ class WWCommand extends command.Command
                         {
                             var winCount = 0
 
-                            for(var index = 0; index < wars[i].wins.length; index++)
+                            if(wars[i].wins != undefined)
                             {
-                                if(wars[i].wins[index].key == message.author.id)
+                                for(var index = 0; index < wars[i].wins.length; index++)
                                 {
-                                    winCount += 1;
+                                    if(wars[i].wins[index].key == message.author.id)
+                                    {
+                                        winCount += 1;
+                                    }
                                 }
                             }
 
@@ -422,11 +425,14 @@ class WWCommand extends command.Command
 
                             var winCount = 0
 
-                            for(var index = 0; index < wars[i].wins.length; index++)
+                            if(wars[i].wins != undefined)
                             {
-                                if(wars[i].wins[index].key == message.author.id)
+                                for(var index = 0; index < wars[i].wins.length; index++)
                                 {
-                                    winCount += 1;
+                                    if(wars[i].wins[index].key == message.author.id)
+                                    {
+                                        winCount += 1;
+                                    }
                                 }
                             }
 
