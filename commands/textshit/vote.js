@@ -7,7 +7,7 @@ class VoteCommand extends command.Command
         super(client, {
             name: "vote",
             group: "util",
-            memberName: "support",
+            memberName: "vote",
             description: "Gives the DBL vote link for Slav Bot.",
             examples: ["`!vote`"]
         });
