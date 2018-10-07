@@ -123,7 +123,7 @@ class WWCommand extends command.Command
 
                         var options = ""
 
-                        for(var index = 0; index < endIndex; i++)
+                        for(var index = 0; index < endIndex; index++)
                         {
                             options = options + args[index];
                         }
