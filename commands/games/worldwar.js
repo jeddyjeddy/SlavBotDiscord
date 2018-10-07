@@ -249,7 +249,7 @@ class WWCommand extends command.Command
 
                             if(date.getTime() <= (new Date()).getTime())
                             {
-                                var collected = Math.floor(Math.random() * 1000) + 1
+                                var collected = Math.floor(Math.random() * 2000) + 1
                                 var timestamp = (new Date(Date.now()).toJSON());
 
                                 IndexRef.addTokens(message.author.id, collected)
