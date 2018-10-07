@@ -844,7 +844,7 @@ var webhook = listener.createServer({
         body = Buffer.concat(body).toString();
         if(body !== undefined && body !== null)
         {
-            var userID = (Object.values(body["user"])).toString()
+            var userID = (Object.values(body))
             console.log(userID)
             /*addUserTokens(body["user"], giveawayToken)
             bot.fetchUser(body["user"]).then(user => {
