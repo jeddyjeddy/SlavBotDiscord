@@ -809,6 +809,7 @@ var getUserTokens = (userID) =>
     var token = {key: userID, tokens: 0, collectDate: timestamp}
     tokens.push(token);
     firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+    return 0;
 }
 
 var addUserTokens = (userID, amount) =>
