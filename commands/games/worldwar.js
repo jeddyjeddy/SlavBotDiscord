@@ -420,7 +420,7 @@ class WWCommand extends command.Command
 
                             for(var index = 0; index < wars[i].countries.length; index++)
                             {
-                                if(wars[i].countries[index].key == message.author.id)
+                                if(wars[i].countries[index].ruler == message.author.id)
                                 {
                                     count += 1;
                                 }
@@ -455,7 +455,7 @@ class WWCommand extends command.Command
                             var hasEnded = true;
                             for(var index = 0; index < wars[i].countries.length; index++)
                             {
-                                if(userID != wars[i].countries[index].key)
+                                if(userID != wars[i].countries[index].ruler)
                                 {
                                     hasEnded = false;
                                 }
