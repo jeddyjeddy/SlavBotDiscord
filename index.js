@@ -827,7 +827,8 @@ var addUserTokens = (userID, amount) =>
 //const giveawayToken = 10000;
 var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
-    "Authorization": "TestAuth"
+    "Authorization": "TestAuth",
+    "auth": "TestAuth"
 }, function requestListener (request, response) {
  
     console.log("request received");
