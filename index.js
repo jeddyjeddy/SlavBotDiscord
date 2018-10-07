@@ -830,7 +830,7 @@ var webhook = listener.createServer({
     "Authorization": "TestAuth"
 }, function requestListener (request, response) {
     console.log("request received");
-    console.log(request)
+    console.log(response)
 });
 var port = 5000;
  
