@@ -842,15 +842,17 @@ var webhook = listener.createServer({
         body.push(chunk);
       }).on('end', () => {
         body = Buffer.concat(body).toString();
-        var userID = (Object.values(body["user"])).toString()
-        console.log(userID)
-        /*addUserTokens(body["user"], giveawayToken)
-        bot.fetchUser(body["user"]).then(user => {
-                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
-        }, rejection => {
-                console.log(rejection.message);
-        });*/
-        
+        if(body !== undefined && body !== null)
+        {
+            var userID = (Object.values(body["user"])).toString()
+            console.log(userID)
+            /*addUserTokens(body["user"], giveawayToken)
+            bot.fetchUser(body["user"]).then(user => {
+                    user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
+            }, rejection => {
+                    console.log(rejection.message);
+            });*/
+        }
       });
 });
 var port = 5000;
