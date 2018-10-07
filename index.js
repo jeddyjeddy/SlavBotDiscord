@@ -841,18 +841,15 @@ var webhook = listener.createServer({
     request.on('data', (chunk) => {
         body.push(chunk);
       }).on('end', () => {
-          if(body != [])
+          if(body != [] && body !== undefined && body !== null)
           {
             body = JSON.parse(Buffer.concat(body).toString());
-            if(body !== undefined && body !== null)
-            {
-                bot.fetchUser(body["user"]).then(user => {
-                        addUserTokens(body["user"], giveawayToken)
-                        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
-                }, rejection => {
-                        console.log(rejection.message);
-                });
-            }
+            bot.fetchUser(body["user"]).then(user => {
+                addUserTokens(body["user"], giveawayToken)
+                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
+            }, rejection => {
+                    console.log(rejection.message);
+            });
           }
       });
 });
