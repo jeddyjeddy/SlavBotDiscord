@@ -58,13 +58,7 @@ class LeaderboardsCommand extends command.Command
 
             for(var i = 0; i < localLeaderboards.length; i++)
             {
-                var uses = 0;
-                if(localLeaderboards[i].data != null)
-                {
-                    uses = localLeaderboards[i].data.uses;
-                }
-
-                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(uses) + "`` - **" + names[i] + "**\n");
+                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas() + "`` - **" + names[i] + "**\n");
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
@@ -114,13 +108,7 @@ class LeaderboardsCommand extends command.Command
 
                 for(var i = 0; i < leaderboards.length; i++)
                 {
-                    var uses = 0;
-                    if(localLeaderboards[i].data != null)
-                    {
-                        uses = localLeaderboards[i].data.uses;
-                    }
-
-                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(uses) + "`` - **" + names[i] + "**\n");
+                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
