@@ -277,13 +277,22 @@ class WWCommand extends command.Command
                             for(var index = 0; index < allCountries.length; index++)
                             {
                                 var text = ":flag_" + countries.getCode(allCountries[index]).toLowerCase() + ": " + allCountries[index];
+                                var ruledTimes = 0;
                                 var ruled = false;
                                 for(var countryIndex = 0; countryIndex < wars[i].countries.length; countryIndex++)
                                 {
                                     if(wars[i].countries[countryIndex].key == allCountries[index].toLowerCase())
                                     {
-                                        ruled = true;
-                                        text = text + " - Conquered by <@" +  wars[i].countries[countryIndex].ruler + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
+                                        if(ruledTimes > 0)
+                                        {
+                                            wars[i].countries.splice(countryIndex, 1)
+                                        }
+                                        else
+                                        {
+                                            ruled = true;
+                                            ruledTimes += 1;
+                                            text = text + " - Conquered by <@" +  wars[i].countries[countryIndex].ruler + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
+                                        }
                                     }
                                 }
 
