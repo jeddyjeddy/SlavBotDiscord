@@ -328,6 +328,7 @@ class WWCommand extends command.Command
                             var countryName = args.toLowerCase().replace(/buy /g, "")
                             var notFound = true;
                             var canBuy = true;
+                            var timestamp = (new Date(Date.now()).toJSON());
                             for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
                             {
                                 if(allCountries[countryIndex].toLowerCase() == countryName)
