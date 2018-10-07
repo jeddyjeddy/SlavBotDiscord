@@ -841,11 +841,10 @@ var webhook = listener.createServer({
     request.on('data', (chunk) => {
         body.push(chunk);
       }).on('end', () => {
-        body = Buffer.concat(body).toString();
+        body = JSON.parse(Buffer.concat(body).toString());
         if(body !== undefined && body !== null)
         {
-            var userID = (Object.values(body))
-            console.log(userID)
+            console.log(body)
             /*addUserTokens(body["user"], giveawayToken)
             bot.fetchUser(body["user"]).then(user => {
                     user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(body["user"])) + " tokens.").catch(error => console.log("Send Error - " + error));
