@@ -213,17 +213,15 @@ class WWCommand extends command.Command
                         else if(args.toLowerCase() == "profile")
                         {
                             var winCount = 0
-
-                            if(wars[i].wins != undefined)
+                            
+                            for(var index = 0; index < wars[i].ranks.length; index++)
                             {
-                                for(var index = 0; index < wars[i].wins.length; index++)
+                                if(wars[i].ranks[index].key == message.author.id)
                                 {
-                                    if(wars[i].wins[index].key == message.author.id)
-                                    {
-                                        winCount += 1;
-                                    }
+                                    winCount = wars[i].ranks[index].wins;
                                 }
                             }
+                            
 
                             var thumbnail = "";
 
@@ -425,14 +423,11 @@ class WWCommand extends command.Command
 
                             var winCount = 0
 
-                            if(wars[i].wins != undefined)
+                            for(var index = 0; index < wars[i].ranks.length; index++)
                             {
-                                for(var index = 0; index < wars[i].wins.length; index++)
+                                if(wars[i].ranks[index].key == message.author.id)
                                 {
-                                    if(wars[i].wins[index].key == message.author.id)
-                                    {
-                                        winCount += 1;
-                                    }
+                                    winCount = wars[i].ranks[index].wins;
                                 }
                             }
 
@@ -476,7 +471,7 @@ class WWCommand extends command.Command
 
                                 if(noData)
                                 {
-                                    wars[i].ranks[index].wins.push({key: userID, wins: 1})
+                                    wars[i].ranks[index].push({key: userID, wins: 1})
                                 }
 
                                 message.client.fetchUser(userID)
