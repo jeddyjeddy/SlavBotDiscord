@@ -786,11 +786,6 @@ var getUserBaseCount = () =>
 
 function commandUsageAscending(a, b)
 {
-    if(a.data == null)
-    {
-        return -1
-    }
-
     if (a.data.uses < b.data.uses)
         return 1;
     if (a.data.uses > b.data.uses)
