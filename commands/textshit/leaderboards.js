@@ -58,7 +58,7 @@ class LeaderboardsCommand extends command.Command
 
             for(var i = 0; i < localLeaderboards.length; i++)
             {
-                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas() + "`` - **" + names[i] + "**\n");
+                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
             }
 
             var timestamp = (new Date(Date.now()).toJSON());

@@ -842,7 +842,7 @@ var webhook = listener.createServer({
         body.push(chunk);
       }).on('end', () => {
         body = Buffer.concat(body).toString();
-        if(body["user"] != undefined)
+        /*if(body["user"] != undefined)
         {
             console.log(body["user"])
             addUserTokens(body["user"], giveawayToken)
@@ -851,7 +851,8 @@ var webhook = listener.createServer({
             }, rejection => {
                     console.log(rejection.message);
             });
-        }
+        }*/
+        console.log(body.user.toString())
       });
 });
 var port = 5000;
