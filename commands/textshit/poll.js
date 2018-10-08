@@ -28,7 +28,7 @@ class PollCommand extends command.Command
 
     async run(message, args)
     {
-        if(!signedIntoFirebase)
+        if(!signedIntoFirebase || message.guild == null)
             return;
 
         var commandPrefix= "!"
