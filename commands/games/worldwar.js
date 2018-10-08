@@ -221,38 +221,35 @@ class WWCommand extends command.Command
                                 }}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
-                        else if(args.toLowerCase() == "profile")
+                        else if(args.toLowerCase().startsWith("profile"))
                         {
                             var otherUser = false;
                             var userID = "";
 
-                            if(args.length > 0)
+                            var getUser = false;
+                            for(var index = 0; i < args.length; index++)
                             {
-                                var getUser = false;
-                                for(var i = 0; i < args.length; i++)
+                                if(getUser)
                                 {
-                                    if(getUser)
+                                    if(args[index].toString() == ">")
                                     {
-                                        if(args[i].toString() == ">")
-                                        {
-                                            i = args.length;
-                                            otherUser = true;
-                                        }
-                                        else
-                                        {
-                                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
-                                            {
-                                                userID = userID + args[i].toString();
-                                            }
-                                        }
+                                        index = args.length;
+                                        otherUser = true;
                                     }
                                     else
                                     {
-                                        if(args[i].toString() == "<")
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
                                         {
-                                            getUser = true;
-                                        } 
+                                            userID = userID + args[index].toString();
+                                        }
                                     }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
                                 }
                             }
         
@@ -529,40 +526,37 @@ class WWCommand extends command.Command
                                 }}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
-                        else if(args.toLowerCase() == "profile")
+                        else if(args.toLowerCase().startsWith("profile"))
                         {
                             var otherUser = false;
                             var userID = "";
-
-                            if(args.length > 0)
+                            var getUser = false;
+                            for(var index = 0; i < args.length; index++)
                             {
-                                var getUser = false;
-                                for(var i = 0; i < args.length; i++)
+                                if(getUser)
                                 {
-                                    if(getUser)
+                                    if(args[index].toString() == ">")
                                     {
-                                        if(args[i].toString() == ">")
-                                        {
-                                            i = args.length;
-                                            otherUser = true;
-                                        }
-                                        else
-                                        {
-                                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
-                                            {
-                                                userID = userID + args[i].toString();
-                                            }
-                                        }
+                                        index = args.length;
+                                        otherUser = true;
                                     }
                                     else
                                     {
-                                        if(args[i].toString() == "<")
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
                                         {
-                                            getUser = true;
-                                        } 
+                                            userID = userID + args[index].toString();
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
+                                }
                             }
+                            
         
                             if(otherUser)
                             {
