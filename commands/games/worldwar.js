@@ -227,7 +227,7 @@ class WWCommand extends command.Command
                             var userID = "";
 
                             var getUser = false;
-                            for(var index = 0; i < args.length; index++)
+                            for(var index = 0; index < args.length; index++)
                             {
                                 if(getUser)
                                 {
@@ -531,7 +531,7 @@ class WWCommand extends command.Command
                             var otherUser = false;
                             var userID = "";
                             var getUser = false;
-                            for(var index = 0; i < args.length; index++)
+                            for(var index = 0; index < args.length; index++)
                             {
                                 if(getUser)
                                 {
