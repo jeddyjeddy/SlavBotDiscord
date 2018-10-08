@@ -282,7 +282,7 @@ class WWCommand extends command.Command
                                     thumbnail = user.avatarURL
     
                                 var timestamp = (new Date(Date.now()).toJSON());
-                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
@@ -597,7 +597,7 @@ class WWCommand extends command.Command
                                     thumbnail = user.avatarURL
     
                                 var timestamp = (new Date(Date.now()).toJSON());
-                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n " + user.username + " has conquered " + count + " countries out of " + allCountries.length + ".\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " has conquered " + count + " countries out of " + allCountries.length + ".\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
