@@ -36,7 +36,7 @@ class WWCommand extends command.Command
             group: "games",
             memberName: "ww",
             description: "Play the World War, where users in a server fight to conquer the world and get higher on the local leaderboards. Once a game has started, it will not end until someone conquers every single country there is. Users can conquer countries using War Tokens. Users can also take countries from others with tokens (the value of countries increase based on the number of times it has been conquered). Users can gather resources to earn War Tokens (the tokens can be used in WW games on other servers) that can be used to conquer different countries. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server.",
-            examples: ["`!ww start` (Start Game)", "`!ww ranks` (Check Local Leaderboards)", "`!ww profile` (Check how many tokens you have and which countries you have conquered)", "`!ww collect` (Gather Resources)", "`!ww list` (List out all countries)", "`!ww buy <country-name>` (Conquer a country)",]
+            examples: ["`!ww start` (Start Game)", "`!ww ranks` (Check Local Leaderboards)", "`!ww profile [@User (optional)]` (Check how many tokens you or another user have and which countries you or another user have conquered)", "`!ww collect` (Gather Resources)", "`!ww list` (List out all countries)", "`!ww buy <country-name>` (Conquer a country)",]
         });
     }
 
@@ -223,24 +223,91 @@ class WWCommand extends command.Command
                         }
                         else if(args.toLowerCase() == "profile")
                         {
-                            var winCount = 0
-                            
-                            for(var index = 0; index < wars[i].ranks.length; index++)
+                            var otherUser = false;
+                            var userID = "";
+
+                            if(args.length > 0)
                             {
-                                if(wars[i].ranks[index].key == message.author.id)
+                                var getUser = false;
+                                for(var i = 0; i < args.length; i++)
                                 {
-                                    winCount = wars[i].ranks[index].wins;
+                                    if(getUser)
+                                    {
+                                        if(args[i].toString() == ">")
+                                        {
+                                            i = args.length;
+                                            otherUser = true;
+                                        }
+                                        else
+                                        {
+                                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                                            {
+                                                userID = userID + args[i].toString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(args[i].toString() == "<")
+                                        {
+                                            getUser = true;
+                                        } 
+                                    }
                                 }
                             }
+        
+                            if(otherUser)
+                            {
+                                var winCount = 0
                             
+                                for(var index = 0; index < wars[i].ranks.length; index++)
+                                {
+                                    if(wars[i].ranks[index].key == userID)
+                                    {
+                                        winCount = wars[i].ranks[index].wins;
+                                    }
+                                }
+                                
+                                var user;
+                                var mentions = message.mentions.users.array()
 
-                            var thumbnail = "";
-
-                            if(message.author.avatarURL != undefined && message.author.avatarURL != null)
-                                thumbnail = message.author.avatarURL
-
-                            var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                {
+                                    if(mentions[mentionIndex].id == userID)
+                                    {
+                                        user = mentions[mentionIndex];
+                                    }
+                                }
+    
+                                var thumbnail = "";
+    
+                                if(user.avatarURL != undefined && user.avatarURL != null)
+                                    thumbnail = user.avatarURL
+    
+                                var timestamp = (new Date(Date.now()).toJSON());
+                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                var winCount = 0
+                            
+                                for(var index = 0; index < wars[i].ranks.length; index++)
+                                {
+                                    if(wars[i].ranks[index].key == message.author.id)
+                                    {
+                                        winCount = wars[i].ranks[index].wins;
+                                    }
+                                }
+                                
+    
+                                var thumbnail = "";
+    
+                                if(message.author.avatarURL != undefined && message.author.avatarURL != null)
+                                    thumbnail = message.author.avatarURL
+    
+                                var timestamp = (new Date(Date.now()).toJSON());
+                                message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                         else
                         {
@@ -464,33 +531,110 @@ class WWCommand extends command.Command
                         }
                         else if(args.toLowerCase() == "profile")
                         {
-                            var count = 0
+                            var otherUser = false;
+                            var userID = "";
 
-                            for(var index = 0; index < wars[i].countries.length; index++)
+                            if(args.length > 0)
                             {
-                                if(wars[i].countries[index].ruler == message.author.id)
+                                var getUser = false;
+                                for(var i = 0; i < args.length; i++)
                                 {
-                                    count += 1;
+                                    if(getUser)
+                                    {
+                                        if(args[i].toString() == ">")
+                                        {
+                                            i = args.length;
+                                            otherUser = true;
+                                        }
+                                        else
+                                        {
+                                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                                            {
+                                                userID = userID + args[i].toString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(args[i].toString() == "<")
+                                        {
+                                            getUser = true;
+                                        } 
+                                    }
                                 }
                             }
-
-                            var winCount = 0
-
-                            for(var index = 0; index < wars[i].ranks.length; index++)
+        
+                            if(otherUser)
                             {
-                                if(wars[i].ranks[index].key == message.author.id)
+                                var count = 0
+
+                                for(var index = 0; index < wars[i].countries.length; index++)
                                 {
-                                    winCount = wars[i].ranks[index].wins;
+                                    if(wars[i].countries[index].ruler == userID)
+                                    {
+                                        count += 1;
+                                    }
                                 }
+
+                                var winCount = 0
+                            
+                                for(var index = 0; index < wars[i].ranks.length; index++)
+                                {
+                                    if(wars[i].ranks[index].key == userID)
+                                    {
+                                        winCount = wars[i].ranks[index].wins;
+                                    }
+                                }
+                                
+                                var user;
+                                var mentions = message.mentions.users.array()
+
+                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                {
+                                    if(mentions[mentionIndex].id == userID)
+                                    {
+                                        user = mentions[mentionIndex];
+                                    }
+                                }
+    
+                                var thumbnail = "";
+    
+                                if(user.avatarURL != undefined && user.avatarURL != null)
+                                    thumbnail = user.avatarURL
+    
+                                var timestamp = (new Date(Date.now()).toJSON());
+                                message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n " + user.username + " has conquered " + count + " countries out of " + allCountries.length + ".\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
+                            else
+                            {
+                                var count = 0
 
-                            var thumbnail = "";
-
-                            if(message.author.avatarURL != undefined && message.author.avatarURL != null)
-                                thumbnail = message.author.avatarURL
-
-                            var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + " countries out of " + allCountries.length + ".\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                for(var index = 0; index < wars[i].countries.length; index++)
+                                {
+                                    if(wars[i].countries[index].ruler == message.author.id)
+                                    {
+                                        count += 1;
+                                    }
+                                }
+    
+                                var winCount = 0
+    
+                                for(var index = 0; index < wars[i].ranks.length; index++)
+                                {
+                                    if(wars[i].ranks[index].key == message.author.id)
+                                    {
+                                        winCount = wars[i].ranks[index].wins;
+                                    }
+                                }
+    
+                                var thumbnail = "";
+    
+                                if(message.author.avatarURL != undefined && message.author.avatarURL != null)
+                                    thumbnail = message.author.avatarURL
+    
+                                var timestamp = (new Date(Date.now()).toJSON());
+                                message.channel.send("", {embed: {title: "***Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou have conquered " + count + " countries out of " + allCountries.length + ".\nYou have won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));    
+                            }
                         }
                         else
                         {
