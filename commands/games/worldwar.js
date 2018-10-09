@@ -410,11 +410,11 @@ class WWCommand extends command.Command
 
                                     if(ruler == "")
                                     {
-                                        message.channel.send("", {embed: {title: "***" + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: allCountries[countryIndex] + " has a value of " + value + " tokens.\n" + allCountries[countryIndex] + " has not yet been conquered.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: allCountries[countryIndex] + " has a value of " + numberWithCommas(value) + " tokens.\n" + allCountries[countryIndex] + " has not yet been conquered.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("", {embed: {title: "***" + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: allCountries[countryIndex] + " has a value of " + value + " tokens.\n" + allCountries[countryIndex] + " has been conquered by <@" + ruler + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: allCountries[countryIndex] + " has a value of " + numberWithCommas(value) + " tokens.\n" + allCountries[countryIndex] + " has been conquered by <@" + ruler + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                         
                                 }
