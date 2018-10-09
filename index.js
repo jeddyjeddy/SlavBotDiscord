@@ -307,14 +307,18 @@ var localChangeResponse = (guildID, setting, channel) => {
                     {
                         var data = [channel]
                         responseSettings[i].overwrites = data
-                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(data));
+                        const dataToUpload = JSON.stringify(data);
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(dataToUpload);
                     }
                     else
                     {
                         var data = responseSettings[i].overwrites;
                         data.push(channel)
                         responseSettings[i].overwrites = data
-                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(data));
+                        const dataToUpload = JSON.stringify(data);
+                        console.log(data)
+                        console.log(dataToUpload)
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(dataToUpload);
                     }
                 }
                 else
