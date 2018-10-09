@@ -292,6 +292,7 @@ var localChangeResponse = (guildID, setting, channel) => {
                     firebase.database().ref("serversettings/" + guildID + "/respond").set(setting);
                     firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").remove();
                 }
+                return;
             }
         }
     }
@@ -305,20 +306,13 @@ var localChangeResponse = (guildID, setting, channel) => {
                 {
                     if(responseSettings[i].overwrites == null)
                     {
-                        var data = [channel]
-                        responseSettings[i].overwrites = data
-                        const dataToUpload = JSON.stringify(data);
-                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(dataToUpload);
+                        responseSettings[i].overwrites = [channel]
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                     else
                     {
-                        var data = responseSettings[i].overwrites;
-                        data.push(channel)
-                        responseSettings[i].overwrites = data
-                        const dataToUpload = JSON.stringify(data);
-                        console.log(data)
-                        console.log(dataToUpload)
-                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(dataToUpload);
+                        responseSettings[i].overwrites.push(channel)
+                        firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
                 else
@@ -345,6 +339,7 @@ var localChangeResponse = (guildID, setting, channel) => {
                             firebase.database().ref("serversettings/" + guildID + "/respondoverwrites").set(JSON.stringify(responseSettings[i].overwrites));
                     }
                 }
+                return;
             }
         }
     }
