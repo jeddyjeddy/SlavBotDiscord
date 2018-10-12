@@ -1124,7 +1124,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 }
                 else if(newRoles[i].id == slavRole)
                 {
-                    if(newSlavSupporter)
+                    if(newSlavSupporter && !newGopnikSupporter)
                     {
                         newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Slavic Supporter's Republic* role.").catch(error => console.log("Send Error - " + error));
                     }
