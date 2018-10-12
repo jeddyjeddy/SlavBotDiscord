@@ -808,10 +808,21 @@ var getUserTokens = (userID) =>
         }
     }
 
-    var timestamp = (new Date(Date.now()).toJSON());
-    var token = {key: userID, tokens: 0, collectDate: timestamp}
-    tokens.push(token);
-    firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+    firebase.database().ref("usersettings/" + userID + "/tokens").once('value').then(function(snapshot) {
+        if(snapshot.val() != null)
+        {
+            var token = JSON.parse(snapshot.val())
+            tokens.push(token)
+        }
+        else
+        {
+            var timestamp = (new Date(Date.now()).toJSON());
+            var token = {key: userID, tokens: 0, collectDate: timestamp}
+            tokens.push(token);
+            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+        }
+    })
+
     return 0;
 }
 
