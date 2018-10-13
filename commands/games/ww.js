@@ -700,7 +700,7 @@ class WWCommand extends command.Command
 
                                 if(noData)
                                 {
-                                    wars[i].ranks[index].push({key: userID, wins: 1})
+                                    wars[i].ranks.push({key: userID, wins: 1})
                                 }
 
                                 message.client.fetchUser(userID)
