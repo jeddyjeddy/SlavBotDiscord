@@ -673,50 +673,71 @@ class WWCommand extends command.Command
                             message.channel.send("<@" + message.author.id + "> No parameter given. Use `" + commandPrefix + "help ww` for help.").catch(error => {console.log("Send Error - " + error); });
                         }
 
-                        if(wars[i].countries.length == allCountries.length)
+                        if(wars[i].countries.length >= allCountries.length)
                         {
-                            var userID = wars[i].countries[0].key;
-                            var hasEnded = true;
-                            for(var index = 0; index < wars[i].countries.length; index++)
+                            var finished = true;
+                            for(var index = 0; index < allCountres.length; index++)
                             {
-                                if(userID != wars[i].countries[index].ruler)
+                                for(var countryCheck = 0; countryCheck < wars[i].countries.length; countryCheck++)
                                 {
-                                    hasEnded = false;
+                                    var conquered = false;
+                                    if(wars[i].countries[countryCheck] == allCountries[index])
+                                    {
+                                        conquered = true;
+                                    }
+
+                                    if(!conquered)
+                                    {
+                                        finished = false;
+                                    }
                                 }
                             }
 
-                            if(hasEnded)
+                            if(finished)
                             {
-                                wars[i].ended = true;
-                                var noData = true;
-                                for(var index = 0; index < wars[i].ranks.length; index++)
+                                var userID = wars[i].countries[0].key;
+                                var hasEnded = true;
+                                for(var index = 0; index < wars[i].countries.length; index++)
                                 {
-                                    if(userID == wars[i].ranks[index].key)
+                                    if(userID != wars[i].countries[index].ruler)
                                     {
-                                        noData = false;
-                                        wars[i].ranks[index].wins = wars[i].ranks[index].wins + 1;
+                                        hasEnded = false;
                                     }
                                 }
-
-                                if(noData)
+    
+                                if(hasEnded)
                                 {
-                                    wars[i].ranks[index].push({key: userID, wins: 1})
-                                }
-
-                                message.client.fetchUser(userID)
-                                .then(user => {
-                                    var thumbnail = "";
-
-                                    if(user.avatarURL != undefined && user.avatarURL != null)
-                                        thumbnail = user.avatarURL
-        
-                                    var timestamp = (new Date(Date.now()).toJSON());
-                                    message.channel.send("", {embed: {title: "***Game Over***", description: user.username + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                }, rejection => {
-                                        console.log(rejection.message);
+                                    wars[i].ended = true;
+                                    var noData = true;
+                                    for(var index = 0; index < wars[i].ranks.length; index++)
+                                    {
+                                        if(userID == wars[i].ranks[index].key)
+                                        {
+                                            noData = false;
+                                            wars[i].ranks[index].wins = wars[i].ranks[index].wins + 1;
+                                        }
+                                    }
+    
+                                    if(noData)
+                                    {
+                                        wars[i].ranks[index].push({key: userID, wins: 1})
+                                    }
+    
+                                    message.client.fetchUser(userID)
+                                    .then(user => {
+                                        var thumbnail = "";
+    
+                                        if(user.avatarURL != undefined && user.avatarURL != null)
+                                            thumbnail = user.avatarURL
+            
                                         var timestamp = (new Date(Date.now()).toJSON());
-                                        message.channel.send("", {embed: {title: "***Game Over***", description: "<@" + userID + "> has won the game.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                });
+                                        message.channel.send("", {embed: {title: "***Game Over***", description: user.username + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                            console.log(rejection.message);
+                                            var timestamp = (new Date(Date.now()).toJSON());
+                                            message.channel.send("", {embed: {title: "***Game Over***", description: "<@" + userID + "> has won the game.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    });
+                                }   
                             }
                         }
                     }
