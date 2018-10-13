@@ -10,7 +10,7 @@ class BanCommand extends command.Command
             group: "moderation",
             memberName: "ban",
             description: "Ban a member or members.",
-            examples: ["`!ban @User`", "`!ban @User1 @User2`"]
+            examples: ["`!ban @User`", "`!ban @User1 @User2`", "`!ban <@id>`", "`!ban <@1234> <@1341323421>`"]
         });
     }
 
@@ -81,22 +81,19 @@ class BanCommand extends command.Command
         
         for(var i = 0; i < users.length; i++)
         {
-            message.guild.fetchMember(users[i]).then(function(member){
-                if(member.id == message.guild.owner.id)
-                {
-                    message.channel.send("<@" + message.author.id + "> You cannot ban the owner of the server.").catch(error => console.log("Send Error - " + error));
-                }
-                else
-                {
-                    member.ban().then(() => {
-                        message.channel.send("<@" + message.author.id + "> Banned <@" + member.id+ ">").catch(error => console.log("Send Error - " + error))
-                    }).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
-                }
-                
-            }).catch(function(error){
-                console.log(error.member);
-                message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
-            })
+            if(users[i] == message.guild.owner.id)
+            {
+                message.channel.send("<@" + message.author.id + "> You cannot ban the owner of the server.").catch(error => console.log("Send Error - " + error));
+            }
+            else
+            {
+                message.guild.ban(users[i]).then(() => {
+                    message.channel.send("<@" + message.author.id + "> Banned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                }).catch(function(error){
+                    console.log(error);
+                    message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
+                })
+            }
         }
     }
 }
