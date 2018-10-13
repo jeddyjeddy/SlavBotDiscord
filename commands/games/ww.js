@@ -673,8 +673,16 @@ class WWCommand extends command.Command
                             message.channel.send("<@" + message.author.id + "> No parameter given. Use `" + commandPrefix + "help ww` for help.").catch(error => {console.log("Send Error - " + error); });
                         }
 
+                        //Debug
+                        if(message.guild.id == "161985325785153536")
+                        {
+                            console.log(wars[i].countries.length)
+                            console.log(allCountries.length)
+                        }
+
                         if(wars[i].countries.length >= allCountries.length)
                         {
+                            console.log("checking")
                             var finished = true;
                             for(var index = 0; index < allCountries.length; index++)
                             {
@@ -692,6 +700,7 @@ class WWCommand extends command.Command
                                     }
                                 }
                             }
+
 
                             if(finished)
                             {
