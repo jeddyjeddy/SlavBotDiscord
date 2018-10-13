@@ -87,8 +87,9 @@ class BanCommand extends command.Command
             }
             else
             {
+                const userToBan = users[i];
                 message.guild.ban(users[i]).then(() => {
-                    message.channel.send("<@" + message.author.id + "> Banned <@" + users[i] + ">").catch(error => console.log("Send Error - " + error))
+                    message.channel.send("<@" + message.author.id + "> Banned <@" + userToBan + ">").catch(error => console.log("Send Error - " + error))
                 }).catch(function(error){
                     console.log(error);
                     message.channel.send("Error - " + error.message).catch(error => console.log("Send Error - " + error));
