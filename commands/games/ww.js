@@ -5,6 +5,7 @@ var countries = require('country-list')();
 var allCountries = countries.getNames();
 var firebase = require("firebase");
 var signedIntoFirebase = false;
+const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         signedIntoFirebase = true;
