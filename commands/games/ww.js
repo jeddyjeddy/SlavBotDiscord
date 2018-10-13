@@ -21,9 +21,9 @@ const numberWithCommas = (x) => {
 
 function rankAscending(a, b)
 {
-    if (a.tokens < b.tokens)
+    if (a.wins < b.wins)
         return 1;
-    if (a.tokens > b.tokens)
+    if (a.wins > b.wins)
         return -1;
     return 0;
 }
@@ -208,7 +208,7 @@ class WWCommand extends command.Command
 
                                 for(var i = 0; i < length; i++)
                                 {
-                                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].tokens) + "`` - **" + names[i] + "**\n");
+                                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].wins) + "`` - **" + names[i] + "**\n");
                                 }
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
@@ -551,7 +551,7 @@ class WWCommand extends command.Command
 
                                 for(var i = 0; i < length; i++)
                                 {
-                                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].tokens) + "`` - **" + names[i] + "**\n");
+                                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].wins) + "`` - **" + names[i] + "**\n");
                                 }
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
