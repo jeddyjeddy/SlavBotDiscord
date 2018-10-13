@@ -105,7 +105,7 @@ class AlbumCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        userImage.rotate(45)
+                        userImage.rotate(90)
 
                         var x = 215
                         var y = 165
@@ -181,7 +181,7 @@ class AlbumCommand extends command.Command
                     
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");    
-                        userImage.rotate(45)
+                        userImage.rotate(90)
 
                         var x = 215
                         var y = 165

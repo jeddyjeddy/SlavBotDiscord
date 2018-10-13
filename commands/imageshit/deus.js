@@ -94,7 +94,7 @@ class DeusCommand extends command.Command
                             authorImage.scaleToFit(100, 100);
                             userImage.scaleToFit(220, 120);
 
-                            var x = 150
+                            var x = 160
                             x = x + ((100 - authorImage.bitmap.width) / 2)
                             var y = 100
 
@@ -192,7 +192,7 @@ class DeusCommand extends command.Command
                             userImage.scaleToFit(100, 100);
                             userImage2.scaleToFit(220, 120);
 
-                            var x = 150
+                            var x = 160
                             x = x + ((100 - userImage.bitmap.width) / 2)
                             var y = 100
 
