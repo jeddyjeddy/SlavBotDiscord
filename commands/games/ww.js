@@ -676,7 +676,7 @@ class WWCommand extends command.Command
                         if(wars[i].countries.length >= allCountries.length)
                         {
                             var finished = true;
-                            for(var index = 0; index < allCountres.length; index++)
+                            for(var index = 0; index < allCountries.length; index++)
                             {
                                 for(var countryCheck = 0; countryCheck < wars[i].countries.length; countryCheck++)
                                 {
