@@ -1,8 +1,8 @@
 const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
 var wars = [{key: "Key", countries: [{key: "Key", ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}]}]
-var countries = require('country-list')();
-var allCountries = countries.getNames();
+const countries = require('country-list')();
+const allCountries = countries.getNames();
 var firebase = require("firebase");
 var signedIntoFirebase = false;
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
@@ -71,6 +71,11 @@ class WWCommand extends command.Command
                 else
                 {
                     var war = JSON.parse(snapshot.val())
+                    if(war.ended && war.countries != [])
+                    {
+                        war.countries = []
+                        firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                    }
                     wars.push(war)
                 }
             }))
@@ -85,11 +90,6 @@ class WWCommand extends command.Command
         Promise.all(promises).then(() => {
             for(var i = 0; i < wars.length; i++)
             {
-                if(wars[i].key == "465522025440739328")
-                {
-                    console.log("Found")
-                }
-                
                 if(wars[i].key == message.guild.id)
                 {
                     if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("generate"))
