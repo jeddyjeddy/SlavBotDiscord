@@ -73,11 +73,11 @@ class WWCommand extends command.Command
                     if(message.guild.id == "465522025440739328")
                     {
                         var war = JSON.parse(snapshot.val())
-                        if(war.ended == true && war.countries != [])
-                        {
+                       // if(war.ended == true && war.countries != [])
+                       // {
                             war.countries = []
                             firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
-                        }
+                       // }
                         wars.push(war)
                         console.log(war)
                     }
