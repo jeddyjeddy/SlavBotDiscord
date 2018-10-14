@@ -71,7 +71,7 @@ class WWCommand extends command.Command
                 else
                 {
                     var war = JSON.parse(snapshot.val())
-                    if(war.ended && war.countries != [])
+                    if(war.ended == true && war.countries != [])
                     {
                         war.countries = []
                         firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
