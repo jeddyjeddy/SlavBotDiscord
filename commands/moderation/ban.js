@@ -1,6 +1,5 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const oneDay = 86400000;
 
 class BanCommand extends command.Command
  {
@@ -89,8 +88,7 @@ class BanCommand extends command.Command
             else
             {
                 const userToBan = users[i];
-                var days = Math.round(Math.abs((new Date(Date.now()).getTime() - message.guild.createdAt.getTime())/(oneDay)));
-                message.guild.ban(users[i], days).then(() => {
+                message.guild.ban(users[i], 7).then(() => {
                     message.channel.send("<@" + message.author.id + "> Banned <@" + userToBan + ">").catch(error => console.log("Send Error - " + error))
                 }).catch(function(error){
                     console.log(error);
