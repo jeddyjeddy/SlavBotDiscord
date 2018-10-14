@@ -61,7 +61,6 @@ class WWCommand extends command.Command
 
         if(!existingData)
         {
-            console.log("No data for " + message.guild.name)
             promises.push(firebase.database().ref("serversettings/" + message.guild.id + "/wars").once('value').then(function(snapshot){
                 if(snapshot.val() == null)
                 {
@@ -73,8 +72,11 @@ class WWCommand extends command.Command
                 else
                 {
                     var war = JSON.parse(snapshot.val())
+                    if(war.countries != [] && war.ended)
+                    {
+                        war.countries = []
+                    }
                     wars.push(war)
-                    console.log("Push data for " + message.guild.name)
                 }
             }))
         }
