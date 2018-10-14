@@ -76,6 +76,11 @@ class WWCommand extends command.Command
                         war.countries = []
                         firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                     }
+                    if(war.key != message.guild.id)
+                    {
+                        war.key = message.guild.id;
+                        firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                    }
                     wars.push(war)
                 }
             }))
