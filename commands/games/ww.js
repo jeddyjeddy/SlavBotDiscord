@@ -87,6 +87,7 @@ class WWCommand extends command.Command
             {
                 if(wars[i].key == message.guild.id)
                 {
+                    console.log("World War " + message.guild.name)
                     if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("generate"))
                     {
                         var endIndex = -1;
