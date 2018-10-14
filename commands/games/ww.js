@@ -689,6 +689,7 @@ class WWCommand extends command.Command
                             if(hasEnded)
                             {
                                 wars[i].ended = true;
+                                wars[i].countries = [];
                                 var noData = true;
                                 for(var index = 0; index < wars[i].ranks.length; index++)
                                 {
