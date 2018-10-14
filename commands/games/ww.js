@@ -187,7 +187,8 @@ class WWCommand extends command.Command
                             }
                             else
                             {
-                                var localLeaderboards = wars[i].ranks.sort(rankAscending);
+                                var localLeaderboards = wars[i].ranks;
+                                localLeaderboards.sort(rankAscending);
                                 var members = message.guild.members.array();
                                 var names = [];
                     
@@ -530,7 +531,8 @@ class WWCommand extends command.Command
                             }
                             else
                             {
-                                var localLeaderboards = wars[i].ranks.sort(rankAscending);
+                                var localLeaderboards = wars[i].ranks;
+                                localLeaderboards.sort(rankAscending);
                                 var members = message.guild.members.array();
                                 var names = [];
                     
