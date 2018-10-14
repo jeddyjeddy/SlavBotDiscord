@@ -70,13 +70,17 @@ class WWCommand extends command.Command
                 }
                 else
                 {
-                    var war = JSON.parse(snapshot.val())
-                    if(war.ended == true && war.countries != [])
+                    if(message.guild.id == "465522025440739328")
                     {
-                        war.countries = []
-                        firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                        var war = JSON.parse(snapshot.val())
+                        if(war.ended == true && war.countries != [])
+                        {
+                            war.countries = []
+                            firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                        }
+                        wars.push(war)
                     }
-                    wars.push(war)
+                    
                 }
             }))
         }
