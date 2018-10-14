@@ -79,6 +79,7 @@ class WWCommand extends command.Command
                             firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                         }
                         wars.push(war)
+                        console.log(war)
                     }
                     
                 }
