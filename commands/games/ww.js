@@ -67,15 +67,10 @@ class WWCommand extends command.Command
                     var war = {key: message.guild.id, countries: [], ended: true, ranks: []}
                     wars.push(war);
                     firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
-                    console.log("New data for " + message.guild.name)
                 }
                 else
                 {
                     var war = JSON.parse(snapshot.val())
-                    if(war.countries != [] && war.ended)
-                    {
-                        war.countries = []
-                    }
                     wars.push(war)
                 }
             }))
@@ -88,6 +83,7 @@ class WWCommand extends command.Command
         }
 
         Promise.all(promises).then(() => {
+            console.log(wars)
             for(var i = 0; i < wars.length; i++)
             {
                 if(wars[i].key == message.guild.id)
