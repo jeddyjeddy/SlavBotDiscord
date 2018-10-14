@@ -83,9 +83,13 @@ class WWCommand extends command.Command
         }
 
         Promise.all(promises).then(() => {
-            console.log(wars)
             for(var i = 0; i < wars.length; i++)
             {
+                if(wars[i].key == "465522025440739328")
+                {
+                    console.log("Found")
+                }
+                
                 if(wars[i].key == message.guild.id)
                 {
                     if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("generate"))
