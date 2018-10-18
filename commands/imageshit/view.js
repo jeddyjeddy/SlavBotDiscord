@@ -67,7 +67,7 @@ class ViewCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     
                     userImage.cover(160, 405)
-                    var blank = new Jimp(viewImage.bitmap.width. viewImage.bitmap.height)
+                    var blank = new Jimp(viewImage.bitmap.width, viewImage.bitmap.height)
                     blank.composite(userImage, 160, 405);
                     var mergedImage = blank.composite(viewImage, 0, 0);
                     const file = shortid.generate() + ".png"
