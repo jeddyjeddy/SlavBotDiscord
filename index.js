@@ -578,7 +578,7 @@ var disableWelcomeChannel = (guildID) => {
     return false;
 }
 
-var MainJS = require("./main.js")
+//var MainJS = require("./main.js")
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -675,7 +675,7 @@ setCooldown: function(userID, cooldown)
 }
 
 var firebase = require("firebase");
-/*var config = {
+var config = {
     apiKey: process.env.API_KEY,
     authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
     projectId: process.env.PROJECT_ID,
@@ -683,7 +683,7 @@ var firebase = require("firebase");
     databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
   };
 
-firebase.initializeApp(config);*/
+firebase.initializeApp(config);
 
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
