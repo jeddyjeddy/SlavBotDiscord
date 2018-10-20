@@ -396,4 +396,4 @@ var ResponseFunctions = module.exports = {
     }
 }
 
-Manager.spawn(2);
+Manager.spawn(2, 15000);
