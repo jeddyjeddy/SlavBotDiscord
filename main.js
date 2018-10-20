@@ -1,5 +1,5 @@
-const Discord = require('discord.js-commando');
-const Manager = new Discord.ShardingManager('./index.js');
+const { ShardingManager } = require('discord.js');
+const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN });
 
 var firebase = require("firebase");
 var config = {
