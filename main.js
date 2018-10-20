@@ -29,7 +29,7 @@ webhook.listen(port, function callback () {
  
 });
 
-function sendUserTokens(userID)
+async function sendUserTokens(userID)
 {
     console.log("Vote made by " + userID)
     var shards = Manager.shards.array()
