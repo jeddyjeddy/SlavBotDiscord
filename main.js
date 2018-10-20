@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js-commando');
 const Manager = new Discord.ShardingManager('./index.js');
 
 var firebase = require("firebase");
@@ -397,3 +397,4 @@ var ResponseFunctions = module.exports = {
 }
 
 Manager.spawn(2, 15000);
+manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
