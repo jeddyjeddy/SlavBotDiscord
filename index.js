@@ -1,38 +1,3 @@
-var firebase = require("firebase");
-var config = {
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.PROJECT_ID + ".appspot.com",
-    databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
-  };
-  
-  var signedIntoDiscord = false;
-  var signedIntoFirebase = false;
-  firebase.initializeApp(config);
-  
-  /*firebase.auth().signInAnonymously().catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-  
-      console.log(errorCode);
-      console.log(errorMessage);
-  });*/
-  
-  firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        signedIntoFirebase = true;
-  
-        if(signedIntoDiscord)
-        {
-          initData();
-        }
-      } else {
-        signedIntoFirebase = false;
-      }
-    });
-
 const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: "281876391535050762",
@@ -613,7 +578,7 @@ var disableWelcomeChannel = (guildID) => {
     return false;
 }
 
-var MainJS = require("./main.js")
+//var MainJS = require("./main.js")
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -636,26 +601,26 @@ hasOverwrite: function(guild) {
 addCommandCounter: function(userID){
     bot.fetchUser(userID)
     .then(user => {
-            MainJS.commandCounterChange(user)
+            //MainJS.commandCounterChange(user)
     }, rejection => {
             console.log(rejection.message);
     });
 },
 getCommandCounter: function(userID)
 {
-    return MainJS.getUserCommandCounter(userID)
+    //return MainJS.getUserCommandCounter(userID)
 },
 getLeaderboards: function()
 {
-    return MainJS.getLeaderboardRankings();
+    //return MainJS.getLeaderboardRankings();
 },
 getLocalLeaderboards: function(members)
 {
-    return MainJS.getLocalLeaderboardRankings(members);
+    //return MainJS.getLocalLeaderboardRankings(members);
 },
 getUserCount: function()
 {
-    return MainJS.getUserBaseCount();
+    //return MainJS.getUserBaseCount();
 },
 
 getRoleName: function(guildID)
@@ -689,25 +654,37 @@ disableWelcome: function(guildID)
 },
 getTokens: function(userID)
 {
-    return MainJS.getUserTokens(userID)
+    //return MainJS.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
 {
-    MainJS.addUserTokens(userID, amount)
+    //MainJS.addUserTokens(userID, amount)
 },
 subtractTokens: function(userID, amount)
 {
-    return MainJS.subtractUserTokens(userID, amount)
+    //return MainJS.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
 {
-    return MainJS.getTokenCooldown(userID)
+    //return MainJS.getTokenCooldown(userID)
 },
 setCooldown: function(userID, cooldown)
 {
-    MainJS.setTokenCooldown(userID, cooldown)
+    //MainJS.setTokenCooldown(userID, cooldown)
 }
 }
+
+var firebase = require("firebase");
+var config = {
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.PROJECT_ID + ".appspot.com",
+    databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
+  };
+
+firebase.initializeApp(config);
+
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
 bot.registry.registerGroup("games", "Games");
@@ -720,8 +697,33 @@ const responses1 = ["ur daddy left u", "ur grandpap a trap", "ur nan garbage can
 const responses2 = ["still u", "undoubtedly u", "no u", "ur dad", "ur face", "don't be a cuck"];
 const curseResponses = ["You people sicken me", "Do none of you have anything better to do?", "You should have your mouth washed out with soap", "Do you kiss your mother with that mouth?", "Didn't know we had sailors here", "God is watching", "God is disappointed", "Your parents must be proud"];
 
+var signedIntoFirebase = false;
+var signedIntoDiscord = false;
 
 var schedule = require('node-schedule');
+
+var signedIntoFirebase = false;
+firebase.auth().signInAnonymously().catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    console.log(errorCode);
+    console.log(errorMessage);
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      signedIntoFirebase = true;
+
+      if(signedIntoDiscord)
+      {
+        initData();
+      }
+    } else {
+      signedIntoFirebase = false;
+    }
+  });
 
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
