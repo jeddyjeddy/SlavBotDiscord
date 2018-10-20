@@ -181,9 +181,9 @@ dbl.on('posted', () => {
             console.log("discord bot world success")
         }
     })
-
+*/
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
-    */
+    
 });
     
 dbl.on('error', e => {
@@ -895,7 +895,7 @@ if(bot.shard.id == 0)
                 if(body != [] && body !== undefined && body !== null)
                 {
                     var data = JSON.parse(body);
-                    DatabaseFunctions.addUserTokens(user.id, giveawayToken);
+                    DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
 
                     bot.fetchUser(data["user"]).then(user => {
                         user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
