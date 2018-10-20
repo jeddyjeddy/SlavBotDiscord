@@ -4,7 +4,7 @@ const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN);
 var firebase = require("firebase");
-/*var config = {
+var config = {
     apiKey: process.env.API_KEY,
     authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
     projectId: process.env.PROJECT_ID,
@@ -14,6 +14,7 @@ var firebase = require("firebase");
 
 firebase.initializeApp(config);
 
+var signedIntoFirebase = false;
 firebase.auth().signInAnonymously().catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -21,8 +22,7 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
     console.log(errorCode);
     console.log(errorMessage);
-});*/
-var signedIntoFirebase = false;
+});
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -112,7 +112,7 @@ async function sendUserTokens(userID)
     this.addUserTokens(userID, giveawayToken)
 }
 
-var ResponseFunctions = module.exports = {
+var MainResponseFunctions = module.exports = {
     commandCounterChange: function(user){
         const userID  = user.id;
         if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
