@@ -694,7 +694,6 @@ var schedule = require('node-schedule');
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      console.log("signed in to firebase");
       signedIntoFirebase = true;
 
       if(signedIntoDiscord)
@@ -702,7 +701,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         initData();
       }
     } else {
-      console.log("signed out of firebase");
       signedIntoFirebase = false;
     }
   });
@@ -2097,6 +2095,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
     signedIntoDiscord = true;
     if(signedIntoFirebase)
     {
+        console.log("Logged in shard " + bot.shard.id)
         initData()
     }
 });
