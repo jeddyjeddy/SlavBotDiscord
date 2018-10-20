@@ -880,14 +880,39 @@ var DatabaseFunctions = {
     }
 }
 
-bot.shard.on("message", (message) => {
-    bot.fetchUser(message).then(user => {
-        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
-        DatabaseFunctions.addUserTokens(user.id, giveawayToken);
-    }, rejection => {
-        bot.send(message)
+if(bot.shard.id == 0)
+{
+    var listener = require("contentful-webhook-listener");
+    var webhook = listener.createServer({
+        "Authorization": process.env.VOTE_AUTH
+    }, function requestListener (request, response) {
+        console.log("request received");
+        var body = []
+        request.on('data', (chunk) => {
+            body.push(chunk);
+        }).on('end', () => {
+                body = Buffer.concat(body).toString()
+                if(body != [] && body !== undefined && body !== null)
+                {
+                    var data = JSON.parse(body);
+                    DatabaseFunctions.addUserTokens(user.id, giveawayToken);
+
+                    bot.fetchUser(data["user"]).then(user => {
+                        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                    }, rejection => {
+                        bot.shard.broadcastEval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have recieved " + numberWithCommas(${giveawayToken}) + " tokens. You now have " + numberWithCommas(${DatabaseFunctions.getUserTokens(userID)}) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));});`)
+                    });
+                }
+        });
     });
-})
+    var port = 5000;
+    
+    webhook.listen(port, function callback () {
+    
+        console.log("server is listening");
+    
+    });
+}
 
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
