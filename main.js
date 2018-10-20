@@ -397,4 +397,4 @@ var ResponseFunctions = module.exports = {
 }
 
 Manager.spawn(2, 15000);
-manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
+Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
