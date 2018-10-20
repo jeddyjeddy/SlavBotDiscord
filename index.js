@@ -601,31 +601,31 @@ hasOverwrite: function(guild) {
 addCommandCounter: function(userID){
     bot.fetchUser(userID)
     .then(user => {
-            MainJS.commandCounterChange(user)
+            //MainJS.commandCounterChange(user)
     }, rejection => {
             console.log(rejection.message);
     });
 },
 getCommandCounter: function(userID)
 {
-    return MainJS.getUserCommandCounter(userID)
+    //return MainJS.getUserCommandCounter(userID)
 },
 getLeaderboards: function()
 {
-    return MainJS.getLeaderboardRankings();
+    //return MainJS.getLeaderboardRankings();
 },
 getLocalLeaderboards: function(members)
 {
-    return MainJS.getLocalLeaderboardRankings(members);
+   // return MainJS.getLocalLeaderboardRankings(members);
 },
 getUserCount: function()
 {
-    return MainJS.getUserBaseCount();
+   // return MainJS.getUserBaseCount();
 },
 
 getRoleName: function(guildID)
 {
-    return getRoleName(guildID);
+  //  return getRoleName(guildID);
 },
 
 setRoleName: function(guildID, name)
@@ -635,7 +635,7 @@ setRoleName: function(guildID, name)
 
 addMutedUser: function(guildID, userID, length)
 {
-    return addMutedUser(guildID, userID, length);
+    //return addMutedUser(guildID, userID, length);
 },
 
 removeMutedUser: function(guildID, userID)
@@ -645,32 +645,32 @@ removeMutedUser: function(guildID, userID)
 
 setWelcome: function(guildID, channelID)
 {
-    return setWelcomeChannel(guildID, channelID);
+    //return setWelcomeChannel(guildID, channelID);
 },
 
 disableWelcome: function(guildID)
 {
-    return disableWelcomeChannel(guildID);
+   // return disableWelcomeChannel(guildID);
 },
 getTokens: function(userID)
 {
-    return MainJS.getUserTokens(userID)
+  //  return MainJS.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
 {
-    MainJS.addUserTokens(userID, amount)
+   // MainJS.addUserTokens(userID, amount)
 },
 subtractTokens: function(userID, amount)
 {
-    return MainJS.subtractUserTokens(userID, amount)
+    //return MainJS.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
 {
-    return MainJS.getTokenCooldown(userID)
+    //return MainJS.getTokenCooldown(userID)
 },
 setCooldown: function(userID, cooldown)
 {
-    MainJS.setTokenCooldown(userID, cooldown)
+    //MainJS.setTokenCooldown(userID, cooldown)
 }
 }
 
