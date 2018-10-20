@@ -1,6 +1,7 @@
 const { ShardingManager } = require('discord.js');
 const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN });
-
+const DBL = require("dblapi.js");
+const dbl = new DBL(process.env.DBL_TOKEN);
 var firebase = require("firebase");
 var config = {
     apiKey: process.env.API_KEY,
