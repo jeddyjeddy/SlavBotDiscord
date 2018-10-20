@@ -692,7 +692,7 @@ var signedIntoDiscord = false;
 
 var schedule = require('node-schedule');
 
-/*firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       signedIntoFirebase = true;
 
@@ -703,7 +703,7 @@ var schedule = require('node-schedule');
     } else {
       signedIntoFirebase = false;
     }
-  });*/
+  });
 
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
