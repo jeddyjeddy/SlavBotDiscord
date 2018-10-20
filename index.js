@@ -877,15 +877,18 @@ var DatabaseFunctions = {
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
             }
         }
-    },
-    voteTokens: function(userID)
-    {
-        bot.fetchUser(userID).then(user => {
-            user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
-            DatabaseFunctions.addUserTokens(userID, giveawayToken);
-        });
     }
 }
+
+bot.shard.on("message", (message) => {
+    bot.fetchUser(message).then(user => {
+        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+        DatabaseFunctions.addUserTokens(user.id, giveawayToken);
+    }, rejection => {
+        bot.send(message)
+    });
+})
+
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
