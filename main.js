@@ -65,7 +65,7 @@ function commandUsageAscending(a, b)
 
 const giveawayToken = 10000;
 
-var listener = require("contentful-webhook-listener");
+/*var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
     "Authorization": process.env.VOTE_AUTH
 }, function requestListener (request, response) {
@@ -88,7 +88,7 @@ webhook.listen(port, function callback () {
  
     console.log("server is listening");
  
-});
+});*/
 
 async function sendUserTokens(userID)
 {
