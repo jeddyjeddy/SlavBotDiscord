@@ -34,6 +34,6 @@ async function sendUserTokens(userID)
     console.log("Vote made by " + userID)
     var shards = Manager.shards.array()
     shards.forEach(async (shard) => {
-        await shard.eval(`DatabaseFunctions.voteTokens(${userID})`);
+        await shard.eval(`console.log(giveawayToken)`);
     })
 }
