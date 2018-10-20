@@ -675,6 +675,16 @@ setCooldown: function(userID, cooldown)
 }
 
 var firebase = require("firebase");
+var config = {
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.PROJECT_ID + ".appspot.com",
+    databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
+  };
+
+firebase.initializeApp(config);
+
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
 bot.registry.registerGroup("games", "Games");
