@@ -898,7 +898,7 @@ if(bot.shard.id == 0)
                     DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
 
                     bot.fetchUser(data["user"]).then(user => {
-                        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
                     }, rejection => {
                         bot.shard.broadcastEval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have recieved " + numberWithCommas(${giveawayToken}) + " tokens. You now have " + numberWithCommas(${DatabaseFunctions.getUserTokens(userID)}) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));});`)
                     });
