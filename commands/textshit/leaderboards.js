@@ -1,5 +1,5 @@
 const command = require("discord.js-commando");
-var Leaderboards = require("../../index.js")
+var Leaderboards = require("../../main.js")
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
