@@ -578,7 +578,7 @@ var disableWelcomeChannel = (guildID) => {
     return false;
 }
 
-var MainJS = require("./main.js")
+//var MainJS = require("./main.js")
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
