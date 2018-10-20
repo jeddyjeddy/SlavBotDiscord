@@ -33,7 +33,7 @@ async function sendUserTokens(userID)
 {
     console.log("Vote made by " + userID)
     var shards = Manager.shards.array()
-    var tokenData = await shards[0].eval(`var tokens = this.DatabaseFunctions.getUserTokens(${userID}); return tokens;`)
+    var tokenData = await shards[0].eval(`function(){return this.DatabaseFunctions.getUserTokens(${userID});}`)
     console.log(tokenData)
     return;
     shards.forEach(async (shard) => {
