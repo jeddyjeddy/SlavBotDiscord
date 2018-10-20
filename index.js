@@ -800,13 +800,12 @@ bot.on("channelDelete", (channel) => {
     }
 })
 
-var initData = () => {
+async function initData() {
     console.log("Init Data")
     
     var guilds = bot.guilds.array()
-    for(var i = 0; i < guilds.length; i++)
-    {
-        firebase.database().ref("serversettings/" + guilds[i].id).once('value').then(function(childSnap) {
+    guilds.forEach(async (guild) => {
+        await firebase.database().ref("serversettings/" + guild.id).once('value').then(function(childSnap) {
             if(childSnap.val() != null)
             {
                 var overwrites = null;
@@ -1027,8 +1026,8 @@ var initData = () => {
                     });
                 }
             }
-        })
-    }
+        })  
+    })    
 }
 
 bot.on("channelCreate", (channel) => {
