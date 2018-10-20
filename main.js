@@ -114,7 +114,7 @@ async function sendUserTokens(userID)
 
 var MainResponseFunctions = module.exports = {
     commandCounterChange: function(user){
-        const userID  = user.id;
+       /* const userID  = user.id;
         if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
         {
             return;
@@ -223,11 +223,11 @@ var MainResponseFunctions = module.exports = {
                     firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data.data));
                 }
               })
-        }
+        }*/
     },
     getUserCommandCounter: function(userID) {
 
-        for(var i = 0; i < userCommandUsage.length; i++)
+       /* for(var i = 0; i < userCommandUsage.length; i++)
         { 
             if(userCommandUsage[i].key == userID)
             {
@@ -249,16 +249,16 @@ var MainResponseFunctions = module.exports = {
               })
         }
         
-        return "`Unknown CRS (Try again when fully initialised)`";
+        return "`Unknown CRS (Try again when fully initialised)`";*/
     },
     
     getUserBaseCount: function() 
     {
-        return numberWithCommas(userCommandUsage.length);
+      //  return numberWithCommas(userCommandUsage.length);
     },
     getLeaderboardRankings: function()
     {
-        var leaderboardRankings = userCommandUsage;
+       /* var leaderboardRankings = userCommandUsage;
         leaderboardRankings.sort(commandUsageAscending);
 
         if(leaderboardRankings.length > 10)
@@ -273,12 +273,12 @@ var MainResponseFunctions = module.exports = {
             leaderboardRankings = leaderboardRankingsShort;
         }
 
-        return leaderboardRankings;
+        return leaderboardRankings;*/
     },
 
     getLocalLeaderboardRankings: function(members)
     {
-        var leaderboardRankings = [];
+        /*var leaderboardRankings = [];
 
         for(var i = 0; i < userCommandUsage.length; i++)
         {
@@ -312,12 +312,12 @@ var MainResponseFunctions = module.exports = {
             localLeaderboardRankings = leaderboardRankingsShort;
         }
 
-        return localLeaderboardRankings;
+        return localLeaderboardRankings;*/
     },
 
     getUserTokens: function(userID)
     {
-        for(var index = 0; index < tokens.length; index++)
+        /*for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
@@ -359,12 +359,12 @@ var MainResponseFunctions = module.exports = {
         {
             this.getUserTokens(userID)
             this.addUserTokens(userID, amount)
-        }
+        }*/
     },
 
     subtractUserTokens: function(userID, amount)
     {
-        for(var index = 0; index < tokens.length; index++)
+       /* for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
@@ -377,12 +377,12 @@ var MainResponseFunctions = module.exports = {
             }
         }
 
-        return false;
+        return false;*/
     },
 
     getTokenCooldown: function(userID)
     {
-        for(var index = 0; index < tokens.length; index++)
+        /*for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
@@ -390,18 +390,18 @@ var MainResponseFunctions = module.exports = {
             }
         }
 
-        return (new Date(Date.now()).toJSON());
+        return (new Date(Date.now()).toJSON());*/
     },
 
     setTokenCooldown: function(userID, cooldown)
     {
-        for(var index = 0; index < tokens.length; index++)
+        /*for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
                 tokens[index].collectDate = cooldown;
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
             }
-        }
+        }*/
     }
 }
