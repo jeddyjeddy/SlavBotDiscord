@@ -578,7 +578,7 @@ var disableWelcomeChannel = (guildID) => {
     return false;
 }
 
-var DatabaseJS = require("./database.js")
+var MainJS = require("./database.js")
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -601,26 +601,26 @@ hasOverwrite: function(guild) {
 addCommandCounter: function(userID){
     bot.fetchUser(userID)
     .then(user => {
-            DatabaseJS.commandCounterChange(user)
+            MainJS.commandCounterChange(user)
     }, rejection => {
             console.log(rejection.message);
     });
 },
 getCommandCounter: function(userID)
 {
-    return DatabaseJS.getUserCommandCounter(userID)
+    return MainJS.getUserCommandCounter(userID)
 },
 getLeaderboards: function()
 {
-    return DatabaseJS.getLeaderboardRankings();
+    return MainJS.getLeaderboardRankings();
 },
 getLocalLeaderboards: function(members)
 {
-    return DatabaseJS.getLocalLeaderboardRankings(members);
+    return MainJS.getLocalLeaderboardRankings(members);
 },
 getUserCount: function()
 {
-    return DatabaseJS.getUserBaseCount();
+    return MainJS.getUserBaseCount();
 },
 
 getRoleName: function(guildID)
@@ -654,23 +654,23 @@ disableWelcome: function(guildID)
 },
 getTokens: function(userID)
 {
-    return DatabaseJS.getUserTokens(userID)
+    return MainJS.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
 {
-    DatabaseJS.addUserTokens(userID, amount)
+    MainJS.addUserTokens(userID, amount)
 },
 subtractTokens: function(userID, amount)
 {
-    return DatabaseJS.subtractUserTokens(userID, amount)
+    return MainJS.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
 {
-    return DatabaseJS.getTokenCooldown(userID)
+    return MainJS.getTokenCooldown(userID)
 },
 setCooldown: function(userID, cooldown)
 {
-    DatabaseJS.setTokenCooldown(userID, cooldown)
+    MainJS.setTokenCooldown(userID, cooldown)
 }
 }
 
