@@ -1,3 +1,4 @@
+console.log("Starting Bot")
 const { ShardingManager } = require('discord.js');
 const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN });
 const DBL = require("dblapi.js");
@@ -10,7 +11,7 @@ var config = {
     storageBucket: process.env.PROJECT_ID + ".appspot.com",
     databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
   };
-  
+
 firebase.initializeApp(config);
 
 var signedIntoFirebase = false;
@@ -36,24 +37,31 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
-
+var launch = false;
 function initData()
 {
-    firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
-        if(snapshot.val() != null)
-        {
-            snapshot.forEach(function(childSnap){
-                if(childSnap.child("commandusage").val() != null)
-                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
-    
-                if(childSnap.child("tokens").val() != null)
-                {
-                    var token = JSON.parse(childSnap.child("tokens").val())
-                    tokens.push(token)
-                }
-            });
-        }
-      })
+    if(!launch)
+    {
+        firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
+            if(snapshot.val() != null)
+            {
+                snapshot.forEach(function(childSnap){
+                    if(childSnap.child("commandusage").val() != null)
+                        userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+        
+                    if(childSnap.child("tokens").val() != null)
+                    {
+                        var token = JSON.parse(childSnap.child("tokens").val())
+                        tokens.push(token)
+                    }
+                });
+            }
+        })
+
+        Manager.spawn();
+        Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
+        launch = true;
+      }
 }
 
 function commandUsageAscending(a, b)
@@ -397,6 +405,3 @@ var ResponseFunctions = module.exports = {
         }
     }
 }
-
-Manager.spawn();
-Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
