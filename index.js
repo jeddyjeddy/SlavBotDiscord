@@ -904,7 +904,7 @@ var webhook = listener.createServer({
             }
       });
 });
-var port = 5000;
+var port = 100 * (bot.shard.id + 1);
  
 webhook.listen(port, function callback () {
  
