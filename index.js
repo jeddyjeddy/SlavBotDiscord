@@ -201,7 +201,7 @@ bot.on('guildDelete', mem => {
         firebase.database().ref("serversettings/" + mem.id).remove();
     }
 });
-
+/*
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var allOofCounters = [{key: "Key", counter: null}]
@@ -2071,7 +2071,7 @@ bot.on("message", (message) => {
         }
     }
 });
-
+*/
 bot.on("disconnect", () => {
     console.log("Disconnected")
     bot.login(process.env.BOT_TOKEN).then(function(){
