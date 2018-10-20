@@ -1,1 +1,1 @@
-worker: node --gc_interval=100 --harmony .
+worker: node --gc_interval=100 --harmony main.js
