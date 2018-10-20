@@ -878,7 +878,7 @@ var DatabaseFunctions = {
             }
         }
     },
-    voteTokens: function(userID, amountToCheck)
+    voteTokens: function(userID)
     {
         bot.fetchUser(userID).then(user => {
             user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
@@ -886,33 +886,6 @@ var DatabaseFunctions = {
         });
     }
 }
-
-var listener = require("contentful-webhook-listener");
-var webhook = listener.createServer({
-    "Authorization": process.env.VOTE_AUTH
-}, function requestListener (request, response) {
-    console.log("request received");
-    var body = []
-    request.on('data', (chunk) => {
-        body.push(chunk);
-      }).on('end', () => {
-            body = Buffer.concat(body).toString()
-            if(body != [] && body !== undefined && body !== null)
-            {
-                console.log("Called on shard " + bot.shard.id)
-                var data = JSON.parse(body);
-                DatabaseFunctions.voteTokens(data["user"])
-            }
-      });
-});
-var port = 100 * (bot.shard.id + 1);
- 
-webhook.listen(port, function callback () {
- 
-    console.log("server is listening");
- 
-});
-
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
