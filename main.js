@@ -63,7 +63,7 @@ function commandUsageAscending(a, b)
     return 0;
 }
 
-const giveawayToken = 10000;
+/*const giveawayToken = 10000;
 
 var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
@@ -88,7 +88,7 @@ webhook.listen(port, function callback () {
  
     console.log("server is listening");
  
-});
+});*/
 
 async function sendUserTokens(userID)
 {
