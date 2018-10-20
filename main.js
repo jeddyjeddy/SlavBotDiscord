@@ -31,6 +31,7 @@ webhook.listen(port, function callback () {
 
 async function sendUserTokens(userID)
 {
+    console.log("Vote made by " + userID)
     var shards = Manager.shards.array()
     var foundUser = false;
     shards.forEach(async (shard) => {
