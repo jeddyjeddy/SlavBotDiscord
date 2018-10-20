@@ -10,6 +10,7 @@ var config = {
     storageBucket: process.env.PROJECT_ID + ".appspot.com",
     databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
   };
+  
 firebase.initializeApp(config);
 
 var signedIntoFirebase = false;
