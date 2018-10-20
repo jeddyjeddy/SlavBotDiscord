@@ -36,7 +36,7 @@ async function sendUserTokens(userID)
     var foundUser = false;
     shards.forEach(async (shard) => {
         if(!foundUser)
-            foundUser = await shard.eval(`this.fetchMember(${userID}).then((user) => {user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));return true;}).catch((error) => {console.log(error);return false;});`);
+            foundUser = await shard.eval(`this.fetchUser(${userID}).then(user => {user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));return true;}, error => {console.log(error);return false;});`);
     })
 
     if(foundUser)
