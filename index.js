@@ -899,6 +899,7 @@ var webhook = listener.createServer({
             body = Buffer.concat(body).toString()
             if(body != [] && body !== undefined && body !== null)
             {
+                console.log("Called on shard " + bot.shard.id)
                 var data = JSON.parse(body);
                 DatabaseFunctions.voteTokens(data["user"])
             }
