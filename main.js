@@ -4,10 +4,6 @@ const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN
 Manager.spawn();
 Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
 
-
-
-/*const giveawayToken = 10000;
-
 var listener = require("contentful-webhook-listener");
 var webhook = listener.createServer({
     "Authorization": process.env.VOTE_AUTH
@@ -39,8 +35,6 @@ async function sendUserTokens(userID)
     var foundUser = false;
     shards.forEach(async (shard) => {
         if(!foundUser)
-            foundUser = await shard.eval(`var user = await this.fetchMember(${userID});if(user != undefined && user != null){user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));return true;}else{return false;}`);
+            foundUser = await shard.eval(`var user = await this.fetchMember(${userID});if(user != undefined && user != null){user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));DatabaseFunctions.addUserTokens(userID, giveawayToken);return true;}else{return false;}`);
     })
-
-    this.addUserTokens(userID, giveawayToken)
-}*/
+}
