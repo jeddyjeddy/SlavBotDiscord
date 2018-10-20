@@ -5,16 +5,7 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN);
 var firebase = require("firebase");
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log("signed in to firebase");
-      signedIntoFirebase = true;
-      initData();
-    } else {
-      console.log("signed out of firebase");
-      signedIntoFirebase = false;
-    }
-  });
+var signedIntoFirebase = false;
 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
