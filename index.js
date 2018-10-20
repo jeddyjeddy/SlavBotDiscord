@@ -579,7 +579,7 @@ var disableWelcomeChannel = (guildID) => {
 }
 
 var DatabaseFunctions = {
-    commandCounterChange: function(user){
+    commandCounterChange: function(userID){
         if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
         {
             return;
