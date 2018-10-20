@@ -29,18 +29,14 @@ webhook.listen(port, function callback () {
  
 });
 
-async function sendUserTokens(userID)
+function sendUserTokens(userID)
 {
     console.log("Vote made by " + userID)
     var shards = Manager.shards.array()
-    var foundUser = false;
+    var tokenData = await shards[0].eval(`return DatabaseFunctions.getUserTokens(${userID})`)
+    console.log(tokenData)
+    return;
     shards.forEach(async (shard) => {
-        if(!foundUser)
-            foundUser = await shard.eval(`this.fetchUser(${userID}).then(user => {user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));return true;}, error => {console.log(error);return false;});`);
+        await shard.eval(``);
     })
-
-    if(foundUser)
-    {
-        console.log("Add Tokens")
-    }
 }

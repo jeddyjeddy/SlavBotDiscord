@@ -877,6 +877,16 @@ var DatabaseFunctions = {
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
             }
         }
+    },
+    voteTokens: function(userID, amountToCheck)
+    {
+        bot.fetchUser(userID).then(user => {
+            if(DatabaseFunctions.getUserTokens(userID) <= amountToCheck)
+            {
+                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(userID)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                DatabaseFunctions.addUserTokens(userID, giveawayToken);
+            }
+        });
     }
 }
 var ResponseFunctions = module.exports = {
