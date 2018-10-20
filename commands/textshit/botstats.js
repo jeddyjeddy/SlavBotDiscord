@@ -18,7 +18,12 @@ class BotStatsCommand extends command.Command
 
     async run(message, args)
     {
-        message.channel.send("<@" + message.author.id + "> Slav Bot is currently on " + numberWithCommas(message.client.guilds.size) + " servers.").catch(error => console.log("Send Error - " + error));
+        message.client.shard.fetchClientValues('guilds.size')
+        .then(results => {
+            var guildSize = results.reduce((prev, val) => prev + val, 0);
+            message.channel.send("<@" + message.author.id + "> Slav Bot is currently on " + numberWithCommas(guildSize) + " servers.").catch(error => console.log("Send Error - " + error));
+        })
+        .catch(console.error);
     }
 }
 

@@ -7,7 +7,6 @@ const bot = new commando.Client({
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
-const giveawayToken = 10000;
 
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -16,7 +15,7 @@ var request = require('request');
 
 dbl.on('posted', () => {
     console.log('Server count posted!');
-    console.log(bot.guilds.size)
+ /*   console.log(bot.guilds.size)
     // Set the headers
     var headers = {
         'Authorization': process.env.BOTS_FOR_DISCORD_API,
@@ -184,6 +183,7 @@ dbl.on('posted', () => {
     })
 
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
+    */
 });
     
 dbl.on('error', e => {
@@ -207,7 +207,6 @@ var allThotCounters = [{key: "Key", counter: null}]
 var allOofCounters = [{key: "Key", counter: null}]
 var allOwOCounters = [{key: "Key", counter: null}]
 var responseSettings = [{key: "Key", respond: true, overwrites: null}] 
-var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 
 var localGetResponse = (guild) => {
     for(var i = 0; i < responseSettings.length; i++)
@@ -538,32 +537,7 @@ var migrateServerID = (guild) =>
     }
 }
 
-var getUserCommandCounter = (userID) => {
 
-    for(var i = 0; i < userCommandUsage.length; i++)
-    { 
-        if(userCommandUsage[i].key == userID)
-        {
-            return userCommandUsage[i].data.uses;
-        }
-    }
-
-    if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
-    {
-        firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
-            if(snapshot.child("commandusage").val() != null)
-            {
-                userCommandUsage.push({key: snapshot.key, data: JSON.parse(childSnap.child("commandusage").val())});
-            }
-            else
-            {
-                userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
-            }
-          })
-    }
-    
-    return "`Unknown CRS (Try again when fully initialised)`";
-}
 
 var setWelcomeChannel = (guildID, channelID) => {
 
@@ -604,321 +578,7 @@ var disableWelcomeChannel = (guildID) => {
     return false;
 }
 
-var commandCounterChange = (userID) => {
-    if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
-    {
-        return;
-    }
-
-    var isStored = false;
-    for(var index = 0; index < userCommandUsage.length; index++)
-    {
-        if(userCommandUsage[index].key == userID) 
-        {
-            isStored = true;
-            userCommandUsage[index].data.uses += 1;
-            firebase.database().ref("usersettings/" + userCommandUsage[index].key + "/commandusage").set(JSON.stringify(userCommandUsage[index].data));
-            const i = index;
-            dbl.hasVoted(userID).then(voted => {
-                if (!voted)
-                {
-                    if(userCommandUsage[i].data.requestsSent < 3)
-                    {
-                        dbl.isWeekend().then(weekend => {
-                            if (weekend)
-                            {
-                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
-                                {
-                                    console.log("Sending Weekend Request")
-                                    bot.fetchUser(userID)
-                                    .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
-                                            }).catch(error => console.log("Send Error - " + error));
-                                    }, rejection => {
-                                            console.log(rejection.message);
-                                    });
-
-                                    userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
-                                    userCommandUsage[i].data.requestsSent += 1;
-                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                }
-                            }
-                            else
-                            {
-                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
-                                {
-                                    console.log("Sending Regular Request")
-                                    bot.fetchUser(userID)
-                                    .then(user => {
-                                            user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
-                                            }).catch(error => console.log("Send Error - " + error));
-                                    }, rejection => {
-                                            console.log(rejection.message);
-                                    });
-                                
-                                    userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
-                                    userCommandUsage[i].data.requestsSent += 1;
-                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                }
-                            }
-                        });
-                    }
-                    else
-                    {
-                        dbl.getVotes().then(votes => {
-                            if (votes.find(vote => vote.id == userID))
-                            {
-                                userCommandUsage[i].data.requestsSent = 0;
-                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                commandCounterChange(userID)
-                            }
-                            else
-                            {
-                                dbl.isWeekend().then(weekend => {
-                                    if (weekend)
-                                    {
-                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
-                                        {
-                                            userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
-                                            userCommandUsage[i].data.requestsSent += 1;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
-                                        {
-                                            userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
-                                            userCommandUsage[i].data.requestsSent += 1;
-                                        }
-                                    }
-
-                                    if(userCommandUsage[i].data.requestsSent > 5)
-                                    {
-                                        userCommandUsage[i].data.requestsSent = 0;
-                                    }
-
-                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                });
-                            }
-                        }); 
-                    }
-                }
-            });
-        }
-    }
-
-    if(!isStored)
-    {
-        firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
-            if(snapshot.child("commandusage").val() == null)
-            {
-                var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
-                userCommandUsage.push(data);
-                firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data.data));
-            }
-          })
-    }
-}
-
-var getLeaderboardRankings = () =>
-{
-    var leaderboardRankings = userCommandUsage;
-    leaderboardRankings.sort(commandUsageAscending);
-
-    if(leaderboardRankings.length > 10)
-    {
-        var leaderboardRankingsShort = [];
-
-        for(var i = 0; i < 10; i++)
-        {
-            leaderboardRankingsShort.push(leaderboardRankings[i])
-        }
-
-        leaderboardRankings = leaderboardRankingsShort;
-    }
-
-    return leaderboardRankings;
-}
-
-var getLocalLeaderboardRankings = (members) =>
-{
-    var leaderboardRankings = [];
-
-    for(var i = 0; i < userCommandUsage.length; i++)
-    {
-        var isGuildMember = false;
-        for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-        {
-            if(userCommandUsage[i].key == members[memberIndex])
-            {
-                isGuildMember = true;
-            }
-        }
-
-        if(isGuildMember)
-        {
-            leaderboardRankings.push(userCommandUsage[i]);
-        }
-    }
-
-    var localLeaderboardRankings = leaderboardRankings.sort(commandUsageAscending);
-
-
-    if(localLeaderboardRankings.length > 10)
-    {
-        var leaderboardRankingsShort = [];
-
-        for(var i = 0; i < 10; i++)
-        {
-            leaderboardRankingsShort.push(localLeaderboardRankings[i])
-        }
-
-        localLeaderboardRankings = leaderboardRankingsShort;
-    }
-
-    return localLeaderboardRankings;
-}
-
-var getUserBaseCount = () =>
-{
-    return numberWithCommas(userCommandUsage.length);
-}
-
-function commandUsageAscending(a, b)
-{
-    if (a.data.uses < b.data.uses)
-        return 1;
-    if (a.data.uses > b.data.uses)
-        return -1;
-    return 0;
-}
-
-var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
-
-var getUserTokens = (userID) =>
-{
-
-    for(var index = 0; index < tokens.length; index++)
-    {
-        if(tokens[index].key == userID)
-        {
-            return tokens[index].tokens;
-        }
-    }
-
-    firebase.database().ref("usersettings/" + userID + "/tokens").once('value').then(function(snapshot) {
-        if(snapshot.val() != null)
-        {
-            var token = JSON.parse(snapshot.val())
-            tokens.push(token)
-        }
-        else
-        {
-            var timestamp = (new Date(Date.now()).toJSON());
-            var token = {key: userID, tokens: 0, collectDate: timestamp}
-            tokens.push(token);
-            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
-        }
-    })
-
-    return 0;
-}
-
-var addUserTokens = (userID, amount) =>
-{
-    for(var index = 0; index < tokens.length; index++)
-    {
-        if(tokens[index].key == userID)
-        {
-            tokens[index].tokens = tokens[index].tokens + amount;
-            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-            return;
-        }
-    }
-
-    if(signedIntoDiscord)
-    {
-        getUserTokens(userID)
-        addUserTokens(userID, amount)
-    }
-}
-
-var listener = require("contentful-webhook-listener");
-var webhook = listener.createServer({
-    "Authorization": process.env.VOTE_AUTH
-}, function requestListener (request, response) {
-    console.log("request received");
-    var body = []
-    request.on('data', (chunk) => {
-        body.push(chunk);
-      }).on('end', () => {
-            body = Buffer.concat(body).toString()
-            if(body != [] && body !== undefined && body !== null)
-            {
-                var data = JSON.parse(body);
-                bot.fetchUser(data["user"]).then(user => {
-                    addUserTokens(data["user"], giveawayToken)
-                    user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(getUserTokens(data["user"])) + " tokens. Use `help ww` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
-                }, rejection => {
-                        console.log(rejection.message);
-                });
-            }
-      });
-});
-var port = 5000;
- 
-webhook.listen(port, function callback () {
- 
-    console.log("server is listening");
- 
-});
-
-var subtractUserTokens = (userID, amount) =>
-{
-    for(var index = 0; index < tokens.length; index++)
-    {
-        if(tokens[index].key == userID)
-        {
-            if(tokens[index].tokens >= amount)
-            {
-                tokens[index].tokens = tokens[index].tokens - amount;
-                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-var getTokenCooldown = (userID) =>
-{
-    for(var index = 0; index < tokens.length; index++)
-    {
-        if(tokens[index].key == userID)
-        {
-            return tokens[index].collectDate;
-        }
-    }
-
-    return (new Date(Date.now()).toJSON());
-}
-
-var setTokenCooldown = (userID, cooldown) =>
-{
-    for(var index = 0; index < tokens.length; index++)
-    {
-        if(tokens[index].key == userID)
-        {
-            tokens[index].collectDate = cooldown;
-            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-        }
-    }
-}
-
-
+var MainJS = require("./main.js")
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -939,23 +599,28 @@ hasOverwrite: function(guild) {
 },
 
 addCommandCounter: function(userID){
-    commandCounterChange(userID)
+    bot.fetchUser(userID)
+    .then(user => {
+            MainJS.commandCounterChange(user)
+    }, rejection => {
+            console.log(rejection.message);
+    });
 },
 getCommandCounter: function(userID)
 {
-    return getUserCommandCounter(userID)
+    return MainJS.getUserCommandCounter(userID)
 },
 getLeaderboards: function()
 {
-    return getLeaderboardRankings();
+    return MainJS.getLeaderboardRankings();
 },
 getLocalLeaderboards: function(members)
 {
-    return getLocalLeaderboardRankings(members);
+    return MainJS.getLocalLeaderboardRankings(members);
 },
 getUserCount: function()
 {
-    return getUserBaseCount();
+    return MainJS.getUserBaseCount();
 },
 
 getRoleName: function(guildID)
@@ -989,35 +654,27 @@ disableWelcome: function(guildID)
 },
 getTokens: function(userID)
 {
-    return getUserTokens(userID)
+    return MainJS.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
 {
-    addUserTokens(userID, amount)
+    MainJS.addUserTokens(userID, amount)
 },
 subtractTokens: function(userID, amount)
 {
-    return subtractUserTokens(userID, amount)
+    return MainJS.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
 {
-    return getTokenCooldown(userID)
+    return MainJS.getTokenCooldown(userID)
 },
 setCooldown: function(userID, cooldown)
 {
-    setTokenCooldown(userID, cooldown)
+    MainJS.setTokenCooldown(userID, cooldown)
 }
 }
 
 var firebase = require("firebase");
-var config = {
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.PROJECT_ID + ".firebaseapp.com",
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.PROJECT_ID + ".appspot.com",
-    databaseURL: "https://" + process.env.PROJECT_ID + ".firebaseio.com"
-  };
-firebase.initializeApp(config);
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
 bot.registry.registerGroup("games", "Games");
@@ -1033,18 +690,9 @@ const curseResponses = ["You people sicken me", "Do none of you have anything be
 var signedIntoFirebase = false;
 var signedIntoDiscord = false;
 
-firebase.auth().signInAnonymously().catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-
-    console.log(errorCode);
-    console.log(errorMessage);
-});
-
 var schedule = require('node-schedule');
 
-  firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log("signed in to firebase");
       signedIntoFirebase = true;
@@ -1155,25 +803,12 @@ bot.on("channelDelete", (channel) => {
 var initData = () => {
     console.log("Init Data")
     
-    firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
-        if(snapshot.val() != null)
-        {
-            snapshot.forEach(function(childSnap){
-                if(childSnap.child("commandusage").val() != null)
-                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
-
-                if(childSnap.child("tokens").val() != null)
-                {
-                    var token = JSON.parse(childSnap.child("tokens").val())
-                    tokens.push(token)
-                }
-            });
-        }
-      })
-      firebase.database().ref("serversettings").once('value').then(function(snapshot) {
-        if(snapshot.val() != null)
-        {
-            snapshot.forEach(function(childSnap){
+    var guilds = bot.guilds.array()
+    for(var i = 0; i < guilds.length; i++)
+    {
+        firebase.database().ref("serversettings/" + guilds[i].id).once('value').then(function(childSnap) {
+            if(childSnap.val() != null)
+            {
                 var overwrites = null;
                 if(childSnap.child("respondoverwrites").val() != null)
                 {
@@ -1391,9 +1026,9 @@ var initData = () => {
                         }
                     });
                 }
-            })
-        }
-      })
+            }
+        })
+    }
 }
 
 bot.on("channelCreate", (channel) => {
