@@ -1127,7 +1127,7 @@ function commandUsageAscending(a, b)
 async function initData() {
     console.log("Init Data")
     
-    firebase.database().ref("usersettings/").on('childAdded', function(childSnap) {
+    firebase.database().ref("usersettings/").on('child_added', function(childSnap) {
         if(childSnap.val() != null)
         {
             if(childSnap.child("commandusage").val() != null)
@@ -1141,7 +1141,7 @@ async function initData() {
         }
     })
 
-    firebase.database().ref("usersettings/").on('childChanged', function(childSnap) {
+    firebase.database().ref("usersettings/").on('child_changed', function(childSnap) {
         if(childSnap.val() != null)
         {
             if(childSnap.child("commandusage").val() != null)
