@@ -6,7 +6,7 @@ const dbl = new DBL(process.env.DBL_TOKEN);
 var firebase = require("firebase");
 
 var signedIntoFirebase = false;
-
+initData()
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
 var launch = false;
@@ -14,7 +14,7 @@ function initData()
 {
     if(!launch)
     {
-        firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
+        /*firebase.database().ref("usersettings/").once('value').then(function(snapshot) {
             if(snapshot.val() != null)
             {
                 snapshot.forEach(function(childSnap){
@@ -28,7 +28,7 @@ function initData()
                     }
                 });
             }
-        })
+        })*/
 
         Manager.spawn();
         Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
