@@ -1,4 +1,9 @@
+var launch = false;
+
 console.log("Starting Bot")
+if(launch)
+    return;
+
 const { ShardingManager } = require('discord.js');
 const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN });
 const DBL = require("dblapi.js");
@@ -37,7 +42,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
 var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
-var launch = false;
 function initData()
 {
     if(!launch)
