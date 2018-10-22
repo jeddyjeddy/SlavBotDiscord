@@ -107,26 +107,6 @@ dbl.on('posted', () => {
                 }
             })
 
-            var headers7 = {
-                'Authorization': process.env.BOTLIST_SPACE,
-                'Content-Type': 'application/json'
-            }
-        
-            var options7 = {
-                url: 'https://botlist.space/api/bots/' + bot.user.id,
-                method: 'POST',
-                headers: headers7,
-                body: JSON.stringify({"shards": stats.shards})
-            }
-        
-            // Start the request
-            request(options7, function (error, response, body) {
-                if (!error) {
-                    // Print out the response body
-                    console.log("Botlist space success")
-                }
-            })
-
             var headers8 = {
                 'Authorization': process.env.DISCORDBOT_WORLD,
                 'Content-Type': 'application/json'
