@@ -12,7 +12,7 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 var request = require('request');
-
+/*
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
@@ -174,7 +174,7 @@ dbl.on('posted', () => {
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
 });
-    
+    */
 dbl.on('error', e => {
 console.log(`Oops! ${e}`);
 });
