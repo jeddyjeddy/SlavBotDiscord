@@ -2456,7 +2456,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
         console.log("Logged in shard " + bot.shard.id)
         initData()
 
-        if(bot.shard.id == 0)
+       /* if(bot.shard.id == 0)
         {
             var listener = require("contentful-webhook-listener");
             var webhook = listener.createServer({
@@ -2487,6 +2487,6 @@ bot.login(process.env.BOT_TOKEN).then(function(){
             webhook.listen(port, function callback () {
                 console.log("server is listening on port " + port);
             });
-        }
+        }*/
     }
 });
