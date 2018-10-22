@@ -116,7 +116,7 @@ dbl.on('posted', () => {
                 url: 'https://botlist.space/api/bots/' + bot.user.id,
                 method: 'POST',
                 headers: headers7,
-                body: JSON.stringify({"server_count": guildSize})
+                body: JSON.stringify({"shards": stats.shards})
             }
         
             // Start the request
