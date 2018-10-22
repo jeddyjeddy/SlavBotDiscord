@@ -2484,9 +2484,8 @@ bot.login(process.env.BOT_TOKEN).then(function(){
             });
             var port = 6000;
             
-            webhook.close()
             webhook.listen(port, function callback () {
-                console.log("server is listening");
+                console.log("server is listening on port " + port);
             });
         }
     }
