@@ -21,7 +21,7 @@ dbl.on('posted', () => {
         bot.shard.fetchClientValues('guilds.size')
         .then(results => {
             var guildSize = results.reduce((prev, val) => prev + val, 0);
-
+            console.log(guildSize)
             var headers = {
                 'Authorization': process.env.BOTS_FOR_DISCORD_API,
                 'Content-Type': 'application/json'
