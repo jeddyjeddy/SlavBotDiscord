@@ -16,10 +16,12 @@ var request = require('request');
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
-    
+    if(bot.shard.id == 0)
+    {
         bot.shard.fetchClientValues('guilds.size')
         .then(results => {
             var guildSize = results.reduce((prev, val) => prev + val, 0);
+            console.log(results)
             console.log(guildSize)
             var headers = {
                 'Authorization': process.env.BOTS_FOR_DISCORD_API,
@@ -147,7 +149,7 @@ dbl.on('posted', () => {
                 }
             })
         }).catch(error => console.log(error));
-    
+    }
 
     var headers4 = {
         'Authorization': process.env.BOTS_DISCORD_PW_API,
