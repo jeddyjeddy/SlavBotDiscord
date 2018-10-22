@@ -16,7 +16,7 @@ var request = require('request');
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
-    /*if(bot.shard.id == 0)
+    if(bot.shard.id == 0)
     {
         bot.shard.fetchClientValues('guilds.size')
         .then(results => {
@@ -189,7 +189,7 @@ dbl.on('posted', () => {
             // Print out the response body
             console.log("DBL.com success")
         }
-    })*/
+    })
 
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
