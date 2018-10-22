@@ -12,7 +12,7 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 var request = require('request');
-/*
+
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
@@ -174,7 +174,7 @@ dbl.on('posted', () => {
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
 });
-    */
+    
 dbl.on('error', e => {
 console.log(`Oops! ${e}`);
 });
@@ -2456,7 +2456,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
         console.log("Logged in shard " + bot.shard.id)
         initData()
 
-       /* if(bot.shard.id == 0)
+        if(bot.shard.id == 0)
         {
             var listener = require("contentful-webhook-listener");
             var webhook = listener.createServer({
@@ -2487,6 +2487,6 @@ bot.login(process.env.BOT_TOKEN).then(function(){
             webhook.listen(port, function callback () {
                 console.log("server is listening on port " + port);
             });
-        }*/
+        }
     }
 });
