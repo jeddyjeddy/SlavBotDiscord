@@ -18,11 +18,11 @@ dbl.on('posted', () => {
     
     if(bot.shard.id == 0)
     {
-        bot.shard.fetchClientValues('guilds.size')
+        var guildSize = 0
+        Promise.all([bot.shard.fetchClientValues('guilds.size')
         .then(results => {
-            var guildSize = results.reduce((prev, val) => prev + val, 0);
-            console.log(results)
-            console.log(guildSize)
+            guildSize = results.reduce((prev, val) => prev + val, 0);
+        }).catch(error => console.log(error))]).then(() => {
             var headers = {
                 'Authorization': process.env.BOTS_FOR_DISCORD_API,
                 'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ dbl.on('posted', () => {
                     console.log("discord bot world success")
                 }
             })
-        }).catch(error => console.log(error));
+        })
     }
 
     var headers4 = {
