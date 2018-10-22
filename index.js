@@ -16,7 +16,7 @@ var request = require('request');
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
-    if(bot.shard.id == 0)
+    /*if(bot.shard.id == 0)
     {
         bot.shard.fetchClientValues('guilds.size')
         .then(results => {
@@ -189,7 +189,7 @@ dbl.on('posted', () => {
             // Print out the response body
             console.log("DBL.com success")
         }
-    })
+    })*/
 
     bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
@@ -2496,8 +2496,8 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                             bot.fetchUser(data["user"]).then(user => {
                                 user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
                             }, rejection => {
-                                var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
-                                bot.shard.send(messageData)
+                                //var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
+                               // bot.shard.send(messageData)
                             });
                         }
                 });
