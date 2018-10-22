@@ -889,41 +889,6 @@ var DatabaseFunctions = {
     }
 }
 
-if(bot.shard.id == 0)
-{
-    var listener = require("contentful-webhook-listener");
-    var webhook = listener.createServer({
-        "Authorization": process.env.VOTE_AUTH
-    }, function requestListener (request, response) {
-        console.log("request received");
-        var body = []
-        request.on('data', (chunk) => {
-            body.push(chunk);
-        }).on('end', () => {
-                body = Buffer.concat(body).toString()
-                if(body != [] && body !== undefined && body !== null)
-                {
-                    var data = JSON.parse(body);
-                    DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
-
-                    bot.fetchUser(data["user"]).then(user => {
-                        user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
-                    }, rejection => {
-                        var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
-                        bot.shard.send(messageData)
-                    });
-                }
-        });
-    });
-    var port = 3000;
-    
-    webhook.listen(port, function callback () {
-    
-        console.log("server is listening");
-    
-    });
-}
-
 var ResponseFunctions = module.exports = {
  getResponse: function(guild) {
     return localGetResponse(guild)
@@ -2510,5 +2475,40 @@ bot.login(process.env.BOT_TOKEN).then(function(){
     {
         console.log("Logged in shard " + bot.shard.id)
         initData()
+
+        if(bot.shard.id == 0)
+        {
+            var listener = require("contentful-webhook-listener");
+            var webhook = listener.createServer({
+                "Authorization": process.env.VOTE_AUTH
+            }, function requestListener (request, response) {
+                console.log("request received");
+                var body = []
+                request.on('data', (chunk) => {
+                    body.push(chunk);
+                }).on('end', () => {
+                        body = Buffer.concat(body).toString()
+                        if(body != [] && body !== undefined && body !== null)
+                        {
+                            var data = JSON.parse(body);
+                            DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
+
+                            bot.fetchUser(data["user"]).then(user => {
+                                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                            }, rejection => {
+                                var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
+                                bot.shard.send(messageData)
+                            });
+                        }
+                });
+            });
+            var port = 5000;
+            
+            webhook.listen(port, function callback () {
+            
+                console.log("server is listening");
+            
+            });
+        }
     }
 });
