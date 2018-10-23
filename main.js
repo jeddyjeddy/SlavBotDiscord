@@ -6,7 +6,7 @@ Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.i
 
 Manager.on("message", (shard, message) => {
     Manager.shards.forEach(shardToUse => {
-        if(message.contains("token2"))
+        if(message.indexOf("token2") > -1)
         {
             if(shardToUse.id == shard.id + 1)
             {
