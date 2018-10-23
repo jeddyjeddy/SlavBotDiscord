@@ -2,6 +2,8 @@ const command = require("discord.js-commando");
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+const DBL = require("dblapi.js");
+const dbl = new DBL(process.env.DBL_TOKEN);
 
 class BotStatsCommand extends command.Command
  {
