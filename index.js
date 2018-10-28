@@ -1090,14 +1090,15 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
 
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 200000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 200,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else if(newRoles[i].id == slavRole)
                 {
                     if(newSlavSupporter && !newGopnikSupporter)
                     {
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role.").catch(error => console.log("Send Error - " + error));
+                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. You have also been given 100,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
             }
