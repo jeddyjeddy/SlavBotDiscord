@@ -1012,13 +1012,17 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
-slavRole = "495514096200974359", supportChannelID = "495564950383886336";
+slavRole = "495514096200974359", supportChannelID = "495564950383886336",
+blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
     if(newMemberData.guild.id == supportServerID)
     {
         var newGopnikSupporter = true;
         var newSlavSupporter = true;
+        var newBlyComradesSupporter = true;
+        var newBanditSupporter = true;
+        var newBabushkaSupporter = true;
         var oldRoles = oldMemberData.roles.array();
         for(var i = 0; i < oldRoles.length; i++)
         {
@@ -1029,6 +1033,21 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             else if(oldRoles[i].id == slavRole)
             {
                 newSlavSupporter = false;
+            }
+
+            if(oldRoles[i].id == blyComrades)
+            {
+                newBlyComradesSupporter = false;
+            }
+
+            if(oldRoles[i].id == bandits)
+            {
+                newBanditSupporter = false;
+            }
+
+            if(oldRoles[i].id == babushkaFavs)
+            {
+                newBabushkaSupporter = false;
             }
         }
 
@@ -1070,16 +1089,42 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                             }
                         }
 
-                        addUserTokens(newMemberData.user.id, 50000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Gopnik Supporter's Republic* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
+                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 200000)
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *" + newRoles[i].name + "* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else if(newRoles[i].id == slavRole)
                 {
                     if(newSlavSupporter && !newGopnikSupporter)
                     {
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *Slavic Supporter's Republic* role.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *" + newRoles[i].name + "* role.").catch(error => console.log("Send Error - " + error));
                     }
+                }
+            }
+        }
+
+        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter)
+        {
+            var newRoles = newMemberData.roles.array();
+            
+            for(var i = 0; i < newRoles.length; i++)
+            {
+                if(newBlyComradesSupporter && newRoles[i].id == blyComrades)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 25000)
+                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 20,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                }
+
+                if(newBanditSupporter && newRoles[i].id == bandits)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 50,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                }
+
+                if(newBabushkaSupporter && newRoles[i].id == babushkaFavs)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 100,000 War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
             }
         }
