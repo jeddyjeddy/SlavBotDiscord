@@ -1090,14 +1090,14 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
 
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 200000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *" + newRoles[i].name + "* role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 50,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else if(newRoles[i].id == slavRole)
                 {
                     if(newSlavSupporter && !newGopnikSupporter)
                     {
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the *" + newRoles[i].name + "* role.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role.").catch(error => console.log("Send Error - " + error));
                     }
                 }
             }
@@ -1112,19 +1112,19 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 if(newBlyComradesSupporter && newRoles[i].id == blyComrades)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 25000)
-                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 20,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 20,000 War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
 
                 if(newBanditSupporter && newRoles[i].id == bandits)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
-                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 50,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 50,000 War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
 
                 if(newBabushkaSupporter && newRoles[i].id == babushkaFavs)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
-                    newMemberData.user.send("Thank you for donation! You have been given the *" + newRoles[i].name + "* role. You have been given 100,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 100,000 War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
             }
         }
