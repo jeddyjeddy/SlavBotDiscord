@@ -48,6 +48,8 @@ class WWCommand extends command.Command
             
         IndexRef.addCommandCounter(message.author.id);
         
+        console.log(`WW Length: ${wars.length} on Shard: ${message.client.shard.id}`)
+
         var existingData = false;
         for(var i = 0; i < wars.length; i++)
         {
