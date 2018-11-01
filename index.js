@@ -1095,7 +1095,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 }
                 else if(newRoles[i].id == slavRole)
                 {
-                    if(newSlavSupporter && !newGopnikSupporter)
+                    if(newSlavSupporter)
                     {
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
                         newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. You have also been given 100,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
