@@ -168,6 +168,77 @@ class WWCommand extends command.Command
                         message.channel.send("<@" + message.author.id + "> Ended WW Session").catch(error => {console.log("Send Error - " + error); });
                         return;
                     }
+                    else if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("remove"))
+                    {
+                        var endIndex = -1;
+                        var users = []
+                        var getUser = false;
+                        var userID = "";
+                        for(var index = 0; index < args.length; index++)
+                        {
+                            if(getUser)
+                            {
+                                if(args[index].toString() == ">")
+                                {
+                                    users.push(userID);
+                                    userID = "";
+                                    getUser = false;
+                                }
+                                else
+                                {
+                                    if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                                    {
+                                        userID = userID + args[index].toString();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if(args[index].toString() == "<")
+                                {
+                                    getUser = true;
+                                    if(endIndex == -1)
+                                        endIndex = index 
+                                } 
+                            }
+                        }
+
+                        var options = ""
+
+                        for(var index = 0; index < endIndex; index++)
+                        {
+                            options = options + args[index];
+                        }
+
+                        var amount = options.match(/\d+/g).map(Number);
+                        
+                        if(amount.length > 0)
+                        {
+                            amount = amount[0]
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                        if(users.length > 0)
+                        {
+                            for(var userIndex = 0; userIndex < users.length; userIndex++)
+                            {
+                                if(IndexRef.getTokens(users[userIndex]) < amount)
+                                {
+                                    IndexRef.subtractTokens(users[userIndex], IndexRef.getTokens(users[userIndex]))
+                                }
+                                else
+                                {
+                                    IndexRef.subtractTokens(users[userIndex], amount)
+                                }
+
+                                message.channel.send(numberWithCommas(amount) + " tokens have been removed from " + "<@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                            }
+                        }
+                        return;
+                    }
 
                     if(wars[i].ended)
                     {
