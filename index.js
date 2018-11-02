@@ -1012,7 +1012,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
-slavRole = "495514096200974359", supportChannelID = "495564950383886336",
+slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
 blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
@@ -1072,12 +1072,19 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                     messages.filter(msg => {
                                         if(msg.author.id == bot.user.id)
                                         {
-                                            if(msg.content.length < (2000 - userIDText.length) && !added)
+                                            if(msg.content.indexOf(userIDText) > -1)
                                             {
-                                                msg.edit(msg.content + userIDText).then(() => {
-                                                    added = true;
-                                                }).catch(error => console.log("Message Edit Error - " + error));
+                                                added = true;
                                             }
+                                            else
+                                            {
+                                                if(msg.content.length < (2000 - userIDText.length) && !added)
+                                                {
+                                                    msg.edit(msg.content + userIDText).then(() => {
+                                                        added = true;
+                                                    }).catch(error => console.log("Message Edit Error - " + error));
+                                                }
+                                            } 
                                         }
                                     })
 
@@ -1097,8 +1104,43 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 {
                     if(newSlavSupporter)
                     {
+                        var channels = newMemberData.guild.channels.array();
+                        var userIDText = "\n<@" + newMemberData.id + ">"
+                        var added = false;
+                        for(var index = 0; index < channels.length; index++)
+                        {
+                            if(channels[index].id == supportChannelID2)
+                            {
+                                channels[index].fetchMessages().then((messages) => {
+                                    messages.filter(msg => {
+                                        if(msg.author.id == bot.user.id)
+                                        {
+                                            if(msg.content.indexOf(userIDText) > -1)
+                                            {
+                                                added = true;
+                                            }
+                                            else
+                                            {
+                                                if(msg.content.length < (2000 - userIDText.length) && !added)
+                                                {
+                                                    msg.edit(msg.content + userIDText).then(() => {
+                                                        added = true;
+                                                    }).catch(error => console.log("Message Edit Error - " + error));
+                                                }
+                                            } 
+                                        }
+                                    })
+
+                                    if(!added)
+                                    {
+                                        channels[index].send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                    }
+                                })
+                            }
+                        }
+
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. You have also been given 100,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 100,000 War Tokens for World War games.").catch(error => console.log("Send Error - " + error));
                     }
                 }
             }
