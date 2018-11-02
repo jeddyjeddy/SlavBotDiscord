@@ -1096,8 +1096,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                             }
                         }
 
-                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 200000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 200k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                     }
                 }
                 else if(newRoles[i].id == slavRole)
@@ -1139,8 +1139,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                             }
                         }
 
-                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
-                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                        DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                        newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                     }
                 }
             }
@@ -1155,19 +1155,19 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 if(newBlyComradesSupporter && newRoles[i].id == blyComrades)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 25000)
-                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 20,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 20k War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
 
                 if(newBanditSupporter && newRoles[i].id == bandits)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
-                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 50,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 50k War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
 
                 if(newBabushkaSupporter && newRoles[i].id == babushkaFavs)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
-                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 100,000 War Tokens.").catch(error => console.log("Send Error - " + error));
+                    newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 100k War Tokens.").catch(error => console.log("Send Error - " + error));
                 }
             }
         }
@@ -2556,14 +2556,14 @@ function paySupporters()
                     {
                         if(role.id == gopnikRole)
                         {
-                            DatabaseFunctions.addUserTokens(member.id, 200000)
-                            member.send("You have been given your monthly payment of 200k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                            DatabaseFunctions.addUserTokens(member.id, 100000)
+                            member.send("You have been given your monthly payment of 100k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             payed = true;
                         }
                         else if(role.id == slavRole)
                         {
-                            DatabaseFunctions.addUserTokens(member.id, 100000)
-                            member.send("You have been given your monthly payment of 100k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                            DatabaseFunctions.addUserTokens(member.id, 50000)
+                            member.send("You have been given your monthly payment of 50k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             payed = true;
                         }
                     }
