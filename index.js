@@ -2573,7 +2573,7 @@ function paySupporters()
             var paymentDate = (new Date(Date.now()));
             firebase.database().ref("patreondate").set(paymentDate.toJSON())
             var scheduleDate;
-            if (now.getMonth() == 11) {
+            if (scheduleDate.getMonth() == 11) {
                 scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
             } else {
                 scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
@@ -2613,7 +2613,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                     else
                     {
                         paymentDate = new Date(snapshot.val());
-                        
+
                         if(today.getMonth() != paymentDate.getMonth())
                         {
                             paySupporters();
@@ -2621,7 +2621,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                         else
                         {
                             var scheduleDate;
-                            if (now.getMonth() == 11) {
+                            if (scheduleDate.getMonth() == 11) {
                                 scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
                             } else {
                                 scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
