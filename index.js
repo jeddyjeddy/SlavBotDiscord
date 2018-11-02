@@ -2608,28 +2608,29 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                         var date = (new Date(Date.now()));
                         paymentDate = date;
                         firebase.database().ref("patreondate").set(date.toJSON())
-                    }
-                    else
-                    {
-                        paymentDate = new Date(snapshot.val());
-                    }
-
-                    if(today.getMonth() != paymentDate.getMonth())
-                    {
                         paySupporters();
                     }
                     else
                     {
-                        var scheduleDate;
-                        if (now.getMonth() == 11) {
-                            scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
-                        } else {
-                            scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
+                        paymentDate = new Date(snapshot.val());
+                        
+                        if(today.getMonth() != paymentDate.getMonth())
+                        {
+                            paySupporters();
                         }
-
-                        schedule.scheduleJob(scheduleDate, function(){
-                            paySupporters()
-                        });
+                        else
+                        {
+                            var scheduleDate;
+                            if (now.getMonth() == 11) {
+                                scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
+                            } else {
+                                scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
+                            }
+    
+                            schedule.scheduleJob(scheduleDate, function(){
+                                paySupporters()
+                            });
+                        }
                     }
                 })
             }
