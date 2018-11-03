@@ -481,7 +481,7 @@ class WWCommand extends command.Command
 
                             if(!isNaN(countryName))
                             {
-                                countryNumber = parseInt(countryName)
+                                countryNumber = parseInt(countryName) - 1
                             }
 
                             for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
@@ -527,7 +527,7 @@ class WWCommand extends command.Command
 
                             if(!isNaN(countryName))
                             {
-                                countryNumber = parseInt(countryName)
+                                countryNumber = parseInt(countryName) - 1
                             }
                        
                             for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
