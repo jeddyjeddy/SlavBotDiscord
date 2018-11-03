@@ -514,7 +514,7 @@ class WWCommand extends command.Command
 
                             if(notFound)
                             {
-                                message.channel.send("<@" + message.author.id + "> Country not found. Please check the country list and ensure that the name you have given is spelt correctly.").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> Country not found. Please check the country list and ensure that the Country ID is valid or the name you have given is spelt correctly.").catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if (args.toLowerCase().startsWith("buy "))
@@ -604,7 +604,7 @@ class WWCommand extends command.Command
 
                             if(notFound)
                             {
-                                message.channel.send("<@" + message.author.id + "> Country not found. Please check the country list and ensure that the name you have given is spelt correctly.").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> Country not found. Please check the country list and ensure that the Country ID is valid or the name you have given is spelt correctly.").catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if(args.toLowerCase().startsWith("ranks"))
