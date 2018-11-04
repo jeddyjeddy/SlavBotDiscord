@@ -66,7 +66,7 @@ class SunriseCommand extends command.Command
                 console.log("got image");
                 Jimp.read(url).then(function (userImage) {
                     
-                    userImage.cover(sunriseImage.bitmap.width, sunriseImage.bitmap.height - 335)
+                    userImage.cover(sunriseImage.bitmap.width, sunriseImage.bitmap.height - 235)
                     var blank = new Jimp(sunriseImage.bitmap.width, sunriseImage.bitmap.height)
                     blank.composite(userImage, 0, 335);
                     var mergedImage = blank.composite(sunriseImage, 0, 0);
