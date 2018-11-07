@@ -48,8 +48,6 @@ class WWCommand extends command.Command
             
         IndexRef.addCommandCounter(message.author.id);
         
-        console.log(`WW Length: ${wars.length} on Shard: ${message.client.shard.id}`)
-
         var existingData = false;
         for(var i = 0; i < wars.length; i++)
         {
@@ -824,6 +822,12 @@ class WWCommand extends command.Command
                     firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
                     return;
                 }
+            }
+
+            if(wars.length > 0)
+            {
+                console.log(`Reset at WW Length: ${wars.length} on Shard: ${message.client.shard.id}`)
+                wars = []
             }
         })
     }
