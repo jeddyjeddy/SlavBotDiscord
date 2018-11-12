@@ -35,7 +35,7 @@ class FactsCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 160)
+        if(args.length > 0 && args.length <= 140)
         {
             const file = shortid.generate() + ".png";
             
@@ -74,7 +74,7 @@ class FactsCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 160 characters, use `" + commandPrefix + "help facts` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 140 characters, use `" + commandPrefix + "help facts` for help.").catch(error => {console.log("Send Error - " + error); });
             else
              message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help facts` for help.").catch(error => {console.log("Send Error - " + error); });
             
