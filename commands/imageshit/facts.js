@@ -40,7 +40,7 @@ class FactsCommand extends command.Command
             const file = shortid.generate() + ".png";
             
                 Jimp.read("facts.png").then(function (trumpImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
                         var textWidth = 165;
                         var textHeight = 145;
                         var textRot = 15;
