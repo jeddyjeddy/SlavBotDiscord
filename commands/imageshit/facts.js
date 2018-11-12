@@ -20,7 +20,7 @@ class FactsCommand extends command.Command
             group: "imageshit",
             memberName: "facts",
             description: "***Facts.*** This command only has a text parameter.",
-            examples: ["`!facts <text>`", "`!facts if you have a anime profile pic your opinion doesn't count`"]
+            examples: ["`!facts <text>`", "`!facts if you have an anime profile pic your opinion doesn't count`"]
         });
     }
 
