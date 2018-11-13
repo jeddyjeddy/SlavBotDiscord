@@ -19,7 +19,7 @@ class ProphecyCommand extends command.Command
             name: "prophecy",
             group: "imageshit",
             memberName: "prophecy",
-            description: "This uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "***The thread of prophecy has been severed.*** This uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!prophecy`", "`!prophecy avatar`", "`!prophecy @User`"]
         });
     }
