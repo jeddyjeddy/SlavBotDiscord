@@ -823,12 +823,6 @@ class WWCommand extends command.Command
                     return;
                 }
             }
-
-            if(wars.length > 0)
-            {
-                console.log(`Reset at WW Length: ${wars.length} on Shard: ${message.client.shard.id}`)
-                wars = []
-            }
         })
     }
 }
