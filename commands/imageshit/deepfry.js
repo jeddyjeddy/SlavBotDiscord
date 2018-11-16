@@ -11,6 +11,14 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
+const Filter = require('node-image-filter');
+function imageEffect(pixels) {
+    return Filter.convolution(pixels,
+           [-1, -1, -1,
+            -1, 8.75, -1,
+            -1, -1, -1], 1);
+}
+
 class DeepfryCommand extends command.Command
  {
     constructor(client)
@@ -109,24 +117,34 @@ class DeepfryCommand extends command.Command
                     ]) 
                                         
                     userImage.contrast(1);
-                                                                
-                    const file = shortid.generate() + ".png"
-                    userImage.write(file, function(error){
+                    const fileTemp = shortid.generate() + ".png";  
+                    userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
-                        console.log(file);
-                        message.channel.send("***Deep Fried***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.remove(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.remove(file, resultHandler);
-                        });
-                        console.log("Message Sent");
-                    })
+                        console.log(fileTemp);
+
+                        Filter.render(fileTemp, imageEffect, function(result)
+                        {
+                            const file = shortid.generate() + `.${result.type}`
+                            result.data.pipe(fs.createWriteStream(file).on('finish', function(){
+                                console.log(file);
+                                message.channel.send("***Deep Fried***", {
+                                    files: [file]
+                                }).then(function(){
+                                    fs.remove(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    fs.remove(fileTemp, resultHandler);
+                                    fs.remove(file, resultHandler);
+                                });
+                                console.log("Message Sent");
+                              }).on('error', function(err) {
+                                console.log("Sharpen Error:" + err);
+                                fs.remove(fileTemp, resultHandler);
+                              }));
+                        })
+                    });
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
