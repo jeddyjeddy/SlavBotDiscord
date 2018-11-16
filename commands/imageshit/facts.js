@@ -40,7 +40,7 @@ class FactsCommand extends command.Command
             const file = shortid.generate() + ".png";
             
                 Jimp.read("facts.png").then(function (factsImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
+                    Jimp.loadFont("Arial_24.fnt").then(function (font) {
                         var textWidth = 165;
                         var textHeight = 145;
                         var textRot = 15;
@@ -48,7 +48,7 @@ class FactsCommand extends command.Command
                         var textY = 325;
 
                         var textImage = new Jimp(textWidth, textHeight);
-                        textImage.print(font, 0, 0, args.toString(), textWidth);
+                        textImage.print(font, 0, 0, args.toString(), textWidth).invert();
                         textImage.rotate(textRot);
 
                         factsImage.composite(textImage, textX, textY).write(file, function(error){  
