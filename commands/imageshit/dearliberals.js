@@ -41,11 +41,11 @@ class DearLiberalsCommand extends command.Command
             
                 Jimp.read("dearliberals.png").then(function (dearliberalsImage) {
                     Jimp.loadFont("Arial_24.fnt").then(function (font) {
-                        var textWidth = 270;
+                        var textWidth = 250;
                         var textHeight = 165;
-                        var textRot = 12;
+                        var textRot = 13;
                         var textX = 150;
-                        var textY = 270;
+                        var textY = 290;
 
                         var textImage = new Jimp(textWidth, textHeight);
                         textImage.print(font, 0, 0, args.toString(), textWidth).invert();
