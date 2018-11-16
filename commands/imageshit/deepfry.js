@@ -101,22 +101,15 @@ class DeepfryCommand extends command.Command
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read(url).then(function (userImage) {
-        
-                    var orgWidth = userImage.bitmap.width, orgHeight = userImage.bitmap.height;
-                    
-                    
-                    userImage.resize(userImage.bitmap.width / 6, userImage.bitmap.height / 6);
-                                        
+                Jimp.read(url).then(function (userImage) {                    
+                                                
                     userImage.color([
                         { apply: 'saturate', params: [ 100 ] },
                         { apply: 'red', params: [ 50 ] }
                     ]) 
                                         
                     userImage.contrast(1);
-                                        
-                    userImage.resize(orgWidth, orgHeight);
-                        
+                                                                
                     const file = shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
