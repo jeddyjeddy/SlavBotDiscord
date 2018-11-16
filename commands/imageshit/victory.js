@@ -104,7 +104,10 @@ class VictoryCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        victoryImage.resize(userImage.bitmap.width * 0.75, Jimp.AUTO)
+                        if(userImage.bitmap.width > userImage.bitmap.height)
+                            victoryImage.resize(Jimp.AUTO, userImage.bitmap.height * 0.75)
+                        else
+                            victoryImage.resize(userImage.bitmap.width * 0.75, Jimp.AUTO)
 
                         var x = (userImage.bitmap.width / 2) - (victoryImage.bitmap.width / 2)
                         var y = (userImage.bitmap.height / 4) - (victoryImage.bitmap.height / 2)
@@ -175,7 +178,10 @@ class VictoryCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        victoryImage.resize(userImage.bitmap.width * 0.75, Jimp.AUTO)
+                        if(userImage.bitmap.width > userImage.bitmap.height)
+                            victoryImage.resize(Jimp.AUTO, userImage.bitmap.height * 0.75)
+                        else
+                            victoryImage.resize(userImage.bitmap.width * 0.75, Jimp.AUTO)
 
                         var x = (userImage.bitmap.width / 2) - (victoryImage.bitmap.width / 2)
                         var y = (userImage.bitmap.height / 4) - (victoryImage.bitmap.height / 2)
