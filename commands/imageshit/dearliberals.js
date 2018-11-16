@@ -40,7 +40,7 @@ class DearLiberalsCommand extends command.Command
             const file = shortid.generate() + ".png";
             
                 Jimp.read("dearliberals.png").then(function (dearliberalsImage) {
-                    Jimp.loadFont("Arial_24").then(function (font) {
+                    Jimp.loadFont("Arial_24.fnt").then(function (font) {
                         var textWidth = 270;
                         var textHeight = 165;
                         var textRot = 12;
