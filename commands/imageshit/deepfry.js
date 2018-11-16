@@ -112,11 +112,11 @@ class DeepfryCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {                    
                                                 
                     userImage.color([
-                        { apply: 'saturate', params: [ 50 ] },
-                        { apply: 'red', params: [ 25 ] }
+                        { apply: 'saturate', params: [ 75 ] },
+                        { apply: 'red', params: [ 50 ] }
                     ]) 
                                         
-                    userImage.contrast(0.5);
+                    userImage.contrast(0.75);
                     const fileTemp = shortid.generate() + ".png";  
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
