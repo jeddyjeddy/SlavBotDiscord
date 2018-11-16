@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class FactsCommand extends command.Command
+class DearLiberalsCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "facts",
+            name: "dearliberals",
             group: "imageshit",
-            memberName: "facts",
-            description: "***Facts.*** This command only has a text parameter.",
-            examples: ["`!facts <text>`", "`!facts if you have an anime profile pic your opinion doesn't count`"]
+            memberName: "dearliberals",
+            description: "***Dear Liberals.*** This command only has a text parameter.",
+            examples: ["`!dearliberals <text>`", "`!dearliberals facts and logic`"]
         });
     }
 
@@ -39,21 +39,21 @@ class FactsCommand extends command.Command
         {
             const file = shortid.generate() + ".png";
             
-                Jimp.read("facts.png").then(function (factsImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
-                        var textWidth = 165;
+                Jimp.read("dearliberals.png").then(function (dearliberalsImage) {
+                    Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function (font) {
+                        var textWidth = 250;
                         var textHeight = 145;
-                        var textRot = 15;
-                        var textX = 20;
-                        var textY = 325;
+                        var textRot = 12;
+                        var textX = 170;
+                        var textY = 290;
 
                         var textImage = new Jimp(textWidth, textHeight);
                         textImage.print(font, 0, 0, args.toString(), textWidth);
                         textImage.rotate(textRot);
 
-                        factsImage.composite(textImage, textX, textY).write(file, function(error){  
+                        dearliberalsImage.composite(textImage, textX, textY).write(file, function(error){  
                             if(error) { console.log(error); return;};
-                        message.channel.send("***Facts***", {
+                        message.channel.send("***Dear Liberals***", {
                                     files: [file]
                         }).then(function(){
                             
@@ -74,12 +74,12 @@ class FactsCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 140 characters, use `" + commandPrefix + "help facts` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 140 characters, use `" + commandPrefix + "help dearliberals` for help.").catch(error => {console.log("Send Error - " + error); });
             else
-             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help facts` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help dearliberals` for help.").catch(error => {console.log("Send Error - " + error); });
             
         }
     }
 }
 
-module.exports = FactsCommand;
+module.exports = DearLiberalsCommand;
