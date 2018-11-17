@@ -1592,7 +1592,7 @@ function levelUp(user, message)
     }
 
     var promises = []
-    if(userMessageCount == [])
+    if(userMessageCount.length == 0)
     {
         promises.push(firebase.database().ref("supportservermessages").once('value').then(function(snapshot) {
             if(snapshot.val() != null)
