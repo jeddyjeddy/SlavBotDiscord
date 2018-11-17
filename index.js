@@ -1584,7 +1584,7 @@ bot.on("guildMemberRemove", (member) => {
 
 var userMessageCount = []
 
-function levelUp(user, message)
+function levelUp(user, channel)
 {
     if(user.id == bot.user.id || user.bot)
     {
@@ -1608,7 +1608,7 @@ function levelUp(user, message)
         var added = false;
         for(var i = 0; i < userMessageCount.length; i++)
         {
-            if(userMessageCount[i].userID == user.id)
+            if(userMessageCount[i].userID == user.id && !added)
             {
                 added = true;
                 userMessageCount[i].messages = userMessageCount[i].messages + 1
@@ -1617,12 +1617,12 @@ function levelUp(user, message)
                 if(userMessageCount[i].messages % 1000 == 0)
                 {
                     DatabaseFunctions.addUserTokens(user.id, 10000)
-                    message.channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.")
+                    channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.")
                 }
                 else if(userMessageCount[i].messages % 100 == 0)
                 {
                     DatabaseFunctions.addUserTokens(user.id, 1000)
-                    message.channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.")
+                    channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.")
                 }
             }
         }
@@ -1656,7 +1656,7 @@ bot.on("message", (message) => {
         //Support Server Social Channels and VIP Channels
         if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
         {
-            levelUp(message.author, message);
+            levelUp(message.author, message.channel);
         }
     }
 
