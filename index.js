@@ -1599,7 +1599,6 @@ function levelUp(user, message)
             {
                 snapshot.forEach(childSnap => {
                     userMessageCount.push({userID: childSnap.key, messages: childSnap.val()})
-                    console.log(childSnap.key)
                 });
             }
         }))
