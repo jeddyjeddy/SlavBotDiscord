@@ -1586,7 +1586,7 @@ var userMessageCount = []
 
 function levelUp(user)
 {
-    if(user.id == bot.user.id)
+    if(user.id == bot.user.id || user.bot)
     {
         return;
     }
