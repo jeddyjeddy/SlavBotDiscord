@@ -1582,6 +1582,54 @@ bot.on("guildMemberRemove", (member) => {
     }
 })
 
+var userMessageCount = []
+
+function levelUp(user)
+{
+    var promises = []
+    if(userMessageCount == [])
+    {
+        promises.push(firebase.database().ref("supportservermessages").once('value').then(function(snapshot) {
+            if(snapshot.val() != null)
+            {
+                snapshot.forEach(childSnap => {
+                    userMessageCount.push({userID: childSnap.key, messages: childSnap.val()})
+                });
+            }
+        }))
+    }
+    
+    Promise.all(promises).then(() => {
+        var added = false;
+        for(var i = 0; i < userMessageCount.length; i++)
+        {
+            if(userMessageCount[i].userID == user.id)
+            {
+                added = true;
+                userMessageCount[i].messages = userMessageCount[i].messages + 1
+                firebase.database().ref("supportservermessages/" + user.id).set(userMessageCount[i].messages)
+
+                if(userMessageCount[i].messages % 1000 == 0)
+                {
+                    DatabaseFunctions.addUserTokens(user.id, 10000)
+                    message.channel.send("<@ " + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.")
+                }
+                else if(userMessageCount[i].messages % 100 == 0)
+                {
+                    DatabaseFunctions.addUserTokens(user.id, 1000)
+                    message.channel.send("<@ " + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.")
+                }
+            }
+        }
+
+        if(!added)
+        {
+            userMessageCount.push({userID: user.id, messages: 1})
+            firebase.database().ref("supportservermessages/" + user.id).set(1)
+        }
+    })
+}
+
 
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
@@ -1596,6 +1644,15 @@ bot.on("message", (message) => {
     
     if(!message.guild.member(message.client.user.id).hasPermission("SEND_MESSAGES") || !message.guild.member(message.client.user.id).hasPermission("ATTACH_FILES")){
         return;
+    }
+
+    if(message.guild.id == supportServerID)
+    {
+        //Support Server Social Channels and VIP Channels
+        if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
+        {
+            levelUp(message.author);
+        }
     }
 
     var noResponse = localGetResponse(message.guild);
