@@ -1584,7 +1584,7 @@ bot.on("guildMemberRemove", (member) => {
 
 var userMessageCount = []
 
-function levelUp(user)
+function levelUp(user, message)
 {
     if(user.id == bot.user.id || user.bot)
     {
@@ -1656,7 +1656,7 @@ bot.on("message", (message) => {
         //Support Server Social Channels and VIP Channels
         if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
         {
-            levelUp(message.author);
+            levelUp(message.author, message);
         }
     }
 
