@@ -1586,6 +1586,11 @@ var userMessageCount = []
 
 function levelUp(user)
 {
+    if(user.id == bot.user.id)
+    {
+        return;
+    }
+
     var promises = []
     if(userMessageCount == [])
     {
