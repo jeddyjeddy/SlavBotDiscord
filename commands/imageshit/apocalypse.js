@@ -19,7 +19,7 @@ class ApocalypseCommand extends command.Command
             name: "apocalypse",
             group: "imageshit",
             memberName: "apocalypse",
-            description: "***The 4 horsemen of the apocalypse.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the image parameter to use the last uploaded images (up to 4 images only).",
+            description: "***The 4 Horsemen of the Apocalypse.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the image parameter to use the last uploaded images (up to 4 images only).",
             examples: ["`!apocalypse`", "`!apocalypse image`", "`!apocalypse @User1 @User2 @User3` (4 users Max)"]
         });
     }
@@ -91,7 +91,7 @@ class ApocalypseCommand extends command.Command
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
-                                        message.channel.send("***The 4 horsemen of the apocalypse***", {
+                                        message.channel.send("***The 4 Horsemen of the Apocalypse***", {
                                             files: [file]
                                         }).then(function(){
                                             
@@ -274,7 +274,7 @@ class ApocalypseCommand extends command.Command
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
-                                        message.channel.send("***The 4 horsemen of the apocalypse***", {
+                                        message.channel.send("***The 4 Horsemen of the Apocalypse***", {
                                             files: [file]
                                         }).then(function(){
                                             
