@@ -72,20 +72,19 @@ class ApocalypseCommand extends command.Command
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("apocalypse.jpg").then(function (apocalypseImage) {
                     console.log("got image");
-                    var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
+                    
                     Jimp.read(urls[0]).then(function (image1) {
                         image1.cover(450, 450)
-                        BG.composite(image1, 30, 250)
+                        apocalypseImage.composite(image1, 30, 250)
                         Jimp.read(urls[1]).then(function (image2) {
                             image2.cover(450, 450)
-                            BG.composite(image2, 600, 250)
+                            apocalypseImage.composite(image2, 600, 250)
                             Jimp.read(urls[2]).then(function (image3) {
                                 image3.cover(450, 450)
-                                BG.composite(image3, 30, 950)
+                                apocalypseImage.composite(image3, 30, 950)
                                 Jimp.read(urls[3]).then(function (image4) {
                                     image4.cover(450, 450)
-                                    BG.composite(image4, 600, 950)
-                                    var mergedImage = BG.composite(apocalypseImage, 0, 0);
+                                    apocalypseImage.composite(image4, 600, 950)
                                 
                                     const file = shortid.generate() + ".png"
                                     mergedImage.write(file, function(error){
@@ -256,23 +255,22 @@ class ApocalypseCommand extends command.Command
                 message.channel.send("***creating image***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("apocalypse.jpg").then(function (apocalypseImage) {
                     console.log("got image");
-                    var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
+                   
                     Jimp.read(profileURLs[0]).then(function (image1) {
                         image1.resize(450, 450)
-                        BG.composite(image1, 30, 250)
+                        apocalypseImage.composite(image1, 30, 250)
                         Jimp.read(profileURLs[1]).then(function (image2) {
                             image2.resize(450, 450)
-                            BG.composite(image2, 600, 250)
+                            apocalypseImage.composite(image2, 600, 250)
                             Jimp.read(profileURLs[2]).then(function (image3) {
                                 image3.resize(450, 450)
-                                BG.composite(image3, 30, 950)
+                                apocalypseImage.composite(image3, 30, 950)
                                 Jimp.read(profileURLs[3]).then(function (image4) {
                                     image4.resize(450, 450)
-                                    BG.composite(image4, 600, 950)
-                                    var mergedImage = BG.composite(apocalypseImage, 0, 0);
+                                    apocalypseImage.composite(image4, 600, 950)
                                 
                                     const file = shortid.generate() + ".png"
-                                    mergedImage.write(file, function(error){
+                                    apocalypseImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
