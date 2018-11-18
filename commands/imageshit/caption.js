@@ -35,7 +35,7 @@ class CaptionCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0)
+        if(args.length > 0 && args.length <= 500)
         {
             var url = "";
             message.channel.fetchMessages({ around: message.id })
@@ -70,10 +70,10 @@ class CaptionCommand extends command.Command
                 Jimp.read(url).then(function (captionImage) { 
                     Jimp.read("blank.png").then(function (blankImage) {   
                         Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(function (font) {
-                            var height = (args.toString().length/40)*200
+                            var height = (args.length/40)*130
 
-                            if(height < 200)
-                                height = 200;
+                            if(height < 130)
+                                height = 130;
 
                             var textImage = blankImage.resize(3000, height)
                             textImage.print(font, 50, 0, args.toString(), 3000);
@@ -117,7 +117,10 @@ class CaptionCommand extends command.Command
         }
         else
         {
-             message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help caption` for help.").catch(error => {console.log("Send Error - " + error); });
+            if(args.length > 0)
+                message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 500 characters, use `" + commandPrefix + "help caption` for help.").catch(error => {console.log("Send Error - " + error); });
+            else
+                message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help caption` for help.").catch(error => {console.log("Send Error - " + error); });
         }
     }
 }
