@@ -76,9 +76,14 @@ class CaptionCommand extends command.Command
                         
                         textImage.resize(captionImage.bitmap.width, Jimp.AUTO)
                         var finalImage = new Jimp(captionImage.bitmap.width, captionImage.bitmap.height + textImage.bitmap.height)
+                        .composite(textImage, 0, 0).composite(captionImage, 0, textImage.bitmap.height)
+
+                        console.log(textImage.bitmap.height)
+                        console.log(captionImage.bitmap.height)
+                        console.log(finalImage.bitmap.height)
 
                         const file = shortid.generate() + ".png";
-                        finalImage.composite(textImage, 0, 0).composite(captionImage, 0, textImage.bitmap.height).write(file, function(error){  
+                        finalImage.write(file, function(error){  
                             if(error) { console.log(error); return;};
                         message.channel.send("***Captioned***", {
                                     files: [file]
