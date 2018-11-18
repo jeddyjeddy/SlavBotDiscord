@@ -104,11 +104,9 @@ class BlinkCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var blinkImage0 = userImage.cover(250, 150)
-                        var blinkImage1 = userImage.blur(5)
-                        var blinkImage2 = userImage.blur(10)
+                        var blinkImagePanel = userImage.cover(250, 150)
 
-                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 230, 1012).composite(blinkImage0, 230, 1174);
+                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(5), 230, 1012).composite(blinkImagePanel.blur(5), 230, 858);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
@@ -173,12 +171,10 @@ class BlinkCommand extends command.Command
                     
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
+                        
+                        var blinkImagePanel = userImage.cover(250, 150)
 
-                        var blinkImage0 = userImage.cover(250, 150)
-                        var blinkImage1 = userImage.blur(5)
-                        var blinkImage2 = userImage.blur(10)
-
-                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 230, 1012).composite(blinkImage0, 230, 1174);
+                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(5), 230, 1012).composite(blinkImagePanel.blur(5), 230, 858);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
