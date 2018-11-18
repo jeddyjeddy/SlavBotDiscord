@@ -37,6 +37,7 @@ class CaptionCommand extends command.Command
 
         if(args.length > 0)
         {
+            var url = "";
             message.channel.fetchMessages({ around: message.id })
             .then(messages => {
                 var messageID = "";
