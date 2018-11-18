@@ -74,7 +74,7 @@ class CaptionCommand extends command.Command
                         if(height < 130)
                             height = 130;
 
-                        var textImage = new Jimp(3000, );
+                        var textImage = new Jimp(3000, height);
                         textImage.background(0xFFFFFFFF)
                         textImage.print(font, 0, 0, args.toString(), 3000);
                         
