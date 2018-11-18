@@ -67,38 +67,42 @@ class CaptionCommand extends command.Command
 
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
                 console.log("got image");
-                Jimp.read(url).then(function (captionImage) {   
-                    Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(function (font) {
-                        var height = (args.toString().length/40)*130
+                Jimp.read(url).then(function (captionImage) { 
+                    Jimp.read("blank.png").then(function (blankImage) {   
+                        Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(function (font) {
+                            var height = (args.toString().length/45)*150
 
-                        if(height < 130)
-                            height = 130;
+                            if(height < 150)
+                                height = 150;
 
-                        var textImage = new Jimp(3000, height).rgba(false).background(0xFFFFFFFF);
-                        textImage
-                        textImage.print(font, 0, 0, args.toString(), 3000);
-                        
-                        textImage.resize(captionImage.bitmap.width, Jimp.AUTO)
-                        var finalImage = new Jimp(captionImage.bitmap.width, captionImage.bitmap.height + textImage.bitmap.height)
-                        .composite(textImage, 0, 0).composite(captionImage, 0, textImage.bitmap.height)
-
-                        const file = shortid.generate() + ".png";
-                        finalImage.write(file, function(error){  
-                            if(error) { console.log(error); return;};
-                        message.channel.send("***Captioned***", {
-                                    files: [file]
-                        }).then(function(){
+                            var textImage = blankImage.resize(3000, height)
+                            textImage.print(font, 0, 0, args.toString(), 3000);
                             
-                            fs.remove(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.remove(file, resultHandler);
-                        });
+                            textImage.resize(captionImage.bitmap.width, Jimp.AUTO)
+                            var finalImage = new Jimp(captionImage.bitmap.width, captionImage.bitmap.height + textImage.bitmap.height)
+                            .composite(textImage, 0, 0).composite(captionImage, 0, textImage.bitmap.height)
+
+                            const file = shortid.generate() + ".png";
+                            finalImage.write(file, function(error){  
+                                if(error) { console.log(error); return;};
+                            message.channel.send("***Captioned***", {
+                                        files: [file]
+                            }).then(function(){
+                                
+                                fs.remove(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.remove(file, resultHandler);
                             });
+                                });
+                        });
+                    }).catch(function (err) {
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                        
                     });
-                
                 }).catch(function (err) {
                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                     console.log(err.message);
