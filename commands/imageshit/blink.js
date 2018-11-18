@@ -19,7 +19,7 @@ class BlinkCommand extends command.Command
             name: "blink",
             group: "imageshit",
             memberName: "blink",
-            description: "Blink Up an image. Merges the avatar of the bot to the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
+            description: "This command uses the last image uploaded, your avatar or the avatar of the user you mentioned after the command.",
             examples: ["`!blink`", "`!blink avatar`","`!blink @User`"]
         });
     }
@@ -114,7 +114,7 @@ class BlinkCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Blink'd***", {
+                            message.channel.send("***Blink***", {
                                 files: [file]
                             }).then(function(){
                                 fs.remove(file, resultHandler);
@@ -184,7 +184,7 @@ class BlinkCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Blink'd***", {
+                            message.channel.send("***Blink***", {
                                 files: [file]
                             }).then(function(){
                                 
