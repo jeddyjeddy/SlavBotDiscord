@@ -70,10 +70,10 @@ class CaptionCommand extends command.Command
                 Jimp.read(url).then(function (captionImage) { 
                     Jimp.read("blank.png").then(function (blankImage) {   
                         Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(function (font) {
-                            var height = (args.length/40)*130
+                            var height = (args.length/40)*150
 
-                            if(height < 130)
-                                height = 130;
+                            if(height < 150)
+                                height = 150;
 
                             var textImage = blankImage.resize(3000, height)
                             textImage.print(font, 50, 0, args.toString(), 3000);
