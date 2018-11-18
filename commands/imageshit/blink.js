@@ -105,10 +105,10 @@ class BlinkCommand extends command.Command
                         console.log("got avatar");
                         
                         var blinkImage0 = userImage.cover(250, 150)
-                        var blinkImage2 = userImage.blur(5)
-                        var blinkImage1 = userImage.blur(10)
+                        var blinkImage1 = userImage.blur(5)
+                        var blinkImage2 = userImage.blur(10)
 
-                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 1012, 858).composite(blinkImage0, 1174, 858);
+                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 230, 1012).composite(blinkImage0, 230, 1174);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
@@ -175,10 +175,10 @@ class BlinkCommand extends command.Command
                         console.log("got avatar");
 
                         var blinkImage0 = userImage.cover(250, 150)
-                        var blinkImage2 = userImage.blur(5)
-                        var blinkImage1 = userImage.blur(10)
+                        var blinkImage1 = userImage.blur(5)
+                        var blinkImage2 = userImage.blur(10)
 
-                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 1012, 858).composite(blinkImage0, 1174, 858);
+                        var mergedImage = blinkImage.composite(blinkImage2, 230, 858).composite(blinkImage1, 230, 1012).composite(blinkImage0, 230, 1174);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
