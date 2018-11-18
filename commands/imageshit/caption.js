@@ -70,7 +70,7 @@ class CaptionCommand extends command.Command
                 Jimp.read(url).then(function (captionImage) {   
                     Jimp.loadFont(Jimp.FONT_SANS_128_BLACK).then(function (font) {
 
-                        var textImage = new Jimp(3000, (args.length/40)*150);
+                        var textImage = new Jimp(3000, (args.toString().length/40)*150);
                         textImage.background(0xFFFFFFFF)
                         textImage.print(font, 0, 0, args.toString(), 3000);
                         
