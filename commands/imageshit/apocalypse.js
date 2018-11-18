@@ -72,7 +72,7 @@ class ApocalypseCommand extends command.Command
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("apocalypse.jpg").then(function (apocalypseImage) {
                     console.log("got image");
-                    
+
                     Jimp.read(urls[0]).then(function (image1) {
                         image1.cover(450, 450)
                         apocalypseImage.composite(image1, 30, 250)
@@ -87,7 +87,7 @@ class ApocalypseCommand extends command.Command
                                     apocalypseImage.composite(image4, 600, 950)
                                 
                                     const file = shortid.generate() + ".png"
-                                    mergedImage.write(file, function(error){
+                                    apocalypseImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
