@@ -11,16 +11,16 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-class ClassCommand extends command.Command
+class ApocalypseCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "class",
+            name: "apocalypse",
             group: "imageshit",
-            memberName: "class",
-            description: "***Choose your class.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the image parameter to use the last uploaded images (up to 6 images only).",
-            examples: ["`!class`", "`!class image`", "`!class @User1 @User2 @User3` (6 users Max)"]
+            memberName: "apocalypse",
+            description: "***The 4 horsemen of the apocalypse.*** Takes random users and puts their profile pictures in the image. Alternatively, you can use the image parameter to use the last uploaded images (up to 4 images only).",
+            examples: ["`!apocalypse`", "`!apocalypse image`", "`!apocalypse @User1 @User2 @User3` (4 users Max)"]
         });
     }
 
@@ -46,7 +46,7 @@ class ClassCommand extends command.Command
                     {
                         for(var i2 = arrayMessages[i].attachments.array().length - 1; i2 > -1; i2--)
                         {
-                            if(urls.length < 6)
+                            if(urls.length < 4)
                             {
                                 if(arrayMessages[i].attachments.array()[i2].height > 0)
                                 {
@@ -59,69 +59,52 @@ class ClassCommand extends command.Command
 
                 if(urls.length == 0)
                 {
-                    message.channel.send("<@" + message.author.id + "> No images found, use `" + commandPrefix + "help class` for help.").catch(error => {console.log("Send Error - " + error); });
+                    message.channel.send("<@" + message.author.id + "> No images found, use `" + commandPrefix + "help apocalypse` for help.").catch(error => {console.log("Send Error - " + error); });
                     
                     return;
                 }
 
-                while(urls.length < 6)
+                while(urls.length < 4)
                 {
                     urls.push("blank.png")
                 }
 
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("class.png").then(function (classImage) {
+                Jimp.read("apocalypse.png").then(function (apocalypseImage) {
                     console.log("got image");
-                    var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
+                    var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
                     Jimp.read(urls[0]).then(function (image1) {
-                        image1.cover(196, 196)
-                        BG.composite(image1, 19, 89)
+                        image1.cover(450, 450)
+                        BG.composite(image1, 30, 250)
                         Jimp.read(urls[1]).then(function (image2) {
-                            image2.cover(201, 201)
-                            BG.composite(image2, 249, 86)
+                            image2.cover(450, 450)
+                            BG.composite(image2, 600, 250)
                             Jimp.read(urls[2]).then(function (image3) {
-                                image3.cover(197, 197)
-                                BG.composite(image3, 471, 87)
+                                image3.cover(450, 450)
+                                BG.composite(image3, 30, 950)
                                 Jimp.read(urls[3]).then(function (image4) {
-                                    image4.cover(199, 199)
-                                    BG.composite(image4, 15, 301)
-                                    Jimp.read(urls[4]).then(function (image5) {
-                                        image5.cover(204, 204)
-                                        BG.composite(image5, 241, 299)
-                                        Jimp.read(urls[5]).then(function (image6) {
-                                            image6.cover(200, 200)
-                                            BG.composite(image6, 467, 301)
-                                            
-                                            var mergedImage = BG.composite(classImage, 0, 0);
+                                    image4.cover(450, 450)
+                                    BG.composite(image4, 600, 950)
+                                    var mergedImage = BG.composite(apocalypseImage, 0, 0);
                                 
-                                            const file = shortid.generate() + ".png"
-                                            mergedImage.write(file, function(error){
-                                                if(error) { console.log(error); return;};
-                                                console.log("got merged image");
-                                                console.log(file);
-                                                message.channel.send("***Choose your class:***", {
-                                                    files: [file]
-                                                }).then(function(){
-                                                    
-                    
-                                                    fs.remove(file, resultHandler);
-                                                }).catch(function (err) {
-                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                    console.log(err.message);
-                                                    
-                                                    fs.remove(file, resultHandler);
-                                                });
-                                                console.log("Message Sent");
-                                            });
+                                    const file = shortid.generate() + ".png"
+                                    mergedImage.write(file, function(error){
+                                        if(error) { console.log(error); return;};
+                                        console.log("got merged image");
+                                        console.log(file);
+                                        message.channel.send("***The 4 horsemen of the apocalypse***", {
+                                            files: [file]
+                                        }).then(function(){
+                                            
+            
+                                            fs.remove(file, resultHandler);
                                         }).catch(function (err) {
                                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                             console.log(err.message);
                                             
+                                            fs.remove(file, resultHandler);
                                         });
-                                    }).catch(function (err) {
-                                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                        console.log(err.message);
-                                        
+                                        console.log("Message Sent");
                                     });
                                 }).catch(function (err) {
                                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -161,7 +144,7 @@ class ClassCommand extends command.Command
             }
             var profileURLs = [];
             var profiles = [];
-            console.log("users class");
+            console.log("users apocalypse");
 
             if(args.length > 0)
             {
@@ -169,7 +152,7 @@ class ClassCommand extends command.Command
                 var userID = "";
                 for(var i = 0; i < args.length; i++)
                 {
-                    if(profiles.length < 6)
+                    if(profiles.length < 4)
                     {
                         if(getUser)
                         {
@@ -199,7 +182,7 @@ class ClassCommand extends command.Command
 
                 if(profiles.length > 0)
                 {
-                    while(profiles.length < 6)
+                    while(profiles.length < 4)
                     {
                         profiles.push("blank")
                     }
@@ -209,7 +192,7 @@ class ClassCommand extends command.Command
             if(profiles.length == 0)
             {
                 var users = message.guild.members.array()
-                while(profiles.length < 6)
+                while(profiles.length < 4)
                 {
                     if(profiles.length >= users.length)
                     {
@@ -270,59 +253,42 @@ class ClassCommand extends command.Command
             }
 
             Promise.all(promises).then(() => { 
-                message.channel.send("***creating classes***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("class.png").then(function (classImage) {
+                message.channel.send("***creating image***").catch(error => {console.log("Send Error - " + error); });
+                Jimp.read("apocalypse.png").then(function (apocalypseImage) {
                     console.log("got image");
-                    var BG = new Jimp(classImage.bitmap.width, classImage.bitmap.height)
+                    var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
                     Jimp.read(profileURLs[0]).then(function (image1) {
-                        image1.resize(196, 196)
-                        BG.composite(image1, 19, 89)
+                        image1.resize(450, 450)
+                        BG.composite(image1, 30, 250)
                         Jimp.read(profileURLs[1]).then(function (image2) {
-                            image2.resize(201, 201)
-                            BG.composite(image2, 249, 86)
+                            image2.resize(450, 450)
+                            BG.composite(image2, 600, 250)
                             Jimp.read(profileURLs[2]).then(function (image3) {
-                                image3.resize(197, 197)
-                                BG.composite(image3, 471, 87)
+                                image3.resize(450, 450)
+                                BG.composite(image3, 30, 950)
                                 Jimp.read(profileURLs[3]).then(function (image4) {
-                                    image4.resize(199, 199)
-                                    BG.composite(image4, 15, 301)
-                                    Jimp.read(profileURLs[4]).then(function (image5) {
-                                        image5.resize(204, 204)
-                                        BG.composite(image5, 241, 299)
-                                        Jimp.read(profileURLs[5]).then(function (image6) {
-                                            image6.resize(200, 200)
-                                            BG.composite(image6, 467, 301)
-                                            
-                                            var mergedImage = BG.composite(classImage, 0, 0);
+                                    image4.resize(450, 450)
+                                    BG.composite(image4, 600, 950)
+                                    var mergedImage = BG.composite(apocalypseImage, 0, 0);
                                 
-                                            const file = shortid.generate() + ".png"
-                                            mergedImage.write(file, function(error){
-                                                if(error) { console.log(error); return;};
-                                                console.log("got merged image");
-                                                console.log(file);
-                                                message.channel.send("***Choose your class:***", {
-                                                    files: [file]
-                                                }).then(function(){
-                                                    
-                    
-                                                    fs.remove(file, resultHandler);
-                                                }).catch(function (err) {
-                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                    console.log(err.message);
-                                                    
-                                                    fs.remove(file, resultHandler);
-                                                });
-                                                console.log("Message Sent");
-                                            });
+                                    const file = shortid.generate() + ".png"
+                                    mergedImage.write(file, function(error){
+                                        if(error) { console.log(error); return;};
+                                        console.log("got merged image");
+                                        console.log(file);
+                                        message.channel.send("***The 4 horsemen of the apocalypse***", {
+                                            files: [file]
+                                        }).then(function(){
+                                            
+            
+                                            fs.remove(file, resultHandler);
                                         }).catch(function (err) {
                                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                                             console.log(err.message);
                                             
+                                            fs.remove(file, resultHandler);
                                         });
-                                    }).catch(function (err) {
-                                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                        console.log(err.message);
-                                        
+                                        console.log("Message Sent");
                                     });
                                 }).catch(function (err) {
                                     message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -356,4 +322,4 @@ class ClassCommand extends command.Command
     }
 }
 
-module.exports = ClassCommand;
+module.exports = ApocalypseCommand;
