@@ -106,7 +106,7 @@ class BlinkCommand extends command.Command
                         
                         var blinkImagePanel = userImage.cover(250, 150)
 
-                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(10), 230, 1012).composite(blinkImagePanel.blur(10), 230, 858);
+                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(10), 230, 1012).composite(blinkImagePanel.blur(10).brightness(-0.5), 230, 858);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
@@ -174,7 +174,7 @@ class BlinkCommand extends command.Command
                         
                         var blinkImagePanel = userImage.cover(250, 150)
 
-                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(10), 230, 1012).composite(blinkImagePanel.blur(10), 230, 858);
+                        var mergedImage = blinkImage.composite(blinkImagePanel, 230, 1174).composite(blinkImagePanel.blur(10), 230, 1012).composite(blinkImagePanel.blur(10).brightness(-0.5), 230, 858);
                         const file = shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
