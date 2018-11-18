@@ -72,9 +72,6 @@ class CaptionCommand extends command.Command
                         Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function (font) {
                             var height = (Math.floor(args.length/40)+1)*75
 
-                            if(height < 75)
-                                height = 75;
-
                             var textImage = blankImage.resize(1500, height)
                             textImage.print(font, 25, 0, args.toString(), 1500);
                             
