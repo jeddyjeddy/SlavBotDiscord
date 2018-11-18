@@ -70,7 +70,7 @@ class ApocalypseCommand extends command.Command
                 }
 
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("apocalypse.png").then(function (apocalypseImage) {
+                Jimp.read("apocalypse.jpg").then(function (apocalypseImage) {
                     console.log("got image");
                     var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
                     Jimp.read(urls[0]).then(function (image1) {
@@ -254,7 +254,7 @@ class ApocalypseCommand extends command.Command
 
             Promise.all(promises).then(() => { 
                 message.channel.send("***creating image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("apocalypse.png").then(function (apocalypseImage) {
+                Jimp.read("apocalypse.jpg").then(function (apocalypseImage) {
                     console.log("got image");
                     var BG = new Jimp(apocalypseImage.bitmap.width, apocalypseImage.bitmap.height)
                     Jimp.read(profileURLs[0]).then(function (image1) {
