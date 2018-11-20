@@ -1075,29 +1075,33 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         {
                             if(channels[index].id == supportChannelID)
                             {
-                                channels[index].fetchMessages().then((messages) => {
-                                    messages.filter(msg => {
-                                        if(msg.author.id == bot.user.id)
+                                const channel = channels[index]
+                                channel.fetchMessages().then((messages) => {
+                                    var allMessages = messages.array()
+
+                                    for(var msgIndex = 0; msgIndex < allMessages.length; msgIndex++)
+                                    {
+                                        if(allMessages[msgIndex].author.id == bot.user.id)
                                         {
-                                            if(msg.content.indexOf(userIDText) > -1)
+                                            if(allMessages[msgIndex].content.indexOf(userIDText) > -1)
                                             {
                                                 added = true;
                                             }
                                             else
                                             {
-                                                if(msg.content.length < (2000 - userIDText.length) && !added)
+                                                if(allMessages[msgIndex].content.length < (2000 - userIDText.length) && !added)
                                                 {
-                                                    msg.edit(msg.content + userIDText).then(() => {
+                                                    allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
                                                         added = true;
                                                     }).catch(error => console.log("Message Edit Error - " + error));
                                                 }
                                             } 
                                         }
-                                    })
+                                    }
 
                                     if(!added)
                                     {
-                                        channels[index].send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                        channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
                                     }
                                 })
                             }
@@ -1119,29 +1123,33 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         {
                             if(channels[index].id == supportChannelID2)
                             {
-                                channels[index].fetchMessages().then((messages) => {
-                                    messages.filter(msg => {
-                                        if(msg.author.id == bot.user.id)
+                                const channel = channels[index]
+                                channel.fetchMessages().then((messages) => {
+                                    var allMessages = messages.array()
+
+                                    for(var msgIndex = 0; msgIndex < allMessages.length; msgIndex++)
+                                    {
+                                        if(allMessages[msgIndex].author.id == bot.user.id)
                                         {
-                                            if(msg.content.indexOf(userIDText) > -1)
+                                            if(allMessages[msgIndex].content.indexOf(userIDText) > -1)
                                             {
                                                 added = true;
                                             }
                                             else
                                             {
-                                                if(msg.content.length < (2000 - userIDText.length) && !added)
+                                                if(allMessages[msgIndex].content.length < (2000 - userIDText.length) && !added)
                                                 {
-                                                    msg.edit(msg.content + userIDText).then(() => {
+                                                    allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
                                                         added = true;
                                                     }).catch(error => console.log("Message Edit Error - " + error));
                                                 }
                                             } 
                                         }
-                                    })
+                                    }
 
                                     if(!added)
                                     {
-                                        channels[index].send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                        channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
                                     }
                                 })
                             }
