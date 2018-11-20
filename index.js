@@ -1067,6 +1067,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 {
                     if(newGopnikSupporter)
                     {
+                        console.log("New Gopnik Supporter")
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
@@ -1110,6 +1111,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 {
                     if(newSlavSupporter)
                     {
+                        console.log("New Slav Supporter")
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
