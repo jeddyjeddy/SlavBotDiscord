@@ -808,21 +808,23 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
-        for(var index = 0; index < tokens.length; index++)
-        {
-            if(tokens[index].key == userID)
+        setImmediate(() => {
+            for(var index = 0; index < tokens.length; index++)
             {
-                tokens[index].tokens = tokens[index].tokens + amount;
-                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-                return;
+                if(tokens[index].key == userID)
+                {
+                    tokens[index].tokens = tokens[index].tokens + amount;
+                    firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                    return;
+                }
             }
-        }
-
-        if(signedIntoDiscord)
-        {
-            DatabaseFunctions.getUserTokens(userID)
-            DatabaseFunctions.addUserTokens(userID, amount)
-        }
+    
+            if(signedIntoDiscord)
+            {
+                DatabaseFunctions.getUserTokens(userID)
+                DatabaseFunctions.addUserTokens(userID, amount)
+            }
+        })
     },
 
     subtractUserTokens: function(userID, amount)
@@ -858,14 +860,16 @@ var DatabaseFunctions = {
 
     setTokenCooldown: function(userID, cooldown)
     {
-        for(var index = 0; index < tokens.length; index++)
-        {
-            if(tokens[index].key == userID)
+        setImmediate(() => {
+            for(var index = 0; index < tokens.length; index++)
             {
-                tokens[index].collectDate = cooldown;
-                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                if(tokens[index].key == userID)
+                {
+                    tokens[index].collectDate = cooldown;
+                    firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                }
             }
-        }
+        })
     }
 }
 
@@ -2713,14 +2717,17 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                         if(body != [] && body !== undefined && body !== null)
                         {
                             var data = JSON.parse(body);
-                            DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
+                            
+                            setImmediate(() => {
+                                DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
 
-                            bot.fetchUser(data["user"]).then(user => {
-                                user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
-                            }, rejection => {
-                                var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
-                                bot.shard.send(messageData)
-                            });
+                                bot.fetchUser(data["user"]).then(user => {
+                                    user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                                }, rejection => {
+                                    var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
+                                    bot.shard.send(messageData)
+                                });
+                            })
                         }
                 });
             });
