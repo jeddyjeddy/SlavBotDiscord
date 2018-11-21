@@ -71,7 +71,7 @@ class DailySpinCommand extends command.Command
         }))
 
         var isPatron = false;
-        promises.push(bot.shard.broadcastEval("this").then(res => {
+        promises.push(message.client.shard.broadcastEval("this").then(res => {
             console.los(res);
         }).catch(console.error));
 
