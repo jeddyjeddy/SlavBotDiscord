@@ -2,9 +2,31 @@ const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
 var firebase = require("firebase");
 var signedIntoFirebase = false;
+var patrons = []
+var listening = false;
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         signedIntoFirebase = true;
+
+        if(!listening)
+        {
+            firebase.database().ref("patrons").on("child_added", function(snapshot){
+                patrons.push(snapshot.key)
+                console.log("PATRON - " + snapshot.key)
+            })
+            
+            firebase.database().ref("patrons").on("child_removed", function(snapshot){
+                for(var i = 0; i < patrons.length; i++)
+                {
+                    if(patrons[i] == snapshot.key)
+                    {
+                        patrons[i] = ""
+                    }
+                }
+            })
+            listening = true;
+        }
     } 
     else
     {
@@ -12,22 +34,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   });
 
-var patrons = []
-
-firebase.database().ref("patrons").on("child_added", function(snapshot){
-    patrons.push(snapshot.key)
-    console.log("PATRON - " + snapshot.key)
-})
-
-firebase.database().ref("patrons").on("child_removed", function(snapshot){
-    for(var i = 0; i < patrons.length; i++)
-    {
-        if(patrons[i] == snapshot.key)
-        {
-            patrons[i] = ""
-        }
-    }
-})
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
