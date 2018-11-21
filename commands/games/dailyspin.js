@@ -71,9 +71,6 @@ class DailySpinCommand extends command.Command
         }))
 
         var isPatron = false;
-        promises.push(message.client.shard.broadcastEval("var guilds = this.guilds.array(); for(var i = 0; i < guilds.length; i++){if(guilds[i].id == \"465522025440739328\"){return guilds[i]}}").then(res => {
-            console.los(res);
-        }).catch(console.error));
 
         setImmediate(() => {
             Promise.all(promises).then(() => {
