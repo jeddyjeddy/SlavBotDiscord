@@ -2718,15 +2718,15 @@ function paySupporters()
 
                 if(hasGopnikRole)
                 {
-                    firebase.database().ref("patrons/" + newMemberData.id).set(1)
+                    firebase.database().ref("patrons/" + member.id).set(1)
                 }
                 else if(hasSlavRole)
                 {
-                    firebase.database().ref("patrons/" + newMemberData.id).set(0)
+                    firebase.database().ref("patrons/" + member.id).set(0)
                 }
                 else
                 {
-                    firebase.database().ref("patrons/" + newMemberData.id).remove()
+                    firebase.database().ref("patrons/" + member.id).remove()
                 }
             });
 
