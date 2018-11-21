@@ -88,7 +88,7 @@ class DailySpinCommand extends command.Command
                         {
                             if(hasVoted)
                             {
-                                message.channel.send("***Spinning The Wheel***", {files: ["wheel.png"]})
+                                message.channel.send("***Spinning The Wheel...***", {files: ["wheel.png"]})
                                 setTimeout(() => {
                                     var chance = Math.random()
                                     var prize = 0;
@@ -144,7 +144,7 @@ class DailySpinCommand extends command.Command
                                     IndexRef.addTokens(message.author.id, prize)
                                     var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                     nextDayDate.setHours(0, 0, 0, 0)
-                                    var nextDay = nextDay.toJSON()
+                                    var nextDay = nextDayDate.toJSON()
                                     userSpins[i].dailyspin = JSON.stringify(nextDay)
                                     firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                     setTimeout(() => {
@@ -158,7 +158,7 @@ class DailySpinCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***Daily Spin***", description: "You have no yet voted for a daily spin.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Daily Spin***", description: "You have not yet voted for a daily spin.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
