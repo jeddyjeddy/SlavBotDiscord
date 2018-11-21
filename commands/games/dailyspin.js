@@ -56,7 +56,8 @@ class DailySpinCommand extends command.Command
             promises.push(firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").once('value').then(function(snapshot){
                 if(snapshot.val() == null)
                 {
-                    var timestamp = (new Date()).setHours(0, 0, 0, 0);
+                    var timestamp = (new Date());
+                    timestamp.setHours(0, 0, 0, 0)
                     userSpins.push({userID: message.author.id, dailyspin: JSON.stringify((timestamp.toJSON()))})
                 }
                 else
@@ -80,7 +81,8 @@ class DailySpinCommand extends command.Command
                     if(userSpins[i].userID == message.author.id)
                     {
                         var date = new Date(JSON.parse(userSpins[i].dailyspin))
-                        var today = (new Date()).setHours(0, 0, 0, 0)
+                        var today = (new Date())
+                        today.setHours(0, 0, 0, 0)
 
                         if(today.getTime() >= date.getTime())
                         {
@@ -140,8 +142,9 @@ class DailySpinCommand extends command.Command
                                     }
 
                                     IndexRef.addTokens(message.author.id, prize)
-                                    var nextDay = (new Date(today.getTime() + (24*60*60*1000))).setHours(0, 0, 0, 0);
-                                    nextDay = nextDay.toJSON()
+                                    var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
+                                    nextDayDate.setHours(0, 0, 0, 0)
+                                    var nextDay = nextDay.toJSON()
                                     userSpins[i].dailyspin = JSON.stringify(nextDay)
                                     firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                     setTimeout(() => {
