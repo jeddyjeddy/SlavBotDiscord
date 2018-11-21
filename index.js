@@ -1108,8 +1108,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
 
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                        const roleName = newRoles[i].name
                         setTimeout(() => {
-                           newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                           newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
 
                         firebase.database().ref("patrons/" + newMemberData.id).set(1)
@@ -1160,8 +1161,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
 
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                        const roleName = newRoles[i].name
                         setTimeout(() => {
-                          newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                          newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
 
                         firebase.database().ref("patrons/" + newMemberData.id).set(0)
@@ -1179,24 +1181,27 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 if(newBlyComradesSupporter && newRoles[i].id == blyComrades)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 25000)
+                    const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 20k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 20k War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
                 if(newBanditSupporter && newRoles[i].id == bandits)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                    const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 50k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 50k War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
                 if(newBabushkaSupporter && newRoles[i].id == babushkaFavs)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                    const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 100k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 100k War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
             }
@@ -1677,15 +1682,17 @@ function levelUp(user, channel)
                 if(userMessageCount[i].messages % 1000 == 0)
                 {
                     DatabaseFunctions.addUserTokens(user.id, 10000)
+                    const messageCount = userMessageCount[i].messages
                     setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.").catch(error => console.log("Send Error - " + error));	
+                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.").catch(error => console.log("Send Error - " + error));	
                     }, 500)
                 }
                 else if(userMessageCount[i].messages % 100 == 0)
                 {
                     DatabaseFunctions.addUserTokens(user.id, 1000)
+                    const messageCount = userMessageCount[i].messages
                     setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(userMessageCount[i].messages) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.").catch(error => console.log("Send Error - " + error));	
+                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.").catch(error => console.log("Send Error - " + error));	
                     }, 500)
                 }
             }
@@ -2683,7 +2690,7 @@ function paySupporters()
                 roles.forEach(role => {
                     if(!payed)
                     {
-                        var today = new Date()
+                        const today = new Date()
                         if(role.id == gopnikRole)
                         {
                             DatabaseFunctions.addUserTokens(member.id, 100000)
@@ -2824,7 +2831,7 @@ bot.login(process.env.BOT_TOKEN).then(function(){
                                     bot.fetchUser(data["user"]).then(user => {
                                         user.send("Thank you for voting, you have recieved " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
-                                        var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(userID))})
+                                        var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(data["user"]))})
                                         bot.shard.send(messageData)
                                     });
                                 }, 500)
