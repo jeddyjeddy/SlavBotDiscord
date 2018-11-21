@@ -2615,6 +2615,9 @@ bot.on("resume", () => {
     console.log("Resume")
 })
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 function paySupporters()
 {
@@ -2632,16 +2635,17 @@ function paySupporters()
                 roles.forEach(role => {
                     if(!payed)
                     {
+                        var today = new Date()
                         if(role.id == gopnikRole)
                         {
                             DatabaseFunctions.addUserTokens(member.id, 100000)
-                            member.send("You have been given your monthly payment of 100k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                            member.send("You have been given your monthly payment of 100k War Tokens for " + monthNames[today.getMonth()] + " " + today.getFullYear + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             payed = true;
                         }
                         else if(role.id == slavRole)
                         {
                             DatabaseFunctions.addUserTokens(member.id, 50000)
-                            member.send("You have been given your monthly payment of 50k War Tokens. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                            member.send("You have been given your monthly payment of 50k War Tokens " + monthNames[today.getMonth()] + " " + today.getFullYear + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             payed = true;
                         }
                     }
