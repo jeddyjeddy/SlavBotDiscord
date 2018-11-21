@@ -156,7 +156,9 @@ class WWCommand extends command.Command
                                 for(var userIndex = 0; userIndex < users.length; userIndex++)
                                 {
                                     IndexRef.addTokens(users[userIndex], amount)
-                                    message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
+                                    setTimeout(() => {
+                                        message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
+                                    }, 500)
                                 }
                             }
                             return;
@@ -409,7 +411,9 @@ class WWCommand extends command.Command
                                     IndexRef.addTokens(message.author.id, collected)
                                     IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
     
-                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
+                                    setTimeout(() => {
+                                        message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }, 500)
                                 }
                                 else
                                 {
