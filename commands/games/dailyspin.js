@@ -11,6 +11,22 @@ firebase.auth().onAuthStateChanged(function(user) {
         signedIntoFirebase = false;
     }
   });
+
+var patrons = []
+
+firebase.database().ref("patrons").on("child_added", function(snapshot){
+    patrons.push(snapshot.key)
+})
+
+firebase.database().ref("patrons").on("child_removed", function(snapshot){
+    for(var i = 0; i < patrons.length; i++)
+    {
+        if(patrons[i] == snapshot.key)
+        {
+            patrons[i] = ""
+        }
+    }
+})
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -73,6 +89,13 @@ class DailySpinCommand extends command.Command
         }))
 
         var isPatron = false;
+        for(var i = 0; i < patrons.length; i++)
+        {
+            if(patrons[i] == message.author.id)
+            {
+                isPatron = true;
+            }
+        }
 
         setImmediate(() => {
             Promise.all(promises).then(() => {

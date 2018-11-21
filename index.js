@@ -1111,6 +1111,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         setTimeout(() => {
                            newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
+
+                        firebase.database().ref("patrons/" + newMemberData.id).set(1)
                     }
                 }
                 else if(newRoles[i].id == slavRole)
@@ -1161,6 +1163,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         setTimeout(() => {
                           newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + newRoles[i].name + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
+
+                        firebase.database().ref("patrons/" + newMemberData.id).set(0)
                     }
                 }
             }
@@ -1195,6 +1199,36 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         newMemberData.user.send("Thank you for donation! You have been given the ***" + newRoles[i].name + "*** role. You have been given 100k War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
+            }
+        }
+
+        if(!newGopnikSupporter || !newSlavSupporter)
+        {
+            var newRoles = newMemberData.roles.array()
+            var hasGopnikRole = false, hasSlavRole = false;
+            for(var i = 0; i < newRoles.length; i++)
+            {
+                if(newRoles[i].id == gopnikRole)
+                {
+                    hasGopnikRole = true;
+                }
+                else if (newRoles[i].id == slavRole)
+                {
+                    hasSlavRole = true;
+                }
+            }
+
+            if(hasGopnikRole)
+            {
+                firebase.database().ref("patrons/" + newMemberData.id).set(1)
+            }
+            else if(hasSlavRole)
+            {
+                firebase.database().ref("patrons/" + newMemberData.id).set(0)
+            }
+            else
+            {
+                firebase.database().ref("patrons/" + newMemberData.id).remove()
             }
         }
     }
@@ -2668,6 +2702,32 @@ function paySupporters()
                         }
                     }
                 });
+
+                var hasGopnikRole = false, hasSlavRole = false;
+                for(var i = 0; i < roles.length; i++)
+                {
+                    if(roles[i].id == gopnikRole)
+                    {
+                        hasGopnikRole = true;
+                    }
+                    else if (roles[i].id == slavRole)
+                    {
+                        hasSlavRole = true;
+                    }
+                }
+
+                if(hasGopnikRole)
+                {
+                    firebase.database().ref("patrons/" + newMemberData.id).set(1)
+                }
+                else if(hasSlavRole)
+                {
+                    firebase.database().ref("patrons/" + newMemberData.id).set(0)
+                }
+                else
+                {
+                    firebase.database().ref("patrons/" + newMemberData.id).remove()
+                }
             });
 
             var paymentDate = (new Date(Date.now()));
