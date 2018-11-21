@@ -189,7 +189,7 @@ class DailySpinCommand extends command.Command
                                     const addMessage = prizeMessage
 
                                     setTimeout(() => {
-                                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "Congrats! :tada:\n\nYou have won " + addMessage + " ***" + numberWithCommas(prize) + " War Tokens!*** Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> Congrats! :tada:\n\nYou have won " + addMessage + " ***" + numberWithCommas(prize) + " War Tokens!*** Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
                                         if(!isPatron)
                                         {
                                             message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
@@ -199,7 +199,7 @@ class DailySpinCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***Daily Spin***", description: "You have not yet voted for a daily spin.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have not yet voted for a daily spin. If you have already voted, it may take up to 2 minutes or more for your vote to register.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
