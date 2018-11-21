@@ -120,9 +120,8 @@ class DailySpinCommand extends command.Command
                                 message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
                                 var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                 nextDayDate.setHours(0, 0, 0, 0)
-                                var nextDay = nextDayDate.toJSON()
+                                const nextDay = nextDayDate.toJSON()
                                 userSpins[i].dailyspin = JSON.stringify(nextDay)
-                                firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                 setTimeout(() => {
                                     var chance = Math.random()
                                     var prize = 0;
@@ -178,6 +177,7 @@ class DailySpinCommand extends command.Command
                                     }
 
                                     IndexRef.addTokens(message.author.id, prize)
+                                    firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
 
                                     var prizeMessage = ""
 
@@ -195,7 +195,7 @@ class DailySpinCommand extends command.Command
                                             message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "<@" + message.author.id + "> You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }, 500)
-                                }, 2000)
+                                }, 1000)
                             }
                             else
                             {
