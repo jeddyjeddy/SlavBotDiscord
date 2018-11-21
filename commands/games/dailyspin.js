@@ -13,7 +13,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         {
             firebase.database().ref("patrons").on("child_added", function(snapshot){
                 patrons.push(snapshot.key)
-                console.log("PATRON - " + snapshot.key)
             })
             
             firebase.database().ref("patrons").on("child_removed", function(snapshot){
