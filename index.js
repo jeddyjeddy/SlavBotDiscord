@@ -2702,32 +2702,6 @@ function paySupporters()
                         }
                     }
                 });
-
-                var hasGopnikRole = false, hasSlavRole = false;
-                for(var i = 0; i < roles.length; i++)
-                {
-                    if(roles[i].id == gopnikRole)
-                    {
-                        hasGopnikRole = true;
-                    }
-                    else if (roles[i].id == slavRole)
-                    {
-                        hasSlavRole = true;
-                    }
-                }
-
-                if(hasGopnikRole)
-                {
-                    firebase.database().ref("patrons/" + member.id).set(1)
-                }
-                else if(hasSlavRole)
-                {
-                    firebase.database().ref("patrons/" + member.id).set(0)
-                }
-                else
-                {
-                    firebase.database().ref("patrons/" + member.id).remove()
-                }
             });
 
             var paymentDate = (new Date(Date.now()));
@@ -2760,6 +2734,37 @@ bot.login(process.env.BOT_TOKEN).then(function(){
         {
             if(guilds[i].id == supportServerID)
             {
+                var members = guilds[i].members.array()
+
+                members.forEach(member => {
+                    var roles = member.roles.array()                    
+                    var hasGopnikRole = false, hasSlavRole = false;
+                    for(var i = 0; i < roles.length; i++)
+                    {
+                        if(roles[i].id == gopnikRole)
+                        {
+                            hasGopnikRole = true;
+                        }
+                        else if (roles[i].id == slavRole)
+                        {
+                            hasSlavRole = true;
+                        }
+                    }
+    
+                    if(hasGopnikRole)
+                    {
+                        firebase.database().ref("patrons/" + member.id).set(1)
+                    }
+                    else if(hasSlavRole)
+                    {
+                        firebase.database().ref("patrons/" + member.id).set(0)
+                    }
+                    else
+                    {
+                        firebase.database().ref("patrons/" + member.id).remove()
+                    }
+                });
+
                 firebase.database().ref("patreondate").once('value').then(function(snapshot) {
                     var paymentDate;
                     var today = (new Date(Date.now()));
