@@ -120,12 +120,14 @@ class DailySpinCommand extends command.Command
                                 setTimeout(() => {
                                     var chance = Math.random()
                                     var prize = 0;
+                                    var goldenPrize = false;
 
                                     if(chance >= 0.9)
                                     {
                                         if(chance >= 0.95 && isPatron)
                                         {
                                             prize = 75000
+                                            goldenPrize = true;
                                         }
                                         else
                                         {
@@ -171,8 +173,17 @@ class DailySpinCommand extends command.Command
 
                                     IndexRef.addTokens(message.author.id, prize)
 
+                                    var prizeMessage = ""
+
+                                    if(goldenPrize)
+                                    {
+                                        prizeMessage = "the ***Golden Prize*** for"
+                                    }
+
+                                    const addMessage = prizeMessage
+
                                     setTimeout(() => {
-                                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "Congrats! :tada:\n\nYou have won " + numberWithCommas(prize) + " War Tokens! Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "Congrats! :tada:\n\nYou have won " + addMessage + " ***" + numberWithCommas(prize) + " War Tokens!*** Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
                                         if(!isPatron)
                                         {
                                             message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
