@@ -195,7 +195,7 @@ class DailySpinCommand extends command.Command
                                             message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "<@" + message.author.id + "> You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }, 500)
-                                }, 1000)
+                                }, 2000)
                             }
                             else
                             {
