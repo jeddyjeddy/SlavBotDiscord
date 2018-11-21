@@ -89,6 +89,12 @@ class DailySpinCommand extends command.Command
                             if(hasVoted)
                             {
                                 message.channel.send("***Spinning The Wheel...***", {files: ["wheel.png"]})
+                                IndexRef.addTokens(message.author.id, prize)
+                                var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
+                                nextDayDate.setHours(0, 0, 0, 0)
+                                var nextDay = nextDayDate.toJSON()
+                                userSpins[i].dailyspin = JSON.stringify(nextDay)
+                                firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                 setTimeout(() => {
                                     var chance = Math.random()
                                     var prize = 0;
@@ -141,12 +147,6 @@ class DailySpinCommand extends command.Command
                                         prize = 5000
                                     }
 
-                                    IndexRef.addTokens(message.author.id, prize)
-                                    var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
-                                    nextDayDate.setHours(0, 0, 0, 0)
-                                    var nextDay = nextDayDate.toJSON()
-                                    userSpins[i].dailyspin = JSON.stringify(nextDay)
-                                    firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                     setTimeout(() => {
                                         message.channel.send("", {embed: {title: "***Daily Spin***", description: "Congrats! :tada:\n\nYou have won " + numberWithCommas(prize) + " War Tokens! Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
                                         if(!isPatron)
