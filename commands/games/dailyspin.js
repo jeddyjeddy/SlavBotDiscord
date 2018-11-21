@@ -139,7 +139,7 @@ class DailySpinCommand extends command.Command
                                     }
 
                                     IndexRef.addTokens(message.author.id, prize)
-                                    var nextDay = (new Date(today.getTime() + (24*60*60*1000))).setHours(0, 0, 0, 0).toJSON()
+                                    var nextDay = ((new Date(today.getTime() + (24*60*60*1000))).setHours(0, 0, 0, 0)).toJSON()
                                     userSpins[i].dailyspin = JSON.stringify(nextDay)
                                     firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                     setTimeout(() => {
