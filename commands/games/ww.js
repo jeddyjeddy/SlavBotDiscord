@@ -828,6 +828,8 @@ class WWCommand extends command.Command
                         return;
                     }
                 }
+
+                console.log("WORLD WAR ERROR\n\n\n\n\n\n\n\n\n\nWORLD WAR ERROR")
             })
         })
     }
