@@ -11,7 +11,7 @@ Manager.on("message", (shard, message) => {
             if(shardToUse.id == shard.id + 1)
             {
                 var data = JSON.parse(message)
-                shardToUse.eval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have recieved " + ${data["token1"]} + " tokens. You now have " + ${data["token2"]} + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));}, rejection => {this.send(${JSON.stringify(data)});});`)
+                shardToUse.eval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have received " + ${data["token1"]} + " tokens. You now have " + ${data["token2"]} + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));}, rejection => {this.send(${JSON.stringify(data)});});`)
             }
         }
     })
