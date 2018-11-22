@@ -1751,7 +1751,7 @@ bot.on("message", (message) => {
             //MEE6
             if(message.author.id == "159985870458322944")
             {
-                if(Math.random() > 0.9)
+                if(Math.random() < 0.2)
                     message.channel.send("<@" + message.author.id + "> " + mee6Responses[Math.floor(Math.random() * mee6Responses.length)]).catch(error => console.log("Send Error - " + error));	
             }
         }
