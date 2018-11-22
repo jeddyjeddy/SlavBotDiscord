@@ -127,9 +127,9 @@ class DailySpinCommand extends command.Command
                                     var prize = 0;
                                     var goldenPrize = false;
 
-                                    if(chance >= 0.9)
+                                    if(chance >= 0.95)
                                     {
-                                        if(chance >= 0.95 && isPatron)
+                                        if(chance >= 0.975 && isPatron)
                                         {
                                             prize = 75000
                                             goldenPrize = true;
@@ -139,31 +139,31 @@ class DailySpinCommand extends command.Command
                                             prize = 50000
                                         }
                                     }
-                                    else if(chance >= 0.85)
+                                    else if(chance >= 0.925)
                                     {
                                         prize = 45000
                                     }
-                                    else if(chance >= 0.8)
+                                    else if(chance >= 0.875)
                                     {
                                         prize = 40000
                                     }
-                                    else if(chance >= 0.75)
+                                    else if(chance >= 0.85)
                                     {
                                         prize = 35000
                                     }
-                                    else if(chance >= 0.7)
+                                    else if(chance >= 0.825)
                                     {
                                         prize = 30000
                                     }
-                                    else if(chance >= 0.65)
+                                    else if(chance >= 0.8)
                                     {
                                         prize = 25000
                                     }
-                                    else if(chance >= 0.6)
+                                    else if(chance >= 0.775)
                                     {
                                         prize = 20000
                                     }
-                                    else if(chance >= 0.45)
+                                    else if(chance >= 0.6)
                                     {
                                         prize = 15000
                                     }
