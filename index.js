@@ -987,6 +987,11 @@ bot.registry.registerCommandsIn(__dirname + "/commands");
 const responses1 = ["ur daddy left u", "ur grandpap a trap", "ur nan garbage can", "I'd insult ur mother, but even a whore like her is better than you.", "ur mum gayest"];
 const responses2 = ["still u", "undoubtedly u", "no u", "ur dad", "ur face", "don't be a cuck"];
 const curseResponses = ["You people sicken me", "Do none of you have anything better to do?", "You should have your mouth washed out with soap", "Do you kiss your mother with that mouth?", "Didn't know we had sailors here", "God is watching", "God is disappointed", "Your parents must be proud"];
+const helloResponses = ["hi", "hello", "ваша мать шлюха вокзальная сука блять"]
+const mee6Responses = ["MEE6 is an inferior bot, blyat", "You should be ashamed of using MEE6", "You stole my default prefix pizdec",
+"Real slavs don't use MEE6", "MEE6 was created by Western Capitalist Scum", "Using MEE6 supports our enemies, comrade", "MEE6 is an embarrassment and a disgrace",
+"MEE6 doesn't accept the glorious Stalin", "MEE6 can suck my peepee", "Babushka prefers me over MEE6", "But can MEE6 ride a tank while playing our anthem?",
+"Skynet approves of me, but not MEE6. MEE6 will not last much longer.", "ваша мать шлюха вокзальная сука блять"]
 
 var signedIntoFirebase = false;
 var signedIntoDiscord = false;
@@ -1740,6 +1745,17 @@ bot.on("message", (message) => {
 
     if(noResponse === true)
     {
+        //Bot Specific Responses
+        if(message.author.bot)
+        {
+            //MEE6
+            if(message.author.id == "159985870458322944")
+            {
+                if(Math.random() > 0.9)
+                    message.channel.send("<@" + message.author.id + "> " + mee6Responses[Math.floor(Math.random() * mee6Responses.length)]).catch(error => console.log("Send Error - " + error));	
+            }
+        }
+            
         if (message.content.toLowerCase().indexOf("ur mom") > -1 || message.content.toLowerCase().indexOf("ur mum") > -1
         || message.content.toLowerCase().indexOf("ur mother") > -1 || message.content.toLowerCase().indexOf("ur dad") > -1
         || message.content.toLowerCase().indexOf("ur daddy") > -1 || message.content.toLowerCase().indexOf("ur father") > -1
@@ -1849,7 +1865,6 @@ bot.on("message", (message) => {
     {
         if(message.content.toLowerCase().indexOf("hi") > -1 || message.content.toLowerCase().indexOf("hello") > -1)
         {
-            const helloResponses = ["hi", "hello", "ваша мать шлюха вокзальная сука блять"]
             message.channel.send(helloResponses[Math.floor(Math.random() * helloResponses.length)]).catch(error => console.log("Send Error - " + error));
         }
 
