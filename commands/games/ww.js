@@ -84,17 +84,14 @@ class WWCommand extends command.Command
 
                     if(war.countries.length > 0)
                     {
-                        console.log("CAN CONVERT DATA")
                         if(isNaN(war.countries[0].key))
                         {
-                            console.log("CONVERTING WW DATA")
-                            for(var i = 0; i < war.countries; i++)
+                            for(var i = 0; i < war.countries.length; i++)
                             {
                                 for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
                                 {
                                     if(allCountries[countryIndex].toLowerCase() == war.countries[i].key)
                                     {
-                                        console.log(`CONVERTING WW DATA - ${war.countries[i].key} to ${countryIndex}`)
                                         war.countries[i].key = countryIndex;
                                     }
                                 }
