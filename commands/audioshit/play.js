@@ -42,7 +42,7 @@ class PlayCommand extends command.Command
 
                         if(!connection.speaking)
                         {
-                            fs.readdir(testFolder, (err, files) => {
+                            fs.readdir("audio", (err, files) => {
                                 var playing = false;
                                 for(var i = 0; i < files.length; i++)
                                 {
@@ -78,7 +78,7 @@ class PlayCommand extends command.Command
                     {
                         if(!message.guild.voiceConnection.speaking)
                         {
-                            fs.readdir(testFolder, (err, files) => {
+                            fs.readdir("audio", (err, files) => {
                                 var playing = false;
                                 for(var i = 0; i < files.length; i++)
                                 {
@@ -113,7 +113,7 @@ class PlayCommand extends command.Command
         }
         else
         {
-            fs.readdir(testFolder, (err, files) => {
+            fs.readdir("audio", (err, files) => {
                 var lists = []
                 var item = ""
                 for(var index = 0; index < files.length; index++)
