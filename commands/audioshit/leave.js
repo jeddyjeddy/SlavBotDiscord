@@ -31,8 +31,8 @@ class LeaveCommand extends command.Command
         {
             if(message.member.hasPermission("MANAGE_CHANNELS"))
             {
+                message.channel.send("<@" + message.author.id + "> Slav Bot has left ***" + message.guild.voiceConnection.channel.name + "***").catch(error => console.log("Send Error - " + error));
                 message.guild.voiceConnection.disconnect()
-                message.channel.send("<@" + message.author.id + "> Slav Bot has left the Voice Channel.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
