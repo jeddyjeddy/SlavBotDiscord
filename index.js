@@ -976,6 +976,7 @@ var config = {
 
 firebase.initializeApp(config);
 
+bot.registry.registerGroup("audioshit", "Audio Shit");
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
 bot.registry.registerGroup("games", "Games");

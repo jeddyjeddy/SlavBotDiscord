@@ -1,5 +1,4 @@
 const command = require("discord.js-commando");
-var catMe = require('cat-me')
 var CommandCounter = require("../../index.js")
 
 class AliACommand extends command.Command
