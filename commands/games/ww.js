@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
-var wars = [{key: "Key", countries: [{key: "Key", ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}]}]
+var wars = [{key: "Key", countries: [{key: -1, ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}]}]
 const countries = require('country-list')();
 const allCountries = countries.getNames();
 var firebase = require("firebase");
@@ -81,6 +81,24 @@ class WWCommand extends command.Command
                         war.key = message.guild.id;
                         firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                     }
+
+                    if(war.countries.length > 0)
+                    {
+                        if(isNaN(war.countries[0].key))
+                        {
+                            for(var i = 0; i < war.countries; i++)
+                            {
+                                for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
+                                {
+                                    if(allCountries[countryIndex] == war.countries[i].key)
+                                    {
+                                        war.countries[i].key = countryIndex;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     wars.push(war)
                 }
             }))
@@ -433,7 +451,7 @@ class WWCommand extends command.Command
                                     var ruled = false;
                                     for(var countryIndex = 0; countryIndex < wars[i].countries.length; countryIndex++)
                                     {
-                                        if(wars[i].countries[countryIndex].key == allCountries[index].toLowerCase())
+                                        if(wars[i].countries[countryIndex].key == index)
                                         {
                                             if(ruledTimes > 0)
                                             {
@@ -496,7 +514,7 @@ class WWCommand extends command.Command
                                         var ruler = ""
                                         for(var index = 0; index < wars[i].countries.length; index++)
                                         {
-                                            if(wars[i].countries[index].key == allCountries[countryIndex].toLowerCase())
+                                            if(wars[i].countries[index].key == countryIndex)
                                             {
                                                 value = wars[i].countries[index].value;
                                                 ruler = wars[i].countries[index].ruler;
@@ -542,7 +560,7 @@ class WWCommand extends command.Command
                                         var previousRuler = ""
                                         for(var index = 0; index < wars[i].countries.length; index++)
                                         {
-                                            if(wars[i].countries[index].key == allCountries[countryIndex].toLowerCase())
+                                            if(wars[i].countries[index].key == countryIndex)
                                             {
                                                 value = wars[i].countries[index].value;
                                                 if(wars[i].countries[index].ruler == message.author.id)
@@ -580,7 +598,7 @@ class WWCommand extends command.Command
                                                 var countryFound = true;
                                                 for(var warCountryIndex = 0; warCountryIndex < wars[i].countries.length; warCountryIndex++)
                                                 {
-                                                    if(wars[i].countries[warCountryIndex].key == allCountries[countryIndex].toLowerCase())
+                                                    if(wars[i].countries[warCountryIndex].key == countryIndex)
                                                     {
                                                         countryFound = false;
                                                         wars[i].countries[warCountryIndex].value = wars[i].countries[warCountryIndex].value + 500;
@@ -590,7 +608,7 @@ class WWCommand extends command.Command
         
                                                 if(countryFound)
                                                 {
-                                                    wars[i].countries.push({key: allCountries[countryIndex].toLowerCase(), ruler: message.author.id, value: 1000}) 
+                                                    wars[i].countries.push({key: countryIndex, ruler: message.author.id, value: 1000}) 
                                                 }
     
                                                 if(previousRuler == "")
