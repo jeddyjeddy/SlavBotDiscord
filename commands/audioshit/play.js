@@ -118,6 +118,7 @@ class PlayCommand extends command.Command
                 var item = ""
                 for(var index = 0; index < files.length; index++)
                 {
+                    console.log(files[index])
                     var text = files[index].replace(".mp3", "");
 
                     if((item + text + "\n").length < 2048)
