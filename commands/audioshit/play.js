@@ -118,7 +118,6 @@ class PlayCommand extends command.Command
                 var item = ""
                 for(var index = 0; index < files.length; index++)
                 {
-                    console.log(files[index])
                     var text = files[index].replace(".mp3", "");
 
                     if((item + text + "\n").length < 2048)
@@ -140,7 +139,7 @@ class PlayCommand extends command.Command
                 var timestamp = (new Date(Date.now()).toJSON());
                 for(var index = 0; index < lists.length; index++)
                 {
-                    message.channel.send("", {embed: {title: "***List Sound Effects (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 65446, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                    message.channel.send("", {embed: {title: "***List of Sound Effects (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 65446, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                 }
             })
         }
