@@ -11,7 +11,7 @@ class PlayCommand extends command.Command
             group: "audioshit",
             memberName: "play",
             description: "Plays the specified sound effect file. Use the command without a parameter to get the list of available sound effects.",
-            examples: ["`!play <sound-effect>`", "`!play ouranthem`", "`!play nani`"]
+            examples: ["`!play (For Sound Effects List)`", "`!play <sound-effect>`", "`!play ouranthem`", "`!play nani`"]
         });
     }
 
