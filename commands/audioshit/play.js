@@ -50,6 +50,7 @@ class PlayCommand extends command.Command
                                     {
                                         playing = true;
                                         connection.playFile("audio/" + files[i])
+                                        message.channel.send("<@" + message.author.id + "> Playing ***" + files[i] + "***.").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
 
@@ -86,6 +87,7 @@ class PlayCommand extends command.Command
                                     {
                                         playing = true;
                                         message.guild.voiceConnection.playFile("audio/" + files[i])
+                                        message.channel.send("<@" + message.author.id + "> Playing ***" + files[i] + "***.").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
 
