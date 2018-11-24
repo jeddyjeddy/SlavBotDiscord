@@ -2745,6 +2745,14 @@ function paySupporters()
 }
 
 bot.login(process.env.BOT_TOKEN).then(function(){
+
+    var connections = bot.client.voiceConnections.array();
+
+    for(var i = 0; i < connections.length; i++)
+    {
+        connections[i].disconnect()
+    }
+
     signedIntoDiscord = true;
     if(signedIntoFirebase)
     {
