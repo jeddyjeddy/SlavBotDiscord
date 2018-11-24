@@ -90,7 +90,7 @@ class WWCommand extends command.Command
                             {
                                 for(var countryIndex = 0; countryIndex < allCountries.length; countryIndex++)
                                 {
-                                    if(allCountries[countryIndex] == war.countries[i].key)
+                                    if(allCountries[countryIndex].toLowerCase() == war.countries[i].key)
                                     {
                                         war.countries[i].key = countryIndex;
                                     }
