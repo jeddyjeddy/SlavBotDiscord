@@ -175,9 +175,7 @@ class WWCommand extends command.Command
                                 for(var userIndex = 0; userIndex < users.length; userIndex++)
                                 {
                                     IndexRef.addTokens(users[userIndex], amount)
-                                    setTimeout(() => {
-                                        message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
-                                    }, 500)
+                                    message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
                                 }
                             }
                             return;
