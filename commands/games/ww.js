@@ -428,9 +428,7 @@ class WWCommand extends command.Command
                                     IndexRef.addTokens(message.author.id, collected)
                                     IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
     
-                                    setTimeout(() => {
-                                        message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }, 500)
+                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {
