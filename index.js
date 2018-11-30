@@ -2744,18 +2744,8 @@ function paySupporters()
     
 }
 
-bot.login(process.env.BOT_TOKEN).then(function(){
-
-    var connections = bot.voiceConnections.array();
-    if(connections.length > 0)
-    {
-        for(var i = 0; i < connections.length; i++)
-        {
-            connections[i].disconnect()
-        }
-        console.log("VOICE CONNECTIONS DISABLED")
-    }
-    
+bot.login(process.env.BOT_TOKEN).then(function()
+{    
     signedIntoDiscord = true;
     if(signedIntoFirebase)
     {
