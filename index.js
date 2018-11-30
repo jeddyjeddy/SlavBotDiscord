@@ -2747,12 +2747,15 @@ function paySupporters()
 bot.login(process.env.BOT_TOKEN).then(function(){
 
     var connections = bot.voiceConnections.array();
-
-    for(var i = 0; i < connections.length; i++)
+    if(connections.length > 0)
     {
-        connections[i].disconnect()
+        for(var i = 0; i < connections.length; i++)
+        {
+            connections[i].disconnect()
+        }
+        console.log("VOICE CONNECTIONS DISABLED")
     }
-
+    
     signedIntoDiscord = true;
     if(signedIntoFirebase)
     {
