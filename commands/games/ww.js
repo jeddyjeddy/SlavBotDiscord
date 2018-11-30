@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
-var wars = [{key: "Key", countries: [{key: -1, ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}]}]
+var wars = [{key: "Key", countries: [{key: -1, ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}], listTimestamp: null}]
 const countries = require('country-list')();
 const allCountries = countries.getNames();
 var firebase = require("firebase");
@@ -98,6 +98,12 @@ class WWCommand extends command.Command
                             }
                             firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                         }
+                    }
+
+                    if(war.listTimestamp == undefined || war.listTimestamp == null)
+                    {
+                        war.listTimestamp = (new Date(Date.now()).toJSON());
+                        firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                     }
 
                     wars.push(war)
@@ -439,56 +445,68 @@ class WWCommand extends command.Command
                             }
                             else if(args.toLowerCase().startsWith("list"))
                             {
-                                var lists = []
-                                var item = "Country ID - Country - Ruler - Value\n\n"
-                                for(var index = 0; index < allCountries.length; index++)
+                                const date = new Date(wars[i].listTimestamp)
+    
+                                if(date.getTime() <= (new Date()).getTime())
                                 {
-                                    var text = (index + 1) + " - :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ": " + allCountries[index];
-                                    var ruledTimes = 0;
-                                    var ruled = false;
-                                    for(var countryIndex = 0; countryIndex < wars[i].countries.length; countryIndex++)
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    wars[i].listTimestamp = timestamp;
+
+                                    var lists = []
+                                    var item = "Country ID - Country - Ruler - Value\n\n"
+                                    for(var index = 0; index < allCountries.length; index++)
                                     {
-                                        if(wars[i].countries[countryIndex].key == index)
+                                        var text = (index + 1) + " - :flag_" + countries.getCode(allCountries[index]).toLowerCase() + ": " + allCountries[index];
+                                        var ruledTimes = 0;
+                                        var ruled = false;
+                                        for(var countryIndex = 0; countryIndex < wars[i].countries.length; countryIndex++)
                                         {
-                                            if(ruledTimes > 0)
+                                            if(wars[i].countries[countryIndex].key == index)
                                             {
-                                                wars[i].countries.splice(countryIndex, 1)
-                                            }
-                                            else
-                                            {
-                                                ruled = true;
-                                                ruledTimes += 1;
-                                                text = text + " - Conquered by <@" +  wars[i].countries[countryIndex].ruler + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
+                                                if(ruledTimes > 0)
+                                                {
+                                                    wars[i].countries.splice(countryIndex, 1)
+                                                }
+                                                else
+                                                {
+                                                    ruled = true;
+                                                    ruledTimes += 1;
+                                                    text = text + " - Conquered by <@" +  wars[i].countries[countryIndex].ruler + "> - " + numberWithCommas(wars[i].countries[countryIndex].value) + " tokens"
+                                                }
                                             }
                                         }
+        
+                                        if(!ruled)
+                                        {
+                                            text = text + " - Not Conquered - 500 tokens"
+                                        }
+        
+                                        if((item + text + "\n").length < 2048)
+                                        {
+                                            item = item + text + "\n";
+                                        }
+                                        else
+                                        {
+                                            lists.push(item);
+                                            item = "Country ID - Country - Ruler - Value\n\n" + text + "\n";
+                                        }
                                     }
-    
-                                    if(!ruled)
+        
+                                    if(item != "")
                                     {
-                                        text = text + " - Not Conquered - 500 tokens"
+                                        lists.push(item)
                                     }
-    
-                                    if((item + text + "\n").length < 2048)
+        
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    for(var index = 0; index < lists.length; index++)
                                     {
-                                        item = item + text + "\n";
-                                    }
-                                    else
-                                    {
-                                        lists.push(item);
-                                        item = "Country ID - Country - Ruler - Value\n\n" + text + "\n";
+                                        message.channel.send("", {embed: {title: "***List of Countries (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
-    
-                                if(item != "")
+                                else
                                 {
-                                    lists.push(item)
-                                }
-    
-                                var timestamp = (new Date(Date.now()).toJSON());
-                                for(var index = 0; index < lists.length; index++)
-                                {
-                                    message.channel.send("", {embed: {title: "***List of Countries (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                }
+                                    message.channel.send("", {embed: {title: "***List Cooldown***", description: "<@" + message.author.id + "> You cannot request the Country List until the 2 minute cooldown is over. This is to prevent spam during game sessions.", color: 16711680, timestamp: wars[i].listTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                } 
                             }
                             else if (args.toLowerCase().startsWith("info "))
                             {
