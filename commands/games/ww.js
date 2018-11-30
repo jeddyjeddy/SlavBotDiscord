@@ -449,8 +449,8 @@ class WWCommand extends command.Command
     
                                 if(date.getTime() <= (new Date()).getTime())
                                 {
-                                    var timestamp = (new Date(Date.now()).toJSON());
-                                    wars[i].listTimestamp = timestamp;
+                                    var timestamp =  (new Date((new Date).getTime() + 120000));
+                                    wars[i].listTimestamp = timestamp.toJSON();
 
                                     var lists = []
                                     var item = "Country ID - Country - Ruler - Value\n\n"
