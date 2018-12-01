@@ -2711,7 +2711,7 @@ function paySupporters()
                         {
                             DatabaseFunctions.addUserTokens(member.id, 100000)
                             setTimeout(() => {
-                                member.send("You have been given your monthly payment of 100k War Tokens for " + monthNames[today.getMonth()] + " " + today.getFullYear + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                member.send("You have been given your monthly payment of 100k War Tokens for " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             }, 500)
                             payed = true;
                         }
@@ -2719,7 +2719,7 @@ function paySupporters()
                         {
                             DatabaseFunctions.addUserTokens(member.id, 50000)
                             setTimeout(() => {
-                                member.send("You have been given your monthly payment of 50k War Tokens " + monthNames[today.getMonth()] + " " + today.getFullYear + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                member.send("You have been given your monthly payment of 50k War Tokens " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             }, 500)
                             payed = true;
                         }
