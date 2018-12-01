@@ -204,7 +204,7 @@ class DailySpinCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have already spinned the wheel today.", color: 16761856, timestamp: date, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have already spun the wheel today.", color: 16761856, timestamp: date, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
                 }
