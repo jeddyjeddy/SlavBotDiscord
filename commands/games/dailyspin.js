@@ -113,6 +113,8 @@ class DailySpinCommand extends command.Command
                     todayDate.setHours(0, 0, 0, 0)
                     const today = todayDate
 
+                    const userSpinsIndex = i;
+
                     if(today.getTime() >= date.getTime())
                     {
                         firebase.database().ref("usersettings/" + message.author.id + "/lastvote").on("value", function(snapshot)
@@ -125,7 +127,7 @@ class DailySpinCommand extends command.Command
                                     var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                     nextDayDate.setHours(0, 0, 0, 0)
                                     const nextDay = nextDayDate.toJSON()
-                                    userSpins[i].dailyspin = JSON.stringify(nextDay)
+                                    userSpins[userSpinsIndex].dailyspin = JSON.stringify(nextDay)
                                     setTimeout(() => {
                                         var chance = Math.random()
                                         var prize = 0;
@@ -217,7 +219,7 @@ class DailySpinCommand extends command.Command
                                     var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                     nextDayDate.setHours(0, 0, 0, 0)
                                     const nextDay = nextDayDate.toJSON()
-                                    userSpins[i].dailyspin = JSON.stringify(nextDay)
+                                    userSpins[userSpinsIndex].dailyspin = JSON.stringify(nextDay)
                                     setTimeout(() => {
                                         var chance = Math.random()
                                         var prize = 0;
