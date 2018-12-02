@@ -2843,8 +2843,11 @@ bot.login(process.env.BOT_TOKEN).then(function()
                             
                             setImmediate(() => {
                                 DatabaseFunctions.addUserTokens(data["user"], giveawayToken);
+                                var timestamp = (new Date());
+                                timestamp.setHours(0, 0, 0, 0)
+                                firebase.database().ref("usersettings/" + data["user"] + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
                                 bot.fetchUser(data["user"]).then(user => {
-                                    user.send("Thank you for voting, you have received " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. Use \`help ww\` for more info on these tokens.").catch(error => console.log("Send Error - " + error));
+                                    user.send("Thank you for voting, you have received " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help ww\` for more info on these tokens and `help dailyspin` for info on Daily Spins.").catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                     var messageData = JSON.stringify({"user": data["user"], "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(data["user"]))})
                                     bot.shard.send(messageData)
