@@ -103,112 +103,110 @@ class DailySpinCommand extends command.Command
             }
         }
 
-        setImmediate(() => {
-            Promise.all(promises).then(() => {
-                for(var i = 0; i < userSpins.length; i++)
+        Promise.all(promises).then(() => {
+            for(var i = 0; i < userSpins.length; i++)
+            {
+                if(userSpins[i].userID == message.author.id)
                 {
-                    if(userSpins[i].userID == message.author.id)
+                    var date = new Date(JSON.parse(userSpins[i].dailyspin))
+                    var today = (new Date())
+                    today.setHours(0, 0, 0, 0)
+
+                    if(today.getTime() >= date.getTime())
                     {
-                        var date = new Date(JSON.parse(userSpins[i].dailyspin))
-                        var today = (new Date())
-                        today.setHours(0, 0, 0, 0)
-
-                        if(today.getTime() >= date.getTime())
+                        if(hasVoted)
                         {
-                            if(hasVoted)
-                            {
-                                message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
-                                var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
-                                nextDayDate.setHours(0, 0, 0, 0)
-                                const nextDay = nextDayDate.toJSON()
-                                userSpins[i].dailyspin = JSON.stringify(nextDay)
+                            message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
+                            var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
+                            nextDayDate.setHours(0, 0, 0, 0)
+                            const nextDay = nextDayDate.toJSON()
+                            userSpins[i].dailyspin = JSON.stringify(nextDay)
+                            setTimeout(() => {
+                                var chance = Math.random()
+                                var prize = 0;
+                                var goldenPrize = false;
+
+                                if(chance >= 0.95)
+                                {
+                                    if(chance >= 0.975 && isPatron)
+                                    {
+                                        prize = 75000
+                                        goldenPrize = true;
+                                    }
+                                    else
+                                    {
+                                        prize = 50000
+                                    }
+                                }
+                                else if(chance >= 0.925)
+                                {
+                                    prize = 45000
+                                }
+                                else if(chance >= 0.875)
+                                {
+                                    prize = 40000
+                                }
+                                else if(chance >= 0.85)
+                                {
+                                    prize = 35000
+                                }
+                                else if(chance >= 0.825)
+                                {
+                                    prize = 30000
+                                }
+                                else if(chance >= 0.8)
+                                {
+                                    prize = 25000
+                                }
+                                else if(chance >= 0.775)
+                                {
+                                    prize = 20000
+                                }
+                                else if(chance >= 0.6)
+                                {
+                                    prize = 15000
+                                }
+                                else if(chance >= 0.2)
+                                {
+                                    prize = 10000
+                                }
+                                else 
+                                {
+                                    prize = 5000
+                                }
+
+                                IndexRef.addTokens(message.author.id, prize)
+                                firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
+
+                                var prizeMessage = ""
+
+                                if(goldenPrize)
+                                {
+                                    prizeMessage = "the ***Golden Prize*** for"
+                                }
+
+                                const addMessage = prizeMessage
+
                                 setTimeout(() => {
-                                    var chance = Math.random()
-                                    var prize = 0;
-                                    var goldenPrize = false;
-
-                                    if(chance >= 0.95)
+                                    message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> Congrats! :tada:\n\nYou have won " + addMessage + " ***" + numberWithCommas(prize) + " War Tokens!*** Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                                    if(!isPatron)
                                     {
-                                        if(chance >= 0.975 && isPatron)
-                                        {
-                                            prize = 75000
-                                            goldenPrize = true;
-                                        }
-                                        else
-                                        {
-                                            prize = 50000
-                                        }
+                                        message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "<@" + message.author.id + "> You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
-                                    else if(chance >= 0.925)
-                                    {
-                                        prize = 45000
-                                    }
-                                    else if(chance >= 0.875)
-                                    {
-                                        prize = 40000
-                                    }
-                                    else if(chance >= 0.85)
-                                    {
-                                        prize = 35000
-                                    }
-                                    else if(chance >= 0.825)
-                                    {
-                                        prize = 30000
-                                    }
-                                    else if(chance >= 0.8)
-                                    {
-                                        prize = 25000
-                                    }
-                                    else if(chance >= 0.775)
-                                    {
-                                        prize = 20000
-                                    }
-                                    else if(chance >= 0.6)
-                                    {
-                                        prize = 15000
-                                    }
-                                    else if(chance >= 0.2)
-                                    {
-                                        prize = 10000
-                                    }
-                                    else 
-                                    {
-                                        prize = 5000
-                                    }
-
-                                    IndexRef.addTokens(message.author.id, prize)
-                                    firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
-
-                                    var prizeMessage = ""
-
-                                    if(goldenPrize)
-                                    {
-                                        prizeMessage = "the ***Golden Prize*** for"
-                                    }
-
-                                    const addMessage = prizeMessage
-
-                                    setTimeout(() => {
-                                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> Congrats! :tada:\n\nYou have won " + addMessage + " ***" + numberWithCommas(prize) + " War Tokens!*** Remember to spin the wheel again on the next day.", color: 16761856, timestamp: nextDay, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
-                                        if(!isPatron)
-                                        {
-                                            message.channel.send("", {embed: {title: "***Daily Spin Golden Prize***", description: "<@" + message.author.id + "> You can get a chance to win the Golden Prize by ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }
-                                    }, 500)
-                                }, 2000)
-                            }
-                            else
-                            {
-                                message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have not yet voted for a daily spin. If you have already voted, it may take up to 2 minutes or more for your vote to register.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                            }
+                                }, 500)
+                            }, 2000)
                         }
                         else
                         {
-                            message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have already spun the wheel today.", color: 16761856, timestamp: date, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have not yet voted for a daily spin. If you have already voted, it may take up to 2 minutes or more for your vote to register.\n\n***[Vote here to spin the wheel!](https://discordbots.org/bot/319533843482673152/vote)***", color: 16761856, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL, text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
+                    else
+                    {
+                        message.channel.send("", {embed: {title: "***Daily Spin***", description: "<@" + message.author.id + "> You have already spun the wheel today.", color: 16761856, timestamp: date, footer: {icon_url: message.client.user.avatarURL, text: "Next Spin on"}}}).catch(error => console.log("Send Error - " + error));
+                    }
                 }
-            })
+            }
         })
     }
 }
