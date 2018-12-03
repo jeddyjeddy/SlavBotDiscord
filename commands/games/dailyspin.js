@@ -118,7 +118,7 @@ class DailySpinCommand extends command.Command
     
                         if(today.getTime() >= date.getTime())
                         {
-                            firebase.database().ref("usersettings/" + message.author.id + "/lastvote").on("value", function(snapshot)
+                            firebase.database().ref("usersettings/" + message.author.id + "/lastvote").once("value").then(function(snapshot)
                             {
                                 if(snapshot.val() == null)
                                 {
