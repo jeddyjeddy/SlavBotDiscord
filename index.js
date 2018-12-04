@@ -1116,7 +1116,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
                         const roleName = newRoles[i].name
                         setTimeout(() => {
-                           newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                            newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
 
                         firebase.database().ref("patrons/" + newMemberData.id).set(1)
@@ -1169,7 +1169,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
                         const roleName = newRoles[i].name
                         setTimeout(() => {
-                          newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                            newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
 
                         firebase.database().ref("patrons/" + newMemberData.id).set(0)
