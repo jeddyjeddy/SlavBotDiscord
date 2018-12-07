@@ -543,7 +543,7 @@ class WWCommand extends command.Command
                                                 {
                                                     IndexRef.subtractTokens(message.author.id, amount)
                                                     IndexRef.addTokens(users[userIndex], amount)
-                                                    message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " tokens to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                    message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
                                                 }
                                             }
                                             
