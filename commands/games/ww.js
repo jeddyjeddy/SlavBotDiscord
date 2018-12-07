@@ -37,7 +37,7 @@ class WWCommand extends command.Command
             group: "games",
             memberName: "ww",
             description: "Play the World War, where users in a server fight to conquer the world and get higher on the local leaderboards. Once a game has started, it will not end until someone conquers every single country there is. Users can conquer countries using War Tokens. Users can also take countries from others with tokens (the value of countries increase based on the number of times it has been conquered). Users can gather resources to earn War Tokens (the tokens can be used in WW games on other servers) that can be used to conquer different countries. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly. The server owner can end a session at any time.",
-            examples: ["`!ww start` (Start Game)", "`!ww ranks` (Check Local Leaderboards)", "`!ww profile [@User (optional)]` (Check how many tokens you or another user have and which countries you or another user have conquered)", "`!ww collect` (Gather Resources)", "`!ww list` (List out all countries)", "`!ww buy <country-name/country-id>` (Conquer a country)", "`!ww info <country-name/country-id>` (Get info of a country)", "`!ww end` (Server owner only)"]
+            examples: ["`!ww start` (Start Game)", "`!ww ranks` (Check Local Leaderboards)", "`!ww profile [@User (optional)]` (Check how many tokens you or another user have and which countries you or another user have conquered)", "`!ww collect` (Gather Resources)", "`!ww list` (List out all countries)", "`!ww buy <country-name/country-id>` (Conquer a country)", "`!ww give <amount> @User1 @User2` (Give your tokens to another user)", "`!ww info <country-name/country-id>` (Get info of a country)", "`!ww end` (Server owner only)"]
         });
     }
 
@@ -170,20 +170,25 @@ class WWCommand extends command.Command
                             if(amount.length > 0)
                             {
                                 amount = amount[0]
+                                if(users.length > 0)
+                                {
+                                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                    {
+                                        IndexRef.addTokens(users[userIndex], amount)
+                                        message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
+                                    }
+                                }
+                                else
+                                {
+                                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                }
                             }
                             else
                             {
-                                return;
+                                message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                             }
     
-                            if(users.length > 0)
-                            {
-                                for(var userIndex = 0; userIndex < users.length; userIndex++)
-                                {
-                                    IndexRef.addTokens(users[userIndex], amount)
-                                    message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
-                                }
-                            }
+                            
                             return;
                         }
                         else if((message.author.id == message.guild.ownerID || message.author.id == message.client.owners[0].id) && args.toLowerCase().startsWith("end"))
@@ -239,28 +244,32 @@ class WWCommand extends command.Command
                             if(amount.length > 0)
                             {
                                 amount = amount[0]
+                                if(users.length > 0)
+                                {
+                                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                    {
+                                        if(IndexRef.getTokens(users[userIndex]) < amount)
+                                        {
+                                            IndexRef.subtractTokens(users[userIndex], IndexRef.getTokens(users[userIndex]))
+                                        }
+                                        else
+                                        {
+                                            IndexRef.subtractTokens(users[userIndex], amount)
+                                        }
+        
+                                        message.channel.send(numberWithCommas(amount) + " tokens have been removed from " + "<@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                    }
+                                }
+                                else
+                                {
+                                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                }
                             }
                             else
                             {
-                                return;
+                                message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                             }
-    
-                            if(users.length > 0)
-                            {
-                                for(var userIndex = 0; userIndex < users.length; userIndex++)
-                                {
-                                    if(IndexRef.getTokens(users[userIndex]) < amount)
-                                    {
-                                        IndexRef.subtractTokens(users[userIndex], IndexRef.getTokens(users[userIndex]))
-                                    }
-                                    else
-                                    {
-                                        IndexRef.subtractTokens(users[userIndex], amount)
-                                    }
-    
-                                    message.channel.send(numberWithCommas(amount) + " tokens have been removed from " + "<@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
-                                }
-                            }
+                            
                             return;
                         }
     
@@ -271,7 +280,7 @@ class WWCommand extends command.Command
                                 wars[i].countries = [];
                                 wars[i].ended = false;
                                 var timestamp = (new Date(Date.now()).toJSON());
-                                message.channel.send("", {embed: {title: "***World War***", description: "New WW session has started.\n\n***Guide:***\nFight to conquer the world. Now that a game has started, it will not end until someone conquers every single country there is.\n\nUsers can conquer countries using War Tokens. Users can also take countries from others with tokens (the value of countries increase based on the number of times it has been conquered).\n\nUsers can gather resources using `" + commandPrefix + "ww collect` to earn War Tokens (the tokens can be used in WW games on other servers) that can be used to conquer different countries. These tokens can also be earned by voting for Slav Bot on discordbots.org (use `" + commandPrefix + "vote` to get the link) or by participating in token giveaways on the support server (use `" + commandPrefix + "support` to get the invite link).\n\nYou can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly (use `" + commandPrefix + "patreon` for the patreon link).\n\nYou can also win tokens by using `" + commandPrefix + "dailyspin.\n\nYou can get info on a country using `" + commandPrefix + "ww info <country-name/country-id>` and conquer any country by using `" + commandPrefix + "ww buy <country-name/country-id>`, you can get a list of all the countries using `" + commandPrefix + "ww list`.\n\nDon't be surprised if this game lasts for weeks, no one said you can conquer the world in a day. You can check your profile using `" + commandPrefix + "ww profile [@User (optional)]` to see how many tokens you or another user have and which countries you or another user have conquered. You can also check the local leaderboards for WW Games using `" + commandPrefix + "ww ranks`.\n\nThe server owner can end a session at any time by using `" + commandPrefix + "ww end`.\n\nGood luck everyone, may the best of you win.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Started on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***World War***", description: "New WW session has started.\n\n***Guide:***\nFight to conquer the world. Now that a game has started, it will not end until someone conquers every single country there is.\n\nUsers can conquer countries using War Tokens. Users can also take countries from others with tokens (the value of countries increase based on the number of times it has been conquered).\n\nUsers can gather resources using `" + commandPrefix + "ww collect` to earn War Tokens (the tokens can be used in WW games on other servers) that can be used to conquer different countries. These tokens can also be earned by voting for Slav Bot on discordbots.org (use `" + commandPrefix + "vote` to get the link) or by participating in token giveaways on the support server (use `" + commandPrefix + "support` to get the invite link).\n\nYou can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly (use `" + commandPrefix + "patreon` for the patreon link).\n\nYou can also win tokens by using `" + commandPrefix + "dailyspin.\n\nYou can get info on a country using `" + commandPrefix + "ww info <country-name/country-id>` and conquer any country by using `" + commandPrefix + "ww buy <country-name/country-id>`, you can get a list of all the countries using `" + commandPrefix + "ww list`.\n\nYou can also give your tokens to other users by using `" + commandPrefix + "ww give <amount> @User1 @User2`.\n\nDon't be surprised if this game lasts for weeks, no one said you can conquer the world in a day. You can check your profile using `" + commandPrefix + "ww profile [@User (optional)]` to see how many tokens you or another user have and which countries you or another user have conquered. You can also check the local leaderboards for WW Games using `" + commandPrefix + "ww ranks`.\n\nThe server owner can end a session at any time by using `" + commandPrefix + "ww end`.\n\nGood luck everyone, may the best of you win.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Started on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else if(args.toLowerCase().startsWith("ranks"))
                             {
@@ -442,6 +451,81 @@ class WWCommand extends command.Command
                                 }
                                     
                                 
+                            }
+                            if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("give"))
+                            {
+                                var endIndex = -1;
+                                var users = []
+                                var getUser = false;
+                                var userID = "";
+                                for(var index = 0; index < args.length; index++)
+                                {
+                                    if(getUser)
+                                    {
+                                        if(args[index].toString() == ">")
+                                        {
+                                            users.push(userID);
+                                            userID = "";
+                                            getUser = false;
+                                        }
+                                        else
+                                        {
+                                            if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                                            {
+                                                userID = userID + args[index].toString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() == "<")
+                                        {
+                                            getUser = true;
+                                            if(endIndex == -1)
+                                                endIndex = index 
+                                        } 
+                                    }
+                                }
+        
+                                var options = ""
+        
+                                for(var index = 0; index < endIndex; index++)
+                                {
+                                    options = options + args[index];
+                                }
+        
+                                var amount = options.match(/\d+/g).map(Number);
+                                
+                                if(amount.length > 0)
+                                {
+                                    amount = amount[0]
+
+                                    if(users.length > 0)
+                                    {
+                                        for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                        {
+                                            if(IndexRef.getTokens(message.author.id) < amount)
+                                            {
+                                                message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to give to another user.").catch(error => {console.log("Send Error - " + error); });   
+                                            }
+                                            else
+                                            {
+                                                IndexRef.subtractTokens(message.author.id, amount)
+                                                IndexRef.addTokens(users[userIndex], amount)
+                                                message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " tokens to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                            }
+                                            
+                                        }
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                    }
+                                }
+                                else
+                                {
+                                    message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
+                                }
                             }
                             else if(args.toLowerCase().startsWith("list"))
                             {
