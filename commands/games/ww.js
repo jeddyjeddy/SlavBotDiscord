@@ -462,7 +462,7 @@ class WWCommand extends command.Command
                                     
                                 
                             }
-                            if(args.toLowerCase().startsWith("give"))
+                            else if(args.toLowerCase().startsWith("give"))
                             {
                                 var endIndex = -1;
                                 var users = []
