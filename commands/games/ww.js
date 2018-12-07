@@ -165,7 +165,12 @@ class WWCommand extends command.Command
                                 options = options + args[index];
                             }
     
-                            var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
+                            var amountText = options.match(/\d+/g);
+                            var amount = []
+                            if(amountText != null)
+                            {
+                                amount = amountText.map(Number);
+                            }
                             
                             if(amount.length > 0)
                             {
@@ -239,8 +244,13 @@ class WWCommand extends command.Command
                                 options = options + args[index];
                             }
     
-                            var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
-                            
+                            var amountText = options.match(/\d+/g);
+                            var amount = []
+                            if(amountText != null)
+                            {
+                                amount = amountText.map(Number);
+                            }
+
                             if(amount.length > 0)
                             {
                                 amount = amount[0]
@@ -494,8 +504,13 @@ class WWCommand extends command.Command
                                     options = options + args[index];
                                 }
         
-                                var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
-                                
+                                var amountText = options.match(/\d+/g);
+                                var amount = []
+                                if(amountText != null)
+                                {
+                                    amount = amountText.map(Number);
+                                }
+
                                 if(amount.length > 0)
                                 {
                                     amount = amount[0]
