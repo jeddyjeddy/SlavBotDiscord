@@ -525,7 +525,7 @@ class WWCommand extends command.Command
                                             }
                                             else
                                             {
-                                                var mentions = message.mentions.array()
+                                                var mentions = message.mentions.users.array()
                                                 var isBot = false;
                                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                 {
