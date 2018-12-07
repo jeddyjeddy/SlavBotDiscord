@@ -462,7 +462,7 @@ class WWCommand extends command.Command
                                     
                                 
                             }
-                            if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("give"))
+                            if(args.toLowerCase().startsWith("give"))
                             {
                                 var endIndex = -1;
                                 var users = []
@@ -525,9 +525,26 @@ class WWCommand extends command.Command
                                             }
                                             else
                                             {
-                                                IndexRef.subtractTokens(message.author.id, amount)
-                                                IndexRef.addTokens(users[userIndex], amount)
-                                                message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " tokens to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                var mentions = message.mentions.array()
+                                                var isBot = false;
+                                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                                {
+                                                    if(mentions[mentionIndex].id == users[userIndex])
+                                                    {
+                                                        isBot = mentions[mentionIndex].bot
+                                                    }
+                                                }
+
+                                                if(users[userIndex] == message.author.id || isBot)
+                                                {
+                                                    message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
+                                                }
+                                                else
+                                                {
+                                                    IndexRef.subtractTokens(message.author.id, amount)
+                                                    IndexRef.addTokens(users[userIndex], amount)
+                                                    message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " tokens to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                }
                                             }
                                             
                                         }
