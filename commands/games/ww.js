@@ -165,7 +165,7 @@ class WWCommand extends command.Command
                                 options = options + args[index];
                             }
     
-                            var amount = options.match(/\d+/g).map(Number);
+                            var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
                             
                             if(amount.length > 0)
                             {
@@ -239,7 +239,7 @@ class WWCommand extends command.Command
                                 options = options + args[index];
                             }
     
-                            var amount = options.match(/\d+/g).map(Number);
+                            var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
                             
                             if(amount.length > 0)
                             {
@@ -494,7 +494,7 @@ class WWCommand extends command.Command
                                     options = options + args[index];
                                 }
         
-                                var amount = options.match(/\d+/g).map(Number);
+                                var amount = options.match(/\d+/g).map(Number).catch(error => console.log(error));
                                 
                                 if(amount.length > 0)
                                 {
