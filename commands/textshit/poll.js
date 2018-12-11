@@ -71,6 +71,23 @@ class PollCommand extends command.Command
                     var downloadedPolls = JSON.parse(snapshot.val())
                     allPolls.push({key: message.guild.id, polls: downloadedPolls});
                 }
+
+                for(var i = 0; i < allPolls.length; i++)
+                {
+                    if(allPolls[i].key == message.guild.id)
+                    {
+                        guildIndex = i;
+                        for(var channelIndex = 0; channelIndex < allPolls[i].polls.length; channelIndex++)
+                        {
+                            var poll = allPolls[i].polls[channelIndex];
+                            if(poll.key == message.channel.id)
+                            {
+                                hasPoll = true;
+                                pollIndex = channelIndex;
+                            }
+                        }
+                    }
+                }
             }));
         }
 
