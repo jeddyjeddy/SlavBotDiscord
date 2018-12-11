@@ -148,6 +148,7 @@ dbl.on('posted', () => {
         if (!error) {
             // Print out the response body
             console.log("Bots discord pw success - " + body)
+            console.log("API - " + process.env.BOTS_DISCORD_PW_API)
         }
     })
 
