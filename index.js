@@ -147,7 +147,7 @@ dbl.on('posted', () => {
     request(options4, function (error, response, body) {
         if (!error) {
             // Print out the response body
-            console.log("Bots discord pw success - " + response)
+            console.log("Bots discord pw success - " + body)
         }
     })
 
