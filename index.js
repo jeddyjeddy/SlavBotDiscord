@@ -137,10 +137,10 @@ dbl.on('posted', () => {
 
     // Configure the request
     var options4 = {
-        url: 'https://bots.discord.pw/api/bots/' + bot.user.id + "/stats",
+        url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
         method: 'POST',
         headers: headers4,
-        body: JSON.stringify({"server_count": bot.guilds.size, "shard_id": bot.shard.id, "shard_count": bot.shard.count})
+        body: JSON.stringify({"guildCount": bot.guilds.size, "shardId": bot.shard.id, "shardCount": bot.shard.count})
     }
 
     // Start the request
