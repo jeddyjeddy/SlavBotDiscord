@@ -446,7 +446,8 @@ class PollCommand extends command.Command
                         var selectedOptionIndex = selectedOption - 1;
                         var hasVoted = false;
 
-                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
+                        if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null
+                            && allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != undefined)
                         {
                             if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.length > 0)
                             {
@@ -470,7 +471,8 @@ class PollCommand extends command.Command
                             
                             if(selectedOption >= 1 && selectedOption <= allPolls[guildIndex].polls[pollIndex].poll.options.length)
                             {
-                                if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null)
+                                if(allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != null
+                                    && allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users != undefined)
                                     allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users.push(message.author.id);
                                 else
                                     allPolls[guildIndex].polls[pollIndex].poll.options[selectedOptionIndex].users = [message.author.id];
