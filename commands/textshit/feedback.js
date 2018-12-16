@@ -9,6 +9,13 @@ firebase.auth().onAuthStateChanged(function(user) {
                 blackList = JSON.parse(snapshot.val());  
         })]).then(() => {
             signedIntoFirebase = true;
+
+            firebase.database().ref("blacklist").on("child_changed", function(snapshot) {
+                if(snapshot.val() != null)
+                    blackList = JSON.parse(snapshot.val());  
+                else
+                    blackList = [];
+            })
         })
     } 
     else
