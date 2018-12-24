@@ -60,9 +60,17 @@ class Bigmojiommand extends command.Command
                 {
                     if(args[i].toString() == "<")
                     {
-                        if(args.length > i + 1)
+                        if(args.length > i + 2)
                         {
                             if(args[i + 1].toString() == ":" || (args[i + 1].toString() + args[i + 2].toString()) == "a:")
+                            {
+                                getEmoji = true;
+                                i = i++;
+                            }
+                        }
+                        else if(args.length > i + 1)
+                        {
+                            if(args[i + 1].toString() == ":")
                             {
                                 getEmoji = true;
                                 i = i++;
