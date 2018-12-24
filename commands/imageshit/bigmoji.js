@@ -27,7 +27,7 @@ class Bigmojiommand extends command.Command
         
         if(args.length > 0)
         {
-            console.log("args are present");
+            console.log("args are present " + args);
             var getEmoji = false;
             var waitForEnd = false;
             for(var i = 0; i < args.length; i++)
