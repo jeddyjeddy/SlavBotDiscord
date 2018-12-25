@@ -27,6 +27,17 @@ firebase.auth().onAuthStateChanged(function(user) {
                     }
                 }
             })
+
+            firebase.database().ref("patrons").on("child_changed", function(snapshot){
+                for(var i = 0; i < patrons.length; i++)
+                {
+                    if(patrons[i] == snapshot.key)
+                    {
+                        patrons[i].type = snapshot.val()
+                    }
+                }
+            })
+
             listening = true;
         }
     } 
@@ -498,6 +509,9 @@ class WWCommand extends command.Command
                                         }
                                     }
 
+                                    if(maxPercInc > 200)
+                                        maxPercInc = 200;
+
                                     maxValue = Math.floor(2000 * ((maxPercInc/100) + 1))
 
                                     var collected = Math.floor(Math.random() * maxValue) + 1
@@ -509,7 +523,7 @@ class WWCommand extends command.Command
                                     IndexRef.addTokens(message.author.id, collected)
                                     IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
     
-                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected ***" + numberWithCommas(collected) + " tokens*** with a ***max value increase of " + maxPercInc + "%*** _(current max value: " + maxValue + ")_ and ***value increase of " + collectedValInc + "%***\n\n***Max Value Increase %*** - This % can be increased by conquering countries with a value greater than 1000 tokens. The higher the value, the higher the % increase in the maximum amount of tokens you can collect.\n\n***Collected Value Increase %*** - You can increase the value of tokens you have collected by a certain %. This is only available to those ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***. 50% for low tier supporters and 100% for high tier supporters.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected ***" + numberWithCommas(collected) + " tokens*** with a ***max value increase of " + maxPercInc + "%*** _(current max value: " + maxValue + ")_ and ***value increase of " + collectedValInc + "%***\n\n***Max Value Increase %*** - This % can be increased by conquering countries with a value greater than 1000 tokens. The higher the value, the higher the % increase in the maximum amount of tokens you can collect. The highest % allowed is 200%\n\n***Collected Value Increase %*** - You can increase the value of tokens you have collected by a certain %. This is only available to those ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***. 50% for low tier supporters and 100% for high tier supporters.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {
