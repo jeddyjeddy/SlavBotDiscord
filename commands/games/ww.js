@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 {
                     if(patrons[i] == snapshot.key)
                     {
-                        patrons[i] = ""
+                        patrons[i].userID = ""
                     }
                 }
             })
