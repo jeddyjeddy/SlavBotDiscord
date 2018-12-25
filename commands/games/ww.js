@@ -5,10 +5,30 @@ const countries = require('country-list')();
 const allCountries = countries.getNames();
 var firebase = require("firebase");
 var signedIntoFirebase = false;
+var listening = false;
+var patrons = [{userID: "", type: 0}];
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         signedIntoFirebase = true;
+
+        if(!listening)
+        {
+            firebase.database().ref("patrons").on("child_added", function(snapshot){
+                patrons.push({userID: snapshot.key, type: snapshot.val()})
+            })
+            
+            firebase.database().ref("patrons").on("child_removed", function(snapshot){
+                for(var i = 0; i < patrons.length; i++)
+                {
+                    if(patrons[i] == snapshot.key)
+                    {
+                        patrons[i] = ""
+                    }
+                }
+            })
+            listening = true;
+        }
     } 
     else
     {
@@ -447,13 +467,49 @@ class WWCommand extends command.Command
     
                                 if(date.getTime() <= (new Date()).getTime())
                                 {
-                                    var collected = Math.floor(Math.random() * 2000) + 1
+                                    var maxValue = 2000;
+                                    var maxPercInc = 0;
+                                    var collectedValInc = 0;
+
+                                    for(var index = 0; index < wars[i].countries.length; index++)
+                                    {
+                                        if(wars[i].countries[index].ruler == message.author.id)
+                                        {
+                                            if(wars[i].countries[index].value > 1000)
+                                            {
+                                                const amountRef = wars[i].countries[index].value - 1000
+                                                maxPercInc = maxPercInc + (amountRef / 500)
+                                            }
+                                        }
+                                    }
+
+                                    for(var index = 0; index < patrons.length; index++)
+                                    {
+                                        if(patrons[index].userID == message.author.id)
+                                        {
+                                            if(patrons[index].type == 0)
+                                            {
+                                                collectedValInc = 50;
+                                            }
+                                            else if(patrons[index].type == 1)
+                                            {
+                                                collectedValInc = 100;
+                                            }
+                                        }
+                                    }
+
+                                    maxValue = Math.floor(2000 * ((maxPercInc/100) + 1))
+
+                                    var collected = Math.floor(Math.random() * maxValue) + 1
+
+                                    collected = Math.floor(collected * ((collectedValInc/100) + 1))
+
                                     var timestamp = (new Date(Date.now()).toJSON());
     
                                     IndexRef.addTokens(message.author.id, collected)
                                     IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
     
-                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected " + numberWithCommas(collected) + " tokens.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Resources Collected***", description: "<@" + message.author.id + "> You have collected ***" + numberWithCommas(collected) + " tokens*** with a ***max value increase of " + maxPercInc + "%*** (current max value: " + maxValue + ")and ***value increase of " + collectedValInc + "%***\n\n***Max Value Increase %*** - This % can be increased by conquering countries with a value greater than 1000 tokens. The higher the value, the higher the % increase in the maximum amount of tokens you can collect.\n\n***Collected Value % Increase*** - You can increase the value of tokens you have collected by a certain %. This is only available to those ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***. 50% for low tier supporters and 100% for high tier supporters.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {
