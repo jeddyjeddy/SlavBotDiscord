@@ -171,7 +171,7 @@ dbl.on('posted', () => {
         }
     })
 
-    bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
+    bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " v" + (bot.shard.id + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
 });
     
