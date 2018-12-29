@@ -115,7 +115,7 @@ class NeroCommand extends command.Command
                             var mainImage = new Jimp(300, 300).composite(userImage, (300 - userImage.bitmap.width) / 2, 0).rotate(-20); 
                             
                             var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
@@ -195,7 +195,7 @@ class NeroCommand extends command.Command
                             var mainImage = new Jimp(300, 300).composite(userImage, (300 - userImage.bitmap.width) / 2, 0).rotate(-20); 
                             
                             var mergedImage = neroImage.composite(mainImage, x, y ).composite(handImage, 0, 0);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");

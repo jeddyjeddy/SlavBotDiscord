@@ -119,7 +119,7 @@ class EmbossCommand extends command.Command
 
                         Filter.render(fileTemp, imageEffect, function(result)
                         {
-                            const file = shortid.generate() + `.${result.type}`
+                            const file = "TempStorage/" + shortid.generate() + `.${result.type}`
                             result.data.pipe(fs.createWriteStream(file).on('finish', function(){
                                 message.channel.send("***Emboss***", {
                                     files: [file]
@@ -180,14 +180,14 @@ class EmbossCommand extends command.Command
                 
                 Jimp.read(url).then(function (userImage) {
                     console.log("got avatar");
-                    const fileTemp = shortid.generate() + ".png";                  
+                    const fileTemp = "TempStorage/" + shortid.generate() + ".png";                  
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
                         console.log(fileTemp);
 
                         Filter.render(fileTemp, imageEffect, function(result)
                         {
-                            const file = shortid.generate() + `.${result.type}`
+                            const file = "TempStorage/" + shortid.generate() + `.${result.type}`
                             result.data.pipe(fs.createWriteStream(file).on('finish', function(){
                                 message.channel.send("***Emboss***", {
                                     files: [file]

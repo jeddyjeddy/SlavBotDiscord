@@ -117,7 +117,7 @@ class DespacitoCommand extends command.Command
                         despacitoImage.resize(userImage.bitmap.width, userImage.bitmap.height);
         
                         var mergedImage = userImage.composite(despacitoImage, 0, 0 );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -186,7 +186,7 @@ class DespacitoCommand extends command.Command
                         despacitoImage.resize(userImage.bitmap.width, userImage.bitmap.height);
         
                         var mergedImage = userImage.composite(despacitoImage, 0, 0 );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

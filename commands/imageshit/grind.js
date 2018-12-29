@@ -106,7 +106,7 @@ class GrindCommand extends command.Command
                         userImage.cover(grindImage.bitmap.width, grindImage.bitmap.height)
         
                         var mergedImage = userImage.composite(grindImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -206,7 +206,7 @@ class GrindCommand extends command.Command
                                 var mergedImage = userImage.composite(grindImage, 0, 0);
                                 profileImage.resize(140, 140)
                                 mergedImage.composite(profileImage, 160, 160)
-                                const file = shortid.generate() + ".png"
+                                const file = "TempStorage/" + shortid.generate() + ".png"
                                 mergedImage.write(file, function(error){
                                     if(error) { console.log(error); return;};
                                     console.log("got merged image");

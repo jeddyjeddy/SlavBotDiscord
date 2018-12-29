@@ -86,7 +86,7 @@ class ApocalypseCommand extends command.Command
                                     image4.cover(450, 450)
                                     apocalypseImage.composite(image4, 600, 950)
                                 
-                                    const file = shortid.generate() + ".png"
+                                    const file = "TempStorage/" + shortid.generate() + ".png"
                                     apocalypseImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
@@ -269,7 +269,7 @@ class ApocalypseCommand extends command.Command
                                     image4.resize(450, 450)
                                     apocalypseImage.composite(image4, 600, 950)
                                 
-                                    const file = shortid.generate() + ".png"
+                                    const file = "TempStorage/" + shortid.generate() + ".png"
                                     apocalypseImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");

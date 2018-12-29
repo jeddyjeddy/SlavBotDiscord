@@ -79,7 +79,7 @@ class CaptionCommand extends command.Command
                             var finalImage = new Jimp(captionImage.bitmap.width, captionImage.bitmap.height + textImage.bitmap.height)
                             .composite(textImage, 0, 0).composite(captionImage, 0, textImage.bitmap.height)
 
-                            const file = shortid.generate() + ".png";
+                            const file = "TempStorage/" + shortid.generate() + ".png";
                             finalImage.write(file, function(error){  
                                 if(error) { console.log(error); return;};
                             message.channel.send("***Captioned***", {

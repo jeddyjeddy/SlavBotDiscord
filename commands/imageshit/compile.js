@@ -172,7 +172,7 @@ class CompileCommand extends command.Command
 
                             console.log("Merged Panels")
 
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");

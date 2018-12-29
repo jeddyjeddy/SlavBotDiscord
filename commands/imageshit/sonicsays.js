@@ -31,7 +31,7 @@ class SonicsaysCommand extends command.Command
 
         if(args.length > 0 && args.length < 141)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             var editText = args.toString()
                 Jimp.read("sonic.png").then(function (sonicImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function (font) {

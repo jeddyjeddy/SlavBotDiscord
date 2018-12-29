@@ -70,7 +70,7 @@ class ViewCommand extends command.Command
                     var blank = new Jimp(viewImage.bitmap.width, viewImage.bitmap.height)
                     blank.composite(userImage, 160, 405);
                     var mergedImage = blank.composite(viewImage, 0, 0);
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

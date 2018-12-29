@@ -117,14 +117,14 @@ class DeepfryCommand extends command.Command
                     ]) 
                                         
                     userImage.contrast(0.75);
-                    const fileTemp = shortid.generate() + ".png";  
+                    const fileTemp = "TempStorage/" + shortid.generate() + ".png";  
                     userImage.write(fileTemp, function(error){
                         if(error) { console.log(error); return;};
                         console.log(fileTemp);
 
                         Filter.render(fileTemp, imageEffect, function(result)
                         {
-                            const file = shortid.generate() + `.${result.type}`
+                            const file = "TempStorage/" + shortid.generate() + `.${result.type}`
                             result.data.pipe(fs.createWriteStream(file).on('finish', function(){
                                 console.log(file);
                                 message.channel.send("***Deep Fried***", {
@@ -195,7 +195,7 @@ class DeepfryCommand extends command.Command
                     ]); 
                     userImage.contrast(1);
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                         if(error) {{ console.log(error); return;}; };
                         console.log(file);

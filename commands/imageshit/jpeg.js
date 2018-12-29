@@ -115,7 +115,7 @@ class JpegCommand extends command.Command
                       ]);
                       userImage.resize(orgWidth, orgHeight);
                         
-                       const file = shortid.generate() + ".jpeg"
+                       const file = "TempStorage/" + shortid.generate() + ".jpeg"
                     
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
@@ -182,7 +182,7 @@ class JpegCommand extends command.Command
                       ]);
                       userImage.resize(orgWidth, orgHeight);
 
-                    const file = shortid.generate() + ".jpeg";
+                    const file = "TempStorage/" + shortid.generate() + ".jpeg";
 
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};

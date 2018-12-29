@@ -102,7 +102,7 @@ class AllyCommand extends command.Command
                             var y = 20
                             var mergedImageKidnapper = allyImage.composite(authorImage, xAuthor, yAuthor );
                             var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");

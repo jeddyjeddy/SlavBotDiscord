@@ -37,7 +37,7 @@ class IllegalCommand extends command.Command
 
         if(args.length > 0 && args.length <= 135)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("trump.JPG").then(function (trumpImage) {
                     Jimp.loadFont("Arial_24.fnt").then(function (font) {

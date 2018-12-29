@@ -107,7 +107,7 @@ class PosterizeCommand extends command.Command
         
                     userImage.posterize(effectValue);
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -165,7 +165,7 @@ class PosterizeCommand extends command.Command
                     
                     userImage.posterize(effectValue);
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

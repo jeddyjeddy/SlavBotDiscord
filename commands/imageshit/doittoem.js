@@ -106,7 +106,7 @@ class DoItToEmCommand extends command.Command
                         userImage.cover(doittoemImage.bitmap.width, doittoemImage.bitmap.height)
         
                         var mergedImage = userImage.composite(doittoemImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -206,7 +206,7 @@ class DoItToEmCommand extends command.Command
                                 var mergedImage = userImage.composite(doittoemImage, 0, 0);
                                 profileImage.resize(90, 90)
                                 mergedImage.composite(profileImage, 200, 8)
-                                const file = shortid.generate() + ".png"
+                                const file = "TempStorage/" + shortid.generate() + ".png"
                                 mergedImage.write(file, function(error){
                                     if(error) { console.log(error); return;};
                                     console.log("got merged image");

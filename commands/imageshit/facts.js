@@ -37,7 +37,7 @@ class FactsCommand extends command.Command
 
         if(args.length > 0 && args.length <= 140)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("facts.png").then(function (factsImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {

@@ -37,7 +37,7 @@ class ClassicCommand extends command.Command
 
         if(args.length > 0 && args.length <= 80)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("classic.jpg").then(function (trumpImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function (font) {

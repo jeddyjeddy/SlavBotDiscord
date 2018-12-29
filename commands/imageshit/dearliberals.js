@@ -37,7 +37,7 @@ class DearLiberalsCommand extends command.Command
 
         if(args.length > 0 && args.length <= 140)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("dearliberals.png").then(function (dearliberalsImage) {
                     Jimp.loadFont("Arial_24.fnt").then(function (font) {

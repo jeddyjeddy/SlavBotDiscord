@@ -102,7 +102,7 @@ class DeusCommand extends command.Command
                             x2 = x2 + ((220 - userImage.bitmap.width) / 2)
                             var y2 = 380
                             var mergedImage = deusImage.composite(authorImage, x, y).composite(userImage, x2, y2);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
@@ -200,7 +200,7 @@ class DeusCommand extends command.Command
                             x2 = x2 + ((220 - userImage2.bitmap.width) / 2)
                             var y2 = 380
                             var mergedImage = deusImage.composite(userImage, x, y).composite(userImage2, x2, y2);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");

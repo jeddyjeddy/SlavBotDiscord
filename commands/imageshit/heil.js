@@ -173,7 +173,7 @@ class HeilCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(hitlerImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -293,7 +293,7 @@ class HeilCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(hitlerImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

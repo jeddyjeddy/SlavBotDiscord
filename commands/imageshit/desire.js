@@ -113,7 +113,7 @@ class DesireCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -187,7 +187,7 @@ class DesireCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(DesireImage.bitmap.width, DesireImage.bitmap.height).composite(userImage, x, y ).composite(DesireImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

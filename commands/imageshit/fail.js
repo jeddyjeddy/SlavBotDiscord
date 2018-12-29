@@ -112,7 +112,7 @@ class FailCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(FImage.bitmap.width, FImage.bitmap.height).composite(userImage, x, y ).composite(FImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -185,7 +185,7 @@ class FailCommand extends command.Command
                         
         
                         var mergedImage = new Jimp(FImage.bitmap.width, FImage.bitmap.height).composite(userImage, x, y ).composite(FImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

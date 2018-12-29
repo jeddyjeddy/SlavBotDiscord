@@ -109,7 +109,7 @@ class AustraliaCommand extends command.Command
 
                         userImage.rotate(180)
 
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -181,7 +181,7 @@ class AustraliaCommand extends command.Command
 
                         userImage.rotate(180)
 
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

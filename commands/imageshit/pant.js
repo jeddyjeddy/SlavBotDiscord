@@ -113,7 +113,7 @@ class PantCommand extends command.Command
                             
             
                             var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(pantBGImage, 0, 0).composite(userImage, x, y ).composite(pantImage, 0, 0);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
@@ -189,7 +189,7 @@ class PantCommand extends command.Command
                             
             
                             var mergedImage = new Jimp(pantImage.bitmap.width, pantImage.bitmap.height).composite(pantBGImage, 0, 0).composite(userImage, x, y ).composite(pantImage, 0, 0);
-                            const file = shortid.generate() + ".png"
+                            const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");

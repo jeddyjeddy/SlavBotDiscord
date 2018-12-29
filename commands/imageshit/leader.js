@@ -69,7 +69,7 @@ class LeaderCommand extends command.Command
                     userImage.cover(leaderImage.bitmap.width, leaderImage.bitmap.height)
     
                     var mergedImage = userImage.composite(leaderImage, 0, 0);
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

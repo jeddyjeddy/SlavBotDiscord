@@ -108,7 +108,7 @@ class BlurCommand extends command.Command
         
                     userImage.blur(10);
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -169,7 +169,7 @@ class BlurCommand extends command.Command
                     
                     userImage.blur(10);
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

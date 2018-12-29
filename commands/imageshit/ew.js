@@ -116,7 +116,7 @@ class EwCommand extends command.Command
         
         
                         var mergedImage = EwImage.composite(userImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -188,7 +188,7 @@ class EwCommand extends command.Command
                         userImage.resize(240, 240)
         
                         var mergedImage = EwImage.composite(userImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

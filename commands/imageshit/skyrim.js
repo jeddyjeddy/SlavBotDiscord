@@ -126,7 +126,7 @@ class SkyrimCommand extends command.Command
                 }
 
                 Promise.all(promises).then(() => {                    
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     skyrimImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

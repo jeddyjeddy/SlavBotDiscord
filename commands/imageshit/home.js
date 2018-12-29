@@ -78,7 +78,7 @@ class HomeCommand extends command.Command
                         var finalPanel = userImage2.cover(homeImage.bitmap.width - 172, 209)
 
                         var mergedImage = new Jimp(homeImage.bitmap.width, homeImage.bitmap.height).composite(panel, 0, 0).composite(panel, 0, 208).composite(panel, 0, 417).composite(finalPanel, 172, 417).composite(homeImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

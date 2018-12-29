@@ -171,7 +171,7 @@ class DabCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(dabImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -294,7 +294,7 @@ class DabCommand extends command.Command
         
                         
                         var mergedImage = userImage.composite(dabImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

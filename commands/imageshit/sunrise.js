@@ -70,7 +70,7 @@ class SunriseCommand extends command.Command
                     var blank = new Jimp(sunriseImage.bitmap.width, sunriseImage.bitmap.height)
                     blank.composite(userImage, 0, 335);
                     var mergedImage = blank.composite(sunriseImage, 0, 0);
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

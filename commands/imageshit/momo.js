@@ -31,7 +31,7 @@ class MomoCommand extends command.Command
 
         if(args.length > 0 && args.length < 181)
         {
-            const file = shortid.generate() + ".png";
+            const file = "TempStorage/" + shortid.generate() + ".png";
             var editText = args.toString()
                 Jimp.read("momo.jpg").then(function (spidermanImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK   ).then(function (font) {

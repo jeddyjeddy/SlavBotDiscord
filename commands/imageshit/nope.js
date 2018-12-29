@@ -69,7 +69,7 @@ class NopeCommand extends command.Command
                     userImage.cover(323, nopeImage.bitmap.height)
                     var canvas = new Jimp(nopeImage.bitmap.width, nopeImage.bitmap.height)
                     var mergedImage = canvas.composite(userImage, 335, 0).composite(nopeImage, 0, 0);
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     mergedImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log("got merged image");

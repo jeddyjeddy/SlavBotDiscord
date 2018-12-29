@@ -128,7 +128,7 @@ class CNNCommand extends command.Command
                                     userImage.cover(1280, 720);
                                     
                                     var mergedImage = userImage.composite(cnnImage, 0, 0 );
-                                    const file = shortid.generate() + ".png"
+                                    const file = "TempStorage/" + shortid.generate() + ".png"
                                     mergedImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image cnn");

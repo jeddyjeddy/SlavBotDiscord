@@ -106,7 +106,7 @@ class SepiaCommand extends command.Command
         
                     userImage.sepia();
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
@@ -164,7 +164,7 @@ class SepiaCommand extends command.Command
                     
                     userImage.sepia();
     
-                    const file = shortid.generate() + ".png"
+                    const file = "TempStorage/" + shortid.generate() + ".png"
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);

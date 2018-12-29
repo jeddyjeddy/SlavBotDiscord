@@ -113,7 +113,7 @@ class VictoryCommand extends command.Command
                         var y = (userImage.bitmap.height / 4) - (victoryImage.bitmap.height / 2)
                         
                         var mergedImage = userImage.composite(victoryImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -187,7 +187,7 @@ class VictoryCommand extends command.Command
                         var y = (userImage.bitmap.height / 4) - (victoryImage.bitmap.height / 2)
 
                         var mergedImage = userImage.composite(victoryImage, x, y );
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

@@ -1202,7 +1202,7 @@ class TictacCommand extends command.Command
                                                         }
                                                         removeGame(indexCopy, message.channel);
                                                     }
-                                                    const file = shortid.generate() + ".png"
+                                                    const file = "TempStorage/" + shortid.generate() + ".png"
                                                     tictacImage.write(file, function(error){
                                                         if(error) { console.log(error); return;};
                                                         message.channel.send("", {

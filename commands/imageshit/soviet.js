@@ -107,7 +107,7 @@ class SovietCommand extends command.Command
                         sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.25);
                         userImage.composite(sovietImage, 0, 0)
 
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -177,7 +177,7 @@ class SovietCommand extends command.Command
                         sovietImage.cover(userImage.bitmap.width, userImage.bitmap.height).opacity(0.25);
                         userImage.composite(sovietImage, 0, 0)
 
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

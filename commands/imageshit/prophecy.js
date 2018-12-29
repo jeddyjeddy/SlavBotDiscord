@@ -108,7 +108,7 @@ class ProphecyCommand extends command.Command
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + prophecyImage.bitmap.height)).composite(userImage, 0, 0).composite(prophecyImage, 0, addHeight);
         
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
@@ -172,7 +172,7 @@ class ProphecyCommand extends command.Command
                         const addHeight = userImage.bitmap.height;
                         var mergedImage = (new Jimp(userImage.bitmap.width, userImage.bitmap.height + prophecyImage.bitmap.height)).composite(userImage, 0, 0).composite(prophecyImage, 0, addHeight);
         
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);

@@ -116,7 +116,7 @@ class AlbumCommand extends command.Command
                         blank.composite(userImage, x, y)        
         
                         var mergedImage = blank.composite(albumImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -192,7 +192,7 @@ class AlbumCommand extends command.Command
                         blank.composite(userImage, x, y)        
         
                         var mergedImage = blank.composite(albumImage, 0, 0);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         mergedImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");

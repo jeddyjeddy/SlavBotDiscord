@@ -109,7 +109,7 @@ class PewdsCommand extends command.Command
                         
         
                         userImage.composite(pewdsImage, 0, userImage.bitmap.height - pewdsImage.bitmap.height);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
@@ -178,7 +178,7 @@ class PewdsCommand extends command.Command
                         
         
                         userImage.composite(pewdsImage, 0, userImage.bitmap.height - pewdsImage.bitmap.height);
-                        const file = shortid.generate() + ".png"
+                        const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
