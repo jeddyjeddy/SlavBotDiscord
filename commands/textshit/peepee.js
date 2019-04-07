@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const sizes = ["bige", "small", "non-existant"]
+const sizes = ["bige", "small", "non-existent"]
 
 class PeePeeCommand extends command.Command
  {
