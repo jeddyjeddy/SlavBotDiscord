@@ -1069,7 +1069,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             var newRoles = newMemberData.roles.array();
 
             var premiumName = "";
-            for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRole[i].name;}}
+            for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRoles[i].name;}}
             const premiumRoleName = premiumName;
             for(var i = 0; i < newRoles.length; i++)
             {
