@@ -1025,7 +1025,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
 slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
-blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560";
+blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", premiumRole = "564441309557817344";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
     if(newMemberData.guild.id == supportServerID)
@@ -1035,6 +1035,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         var newBlyComradesSupporter = true;
         var newBanditSupporter = true;
         var newBabushkaSupporter = true;
+        var premiumSupporter = false;
         var oldRoles = oldMemberData.roles.array();
         for(var i = 0; i < oldRoles.length; i++)
         {
@@ -1067,6 +1068,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         {
             var newRoles = newMemberData.roles.array();
 
+            var premiumName = "";
+            for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRole[i].name;}}
+            const premiumRoleName = premiumName;
             for(var i = 0; i < newRoles.length; i++)
             {
                 if(newRoles[i].id == gopnikRole)
@@ -1120,7 +1124,10 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
                         const roleName = newRoles[i].name
                         setTimeout(() => {
-                            newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
+                            if(premiumSupporter)
+                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron. You will also be allowed to have 1 custom response on Slav Bot. Contact an Admin on the support server to add your response.").catch(error => console.log("Send Error - " + error));
+                            else
+                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for World War games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
 
                         firebase.database().ref("patrons/" + newMemberData.id).set(1)
