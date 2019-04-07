@@ -1077,6 +1077,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
+                        var promises = [];
+                        
                         for(var index = 0; index < channels.length; index++)
                         {
                             if(channels[index].id == supportChannelID)
@@ -1097,18 +1099,20 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                             {
                                                 if(allMessages[msgIndex].content.length < (2000 - userIDText.length) && !added)
                                                 {
-                                                    allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
+                                                    promises.push(allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
                                                         added = true;
-                                                    }).catch(error => console.log("Message Edit Error - " + error));
+                                                    }).catch(error => console.log("Message Edit Error - " + error)));
                                                 }
                                             } 
                                         }
                                     }
 
-                                    if(!added)
-                                    {
-                                        channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
-                                    }
+                                    Promise.all(promises).then(() => {
+                                        if(!added)
+                                        {
+                                           channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                        }
+                                    })
                                 })
                             }
                         }
@@ -1130,6 +1134,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
+                        var promises = [];
+                        
                         for(var index = 0; index < channels.length; index++)
                         {
                             if(channels[index].id == supportChannelID2)
@@ -1150,18 +1156,20 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                             {
                                                 if(allMessages[msgIndex].content.length < (2000 - userIDText.length) && !added)
                                                 {
-                                                    allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
+                                                    promises.push(allMessages[msgIndex].edit(allMessages[msgIndex].content + userIDText).then(() => {
                                                         added = true;
-                                                    }).catch(error => console.log("Message Edit Error - " + error));
+                                                    }).catch(error => console.log("Message Edit Error - " + error)));
                                                 }
                                             } 
                                         }
                                     }
 
+                                    Promise.all(promises).then(() => {
                                     if(!added)
                                     {
                                         channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
                                     }
+                                    })
                                 })
                             }
                         }
