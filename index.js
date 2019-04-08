@@ -1071,6 +1071,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             var premiumName = "";
             for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRoles[i].name;}}
             const premiumRoleName = premiumName;
+            
             for(var i = 0; i < newRoles.length; i++)
             {
                 if(newRoles[i].id == gopnikRole)
@@ -1172,10 +1173,10 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                     }
 
                                     Promise.all(promises).then(() => {
-                                    if(!added)
-                                    {
-                                        channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
-                                    }
+                                        if(!added)
+                                        {
+                                            channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
+                                        }
                                     })
                                 })
                             }
