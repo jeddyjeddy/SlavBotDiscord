@@ -105,8 +105,8 @@ class BakaMitaiCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 150
-                        var y = 225
+                        var x = 160
+                        var y = 250
 
                         userImage.cover(330, 180) 
                         userImage.rotate(-3);                       
@@ -178,8 +178,8 @@ class BakaMitaiCommand extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         
-                        var x = 150
-                        var y = 225
+                        var x = 160
+                        var y = 250
 
                         userImage.cover(330, 180) 
                         userImage.rotate(-3);                      
