@@ -130,27 +130,6 @@ dbl.on('posted', () => {
         
     }
 
-    var headers4 = {
-        'Authorization': process.env.BOTS_DISCORD_PW_API,
-        'Content-Type': 'application/json'
-    }
-
-    // Configure the request
-    var options4 = {
-        url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
-        method: 'POST',
-        headers: headers4,
-        body: JSON.stringify({"guildCount": bot.guilds.size, "shardId": bot.shard.id, "shardCount": bot.shard.count})
-    }
-
-    // Start the request
-    request(options4, function (error, response, body) {
-        if (!error) {
-            // Print out the response body
-            console.log("Bots discord pw success - " + body)
-        }
-    })
-
     var headers6 = {
         'Authorization': process.env.DISCORD_BOT_LIST,
         'Content-Type': 'application/json'
