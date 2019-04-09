@@ -1978,7 +1978,7 @@ function addToVoteList(currentVotes)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter <= 1)
+                        if(messageCounter > 1 || currentVotes == 0)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
