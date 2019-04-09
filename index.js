@@ -1880,8 +1880,11 @@ function arrangeVotes()
 
                                 for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                 {
+                                    console.log("Checking Up Votes")
                                     if(reactions[reactionIndex].emoji.name == "🔺")
                                     {
+                                        console.log("Up Votes - " + reactions[reactionIndex].count)
+
                                         if(reactions[reactionIndex].count > highestVotes)
                                         {
                                             highestVotes = reactions[reactionIndex].count;
@@ -1901,6 +1904,7 @@ function arrangeVotes()
                         }
                         else
                         {
+                            console.log("Votes not empty")
                             var mainMessage;
 
                             for(var i = 0; i < allMessages.length; i++)
