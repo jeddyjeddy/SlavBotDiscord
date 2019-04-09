@@ -2005,7 +2005,7 @@ function addToVoteList(currentVotes, empty)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter > 1 || !empty)
+                        if(messageCounter > 1)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
@@ -2039,10 +2039,6 @@ function addToVoteList(currentVotes, empty)
                                 }
                             }
                         } 
-                        else 
-                        {
-                            emptyVoteSet();
-                        }
                         
                     }).catch(error => console.log("Fetch Error - " + error))
                 }
@@ -2105,7 +2101,7 @@ function createVoteMessage(message, empty)
                 {
                     const channel = channels[channelIndex];
                     channel.fetchMessages().then((messages) => {
-                        var edit = false, mainMessage;
+                        var mainMessage;
                         var allMessages = messages.array()
                         
                         for(var i = 0; i < allMessages.length; i++)
