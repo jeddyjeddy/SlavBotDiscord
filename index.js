@@ -1791,11 +1791,8 @@ function checkSuggestions()
         
                         if(messageCounter > 0)
                         {
-                            if(empty)
-                            {
-                                arrangeVotes();
-                                console.log("Checking Votes")
-                            }
+                            arrangeVotes();
+                            console.log("Checking Votes")
                         }
                         else if(messageCounter == 0)
                         {
