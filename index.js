@@ -1992,53 +1992,40 @@ function addToVoteList(currentVotes, empty)
                 {
                     const channel = channels[channelIndex]
                     channel.fetchMessages().then((messages) => {
-                        var allMessages = messages.array()
-                        var messageCounter = 0;
-
+                        var allMessages = messages.array() 
+                        var voteCounter = currentVotes;
+                        
                         for(var i = 0; i < allMessages.length; i++)
                         {
-                            if(allMessages[i].author.id == bot.user.id)
+                            console.log("Checking Messages")
+                            if(voteCounter < voteLimit && allMessages[i].content.includes("Suggestion from"))
                             {
-                                messageCounter++;
-                            }
-                        }
-        
-                        var voteCounter = currentVotes;
-                        console.log(messageCounter)
-                        if(messageCounter > 1)
-                        {
-                            for(var i = 0; i < allMessages.length; i++)
-                            {
-                                console.log("Checking Messages")
-                                if(voteCounter < voteLimit && allMessages[i].content.includes("Suggestion from"))
+                                console.log("Can Add Vote Message")
+                                const message = allMessages[i];
+                                const reactions = message.reactions.array();
+
+                                for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                 {
-                                    console.log("Can Add Vote Message")
-                                    const message = allMessages[i];
-                                    const reactions = message.reactions.array();
+                                    const reaction = reactions[reactionIndex];
+                                    reaction.fetchUsers().then((usersCollection) => {
+                                        var users = usersCollection.array()
 
-                                    for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
-                                    {
-                                        const reaction = reactions[reactionIndex];
-                                        reaction.fetchUsers().then((usersCollection) => {
-                                            var users = usersCollection.array()
-
-                                            for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                        for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                        {
+                                            if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
                                             {
-                                                if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
+                                                if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
                                                 {
-                                                    if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
-                                                    {
-                                                        console.log("Creating Vote Message")
-                                                        createVoteMessage(message, empty);
-                                                        voteCounter += 1;
-                                                    }
+                                                    console.log("Creating Vote Message")
+                                                    createVoteMessage(message, empty);
+                                                    voteCounter += 1;
                                                 }
                                             }
-                                        })
-                                    }
+                                        }
+                                    })
                                 }
                             }
-                        } 
+                        }
                         
                     }).catch(error => console.log("Fetch Error - " + error))
                 }
@@ -2297,6 +2284,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 }, rejection => {
                     console.log(rejection.message);
                 });
+                emptyVoteSet();
                 arrangeVotes();
             }
         }
