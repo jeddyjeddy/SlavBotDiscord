@@ -2015,6 +2015,7 @@ function createVoteMessage(message)
                     console.log("Sending Vote")
                     channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
                         newVote.react('🔺');
+                        message.delete().catch(error => console.log("Delete Error - " + error));
                     }).catch(error => console.log("Vote Send Error - " + error))
                 }
             }
