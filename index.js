@@ -1975,6 +1975,7 @@ function addToVoteList(currentVotes)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
+                                console.log("Checking Messages")
                                 if(voteCounter < voteLimit && allMessages[i].content.includes("Suggestion from"))
                                 {
                                     console.log("Can Add Vote Message")
@@ -2018,6 +2019,7 @@ function addToVoteList(currentVotes)
 
 function emptyVoteSet()
 {
+    console.log("Emptying Votes")
     const guilds = bot.guilds.array()
 
     for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
@@ -2054,6 +2056,7 @@ function emptyVoteSet()
 
 function createVoteMessage(message)
 {
+    console.log("create vote message")
     const guilds = bot.guilds.array()
 
     for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
