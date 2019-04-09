@@ -1793,7 +1793,7 @@ function listenToReactions()
                                     //Suggestion Approved
                                     const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    message.awaitReactions(filter).then(collected => {
+                                    allMessages[i].awaitReactions(filter).then(collected => {
                                         console.log("Reaction found")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
@@ -1806,7 +1806,7 @@ function listenToReactions()
                                     //Suggestion Rejected
                                     const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    message.awaitReactions(filter2, {time: 100000}).then(collected => {
+                                    allMessages[i].awaitReactions(filter2).then(collected => {
                                         console.log("Reaction found")
                                         const embedTitle = message.embeds[0].title;
                                         message.delete().then(() => {
@@ -1916,7 +1916,7 @@ function checkSuggestions()
                                     //Suggestion Completed
                                     const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    message.awaitReactions(filter).then(collected => {
+                                    allMessages[i].awaitReactions(filter).then(collected => {
                                         console.log("Reaction found")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
