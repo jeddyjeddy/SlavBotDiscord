@@ -2134,42 +2134,75 @@ bot.on("messageReactionAdd", (reaction, user) => {
         {
             if(reaction.message.content.includes("Suggestion from"))
             {
-                var getUser = false;
-                var userID = "";
-                const messageContent = reaction.message.content;
+                const guilds = bot.guilds.array()
 
-                for(var index = 0; index < messageContent.length; index++)
+                for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
                 {
-                    if(getUser)
+                    if(guilds[guildIndex].id == supportServerID)
                     {
-                        if(messageContent[index].toString() == ">")
+                        const channels = guilds[guildIndex].channels.array()
+
+                        for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
                         {
-                            index = messageContent.length;
-                        }
-                        else
-                        {
-                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                            if(channels[channelIndex].id == voteChannelID)
                             {
-                                userID = userID + messageContent[index].toString();
+                                const channel = channels[channelIndex]
+                                channel.fetchMessages().then((messages) => {
+                                    var allMessages = messages.array()
+                                    var todoListCounter = 0;
+
+                                    for(var i = 0; i < allMessages.length; i++)
+                                    {
+                                        if(allMessages[i].author.id == bot.user.id)
+                                        {
+                                            todoListCounter++;
+                                        }
+                                    }
+                        
+                                    if(todoListCounter < voteLimit + 1)
+                                    {
+                                        var getUser = false;
+                                        var userID = "";
+                                        const messageContent = reaction.message.content;
+                        
+                                        for(var index = 0; index < messageContent.length; index++)
+                                        {
+                                            if(getUser)
+                                            {
+                                                if(messageContent[index].toString() == ">")
+                                                {
+                                                    index = messageContent.length;
+                                                }
+                                                else
+                                                {
+                                                    if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                    {
+                                                        userID = userID + messageContent[index].toString();
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if(messageContent[index].toString() == "<")
+                                                {
+                                                     getUser = true;
+                                                } 
+                                            }
+                                        }
+                                        const author = userID;
+                        
+                                        bot.fetchUser(author).then(user => {
+                                            user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
+                                        }, rejection => {
+                                            console.log(rejection.message);
+                                        });
+                                        checkSuggestions();
+                                    }
+                                })
                             }
                         }
                     }
-                    else
-                    {
-                        if(messageContent[index].toString() == "<")
-                        {
-                             getUser = true;
-                        } 
-                    }
                 }
-                const author = userID;
-
-                bot.fetchUser(author).then(user => {
-                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
-                }, rejection => {
-                    console.log(rejection.message);
-                });
-                checkSuggestions();
             }
         }
         else if(reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
