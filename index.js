@@ -1970,7 +1970,7 @@ function addToVoteList(currentVotes)
                         }
         
                         var voteCounter = currentVotes;
-
+                        console.log(messageCounter)
                         if(messageCounter > 1)
                         {
                             for(var i = 0; i < allMessages.length; i++)
