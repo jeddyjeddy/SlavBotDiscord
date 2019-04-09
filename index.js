@@ -1791,13 +1791,13 @@ function checkSuggestions()
         
                         if(messageCounter > 0)
                         {
-                            arrangeVotes();
+                            arrangeVotes(empty);
                             console.log("Checking Votes")
                         }
                         else if(messageCounter == 0)
                         {
                             channel.send(mainVoteMessage, {embed: {title: emptyMainVote, description: "There are no more suggestions to complete", color: 65339}}).catch(error => console.log("Send Error - " + error))
-                            arrangeVotes();
+                            arrangeVotes(true);
                         }
                     }).catch(error => console.log("Fetch Error - " + error))
                 }
@@ -1806,7 +1806,7 @@ function checkSuggestions()
     }
 }
 
-function arrangeVotes()
+function arrangeVotes(empty)
 {
     const guilds = bot.guilds.array()
 
@@ -1901,7 +1901,7 @@ function arrangeVotes()
 
                         if (highestVoteID == "")
                         {
-                            addToVoteList(numberOfVotes - 1)
+                            addToVoteList(numberOfVotes - 1, empty)
                             console.log("Add to Vote List Empty")
                         }
                         else
@@ -1929,7 +1929,7 @@ function arrangeVotes()
                                         console.log("Edited Main Vote Message")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
-                                                message.delete().then(() => addToVoteList(numberOfVotes - 2)).catch(error => console.log("Delete Error - " + error))
+                                                message.delete().then(() => addToVoteList(numberOfVotes - 2, empty)).catch(error => console.log("Delete Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error));
                                         }, rejection => {
                                             console.log("Fetch User Failed - " + rejection.message);
@@ -1945,7 +1945,7 @@ function arrangeVotes()
     }
 }
 
-function addToVoteList(currentVotes)
+function addToVoteList(currentVotes, empty)
 {
     console.log(currentVotes)
     if(currentVotes >= voteLimit)
@@ -1978,7 +1978,7 @@ function addToVoteList(currentVotes)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter > 1 || currentVotes > 0)
+                        if(messageCounter > 1 || !empty)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
@@ -2347,9 +2347,10 @@ bot.on("message", (message) => {
                             const title = params[0], description = params[1], author = message.author.id, 
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON()),
                             authorAvatar = message.author.avatarURL;
+                            listenToReactions();
                             message.delete(500).then(() => {
                                 message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, thumbnail: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
-                                .then((newMessage) => {newMessage.react('✔').then(() => newMessage.react('❌').then(() => listenToReactions()))}).catch(error => console.log("Send Error - " + error));
+                                .then((newMessage) => {newMessage.react('✔').then(() => newMessage.react('❌').then(() => checkSuggestions()))}).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
                         }
