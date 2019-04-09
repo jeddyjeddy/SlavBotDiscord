@@ -1846,7 +1846,7 @@ function arrangeVotes()
                             const message = allMessages[i];
                             const messageContent = message.content;
                             console.log("Checking Message Content - " + messageContent)
-                            if(message.author.id == bot.user.id && messageContent.indexOf(mainVoteMessage) < 0)
+                            if(message.author.id == bot.user.id && !messageContent.includes(mainVoteMessage))
                             {
                                 console.log("Valid Vote Message")
                                 var getUser = false;
@@ -1926,12 +1926,13 @@ function arrangeVotes()
                                 {
                                     console.log("Editing Main Vote Message")
                                     mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
+                                        console.log("Edited Main Vote Message")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
                                                 message.delete().then(() => addToVoteList(numberOfVotes - 2)).catch(error => console.log("Delete Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error));
                                         }, rejection => {
-                                            console.log(rejection.message);
+                                            console.log("Fetch User Failed - " + rejection.message);
                                         });
                                     }).catch(error => console.log("Edit Error - " + error))
                                 }
