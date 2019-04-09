@@ -1917,24 +1917,51 @@ function arrangeVotes(empty)
                                 }
                             }
 
-                            for(var i = 0; i < allMessages.length; i++)
+
+                            if(empty)
                             {
-                                const message = allMessages[i];
-                                const author = userID;
-    
-                                if(highestVoteID == message.id)
+                                for(var i = 0; i < allMessages.length; i++)
                                 {
-                                    console.log("Editing Main Vote Message")
-                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 65339}}).then((msg) => {
-                                        console.log("Edited Main Vote Message")
-                                        bot.fetchUser(author).then(user => {
-                                            user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
-                                                message.delete().then(() => addToVoteList(numberOfVotes - 2, empty)).catch(error => console.log("Delete Error - " + error))
-                                            }).catch(error => console.log("Send Error - " + error));
-                                        }, rejection => {
-                                            console.log("Fetch User Failed - " + rejection.message);
-                                        });
-                                    }).catch(error => console.log("Edit Error - " + error))
+                                    const message = allMessages[i];
+                                    const author = userID;
+        
+                                    if(highestVoteID == message.id)
+                                    {
+                                        console.log("Editing Main Vote Message")
+                                        mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 65339}}).then((msg) => {
+                                            console.log("Edited Main Vote Message")
+                                            bot.fetchUser(author).then(user => {
+                                                user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
+                                                    message.delete().then(() => addToVoteList(numberOfVotes - 2, empty)).catch(error => console.log("Delete Error - " + error))
+                                                }).catch(error => console.log("Send Error - " + error));
+                                            }, rejection => {
+                                                console.log("Fetch User Failed - " + rejection.message);
+                                            });
+                                        }).catch(error => console.log("Edit Error - " + error))
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for(var i = 0; i < allMessages.length; i++)
+                                {
+                                    const message = allMessages[i];
+                                    const author = userID;
+        
+                                    if(highestVoteID == message.id)
+                                    {
+                                        console.log("Editing Main Vote Message")
+                                        mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 65339}}).then((msg) => {
+                                            console.log("Edited Main Vote Message")
+                                            bot.fetchUser(author).then(user => {
+                                                user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
+                                                    addToVoteList(numberOfVotes - 2, empty)
+                                                }).catch(error => console.log("Send Error - " + error));
+                                            }, rejection => {
+                                                console.log("Fetch User Failed - " + rejection.message);
+                                            });
+                                        }).catch(error => console.log("Edit Error - " + error))
+                                    }
                                 }
                             }
                         }
