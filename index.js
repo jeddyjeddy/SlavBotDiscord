@@ -2005,7 +2005,7 @@ function addToVoteList(currentVotes)
                                 }
                             }
                         } 
-                        else if(addToVoteList == 0)
+                        else 
                         {
                             emptyVoteSet();
                         }
