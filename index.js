@@ -1855,13 +1855,13 @@ function arrangeVotes()
                                     {
                                         if(messageContent[index].toString() == ">")
                                         {
-                                            index = args.length;
+                                            index = messageContent.length;
                                         }
                                         else
                                         {
                                             if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
                                             {
-                                                userID = userID + args[index].toString();
+                                                userID = userID + messageContent[index].toString();
                                             }
                                         }
                                     }
@@ -2033,13 +2033,13 @@ bot.on("messageReactionAdd", (reaction, user) => {
                     {
                         if(messageContent[index].toString() == ">")
                         {
-                            index = args.length;
+                            index = messageContent.length;
                         }
                         else
                         {
                             if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
                             {
-                                userID = userID + args[index].toString();
+                                userID = userID + messageContent[index].toString();
                             }
                         }
                     }
@@ -2075,13 +2075,13 @@ bot.on("messageReactionAdd", (reaction, user) => {
                     {
                         if(messageContent[index].toString() == ">")
                         {
-                            index = args.length;
+                            index = messageContent.length;
                         }
                         else
                         {
                             if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
                             {
-                                userID = userID + args[index].toString();
+                                userID = userID + messageContent[index].toString();
                             }
                         }
                     }
@@ -2122,13 +2122,13 @@ bot.on("messageReactionAdd", (reaction, user) => {
                     {
                         if(messageContent[index].toString() == ">")
                         {
-                            index = args.length;
+                            index = messageContent.length;
                         }
                         else
                         {
                             if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
                             {
-                                userID = userID + args[index].toString();
+                                userID = userID + messageContent[index].toString();
                             }
                         }
                     }
@@ -2220,7 +2220,7 @@ bot.on("message", (message) => {
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON()),
                             authorAvatar = message.author.avatarURL;
                             message.delete(500).then(() => {
-                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, image: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, thumbnail: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
                                 .then((newMessage) => {newMessage.react('✔').then(() => newMessage.react('❌').then(() => listenToReactions()))}).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
