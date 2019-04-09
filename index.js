@@ -1846,7 +1846,7 @@ function arrangeVotes()
                             const message = allMessages[i];
                             const messageContent = message.content;
 
-                            if(message.id == bot.user.id && !message.includes(mainVoteMessage))
+                            if(message.id == bot.user.id && !message.content.includes(mainVoteMessage))
                             {
                                 var getUser = false;
 
@@ -1877,10 +1877,11 @@ function arrangeVotes()
 
                                 //Count votes
                                 const reactions = message.reactions.array();
+                                console.log("Checking Up Votes")
 
                                 for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                 {
-                                    console.log("Checking Up Votes")
+                                    console.log("Checking Up Votes Loop")
                                     if(reactions[reactionIndex].emoji.name == "🔺")
                                     {
                                         console.log("Up Votes - " + reactions[reactionIndex].count)
