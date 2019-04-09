@@ -2169,6 +2169,7 @@ bot.on("message", (message) => {
         if(message.channel.id == suggestionChannelID)
         {
             message.channel.fetchMessages((messages) => {
+                console.log("Fetched messages")
                 var allMessages = messages.array()
 
                 var messageCounter = 0;
@@ -2212,7 +2213,7 @@ bot.on("message", (message) => {
                         }
                     }
                 }
-            })
+            }).catch(error => console.log("On Message Fetch Suggestion Error - " + error))
         }
     }
 
