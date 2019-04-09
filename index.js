@@ -1851,29 +1851,32 @@ function arrangeVotes()
                                 console.log("Valid Vote Message")
                                 var getUser = false;
 
-                                for(var index = 0; index < messageContent.length; index++)
+                                if(userID == "")
                                 {
-                                    if(getUser)
+                                    for(var index = 0; index < messageContent.length; index++)
                                     {
-                                        if(messageContent[index].toString() == ">")
+                                        if(getUser)
                                         {
-                                            index = messageContent.length;
+                                            if(messageContent[index].toString() == ">")
+                                            {
+                                                index = messageContent.length;
+                                            }
+                                            else
+                                            {
+                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                {
+                                                    userID = userID + messageContent[index].toString();
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                            if(messageContent[index].toString() == "<")
                                             {
-                                                userID = userID + messageContent[index].toString();
-                                            }
+                                                 getUser = true;
+                                            } 
                                         }
-                                    }
-                                    else
-                                    {
-                                        if(messageContent[index].toString() == "<")
-                                        {
-                                                getUser = true;
-                                        } 
-                                    }
+                                    }   
                                 }
 
                                 //Count votes
@@ -1925,7 +1928,7 @@ function arrangeVotes()
                                 if(highestVoteID == message.id)
                                 {
                                     console.log("Editing Main Vote Message")
-                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description}}).then((msg) => {
+                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then((msg) => {
                                         console.log("Edited Main Vote Message")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
