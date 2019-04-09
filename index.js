@@ -2025,6 +2025,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
             {
                 var getUser = false;
                 var userID = "";
+                const messageContent = reaction.message.content;
 
                 for(var index = 0; index < messageContent.length; index++)
                 {
@@ -2062,43 +2063,47 @@ bot.on("messageReactionAdd", (reaction, user) => {
         }
         else if(reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
         {
-            var getUser = false;
-            var userID = "";
-
-            for(var index = 0; index < messageContent.length; index++)
+            if(reaction.message.content.includes("Suggestion from"))
             {
-                if(getUser)
+                var getUser = false;
+                var userID = "";
+                const messageContent = reaction.message.content;
+
+                for(var index = 0; index < messageContent.length; index++)
                 {
-                    if(messageContent[index].toString() == ">")
+                    if(getUser)
                     {
-                        index = args.length;
+                        if(messageContent[index].toString() == ">")
+                        {
+                            index = args.length;
+                        }
+                        else
+                        {
+                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                            {
+                                userID = userID + args[index].toString();
+                            }
+                        }
                     }
                     else
                     {
-                        if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                        if(messageContent[index].toString() == "<")
                         {
-                            userID = userID + args[index].toString();
-                        }
+                                getUser = true;
+                        } 
                     }
                 }
-                else
-                {
-                    if(messageContent[index].toString() == "<")
-                    {
-                            getUser = true;
-                    } 
-                }
-            }
-            const embedTitle = reaction.message.embeds[0].title;
-            const author = userID;
+                const embedTitle = reaction.message.embeds[0].title;
+                const author = userID;
 
-            bot.fetchUser(author).then(user => {
-                reaction.message.delete().then(() => {
-                    user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
-                })
-            }, rejection => {
-                console.log(rejection.message);
-            });
+                bot.fetchUser(author).then(user => {
+                    reaction.message.delete().then(() => {
+                        user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                    })
+                }, rejection => {
+                    console.log(rejection.message);
+                });
+            }
         }
     }
     else if(reaction.message.channel.id == voteChannelID)
@@ -2215,7 +2220,7 @@ bot.on("message", (message) => {
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON()),
                             authorAvatar = message.author.avatarURL;
                             message.delete().then(() => {
-                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, image: authorAvatar, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, image: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
                                 .then((newMessage) => {newMessage.react('✔').then(() => newMessage.react('❌').then(() => listenToReactions()))}).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
