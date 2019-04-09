@@ -1928,7 +1928,7 @@ function arrangeVotes()
                                 if(highestVoteID == message.id)
                                 {
                                     console.log("Editing Main Vote Message")
-                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, color: 65339}}).then((msg) => {
+                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 14717196}}).then((msg) => {
                                         console.log("Edited Main Vote Message")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
@@ -2097,14 +2097,14 @@ function createVoteMessage(message)
 
                         if(edit)
                         {
-                            mainMessage.edit(message.content, {embed: message.embeds[0]}).then(newVote => {
+                            mainMessage.edit(message.content, {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 14717196}}).then(newVote => {
                                 newVote.react('✔')
                             })
                         }
                         else
                         {
                             console.log("Sending Vote")
-                            channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
+                            channel.send(message.content, {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 14717196}}).then(newVote => {
                                 newVote.react('🔺');
                                 message.delete().catch(error => console.log("Delete Error - " + error));
                             }).catch(error => console.log("Vote Send Error - " + error))
