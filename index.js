@@ -1846,7 +1846,7 @@ function arrangeVotes()
                             const message = allMessages[i];
                             const messageContent = message.content;
 
-                            if(message.id == bot.user.id && !message.content.includes(mainVoteMessage))
+                            if(message.id == bot.user.id && !messageContent.includes(mainVoteMessage))
                             {
                                 var getUser = false;
 
