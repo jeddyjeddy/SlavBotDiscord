@@ -2005,7 +2005,7 @@ function addToVoteList(currentVotes, empty)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter > 1)
+                        if(messageCounter > 1 || !empty)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
@@ -2362,7 +2362,7 @@ bot.on("message", (message) => {
                         {
                             message.delete(500).then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
                         }
-                        else if (params[0].length > titleLimit || params[1].length > descriptionLimit)
+                        else if (params[0].length > titleLimit || params[1].length > descriptionLimit || params[0].length == 0 || params[1].length == 0)
                         {
                             message.delete(500).then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
                         }
