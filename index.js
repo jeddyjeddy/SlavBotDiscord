@@ -2166,7 +2166,7 @@ bot.on("message", (message) => {
             levelUp(message.author, message.channel);
         }
 
-        if(message.channel.id == suggestionChannelID)
+        if(message.channel.id == suggestionChannelID && message.author.id != bot.user.id)
         {
             console.log("Message Received")
             message.channel.fetchMessages().then((messages) => {
@@ -2209,7 +2209,7 @@ bot.on("message", (message) => {
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
                             message.delete().then(() => {
                                 message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
-                                .then(() => message.react("heavy_check_mark").then(() => message.react("x").then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
+                                .then((newMessage1) => newMessage1.react("heavy_check_mark").then((newMessage2) => newMessage2.react("x").then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
                         }
