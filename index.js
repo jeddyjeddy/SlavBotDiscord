@@ -1925,7 +1925,7 @@ function arrangeVotes()
                                 if(highestVoteID == message.id)
                                 {
                                     console.log("Editing Main Vote Message")
-                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
+                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description}}).then((msg) => {
                                         console.log("Edited Main Vote Message")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
