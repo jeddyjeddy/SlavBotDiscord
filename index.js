@@ -1967,11 +1967,10 @@ function addToVoteList(currentVotes)
                                     const reactions = message.reactions.array();
                                     var messageCreated = false;
 
-                                    console.log(reactions)
-
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
+                                        console.log(users)
                                         var approved = false;
 
                                         for(var reactionUserIndex = 0; reactionUserIndex < users.length; reactionUserIndex++)
