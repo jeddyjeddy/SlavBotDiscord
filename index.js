@@ -1969,18 +1969,9 @@ function addToVoteList(currentVotes)
 
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
-                                        var users = reactions[reactionIndex].users.array();
-                                        var approved = false;
-
-                                        for(var reactionUserIndex = 0; reactionUserIndex < users.length; reactionUserIndex++)
-                                        {
-                                            if(users[reactionUserIndex].id == "281876391535050762" || users[reactionUserIndex].id == "263945639384055808" || users[reactionUserIndex].id == "219598209075380225")
-                                            {
-                                                approved = true;
-                                            }
-                                        }
-
-                                        if(reactions[reactionIndex].emoji.name == '✔' && approved)
+                                        var users = reactions[reactionIndex].users.filter(id == "281876391535050762" || id == "263945639384055808" || id == "219598209075380225")
+                                        console.log(users)
+                                        if(reactions[reactionIndex].emoji.name == '✔' && users.length > 0)
                                         {
                                             console.log("Creating Vote Message")
                                             createVoteMessage(message);
