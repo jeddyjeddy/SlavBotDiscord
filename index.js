@@ -1940,6 +1940,7 @@ function arrangeVotes()
 
 function addToVoteList(currentVotes)
 {
+    console.log(currentVotes)
     if(currentVotes >= voteLimit)
         return;
 
