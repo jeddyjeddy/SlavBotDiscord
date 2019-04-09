@@ -2016,7 +2016,7 @@ function createVoteMessage(message)
 }
 
 bot.on("messageReactionAdd", (reaction, user) => {
-    console.log(reaciton.message.content)
+    console.log(reaction.message.content)
     if(reaction.message.channel.id == suggestionChannelID)
     {
         if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
