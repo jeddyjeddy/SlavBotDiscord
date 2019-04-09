@@ -1922,7 +1922,7 @@ function arrangeVotes()
                                         }, rejection => {
                                             console.log(rejection.message);
                                         });
-                                    })
+                                    }).catch(error => console.log("Edit Error - " + error))
                                 }
                             }
                         }
