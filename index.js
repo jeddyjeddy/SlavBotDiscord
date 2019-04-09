@@ -1894,6 +1894,7 @@ function arrangeVotes()
                         if (highestVoteID == "")
                         {
                             addToVoteList(numberOfVotes - 1)
+                            console.log("Add to Vote List Empty")
                         }
                         else
                         {
@@ -1961,6 +1962,7 @@ function addToVoteList(currentVotes)
                             {
                                 if(voteCounter < voteLimit)
                                 {
+                                    console.log("Can Add Vote Message")
                                     const message = allMessages[i];
                                     const reactions = message.reactions.array();
                                     var messageCreated = false;
@@ -1968,7 +1970,7 @@ function addToVoteList(currentVotes)
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
-                                        if(reactions[reactionIndex].emoji.name == "✔" && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
+                                        if(reactions[reactionIndex].emoji.name == '✔' && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
                                         {
                                             console.log("Creating Vote Message")
                                             createVoteMessage(message);
