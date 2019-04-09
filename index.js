@@ -1793,7 +1793,8 @@ function listenToReactions()
                                     //Suggestion Approved
                                     const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    allMessages[i].awaitReactions(filter).then(collected => {
+                                    let collector = message.createReactionCollector(filter, { time: 5000 });
+                                    collector.on('collect', (reaction, collector) => {
                                         console.log("Reaction found")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
@@ -1801,12 +1802,13 @@ function listenToReactions()
                                             console.log(rejection.message);
                                         });
                                         checkSuggestions();
-                                    }).catch(error => console.log("AwaitReaction Error - " + error))
-    
+                                    });
+
                                     //Suggestion Rejected
                                     const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    allMessages[i].awaitReactions(filter2).then(collected => {
+                                    let collector = message.createReactionCollector(filter, { time: 5000 });
+                                    collector.on('collect', (reaction, collector) => {
                                         console.log("Reaction found")
                                         const embedTitle = message.embeds[0].title;
                                         message.delete().then(() => {
@@ -1816,7 +1818,7 @@ function listenToReactions()
                                                 console.log(rejection.message);
                                             });
                                         }).catch(error => console.log("Delete Error - " + error))
-                                    }).catch(error => console.log("AwaitReaction Error - " + error))
+                                    });
                                 }
                             }
                         }
@@ -1915,8 +1917,8 @@ function checkSuggestions()
     
                                     //Suggestion Completed
                                     const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
-    
-                                    allMessages[i].awaitReactions(filter).then(collected => {
+                                    let collector = message.createReactionCollector(filter);
+                                    collector.on('collect', (reaction, collector) => {
                                         console.log("Reaction found")
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
@@ -1924,7 +1926,7 @@ function checkSuggestions()
                                             console.log(rejection.message);
                                         });
                                         arrangeVotes();
-                                    }).catch(error => console.log("AwaitReaction Error - " + error))
+                                    });
                                 }
                             }
                         }
