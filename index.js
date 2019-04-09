@@ -1969,7 +1969,7 @@ function addToVoteList(currentVotes)
 
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
-                                        console.log(reactions[reactionIndex].users.first())
+                                        console.log(reactions[reactionIndex].users.firstKey())
                                         console.log(reactions[reactionIndex].users.array())
 
                                         var users = reactions[reactionIndex].users.filter(user.id == "281876391535050762" || user.id == "263945639384055808" || user.id == "219598209075380225")
