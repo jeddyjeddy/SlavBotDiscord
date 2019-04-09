@@ -1976,7 +1976,7 @@ function addToVoteList(currentVotes)
                                             {
                                                 if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
                                                 {
-                                                    if(reactionemoji.name == '✔' && voteCounter < voteLimit)
+                                                    if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
                                                     {
                                                         console.log("Creating Vote Message")
                                                         createVoteMessage(message);
