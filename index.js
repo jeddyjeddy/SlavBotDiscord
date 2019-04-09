@@ -2165,8 +2165,7 @@ bot.on("message", (message) => {
 
         if(message.channel.id == suggestionChannelID)
         {
-            const suggestion = message;
-            suggestion.channel.fetchMessages((messages) => {
+            message.channel.fetchMessages((messages) => {
                 var allMessages = messages.array()
 
                 var messageCounter = 0;
@@ -2181,29 +2180,29 @@ bot.on("message", (message) => {
 
                 if(messageCounter > suggestionLimit + 1)
                 {
-                    suggestion.delete().then(() => user.send("The maximum number of suggestions have been exceeded. You can send your suggestion after the Admins approve one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                    message.delete().then(() => user.send("The maximum number of suggestions have been exceeded. You can send your suggestion after the Admins approve one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
                 }
                 else
                 {
-                    if(suggestion.author.id != bot.user.id)
+                    if(message.author.id != bot.user.id)
                     {
-                        var params = suggestion.content.split("|")
+                        var params = message.content.split("|")
         
                         if(params.length < 2)
                         {
-                            suggestion.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                            message.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
                         }
                         else if (params[0].length > titleLimit || params[1].length > descriptionLimit)
                         {
-                            suggestion.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                            message.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
                         }
                         else
                         {
-                            const title = params[0], description = params[1], author = suggestion.author.id, 
-                            avatar = suggestion.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
-                            suggestion.delete().then(() => {
-                                suggestion.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
-                                .then(() => suggestion.react("heavy_check_mark").then(() => suggestion.react("x").then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
+                            const title = params[0], description = params[1], author = message.author.id, 
+                            avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
+                            message.delete().then(() => {
+                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                .then(() => message.react("heavy_check_mark").then(() => message.react("x").then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
                         }
