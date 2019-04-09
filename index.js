@@ -1899,7 +1899,7 @@ function arrangeVotes(empty)
 
                         console.log(highestVoteID)
 
-                        if (highestVoteID == "")
+                        if (highestVoteID == "" || !empty)
                         {
                             addToVoteList(numberOfVotes - 1, empty)
                             console.log("Add to Vote List Empty")
@@ -1927,6 +1927,8 @@ function arrangeVotes(empty)
                                     console.log("Editing Main Vote Message")
                                     mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 65339}}).then((msg) => {
                                         console.log("Edited Main Vote Message")
+                                        msg.react('✔')
+
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
                                                 message.delete().then(() => addToVoteList(numberOfVotes - 2, empty)).catch(error => console.log("Delete Error - " + error))
