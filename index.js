@@ -1794,6 +1794,7 @@ function checkSuggestions()
                             if(empty)
                             {
                                 arrangeVotes();
+                                console.log("Checking Votes")
                             }
                         }
                         else if(messageCounter == 0)
@@ -1891,6 +1892,8 @@ function arrangeVotes()
                             }
                         }
 
+                        console.log(highestVoteID)
+
                         if (highestVoteID == "")
                         {
                             addToVoteList(numberOfVotes - 1)
@@ -1907,6 +1910,7 @@ function arrangeVotes()
                                     mainMessage = allMessages[i];
                                 }
                             }
+
                             for(var i = 0; i < allMessages.length; i++)
                             {
                                 const message = allMessages[i];
@@ -1914,6 +1918,7 @@ function arrangeVotes()
     
                                 if(highestVoteID == message.id)
                                 {
+                                    console.log("Editing Main Vote Message")
                                     mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
