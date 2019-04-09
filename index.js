@@ -2060,6 +2060,7 @@ function emptyVoteSet()
                                 allMessages[i].edit(mainVoteMessage, {embed: {title: emptyMainVote, description: "There are no more suggestions to complete", color: 65339}})
                                 .then(msg => {
                                     msg.clearReactions()
+                                    arrangeVotes()
                                 }).catch(error => console.log("Edit Error - " + error))
                             }
                         }
@@ -2285,7 +2286,6 @@ bot.on("messageReactionAdd", (reaction, user) => {
                     console.log(rejection.message);
                 });
                 emptyVoteSet();
-                arrangeVotes();
             }
         }
     }
