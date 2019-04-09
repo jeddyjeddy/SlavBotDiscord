@@ -1967,6 +1967,8 @@ function addToVoteList(currentVotes)
                                     const reactions = message.reactions.array();
                                     var messageCreated = false;
 
+                                    console.log(reactions)
+
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
@@ -1979,8 +1981,6 @@ function addToVoteList(currentVotes)
                                                 approved = true;
                                             }
                                         }
-
-                                        console.log(users)
 
                                         if(reactions[reactionIndex].emoji.name == '✔' && approved)
                                         {
