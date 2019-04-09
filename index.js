@@ -1978,7 +1978,7 @@ function addToVoteList(currentVotes, empty)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter > 1 || !empty)
+                        if(messageCounter > 1)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
@@ -2002,7 +2002,7 @@ function addToVoteList(currentVotes, empty)
                                                     if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
                                                     {
                                                         console.log("Creating Vote Message")
-                                                        createVoteMessage(message);
+                                                        createVoteMessage(message, empty);
                                                         voteCounter += 1;
                                                     }
                                                 }
@@ -2061,7 +2061,7 @@ function emptyVoteSet()
     }
 }
 
-function createVoteMessage(message)
+function createVoteMessage(message, empty)
 {
     console.log("create vote message")
     const guilds = bot.guilds.array()
@@ -2086,14 +2086,12 @@ function createVoteMessage(message)
                             if(allMessages[i].content.includes(mainVoteMessage))
                             {
                                 mainMessage = allMessages[i];
-                                
-                                if(mainMessage.embeds[0].title == emptyMainVote)
-                                    edit = true;
-                            }
+                            } 
                         }
 
-                        if(edit)
+                        if(empty)
                         {
+                            console.log("Editing Main")
                             var getUser = false;
                             var userID = "";
                             const messageContent = message.content;
