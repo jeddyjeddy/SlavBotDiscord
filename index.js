@@ -1789,9 +1789,9 @@ function listenToReactions()
                                     }
     
                                     const author = userID;
-    
+                                    console.log("Adding AwaitReactions")
                                     //Suggestion Approved
-                                    const filter = (reaction, user) => reaction.emoji == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
+                                    const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
                                     message.awaitReactions(filter).then(collected => {
                                         console.log("Reaction found")
@@ -1804,13 +1804,14 @@ function listenToReactions()
                                     })
     
                                     //Suggestion Rejected
-                                    const filter2 = (reaction, user) => reaction.emoji == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
+                                    const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
                                     message.awaitReactions(filter2).then(collected => {
                                         console.log("Reaction found")
+                                        const embedTitle = message.embeds[0].title;
                                         message.delete().then(() => {
                                             bot.fetchUser(author).then(user => {
-                                                user.send("Your suggestion (" + message.embeds[0].title + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                                                user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
                                             }, rejection => {
                                                 console.log(rejection.message);
                                             });
@@ -1913,7 +1914,7 @@ function checkSuggestions()
                                     const author = userID;
     
                                     //Suggestion Completed
-                                    const filter = (reaction, user) => reaction.emoji == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
+                                    const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
                                     message.awaitReactions(filter).then(collected => {
                                         console.log("Reaction found")
@@ -2010,7 +2011,7 @@ function arrangeVotes()
 
                                 for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                 {
-                                    if(reactions[reactionIndex].emoji == "🔺")
+                                    if(reactions[reactionIndex].emoji.name == "🔺")
                                     {
                                         if(reactions[reactionIndex].count > highestVotes)
                                         {
@@ -2099,7 +2100,7 @@ function addToVoteList(currentVotes)
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
-                                        if(reactions[reactionIndex].emoji == "✔" && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
+                                        if(reactions[reactionIndex].emoji.name == "✔" && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
                                         {
                                             createVoteMessage(message);
                                             messageCreated = true;
