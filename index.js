@@ -1906,7 +1906,7 @@ function arrangeVotes()
                                 {
                                     allMessages[0].edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
                                         bot.fetchUser(author).then(user => {
-                                            user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
+                                            user.send("Your suggestion ***(" + message.embeds[0].title + ")*** is now in development.").then(() => {
                                                 message.delete().then(() => addToVoteList(numberOfVotes - 2)).catch(error => console.log("Delete Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error));
                                         }, rejection => {
@@ -2098,7 +2098,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
 
                 bot.fetchUser(author).then(user => {
                     reaction.message.delete().then(() => {
-                        user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                        user.send("Your suggestion ***(" + embedTitle + ")*** has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
                     })
                 }, rejection => {
                     console.log(rejection.message);
@@ -2144,7 +2144,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 const author = userID;
     
                 bot.fetchUser(author).then(user => {
-                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
+                    user.send("Your suggestion ***(" + reaction.message.embeds[0].title + ")*** has been completed.").catch(error => console.log("Send Error - " + error));
                 }, rejection => {
                     console.log(rejection.message);
                 });
