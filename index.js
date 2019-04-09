@@ -1968,14 +1968,15 @@ function addToVoteList(currentVotes)
 
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
-                                        reactions[reactionIndex].fetchUsers().then((usersCollection) => {
+                                        const reaction = reactions[reactionIndex];
+                                        reaction.fetchUsers().then((usersCollection) => {
                                             var users = usersCollection.array()
 
                                             for(var userIndex = 0; userIndex < users.length; userIndex++)
                                             {
                                                 if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
                                                 {
-                                                    if(reactions[reactionIndex].emoji.name == '✔' && voteCounter < voteLimit)
+                                                    if(reactionemoji.name == '✔' && voteCounter < voteLimit)
                                                     {
                                                         console.log("Creating Vote Message")
                                                         createVoteMessage(message);
