@@ -2292,7 +2292,10 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 const author = userID;
     
                 bot.fetchUser(author).then(user => {
-                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
+                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed. You have also been given the Blessed Users Role").catch(error => console.log("Send Error - " + error));
+                    reaction.message.guild.fetchMember(user).then(function(member){
+                        member.addRole('481544671840174081').catch(error => console.log("Role Error - " + error))
+                    })
                 }, rejection => {
                     console.log(rejection.message);
                 });
