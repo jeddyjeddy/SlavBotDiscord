@@ -1970,12 +1970,11 @@ function addToVoteList(currentVotes)
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         var users = reactions[reactionIndex].users.array();
-                                        console.log(users)
                                         var approved = false;
 
                                         for(var reactionUserIndex = 0; reactionUserIndex < users.length; reactionUserIndex++)
                                         {
-                                            if(users[reactionUserIndex] == "281876391535050762" || users[reactionUserIndex] == "263945639384055808" || users[reactionUserIndex] == "219598209075380225")
+                                            if(users[reactionUserIndex].id == "281876391535050762" || users[reactionUserIndex].id == "263945639384055808" || users[reactionUserIndex].id == "219598209075380225")
                                             {
                                                 approved = true;
                                             }
