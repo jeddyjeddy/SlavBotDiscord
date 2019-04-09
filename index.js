@@ -1726,7 +1726,9 @@ function listenToReactions()
                 if(channels[channelIndex].id == suggestionChannelID)
                 {
                     const channel = channels[channelIndex]
+                    console.log("Fetch Messages")
                     channel.fetchMessages().then((messages) => {
+                        console.log("Fetch Complete")
                         var allMessages = messages.array()
                         var messageCounter = 0;
 
@@ -1817,6 +1819,7 @@ function listenToReactions()
                         }
                         else if(messageCounter == 0)
                         {
+                            console.log("Sending Main Message")
                             channel.send("You can submit suggestions for large ideas in this channel. Simply send a message to the channel with your suggestion in this format `Title|Description`. Your title must not exceed " + titleLimit + " characters and your description must not exceed " + descriptionLimit + " characters and should be able to communicate the main aspect of your idea.\n\nOnly a maximum of 10 suggestions will be allowed. Once the limit has been reached, all further suggestions will be denied until an Admin finishes approving one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))
                         }
                     }).catch(error => console.log("Fetch Error - " + error))
@@ -2198,6 +2201,7 @@ bot.on("message", (message) => {
                         }
                         else
                         {
+                            console.log("Creating Suggestion")
                             const title = params[0], description = params[1], author = message.author.id, 
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
                             message.delete().then(() => {
@@ -3336,9 +3340,10 @@ bot.login(process.env.BOT_TOKEN).then(function()
             webhook.listen(port, function callback () {
                 console.log("server is listening on port " + port);
             });
-
-            listenToReactions();
-            checkSuggestions();
         }
+
+        
+        listenToReactions();
+        checkSuggestions();
     }
 });
