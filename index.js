@@ -1898,6 +1898,15 @@ function arrangeVotes()
                         }
                         else
                         {
+                            var mainMessage;
+
+                            for(var i = 0; i < allMessages.length; i++)
+                            {
+                                if(allMessages[i].content.includes(mainVoteMessage))
+                                {
+                                    mainMessage = allMessages[i];
+                                }
+                            }
                             for(var i = 0; i < allMessages.length; i++)
                             {
                                 const message = allMessages[i];
@@ -1905,7 +1914,7 @@ function arrangeVotes()
     
                                 if(highestVoteID == message.id)
                                 {
-                                    allMessages[0].edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
+                                    mainMessage.edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
                                         bot.fetchUser(author).then(user => {
                                             user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
                                                 message.delete().then(() => addToVoteList(numberOfVotes - 2)).catch(error => console.log("Delete Error - " + error))
@@ -1988,9 +1997,49 @@ function addToVoteList(currentVotes)
                                     }
                                 }
                             }
+                        } 
+                        else if(addToVoteList == 0)
+                        {
+                            emptyVoteSet();
                         }
                         
                     }).catch(error => console.log("Fetch Error - " + error))
+                }
+            }
+        }
+    }
+}
+
+function emptyVoteSet()
+{
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == voteChannelID)
+                {
+                    const channel = channels[channelIndex];
+                    channel.fetchMessages().then((messages) => {
+                        var allMessages = messages.array()
+                        
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].content.includes(mainVoteMessage))
+                            {
+                                allMessages[i].edit(mainVoteMessage, {embed: {title: emptyMainVote, description: "There are no more suggestions to complete", color: 65339}})
+                                .then(msg => {
+                                    msg.clearReactions()
+                                }).catch(error => console.log("Edit Error - " + error))
+                            }
+                        }
+                    })
+               
                 }
             }
         }
@@ -2012,11 +2061,37 @@ function createVoteMessage(message)
                 if(channels[channelIndex].id == voteChannelID)
                 {
                     const channel = channels[channelIndex];
-                    console.log("Sending Vote")
-                    channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
-                        newVote.react('🔺');
-                        message.delete().catch(error => console.log("Delete Error - " + error));
-                    }).catch(error => console.log("Vote Send Error - " + error))
+                    channel.fetchMessages().then((messages) => {
+                        var edit = false, mainMessage;
+                        var allMessages = messages.array()
+                        
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].content.includes(mainVoteMessage))
+                            {
+                                mainMessage = allMessages[i];
+                                
+                                if(mainMessage.embeds[0].title == emptyMainVote)
+                                    edit = true;
+                            }
+                        }
+
+                        if(edit)
+                        {
+                            mainMessage.edit(message.content, {embed: message.embeds[0]}).then(newVote => {
+                                newVote.react('✔')
+                            })
+                        }
+                        else
+                        {
+                            console.log("Sending Vote")
+                            channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
+                                newVote.react('🔺');
+                                message.delete().catch(error => console.log("Delete Error - " + error));
+                            }).catch(error => console.log("Vote Send Error - " + error))
+                        }
+                    })
+               
                 }
             }
         }
