@@ -1801,7 +1801,7 @@ function listenToReactions()
                                             console.log(rejection.message);
                                         });
                                         checkSuggestions();
-                                    })
+                                    }).catch(error => console.log("AwaitReaction Error - " + error))
     
                                     //Suggestion Rejected
                                     const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
@@ -1816,7 +1816,7 @@ function listenToReactions()
                                                 console.log(rejection.message);
                                             });
                                         }).catch(error => console.log("Delete Error - " + error))
-                                    })
+                                    }).catch(error => console.log("AwaitReaction Error - " + error))
                                 }
                             }
                         }
@@ -1924,7 +1924,7 @@ function checkSuggestions()
                                             console.log(rejection.message);
                                         });
                                         arrangeVotes();
-                                    })  
+                                    }).catch(error => console.log("AwaitReaction Error - " + error))
                                 }
                             }
                         }
