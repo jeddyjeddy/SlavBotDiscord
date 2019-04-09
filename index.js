@@ -1846,8 +1846,9 @@ function arrangeVotes()
                             const message = allMessages[i];
                             const messageContent = message.content;
                             console.log("Checking Message Content - " + messageContent)
-                            if(message.id == bot.user.id && messageContent.indexOf(mainVoteMessage) < 0)
+                            if(message.author.id == bot.user.id && messageContent.indexOf(mainVoteMessage) < 0)
                             {
+                                console.log("Valid Vote Message")
                                 var getUser = false;
 
                                 for(var index = 0; index < messageContent.length; index++)
