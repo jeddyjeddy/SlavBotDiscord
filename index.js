@@ -1004,7 +1004,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 //Code for new Patreon supporters
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
 slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
-blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", premiumRole = "564441309557817344";
+blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", 
+premiumRole = "564441309557817344", suggestionChannelID = "565108835258335232", voteChannelID = "565108535625515018";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
     if(newMemberData.guild.id == supportServerID)
@@ -1707,6 +1708,437 @@ function levelUp(user, channel)
     })
 }
 
+const suggestionLimit = 10, voteLimit = 5, titleLimit = 30, descriptionLimit = 600;
+var listeningIDs = [];
+
+function listenToReactions()
+{
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == suggestionChannelID)
+                {
+                    const channel = channels[channelIndex]
+                    channel.fetchMessages().then((messages) => {
+                        var allMessages = messages.array()
+                        var messageCounter = 0;
+
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].author.id == bot.user.id)
+                            {
+                                messageCounter++;
+                            }
+                        }
+        
+                        if(messageCounter > 1)
+                        {
+                            for(var i = 1; i < allMessages.length; i++)
+                            {
+                                const message = allMessages[i];
+                                const messageContent = message.content;
+                                var alreadyListening = false;
+
+                                for(var index = 0; index < listeningIDs.length; index++)
+                                {
+                                    if(listeningIDs[i] == message.id)
+                                    {
+                                        alreadyListening = true;
+                                    }
+                                }
+
+                                if(!alreadyListening)
+                                {
+                                    listeningIDs.push(message.id)
+
+                                    var getUser = false;
+                                    var userID = "";
+    
+                                    for(var index = 0; index < messageContent.length; index++)
+                                    {
+                                        if(getUser)
+                                        {
+                                            if(messageContent[index].toString() == ">")
+                                            {
+                                                index = args.length;
+                                            }
+                                            else
+                                            {
+                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                {
+                                                    userID = userID + args[index].toString();
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if(messageContent[index].toString() == "<")
+                                            {
+                                                 getUser = true;
+                                            } 
+                                        }
+                                    }
+    
+                                    const author = userID;
+    
+                                    //Suggestion Approved
+                                    const filter = (reaction, user) => reaction.emoji.name === 'heavy_check_mark' && (user.id === '281876391535050762' || user.id === '263945639384055808' || user.id === '219598209075380225')
+    
+                                    message.awaitReactions(filter).then(collected => {
+                                        bot.fetchUser(author).then(user => {
+                                            user.send("Your suggestion (" + message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
+                                        }, rejection => {
+                                            console.log(rejection.message);
+                                        });
+                                        checkSuggestions();
+                                    })
+    
+                                    //Suggestion Rejected
+                                    const filter = (reaction, user) => reaction.emoji.name === 'x' && (user.id === '281876391535050762' || user.id === '263945639384055808' || user.id === '219598209075380225')
+    
+                                    message.awaitReactions(filter).then(collected => {
+                                        message.delete().then(() => {
+                                            bot.fetchUser(author).then(user => {
+                                                user.send("Your suggestion (" + message.embeds[0].title + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                                            }, rejection => {
+                                                console.log(rejection.message);
+                                            });
+                                        }).catch(error => console.log("Delete Error - " + error))
+                                    })
+                                }
+                            }
+                        }
+                        else if(messageCounter == 0)
+                        {
+                            channel.send("You can submit suggestions for large ideas in this channel. Simply send a message to the channel with your suggestion in this format `Title|Description`. Your title must not exceed " + titleLimit + " characters and your description must not exceed " + descriptionLimit + " characters and should be able to communicate the main aspect of your idea.\n\nOnly a maximum of 10 suggestions will be allowed. Once the limit has been reached, all further suggestions will be denied until an Admin finishes approving one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))
+                        }
+                    }).catch(error => console.log("Fetch Error - " + error))
+                }
+            }
+        }
+    }
+}
+
+const mainVoteMessage = "Suggestion in development", emptyMainVote = "No Suggestions Left";
+
+function checkSuggestions()
+{
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == voteChannelID)
+                {
+                    const channel = channels[channelIndex]
+                    channel.fetchMessages().then((messages) => {
+                        var allMessages = messages.array()
+                        var messageCounter = 0;
+                        var empty = false;
+
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].author.id == bot.user.id)
+                            {
+                                if(allMessages[i].content.contains(mainVoteMessage))
+                                {
+                                    if(allMessages[i].embeds[0].title == emptyMainVote)
+                                    {
+                                        empty = true;
+                                    }
+                                }
+
+                                messageCounter++;
+                            }
+                        }
+        
+                        if(messageCounter > 0)
+                        {
+                            for(var i = 1; i < allMessages.length; i++)
+                            {
+                                const message = allMessages[i];
+                                const messageContent = message.content;
+
+                                if(empty)
+                                {
+                                    arrangeVotes();
+                                }
+                                else
+                                {
+                                    var getUser = false;
+                                    var userID = "";
+    
+                                    for(var index = 0; index < messageContent.length; index++)
+                                    {
+                                        if(getUser)
+                                        {
+                                            if(messageContent[index].toString() == ">")
+                                            {
+                                                index = args.length;
+                                            }
+                                            else
+                                            {
+                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                {
+                                                    userID = userID + args[index].toString();
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if(messageContent[index].toString() == "<")
+                                            {
+                                                 getUser = true;
+                                            } 
+                                        }
+                                    }
+    
+                                    const author = userID;
+    
+                                    //Suggestion Completed
+                                    const filter = (reaction, user) => reaction.emoji.name === 'heavy_check_mark' && (user.id === '281876391535050762' || user.id === '263945639384055808' || user.id === '219598209075380225')
+    
+                                    message.awaitReactions(filter).then(collected => {
+                                        bot.fetchUser(author).then(user => {
+                                            user.send("Your suggestion (" + message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
+                                        }, rejection => {
+                                            console.log(rejection.message);
+                                        });
+                                        arrangeVotes();
+                                    })  
+                                }
+                            }
+                        }
+                        else if(messageCounter == 0)
+                        {
+                            channel.send(mainVoteMessage, {embed: {title: emptyMainVote, description: "There are no more suggestions to complete", color: 65339}}).catch(error => console.log("Send Error - " + error))
+                            arrangeVotes();
+                        }
+                    }).catch(error => console.log("Fetch Error - " + error))
+                }
+            }
+        }
+    }
+}
+
+function arrangeVotes()
+{
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == voteChannelID)
+                {
+                    const channel = channels[channelIndex]
+                    channel.fetchMessages().then((messages) => {
+                        var allMessages = messages.array()
+                        var highestVotes = 0, highestVoteID = "";
+                        var todoListCounter = 0;
+
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].author.id == bot.user.id)
+                            {
+                                todoListCounter++;
+                            }
+                        }
+                        
+                        const numberOfVotes = todoListCounter;
+
+                        var userID = "";
+
+                        for(var i = 1; i < allMessages.length; i++)
+                        {
+                            const message = allMessages[i];
+                            const messageContent = message.content;
+
+                            if(message.id == bot.user.id)
+                            {
+                                var getUser = false;
+
+                                for(var index = 0; index < messageContent.length; index++)
+                                {
+                                    if(getUser)
+                                    {
+                                        if(messageContent[index].toString() == ">")
+                                        {
+                                            index = args.length;
+                                        }
+                                        else
+                                        {
+                                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                            {
+                                                userID = userID + args[index].toString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(messageContent[index].toString() == "<")
+                                        {
+                                                getUser = true;
+                                        } 
+                                    }
+                                }
+
+                                //Count votes
+                                const reactions = message.reactions.array();
+
+                                for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
+                                {
+                                    if(reactions[reactionIndex].emoji.name === "small_red_triangle")
+                                    {
+                                        if(reactions[reactionIndex].count > highestVotes)
+                                        {
+                                            highestVotes = reactions[reactionIndex].count;
+                                            highestVoteID = message.id;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (highestVoteID == "")
+                        {
+                            addToVoteList(numberOfVotes - 1)
+                        }
+                        else
+                        {
+                            for(var i = 1; i < allMessages.length; i++)
+                            {
+                                const message = allMessages[i];
+                                const author = userID;
+    
+                                if(highestVoteID == message.id)
+                                {
+                                    allMessages[0].edit(mainVoteMessage + " (suggested by <@" + author + ">)", {embed: message.embeds[0]}).then(() => {
+                                        bot.fetchUser(author).then(user => {
+                                            user.send("Your suggestion (" + message.embeds[0].title + ") is now in development.").then(() => {
+                                                message.delete().then(() => addToVoteList(numberOfVotes - 2)).catch(error => console.log("Delete Error - " + error))
+                                            }).catch(error => console.log("Send Error - " + error));
+                                        }, rejection => {
+                                            console.log(rejection.message);
+                                        });
+                                    })
+                                }
+                            }
+                        }
+                    }).catch(error => console.log("Fetch Error - " + error))
+                }
+            }
+        }
+    }
+}
+
+function addToVoteList(currentVotes)
+{
+    if(currentVotes >= voteLimit)
+        return;
+
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == suggestionChannelID)
+                {
+                    const channel = channels[channelIndex]
+                    channel.fetchMessages().then((messages) => {
+                        var allMessages = messages.array()
+                        var messageCounter = 0;
+
+                        for(var i = 0; i < allMessages.length; i++)
+                        {
+                            if(allMessages[i].author.id == bot.user.id)
+                            {
+                                messageCounter++;
+                            }
+                        }
+        
+                        var voteCounter = currentVotes;
+
+                        if(messageCounter > 1)
+                        {
+                            for(var i = 1; i < allMessages.length; i++)
+                            {
+                                if(voteCounter < voteLimit)
+                                {
+                                    const message = allMessages[i];
+                                    const reactions = message.reactions.array();
+                                    var messageCreated = false;
+
+                                    for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
+                                    {
+                                        const users = reactions[reactionIndex].users.array();
+                                        if(reactions[reactionIndex].emoji.name === "heavy_check_mark" && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
+                                        {
+                                            createVoteMessage(message);
+                                            messageCreated = true;
+                                        }
+                                    }
+
+                                    if(messageCreated)
+                                    {
+                                        voteCounter++;
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }).catch(error => console.log("Fetch Error - " + error))
+                }
+            }
+        }
+    }
+}
+
+function createVoteMessage(message)
+{
+    const guilds = bot.guilds.array()
+
+    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+    {
+        if(guilds[guildIndex].id == supportServerID)
+        {
+            const channels = guilds[guildIndex].channels.array()
+
+            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+            {
+                if(channels[channelIndex].id == voteChannelID)
+                {
+                    const channel = channels[channelIndex];
+
+                    channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
+                        newVote.react("small_red_triangle");
+                    }).catch(error => console.log("Send Error - " + error))
+                }
+            }
+        }
+    }
+}
 
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
@@ -1729,6 +2161,55 @@ bot.on("message", (message) => {
         if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
         {
             levelUp(message.author, message.channel);
+        }
+
+        if(message.channel.id == suggestionChannelID)
+        {
+            const suggestion = message;
+            suggestion.channel.fetchMessages((messages) => {
+                var allMessages = messages.array()
+
+                var messageCounter = 0;
+
+                for(var i = 0; i < allMessages.length; i++)
+                {
+                    if(allMessages[i].author.id == bot.user.id)
+                    {
+                        messageCounter++;
+                    }
+                }
+
+                if(messageCounter > suggestionLimit + 1)
+                {
+                    suggestion.delete().then(() => user.send("The maximum number of suggestions have been exceeded. You can send your suggestion after the Admins approve one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                }
+                else
+                {
+                    if(suggestion.author.id != bot.user.id)
+                    {
+                        var params = suggestion.content.split("|")
+        
+                        if(params.length < 2)
+                        {
+                            suggestion.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                        }
+                        else if (params[0].length > titleLimit || params[1].length > descriptionLimit)
+                        {
+                            suggestion.delete().then(() => user.send("Your suggestion has been denied as the submission format is incorrect. Please ensure that your suggestions follows the format `suggestion heading|suggestion description`. Also ensure that the title does not exceed " + titleLimit + " characters and that the description does not exceed " + descriptionLimit + " characters.").catch(error => console.log("Send Error - " + error))).catch(error => console.log("Delete Error - " + error))
+                        }
+                        else
+                        {
+                            const title = params[0], description = params[1], author = suggestion.author.id, 
+                            avatar = suggestion.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
+                            suggestion.delete().then(() => {
+                                suggestion.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                .then(() => suggestion.react("heavy_check_mark").then(() => suggestion.react("x").then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
+                                user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
+                            }).catch(error => console.log("Delete Error - " + error))
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -2856,6 +3337,9 @@ bot.login(process.env.BOT_TOKEN).then(function()
             webhook.listen(port, function callback () {
                 console.log("server is listening on port " + port);
             });
+
+            listenToReactions();
+            checkSuggestions();
         }
     }
 });
