@@ -1966,11 +1966,11 @@ function addToVoteList(currentVotes)
                                     const message = allMessages[i];
                                     const reactions = message.reactions.array();
                                     var messageCreated = false;
+                                    console.log(reactions)
 
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
-                                        var users = reactions[reactionIndex].users.filter(id == "281876391535050762" || id == "263945639384055808" || id == "219598209075380225")
-                                        console.log(users)
+                                        var users = reactions[reactionIndex].users.filter(user.id == "281876391535050762" || user.id == "263945639384055808" || user.id == "219598209075380225")
                                         if(reactions[reactionIndex].emoji.name == '✔' && users.length > 0)
                                         {
                                             console.log("Creating Vote Message")
