@@ -1855,7 +1855,7 @@ function checkSuggestions()
                         {
                             if(allMessages[i].author.id == bot.user.id)
                             {
-                                if(allMessages[i].content.contains(mainVoteMessage))
+                                if(allMessages[i].content.includes(mainVoteMessage))
                                 {
                                     if(allMessages[i].embeds[0].title == emptyMainVote)
                                     {
