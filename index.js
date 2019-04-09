@@ -1970,7 +1970,17 @@ function addToVoteList(currentVotes)
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
-                                        if(reactions[reactionIndex].emoji.name == '✔' && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
+                                        var approved = false;
+
+                                        for(var reactionUserIndex = 0; reactionUserIndex < users.length; reactionUserIndex++)
+                                        {
+                                            if(users[reactionUserIndex] == "281876391535050762" || users[reactionUserIndex] == "263945639384055808" || users[reactionUserIndex] == "219598209075380225")
+                                            {
+                                                approved = true;
+                                            }
+                                        }
+
+                                        if(reactions[reactionIndex].emoji.name == '✔' && approved)
                                         {
                                             console.log("Creating Vote Message")
                                             createVoteMessage(message);
