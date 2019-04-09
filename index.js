@@ -2198,6 +2198,10 @@ bot.on("messageReactionAdd", (reaction, user) => {
                                         });
                                         checkSuggestions();
                                     }
+                                    else
+                                    {
+                                        reaction.message.clearReactions().then((newMessage) => newMessage.react('✔').then(() => newMessage.react('❌')))
+                                    }
                                 })
                             }
                         }
