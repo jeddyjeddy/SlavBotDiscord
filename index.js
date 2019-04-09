@@ -1970,6 +1970,7 @@ function addToVoteList(currentVotes)
                                         const users = reactions[reactionIndex].users.array();
                                         if(reactions[reactionIndex].emoji.name == "✔" && (users.includes('281876391535050762') || users.includes('263945639384055808') || users.includes('219598209075380225')))
                                         {
+                                            console.log("Creating Vote Message")
                                             createVoteMessage(message);
                                             messageCreated = true;
                                         }
@@ -2005,10 +2006,10 @@ function createVoteMessage(message)
                 if(channels[channelIndex].id == voteChannelID)
                 {
                     const channel = channels[channelIndex];
-
+                    console.log("Sending Vote")
                     channel.send(message.content, {embed: message.embeds[0]}).then(newVote => {
                         newVote.react('🔺');
-                    }).catch(error => console.log("Send Error - " + error))
+                    }).catch(error => console.log("Vote Send Error - " + error))
                 }
             }
         }
