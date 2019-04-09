@@ -1970,7 +1970,8 @@ function addToVoteList(currentVotes)
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
                                         const users = reactions[reactionIndex].users.array();
-                                        console.log(users)
+                                        console.log(reactions[reactionIndex])
+                                        console.log(reactions[reactionIndex].users)
                                         var approved = false;
 
                                         for(var reactionUserIndex = 0; reactionUserIndex < users.length; reactionUserIndex++)
