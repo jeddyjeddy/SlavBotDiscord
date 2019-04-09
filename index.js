@@ -2034,7 +2034,7 @@ function emptyVoteSet()
                             {
                                 allMessages[i].edit(mainVoteMessage, {embed: {title: emptyMainVote, description: "There are no more suggestions to complete", color: 65339}})
                                 .then(msg => {
-                                    msg.clearReactions().then(() => arrangeVotes())
+                                    msg.clearReactions().then(() => arrangeVotes(true))
                                 }).catch(error => console.log("Edit Error - " + error))
                             }
                         }
