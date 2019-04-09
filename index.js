@@ -2168,6 +2168,7 @@ bot.on("message", (message) => {
 
         if(message.channel.id == suggestionChannelID)
         {
+            console.log("Message Received")
             message.channel.fetchMessages((messages) => {
                 console.log("Fetched messages")
                 var allMessages = messages.array()
