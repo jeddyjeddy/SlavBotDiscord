@@ -1807,8 +1807,8 @@ function listenToReactions()
                                     //Suggestion Rejected
                                     const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
     
-                                    let collector = message.createReactionCollector(filter, { time: 5000 });
-                                    collector.on('collect', (reaction, collector) => {
+                                    let collector2 = message.createReactionCollector(filter2, { time: 5000 });
+                                    collector2.on('collect', (reaction, collector) => {
                                         console.log("Reaction found")
                                         const embedTitle = message.embeds[0].title;
                                         message.delete().then(() => {
