@@ -1709,7 +1709,6 @@ function levelUp(user, channel)
 }
 
 const suggestionLimit = 10, voteLimit = 5, titleLimit = 30, descriptionLimit = 600;
-var listeningIDs = [];
 
 function listenToReactions()
 {
@@ -1739,90 +1738,8 @@ function listenToReactions()
                                 messageCounter++;
                             }
                         }
-        
-                        if(messageCounter > 1)
-                        {
-                            for(var i = 1; i < allMessages.length; i++)
-                            {
-                                const message = allMessages[i];
-                                const messageContent = message.content;
-                                var alreadyListening = false;
-
-                                for(var index = 0; index < listeningIDs.length; index++)
-                                {
-                                    if(listeningIDs[i] == message.id)
-                                    {
-                                        alreadyListening = true;
-                                    }
-                                }
-
-                                if(!alreadyListening)
-                                {
-                                    listeningIDs.push(message.id)
-
-                                    var getUser = false;
-                                    var userID = "";
-    
-                                    for(var index = 0; index < messageContent.length; index++)
-                                    {
-                                        if(getUser)
-                                        {
-                                            if(messageContent[index].toString() == ">")
-                                            {
-                                                index = args.length;
-                                            }
-                                            else
-                                            {
-                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
-                                                {
-                                                    userID = userID + args[index].toString();
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if(messageContent[index].toString() == "<")
-                                            {
-                                                 getUser = true;
-                                            } 
-                                        }
-                                    }
-    
-                                    const author = userID;
-                                    console.log("Adding AwaitReactions")
-                                    //Suggestion Approved
-                                    const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
-    
-                                    let collector = message.createReactionCollector(filter);
-                                    collector.on('collect', (reaction, collector) => {
-                                        console.log("Reaction found")
-                                        bot.fetchUser(author).then(user => {
-                                            user.send("Your suggestion (" + message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
-                                        }, rejection => {
-                                            console.log(rejection.message);
-                                        });
-                                        checkSuggestions();
-                                    });
-
-                                    //Suggestion Rejected
-                                    const filter2 = (reaction, user) => reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
-    
-                                    let collector2 = message.createReactionCollector(filter2);
-                                    collector2.on('collect', (reaction, collector) => {
-                                        console.log("Reaction found")
-                                        const embedTitle = message.embeds[0].title;
-                                        message.delete().then(() => {
-                                            bot.fetchUser(author).then(user => {
-                                                user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
-                                            }, rejection => {
-                                                console.log(rejection.message);
-                                            });
-                                        }).catch(error => console.log("Delete Error - " + error))
-                                    });
-                                }
-                            }
-                        }
-                        else if(messageCounter == 0)
+                        
+                        if(messageCounter == 0)
                         {
                             console.log("Sending Main Message")
                             channel.send("You can submit suggestions for large ideas in this channel. Simply send a message to the channel with your suggestion in this format `Title|Description`. Your title must not exceed " + titleLimit + " characters and your description must not exceed " + descriptionLimit + " characters and should be able to communicate the main aspect of your idea.\n\nOnly a maximum of 10 suggestions will be allowed. Once the limit has been reached, all further suggestions will be denied until an Admin finishes approving one of the suggestions on hold.").catch(error => console.log("Send Error - " + error))
@@ -1874,60 +1791,9 @@ function checkSuggestions()
         
                         if(messageCounter > 0)
                         {
-                            for(var i = 1; i < allMessages.length; i++)
+                            if(empty)
                             {
-                                const message = allMessages[i];
-                                const messageContent = message.content;
-
-                                if(empty)
-                                {
-                                    arrangeVotes();
-                                }
-                                else
-                                {
-                                    var getUser = false;
-                                    var userID = "";
-    
-                                    for(var index = 0; index < messageContent.length; index++)
-                                    {
-                                        if(getUser)
-                                        {
-                                            if(messageContent[index].toString() == ">")
-                                            {
-                                                index = args.length;
-                                            }
-                                            else
-                                            {
-                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
-                                                {
-                                                    userID = userID + args[index].toString();
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if(messageContent[index].toString() == "<")
-                                            {
-                                                 getUser = true;
-                                            } 
-                                        }
-                                    }
-    
-                                    const author = userID;
-    
-                                    //Suggestion Completed
-                                    const filter = (reaction, user) => reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225')
-                                    let collector = message.createReactionCollector(filter);
-                                    collector.on('collect', (reaction, collector) => {
-                                        console.log("Reaction found")
-                                        bot.fetchUser(author).then(user => {
-                                            user.send("Your suggestion (" + message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
-                                        }, rejection => {
-                                            console.log(rejection.message);
-                                        });
-                                        arrangeVotes();
-                                    })
-                                }
+                                arrangeVotes();
                             }
                         }
                         else if(messageCounter == 0)
@@ -2151,6 +2017,136 @@ function createVoteMessage(message)
 
 bot.on("messageReactionAdd", (reaction, user) => {
     console.log(reaciton.message.content)
+    if(reaction.message.channel.id == suggestionChannelID)
+    {
+        if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
+        {
+            if(reaction.message.content.includes("Suggestion from"))
+            {
+                var getUser = false;
+                var userID = "";
+
+                for(var index = 0; index < messageContent.length; index++)
+                {
+                    if(getUser)
+                    {
+                        if(messageContent[index].toString() == ">")
+                        {
+                            index = args.length;
+                        }
+                        else
+                        {
+                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                            {
+                                userID = userID + args[index].toString();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(messageContent[index].toString() == "<")
+                        {
+                             getUser = true;
+                        } 
+                    }
+                }
+                const author = userID;
+
+                bot.fetchUser(author).then(user => {
+                    user.send("Your suggestion ***(" + reaction.message.embeds[0].title + ")*** has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
+                }, rejection => {
+                    console.log(rejection.message);
+                });
+                checkSuggestions();
+            }
+        }
+        else if(reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
+        {
+            var getUser = false;
+            var userID = "";
+
+            for(var index = 0; index < messageContent.length; index++)
+            {
+                if(getUser)
+                {
+                    if(messageContent[index].toString() == ">")
+                    {
+                        index = args.length;
+                    }
+                    else
+                    {
+                        if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                        {
+                            userID = userID + args[index].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(messageContent[index].toString() == "<")
+                    {
+                            getUser = true;
+                    } 
+                }
+            }
+            const embedTitle = reaction.message.embeds[0].title;
+            const author = userID;
+
+            bot.fetchUser(author).then(user => {
+                reaction.message.delete().then(() => {
+                    user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                })
+            }, rejection => {
+                console.log(rejection.message);
+            });
+        }
+    }
+    else if(reaction.message.channel.id == voteChannelID)
+    {
+        if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
+        {
+            const messageContent = reaction.message.content;
+            if(messageContent.includes(mainVoteMessage))
+            {
+                var getUser = false;
+                var userID = "";
+    
+                for(var index = 0; index < messageContent.length; index++)
+                {
+                    if(getUser)
+                    {
+                        if(messageContent[index].toString() == ">")
+                        {
+                            index = args.length;
+                        }
+                        else
+                        {
+                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                            {
+                                userID = userID + args[index].toString();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(messageContent[index].toString() == "<")
+                        {
+                             getUser = true;
+                        } 
+                    }
+                }
+    
+                const author = userID;
+    
+                bot.fetchUser(author).then(user => {
+                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed.").catch(error => console.log("Send Error - " + error));
+                }, rejection => {
+                    console.log(rejection.message);
+                });
+                arrangeVotes();
+            }
+        }
+    }
 })
 
 bot.on("message", (message) => {
@@ -2216,9 +2212,10 @@ bot.on("message", (message) => {
                         {
                             console.log("Creating Suggestion")
                             const title = params[0], description = params[1], author = message.author.id, 
-                            avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
+                            avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON()),
+                            authorAvatar = message.author.avatarURL;
                             message.delete().then(() => {
-                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, image: authorAvatar, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
                                 .then((newMessage) => {newMessage.react('✔').then(() => newMessage.react('❌').then(() => listenToReactions()))}).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
