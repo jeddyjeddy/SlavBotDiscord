@@ -1840,12 +1840,12 @@ function arrangeVotes()
 
                         var userID = "";
 
-                        for(var i = 1; i < allMessages.length; i++)
+                        for(var i = 0; i < allMessages.length; i++)
                         {
                             const message = allMessages[i];
                             const messageContent = message.content;
 
-                            if(message.id == bot.user.id)
+                            if(message.id == bot.user.id && !message.includes(mainVoteMessage))
                             {
                                 var getUser = false;
 
@@ -1898,7 +1898,7 @@ function arrangeVotes()
                         }
                         else
                         {
-                            for(var i = 1; i < allMessages.length; i++)
+                            for(var i = 0; i < allMessages.length; i++)
                             {
                                 const message = allMessages[i];
                                 const author = userID;
@@ -1958,9 +1958,9 @@ function addToVoteList(currentVotes)
 
                         if(messageCounter > 1)
                         {
-                            for(var i = 1; i < allMessages.length; i++)
+                            for(var i = 0; i < allMessages.length; i++)
                             {
-                                if(voteCounter < voteLimit)
+                                if(voteCounter < voteLimit && allMessages[i].content.includes("Suggestion from"))
                                 {
                                     console.log("Can Add Vote Message")
                                     const message = allMessages[i];
