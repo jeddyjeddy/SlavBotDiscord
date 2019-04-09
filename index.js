@@ -1980,6 +1980,8 @@ function addToVoteList(currentVotes)
                                             }
                                         }
 
+                                        console.log(users)
+
                                         if(reactions[reactionIndex].emoji.name == '✔' && approved)
                                         {
                                             console.log("Creating Vote Message")
