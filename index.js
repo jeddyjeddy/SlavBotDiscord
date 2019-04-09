@@ -1965,25 +1965,25 @@ function addToVoteList(currentVotes)
                                     console.log("Can Add Vote Message")
                                     const message = allMessages[i];
                                     const reactions = message.reactions.array();
-                                    var messageCreated = false;
 
                                     for(var reactionIndex = 0; reactionIndex < reactions.length; reactionIndex++)
                                     {
-                                        console.log(reactions[reactionIndex].users.firstKey())
-                                        console.log(reactions[reactionIndex].users.array())
+                                        reactions[reactionIndex].fetchUsers().then((usersCollection) => {
+                                            var users = usersCollection.array()
 
-                                        var users = reactions[reactionIndex].users.filter(user.id == "281876391535050762" || user.id == "263945639384055808" || user.id == "219598209075380225")
-                                        if(reactions[reactionIndex].emoji.name == '✔' && users.length > 0)
-                                        {
-                                            console.log("Creating Vote Message")
-                                            createVoteMessage(message);
-                                            messageCreated = true;
-                                        }
-                                    }
-
-                                    if(messageCreated)
-                                    {
-                                        voteCounter++;
+                                            for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                            {
+                                                if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
+                                                {
+                                                    if(reactions[reactionIndex].emoji.name == '✔' && voteCounter < voteLimit)
+                                                    {
+                                                        console.log("Creating Vote Message")
+                                                        createVoteMessage(message);
+                                                        voteCounter += 1;
+                                                    }
+                                                }
+                                            }
+                                        })
                                     }
                                 }
                             }
