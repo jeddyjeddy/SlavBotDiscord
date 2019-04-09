@@ -2209,7 +2209,7 @@ bot.on("message", (message) => {
                             avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON());
                             message.delete().then(() => {
                                 message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
-                                .then((newMessage1) => newMessage1.react('✔️').then((newMessage2) => newMessage2.react('❌').then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
+                                .then((newMessage1) => newMessage1.react('✔').then((newMessage2) => newMessage2.react('❌').then(() => listenToReactions()))).catch(error => console.log("Send Error - " + error));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
                         }
