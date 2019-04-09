@@ -1978,7 +1978,7 @@ function addToVoteList(currentVotes)
         
                         var voteCounter = currentVotes;
                         console.log(messageCounter)
-                        if(messageCounter > 1 || currentVotes == 0)
+                        if(messageCounter > 1 && currentVotes > 0)
                         {
                             for(var i = 0; i < allMessages.length; i++)
                             {
@@ -2123,7 +2123,7 @@ function createVoteMessage(message)
                                 }
                             }
                             mainMessage.edit(mainVoteMessage + " (suggested by <@" + userID + ">)", {embed: {title: message.embeds[0].title, description: message.embeds[0].description, thumbnail: {url: message.embeds[0].thumbnail.url}, color: 65339}}).then(newVote => {
-                                newVote.react('✔')
+                                newVote.clearReactions().then(() => newVote.react('✔'))
                                 message.delete().catch(error => console.log("Delete Error - " + error));
                             })
                         }
