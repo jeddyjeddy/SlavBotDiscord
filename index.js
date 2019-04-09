@@ -2170,6 +2170,7 @@ bot.on("message", (message) => {
         {
             console.log("Message Received")
             message.channel.fetchMessages().then((messages) => {
+                const user = message.author;
                 console.log("Fetched messages")
                 var allMessages = messages.array()
 
