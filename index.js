@@ -1801,9 +1801,9 @@ function listenToReactions()
                                     })
     
                                     //Suggestion Rejected
-                                    const filter = (reaction, user) => reaction.emoji.name === 'x' && (user.id === '281876391535050762' || user.id === '263945639384055808' || user.id === '219598209075380225')
+                                    const filter2 = (reaction, user) => reaction.emoji.name === 'x' && (user.id === '281876391535050762' || user.id === '263945639384055808' || user.id === '219598209075380225')
     
-                                    message.awaitReactions(filter).then(collected => {
+                                    message.awaitReactions(filter2).then(collected => {
                                         message.delete().then(() => {
                                             bot.fetchUser(author).then(user => {
                                                 user.send("Your suggestion (" + message.embeds[0].title + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
