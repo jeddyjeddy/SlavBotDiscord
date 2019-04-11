@@ -2128,181 +2128,185 @@ function createVoteMessage(message, empty)
 
 bot.on("messageReactionAdd", (reaction, user) => {
     console.log(reaction.message.content)
-    if(reaction.message.channel.id == suggestionChannelID)
+    if(reaction.message.guild.id == supportServerID)
     {
-        if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
+        if(reaction.message.channel.id == suggestionChannelID)
         {
-            if(reaction.message.content.includes("Suggestion from"))
+            console.log("Suggestion channel reaction")
+            if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
             {
-                const guilds = bot.guilds.array()
-
-                for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+                if(reaction.message.content.includes("Suggestion from"))
                 {
-                    if(guilds[guildIndex].id == supportServerID)
+                    const guilds = bot.guilds.array()
+
+                    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
                     {
-                        const channels = guilds[guildIndex].channels.array()
-
-                        for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+                        if(guilds[guildIndex].id == supportServerID)
                         {
-                            if(channels[channelIndex].id == voteChannelID)
-                            {
-                                const channel = channels[channelIndex]
-                                channel.fetchMessages().then((messages) => {
-                                    var allMessages = messages.array()
-                                    var todoListCounter = 0;
+                            const channels = guilds[guildIndex].channels.array()
 
-                                    for(var i = 0; i < allMessages.length; i++)
-                                    {
-                                        if(allMessages[i].author.id == bot.user.id)
+                            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+                            {
+                                if(channels[channelIndex].id == voteChannelID)
+                                {
+                                    const channel = channels[channelIndex]
+                                    channel.fetchMessages().then((messages) => {
+                                        var allMessages = messages.array()
+                                        var todoListCounter = 0;
+
+                                        for(var i = 0; i < allMessages.length; i++)
                                         {
-                                            todoListCounter++;
-                                        }
-                                    }
-                        
-                                    if(todoListCounter < voteLimit + 1)
-                                    {
-                                        var getUser = false;
-                                        var userID = "";
-                                        const messageContent = reaction.message.content;
-                        
-                                        for(var index = 0; index < messageContent.length; index++)
-                                        {
-                                            if(getUser)
+                                            if(allMessages[i].author.id == bot.user.id)
                                             {
-                                                if(messageContent[index].toString() == ">")
+                                                todoListCounter++;
+                                            }
+                                        }
+                            
+                                        if(todoListCounter < voteLimit + 1)
+                                        {
+                                            var getUser = false;
+                                            var userID = "";
+                                            const messageContent = reaction.message.content;
+                            
+                                            for(var index = 0; index < messageContent.length; index++)
+                                            {
+                                                if(getUser)
                                                 {
-                                                    index = messageContent.length;
+                                                    if(messageContent[index].toString() == ">")
+                                                    {
+                                                        index = messageContent.length;
+                                                    }
+                                                    else
+                                                    {
+                                                        if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                        {
+                                                            userID = userID + messageContent[index].toString();
+                                                        }
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                    if(messageContent[index].toString() == "<")
                                                     {
-                                                        userID = userID + messageContent[index].toString();
-                                                    }
+                                                        getUser = true;
+                                                    } 
                                                 }
                                             }
-                                            else
-                                            {
-                                                if(messageContent[index].toString() == "<")
-                                                {
-                                                     getUser = true;
-                                                } 
-                                            }
+                                            const author = userID;
+                            
+                                            bot.fetchUser(author).then(user => {
+                                                user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
+                                            }, rejection => {
+                                                console.log(rejection.message);
+                                            });
+                                            checkSuggestions();
                                         }
-                                        const author = userID;
-                        
-                                        bot.fetchUser(author).then(user => {
-                                            user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been approved by an Admin.").catch(error => console.log("Send Error - " + error));
-                                        }, rejection => {
-                                            console.log(rejection.message);
-                                        });
-                                        checkSuggestions();
-                                    }
-                                    else
-                                    {
-                                        reaction.message.clearReactions().then((newMessage) => newMessage.react('✔').then(() => newMessage.react('❌')))
-                                    }
-                                })
+                                        else
+                                        {
+                                            reaction.message.clearReactions().then((newMessage) => newMessage.react('✔').then(() => newMessage.react('❌')))
+                                        }
+                                    })
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        else if(reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
-        {
-            if(reaction.message.content.includes("Suggestion from"))
+            else if(reaction.emoji.name == '❌' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
             {
-                var getUser = false;
-                var userID = "";
+                if(reaction.message.content.includes("Suggestion from"))
+                {
+                    var getUser = false;
+                    var userID = "";
+                    const messageContent = reaction.message.content;
+
+                    for(var index = 0; index < messageContent.length; index++)
+                    {
+                        if(getUser)
+                        {
+                            if(messageContent[index].toString() == ">")
+                            {
+                                index = messageContent.length;
+                            }
+                            else
+                            {
+                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                {
+                                    userID = userID + messageContent[index].toString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if(messageContent[index].toString() == "<")
+                            {
+                                    getUser = true;
+                            } 
+                        }
+                    }
+                    const embedTitle = reaction.message.embeds[0].title;
+                    const author = userID;
+
+                    bot.fetchUser(author).then(user => {
+                        reaction.message.delete().then(() => {
+                            user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
+                        })
+                    }, rejection => {
+                        console.log(rejection.message);
+                    });
+                }
+            }
+        }
+        else if(reaction.message.channel.id == voteChannelID)
+        {
+            console.log("Reacting in vote booth")
+            if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
+            {
+                console.log("Reacting for finished suggestion")
                 const messageContent = reaction.message.content;
-
-                for(var index = 0; index < messageContent.length; index++)
+                if(messageContent.includes(mainVoteMessage))
                 {
-                    if(getUser)
+                    console.log("Main message confirmed")
+                    var getUser = false;
+                    var userID = "";
+        
+                    for(var index = 0; index < messageContent.length; index++)
                     {
-                        if(messageContent[index].toString() == ">")
+                        if(getUser)
                         {
-                            index = messageContent.length;
+                            if(messageContent[index].toString() == ">")
+                            {
+                                index = messageContent.length;
+                            }
+                            else
+                            {
+                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                {
+                                    userID = userID + messageContent[index].toString();
+                                }
+                            }
                         }
                         else
                         {
-                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                            if(messageContent[index].toString() == "<")
                             {
-                                userID = userID + messageContent[index].toString();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(messageContent[index].toString() == "<")
-                        {
                                 getUser = true;
-                        } 
-                    }
-                }
-                const embedTitle = reaction.message.embeds[0].title;
-                const author = userID;
-
-                bot.fetchUser(author).then(user => {
-                    reaction.message.delete().then(() => {
-                        user.send("Your suggestion (" + embedTitle + ") has been rejected by an Admin.").catch(error => console.log("Send Error - " + error));
-                    })
-                }, rejection => {
-                    console.log(rejection.message);
-                });
-            }
-        }
-    }
-    else if(reaction.message.channel.id == voteChannelID)
-    {
-        console.log("Reacting in vote booth")
-        if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
-        {
-            console.log("Reacting for finished suggestion")
-            const messageContent = reaction.message.content;
-            if(messageContent.includes(mainVoteMessage))
-            {
-                console.log("Main message confirmed")
-                var getUser = false;
-                var userID = "";
-    
-                for(var index = 0; index < messageContent.length; index++)
-                {
-                    if(getUser)
-                    {
-                        if(messageContent[index].toString() == ">")
-                        {
-                            index = messageContent.length;
-                        }
-                        else
-                        {
-                            if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
-                            {
-                                userID = userID + messageContent[index].toString();
-                            }
+                            } 
                         }
                     }
-                    else
-                    {
-                        if(messageContent[index].toString() == "<")
-                        {
-                             getUser = true;
-                        } 
-                    }
+        
+                    const author = userID;
+        
+                    bot.fetchUser(author).then(user => {
+                        user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed. You have also been given the Blessed Users Role").catch(error => console.log("Send Error - " + error));
+                        reaction.message.guild.fetchMember(user).then(function(member){
+                            member.addRole('481544671840174081').catch(error => console.log("Role Error - " + error))
+                        })
+                    }, rejection => {
+                        console.log(rejection.message);
+                    });
+                    emptyVoteSet();
                 }
-    
-                const author = userID;
-    
-                bot.fetchUser(author).then(user => {
-                    user.send("Your suggestion (" + reaction.message.embeds[0].title + ") has been completed. You have also been given the Blessed Users Role").catch(error => console.log("Send Error - " + error));
-                    reaction.message.guild.fetchMember(user).then(function(member){
-                        member.addRole('481544671840174081').catch(error => console.log("Role Error - " + error))
-                    })
-                }, rejection => {
-                    console.log(rejection.message);
-                });
-                emptyVoteSet();
             }
         }
     }
