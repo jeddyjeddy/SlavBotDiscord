@@ -20,9 +20,9 @@ class SpurdoCommand extends command.Command
 
         if(args.length > 0)
         {
-            var finalText = args.toString().toLowerCase().replaceAll((new RegExp("c", 'g')), "g").replace((new RegExp("k", 'g')), "g")
-            .replace((new RegExp("p", 'g')), "b").replace((new RegExp("t", 'g')), "d").replace((new RegExp("x", 'g')), "gs")
-            .replace((new RegExp("z", 'g')), "s");
+            var finalText = args.toString().toLowerCase().replace(/c/g, "g").replace(/k/g, "g").replace(/p/g, "b").replace(/t/g, "d")
+            .replace(/x/g, "gs").replace(/z/g, "s");
+    
             var indexes = []
     
             for(var i = 0; i < finalText.length; i++)
