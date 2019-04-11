@@ -2127,7 +2127,6 @@ function createVoteMessage(message, empty)
 }
 
 bot.on("messageReactionAdd", (reaction, user) => {
-    console.log(reaction.message.content)
     if(reaction.message.guild.id == supportServerID)
     {
         if(reaction.message.channel.id == suggestionChannelID)
