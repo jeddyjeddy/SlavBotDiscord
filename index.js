@@ -2256,11 +2256,14 @@ bot.on("messageReactionAdd", (reaction, user) => {
     }
     else if(reaction.message.channel.id == voteChannelID)
     {
+        console.log("Reacting in vote booth")
         if(reaction.emoji.name == '✔' && (user.id == '281876391535050762' || user.id == '263945639384055808' || user.id == '219598209075380225'))
         {
+            console.log("Reacting for finished suggestion")
             const messageContent = reaction.message.content;
             if(messageContent.includes(mainVoteMessage))
             {
+                console.log("Main message confirmed")
                 var getUser = false;
                 var userID = "";
     
