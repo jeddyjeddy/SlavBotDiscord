@@ -100,7 +100,7 @@ class StandPhotoCommand extends command.Command
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("StandPhoto.png").then(function (StandPhotoImage) {
+                Jimp.read("standphoto.png").then(function (StandPhotoImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
@@ -174,7 +174,7 @@ class StandPhotoCommand extends command.Command
             }
 
             Promise.all(promises).then(() => {
-    Jimp.read("StandPhoto.png").then(function (StandPhotoImage) {
+    Jimp.read("standphoto.png").then(function (StandPhotoImage) {
                     console.log("got image");
                     
                     Jimp.read(url).then(function (userImage) {
