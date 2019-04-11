@@ -20,8 +20,13 @@ class SpurdoCommand extends command.Command
 
         if(args.length > 0)
         {
-            var finalText = args.toString().toLowerCase().replace("c", "g").replace("k", "g").replace("p", "b").replace("t", "d")
-            .replace("x", "gs").replace("z", "s");
+            var finalText = args.toString().toLowerCase()
+            finalText = finalText.replace("c", "g")
+            finalText = finalText.replace("k", "g")
+            finalText = finalText.replace("p", "b")
+            finalText = finalText.replace("t", "d")
+            finalText = finalText.replace("x", "gs")
+            finalText = finalText.replace("z", "s");
     
             var indexes = []
     
