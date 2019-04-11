@@ -1,7 +1,7 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 
-class FellasCommand extends command.Command
+class ClapCommand extends command.Command
  {
     constructor(client)
     {
@@ -30,4 +30,4 @@ class FellasCommand extends command.Command
     }
 }
 
-module.exports = FellasCommand;
+module.exports = ClapCommand;
