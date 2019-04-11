@@ -1,7 +1,7 @@
 const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
 var wars = [{key: "Key", countries: [{key: -1, ruler: "", value: 500}], ended: false, ranks: [{key: "Key", wins: 0}], listTimestamp: null}]
-const countries = require('country-list')();
+const countries = require('country-list');
 const allCountries = countries.getNames();
 var firebase = require("firebase");
 var signedIntoFirebase = false;
