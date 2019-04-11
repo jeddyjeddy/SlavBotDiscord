@@ -27,7 +27,7 @@ class SpurdoCommand extends command.Command
     
             for(var i = 0; i < finalText.length; i++)
             {
-                if(i < finalText.length - 1 && i > 1)
+                if(i < finalText.length && i > 1)
                 {
                     if(finalText[i - 2] != " " && finalText[i] == "d" && finalText[i - 1] == "e")
                     {
