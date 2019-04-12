@@ -2130,6 +2130,8 @@ function createVoteMessage(message, empty)
     }
 }
 
+const contributionsChannelID = "483375148108349454"
+
 bot.on("messageReactionAdd", (reaction, user) => {
     if(reaction.message.guild.id == supportServerID)
     {
@@ -2308,6 +2310,25 @@ bot.on("messageReactionAdd", (reaction, user) => {
                     }, rejection => {
                         console.log(rejection.message);
                     });
+
+                    const guilds = bot.guilds.array()
+
+                    for(var guildIndex = 0; guildIndex < guilds.length; guildIndex++)
+                    {
+                        if(guilds[guildIndex].id == supportServerID)
+                        {
+                            const channels = guilds[guildIndex].channels.array()
+
+                            for(var channelIndex = 0; channelIndex < channels.length; channelIndex++)
+                            {
+                                if(channels[channelIndex].id == contributionsChannelID)
+                                {
+                                    channels[channelIndex].send("__***" + reaction.message.embeds[0].title + "***__\n<@" + user.id + ">").catch(error => console.log("Send Error - " + error))
+                                }
+                            }
+                        }
+                    }
+
                     emptyVoteSet();
                 }
             }
