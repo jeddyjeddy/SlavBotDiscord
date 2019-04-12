@@ -579,7 +579,9 @@ var DatabaseFunctions = {
                                             bot.fetchUser(userID)
                                             .then(user => {
                                                 user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
+                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
+                                                        user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                                    }).catch(error => console.log("Send Error - " + error))
                                                 }).catch(error => console.log("Send Error - " + error));
                                             }, rejection => {
                                                     console.log(rejection.message);
@@ -599,7 +601,9 @@ var DatabaseFunctions = {
                                             bot.fetchUser(userID)
                                             .then(user => {
                                                 user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").catch(error => console.log("Send Error - " + error))
+                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
+                                                        user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                                    }).catch(error => console.log("Send Error - " + error))
                                                 }).catch(error => console.log("Send Error - " + error));
                                             }, rejection => {
                                                     console.log(rejection.message);
