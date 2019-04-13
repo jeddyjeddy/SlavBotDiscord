@@ -2323,7 +2323,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                             {
                                 if(channels[channelIndex].id == contributionsChannelID)
                                 {
-                                    channels[channelIndex].send("__***" + reaction.message.embeds[0].title + "***__\n<@" + user.id + ">").catch(error => console.log("Send Error - " + error))
+                                    channels[channelIndex].send("__" + reaction.message.embeds[0].title + "__\n<@" + author + ">").catch(error => console.log("Send Error - " + error))
                                 }
                             }
                         }
