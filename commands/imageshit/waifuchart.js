@@ -279,7 +279,7 @@ class WaifuChartCommand extends command.Command
             }
 
             Promise.all(promises).then(() => { 
-                message.channel.send("***creating waifuchartes***").catch(error => {console.log("Send Error - " + error); });
+                message.channel.send("***creating waifu chart***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("waifuchart.png").then(function (waifuchartImage) {
                     console.log("got image");
                     var BG = new Jimp(waifuchartImage.bitmap.width, waifuchartImage.bitmap.height)

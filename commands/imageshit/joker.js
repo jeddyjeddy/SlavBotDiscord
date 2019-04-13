@@ -176,7 +176,7 @@ class JokerCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Running Joker***", {
+                            message.channel.send("***Society ***", {
                                 files: [file]
                             }).then(function(){
                                  
@@ -298,7 +298,7 @@ class JokerCommand extends command.Command
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
-                            message.channel.send("***Running Joker***", {
+                            message.channel.send("***Society ***", {
                                 files: [file]
                             }).then(function(){
                                 
