@@ -65,7 +65,7 @@ class StandGeneratorCommand extends command.Command
         }
 
         const standName = uniqueNamesGenerator(' ')
-        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase() + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
+        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase(standName) + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
         + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
         + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
 
