@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const uniqueNamesGenerator = require('unique-names-generator');
+const {uniqueNamesGenerator} = require('unique-names-generator');
 const ranks = ["A", "B", "C", "D", "E"]
 const responses = ["NANI?!", "STANDO POWA", "MUDA MUDA MUDA MUDA", "OH MY GOD", "OOOOH SHEEEET", "Yare Yare Daze...", "WHAT DID YOU SAY ABOUT MY HAIR?", "THIS, THIS IS THE TASTE OF A LIAR !", "ARRIVEDERCI", "GERMAN MEDICINE IS THE GREATEST IN THE WORLD!"]
 
@@ -64,8 +64,8 @@ class StandGeneratorCommand extends command.Command
             userID = message.author.id;
         }
 
-
-        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase(uniqueNamesGenerator(' ', false)) + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
+        const standName = uniqueNamesGenerator(' ')
+        var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase() + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
         + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
         + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
 
