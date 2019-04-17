@@ -113,7 +113,7 @@ class NukeCommand extends command.Command
                                                 
                     userImage.color([
                         { apply: 'saturate', params: [ 25 ] },
-                        { apply: 'red', params: [ 25 ] },
+                        { apply: 'red', params: [ 50 ] },
                         { apply: 'green', params: [ 75 ] },
                         { apply: 'blue', params: [ 75 ] }
                     ]) 
