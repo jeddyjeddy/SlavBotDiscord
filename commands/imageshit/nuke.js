@@ -16,7 +16,7 @@ function imageEffect(pixels) {
     return Filter.convolution(pixels,
            [-1, -1, -1,
             -1, 15, -1,
-            -1, -1, -1], 2);
+            -1, -1, -1], 3);
 }
 
 class NukeCommand extends command.Command
@@ -112,8 +112,8 @@ class NukeCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {                    
                                                 
                     userImage.color([
-                        { apply: 'saturate', params: [ 50 ] },
-                        { apply: 'red', params: [ 50 ] },
+                        { apply: 'saturate', params: [ 25 ] },
+                        { apply: 'red', params: [ 25 ] },
                         { apply: 'green', params: [ 75 ] },
                         { apply: 'blue', params: [ 75 ] }
                     ]) 
