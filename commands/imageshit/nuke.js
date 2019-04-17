@@ -15,7 +15,7 @@ const Filter = require('node-image-filter');
 function imageEffect(pixels) {
     return Filter.convolution(pixels,
            [-1, -1, -1,
-            -1, 10, -1,
+            -1, 15, -1,
             -1, -1, -1], 1);
 }
 
@@ -113,7 +113,9 @@ class NukeCommand extends command.Command
                                                 
                     userImage.color([
                         { apply: 'saturate', params: [ 100 ] },
-                        { apply: 'red', params: [ 50 ] }
+                        { apply: 'red', params: [ 60 ] },
+                        { apply: 'green', params: [ 60 ] },
+                        { apply: 'blue', params: [ 60 ] }
                     ]) 
                                         
                     userImage.contrast(1);
