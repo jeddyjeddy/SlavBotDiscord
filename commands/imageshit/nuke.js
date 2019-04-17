@@ -112,8 +112,8 @@ class NukeCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {                    
                                                 
                     userImage.color([
-                        { apply: 'saturate', params: [ 35 ] },
-                        { apply: 'red', params: [ 50 ] },
+                        { apply: 'saturate', params: [ 25 ] },
+                        { apply: 'red', params: [ 25 ] },
                         { apply: 'green', params: [ 75 ] },
                         { apply: 'blue', params: [ 75 ] }
                     ]) 
