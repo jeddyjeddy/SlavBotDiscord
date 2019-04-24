@@ -4,8 +4,7 @@ const bot = new commando.Client({
     unknownCommandResponse: false,
     invite: "https://discord.gg/2T259Pf",
     messageCacheMaxSize: 50,
-    restTimeOffset: 1000,
-    restWsBridgeTimeout: 10000});
+    restTimeOffset: 10000});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
