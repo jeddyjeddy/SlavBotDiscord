@@ -126,6 +126,26 @@ dbl.on('posted', () => {
                     console.log("discord bot world success")
                 }
             })
+
+            var headers9 = {
+                'Authorization': process.env.DISCORDBOTS_GG,
+                'Content-Type': 'application/json'
+            }
+        
+            var options9 = {
+                url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
+                method: 'POST',
+                headers: headers9,
+                body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
+            }
+        
+            // Start the request
+            request(options9, function (error, response, body) {
+                if (!error) {
+                    // Print out the response body
+                    console.log("discord bots gg success")
+                }
+            })
         });
         
     }
