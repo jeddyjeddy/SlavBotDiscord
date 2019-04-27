@@ -1564,7 +1564,7 @@ async function initData() {
         })  
 
         const server = guild.id;
-        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value').then((snap) => {
+        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value').then((snap) => {
             if(snap.val() != null)
             {
                 var found = false;
@@ -1582,7 +1582,7 @@ async function initData() {
             }
         })
 
-        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").on('value').then((snap) => {
+        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").on('value').then((snap) => {
             if(snap.val() != null)
             {
                 var found = false;
