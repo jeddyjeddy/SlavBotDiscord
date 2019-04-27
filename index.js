@@ -1564,7 +1564,7 @@ async function initData() {
         })  
 
         const server = guild.id;
-        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value').then((snap) => {
+        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value', (snap) => {
             if(snap.val() != null)
             {
                 var found = false;
@@ -1600,7 +1600,7 @@ async function initData() {
             }
         })
 
-        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value', (snap) => {
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
             if(snap.val() != null)
             {
                 customCounterData.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
