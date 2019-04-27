@@ -2602,7 +2602,7 @@ bot.on("message", (message) => {
                                         message.channel.send(trigger + " counter: 1" ).catch(error => console.log("Send Error - " + error))
                                     }
 
-                                    firebase.database("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
+                                    firebase.database().ref("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
                                 }
                             }
 
@@ -2637,7 +2637,7 @@ bot.on("message", (message) => {
                                 }
 
                                 customCounterData[index].counters.push(counterDataToAdd)
-                                firebase.database("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
+                                firebase.database().ref("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
                             }
                         }
                     }
