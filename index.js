@@ -1562,6 +1562,54 @@ async function initData() {
                 }
             }
         })  
+
+        const server = guild.id;
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value').then((snap) => {
+            if(snap.val() != null)
+            {
+                var found = false;
+                for(var i = 0; i < customResponses.length; i++)
+                {
+                    if(customResponses[i].guild == server)
+                    {
+                        customResponses[i].responses = JSON.parse(snap.child("customresponses").val())
+                        found = true;
+                    }
+                }
+
+                if(!found)
+                    customResponses.push({guild: server, responses: JSON.parse(snap.child("customresponses").val())})
+            }
+        })
+
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").on('value').then((snap) => {
+            if(snap.val() != null)
+            {
+                var found = false;
+                for(var i = 0; i < customCounters.length; i++)
+                {
+                    if(customCounters[i].guild == server)
+                    {
+                        customCounters[i].counters = JSON.parse(snap.child("customcounters").val())
+                        found = true;
+                    }
+                }
+
+                if(!found)
+                    customCounters.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
+            }
+        })
+
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
+            if(snap.val() != null)
+            {
+                customCounterData.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
+            }
+            else
+            {
+                customCounterData.push({guild: server, counters: []})
+            }
+        })
     })    
 }
 
@@ -2356,6 +2404,8 @@ bot.on("messageReactionAdd", (reaction, user) => {
     }
 })
 
+var customResponses = [], customCounters = [], customCounterData = []
+
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
     {
@@ -2443,6 +2493,158 @@ bot.on("message", (message) => {
 
     if(noResponse === true)
     {
+        //Custom Settings
+        if(message.author.id != bot.user.id)
+        {
+            var responses = []
+
+            for(var i = 0; i < customResponses.length; i++)
+            {
+                if(customResponses[i].guild == message.guild.id)
+                    responses = customResponses[i].responses
+            }
+
+            var counters = []
+
+            for(var i = 0; i < customCounters.length; i++)
+            {
+                if(customCounters[i].guild == message.guild.id)
+                    counters = customCounters[i].counters
+            }
+
+            for(var i = 0; i < responses.length; i++)
+            {
+                var trigger = responses[i].key
+                var response = responses[i].message
+                var matching = responses[i].matching
+
+                var respond = false;
+                if(matching)
+                {
+                    if(message.content.toLowerCase() == trigger)
+                    {
+                        respond = true;
+                    }
+                }
+                else
+                {
+                    if(message.content.toLowerCase().indexOf(trigger) > -1)
+                    {
+                        respond = true;
+                    }
+                }
+
+                if(respond)
+                {
+                    response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
+                    message.channel.send(response).catch(error => console.log("Send Error - " + error))
+                }
+            }
+
+            for(var i = 0; i < counters.length; i++)
+            {
+                var trigger = counters[i].key
+                var response = counters[i].message
+                var matching = counters[i].matching
+                var limit = counters[i].limit
+
+                var respond = false;
+                if(matching)
+                {
+                    if(message.content.toLowerCase() == trigger)
+                    {
+                        respond = true;
+                    }
+                }
+                else
+                {
+                    if(message.content.toLowerCase().indexOf(trigger) > -1)
+                    {
+                        respond = true;
+                    }
+                }
+
+                if(respond)
+                {
+                    for(var index = 0; index < customCounterData.length; index++)
+                    {
+                        if(customCounterData[index].guild == message.guild.id)
+                        {
+                            var noData = true;
+                            for(var dataIndex = 0; dataIndex < customCounterData[index].counters.length; dataIndex++)
+                            {
+                                if(customCounterData[index].counters[dataIndex].key == trigger)
+                                {
+                                    noData = false;
+                                    var noChannel = true;
+                                    for(var channelIndex = 0; channelIndex < customCounterData[index].counters[dataIndex].channels.length; channelIndex++)
+                                    {
+                                        if(customCounterData[index].counters[dataIndex].channels[channelIndex].id == message.channel.id)
+                                        {
+                                            noChannel = false;
+                                            customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + 1;
+                                            if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter > customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
+                                            {
+                                                response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
+                                                message.channel.send(response).catch(error => console.log("Send Error - " + error))
+                                                customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter
+                                            }
+                                            else
+                                            {
+                                                message.channel.send(trigger + " counter: " + customCounterData[index].counters[dataIndex].channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
+                                            }
+                                        }
+                                    }
+
+                                    if(noChannel)
+                                    {
+                                        customCounterData[index].counters[dataIndex].channels.push({id: message.channel.id, counter: 1, lastCounter: 0})
+                                        message.channel.send(trigger + " counter: 1" ).catch(error => console.log("Send Error - " + error))
+                                    }
+
+                                    firebase.database("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
+                                }
+                            }
+
+                            if(noData)
+                            {
+                                var counterDataToAdd = {key: trigger, channels: []}
+                                
+                                var noChannel = true;
+                                for(var channelIndex = 0; channelIndex < counterDataToAdd.channels.length; channelIndex++)
+                                {
+                                    if(counterDataToAdd.channels[channelIndex].id == message.channel.id)
+                                    {
+                                        noChannel = false;
+                                        counterDataToAdd.channels[channelIndex].counter = counterDataToAdd.channels[channelIndex].counter + 1;
+                                        if(counterDataToAdd.channels[channelIndex].counter > counterDataToAdd.channels[channelIndex].lastCounter + limit)
+                                        {
+                                            response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
+                                            message.channel.send(response).catch(error => console.log("Send Error - " + error))
+                                            counterDataToAdd.channels[channelIndex].lastCounter = counterDataToAdd.channels[channelIndex].counter
+                                        }
+                                        else
+                                        {
+                                            message.channel.send(trigger + " counter: " + counterDataToAdd.channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
+                                        }
+                                    }
+                                }
+
+                                if(noChannel)
+                                {
+                                    counterDataToAdd.channels.push({id: message.channel.id, counter: 1, lastCounter: 0})
+                                    message.channel.send(trigger + " counter: 1" ).catch(error => console.log("Send Error - " + error))
+                                }
+
+                                customCounterData[index].counters.push(counterDataToAdd)
+                                firebase.database("serversettings/" + message.guild.id + "/customsettings/customcounterdata").set(JSON.stringify(customCounterData[index].counters))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         //Bot Specific Responses
         if(message.author.bot)
         {
