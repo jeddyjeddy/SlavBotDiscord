@@ -1600,7 +1600,7 @@ async function initData() {
             }
         })
 
-        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
+        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
             if(snap.val() != null)
             {
                 customCounterData.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
