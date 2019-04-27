@@ -1572,13 +1572,13 @@ async function initData() {
                 {
                     if(customResponses[i].guild == server)
                     {
-                        customResponses[i].responses = JSON.parse(snap.child("customresponses").val())
+                        customResponses[i].responses = JSON.parse(snap.val())
                         found = true;
                     }
                 }
 
                 if(!found)
-                    customResponses.push({guild: server, responses: JSON.parse(snap.child("customresponses").val())})
+                    customResponses.push({guild: server, responses: JSON.parse(snap.val())})
             }
         })
 
@@ -1590,20 +1590,20 @@ async function initData() {
                 {
                     if(customCounters[i].guild == server)
                     {
-                        customCounters[i].counters = JSON.parse(snap.child("customcounters").val())
+                        customCounters[i].counters = JSON.parse(snap.val())
                         found = true;
                     }
                 }
 
                 if(!found)
-                    customCounters.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
+                    customCounters.push({guild: server, counters: JSON.parse(snap.val())})
             }
         })
 
         await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
             if(snap.val() != null)
             {
-                customCounterData.push({guild: server, counters: JSON.parse(snap.child("customcounters").val())})
+                customCounterData.push({guild: server, counters: JSON.parse(snap.val())})
             }
             else
             {
