@@ -631,7 +631,11 @@ class WWCommand extends command.Command
                             else if(args.toLowerCase().startsWith("list"))
                             {
                                 const date = new Date(wars[i].listTimestamp)
-    
+                                if(date == null || date == undefined)
+                                {
+                                    date = new Date()
+                                }
+
                                 if(date.getTime() <= (new Date()).getTime())
                                 {
                                     var timestamp =  (new Date((new Date).getTime() + 120000));
