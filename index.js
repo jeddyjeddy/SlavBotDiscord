@@ -2546,7 +2546,7 @@ bot.on("message", (message) => {
                 var trigger = counters[i].key
                 var response = counters[i].message
                 var matching = counters[i].matching
-                var limit = counters[i].limit
+                var limit = parseInt(counters[i].limit)
 
                 var respond = false;
                 if(matching)
@@ -2592,6 +2592,7 @@ bot.on("message", (message) => {
                                             }
                                             if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
                                             {
+                                                message.channel.send(trigger + " counter: " + customCounterData[index].counters[dataIndex].channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
                                                 response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                                 message.channel.send(response).catch(error => console.log("Send Error - " + error))
                                                 customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter
@@ -2633,6 +2634,7 @@ bot.on("message", (message) => {
                                         }
                                         if(counterDataToAdd.channels[channelIndex].counter >= counterDataToAdd.channels[channelIndex].lastCounter + limit)
                                         {
+                                            message.channel.send(trigger + " counter: " + counterDataToAdd.channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
                                             response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                             message.channel.send(response).catch(error => console.log("Send Error - " + error))
                                             counterDataToAdd.channels[channelIndex].lastCounter = counterDataToAdd.channels[channelIndex].counter
