@@ -2582,8 +2582,15 @@ bot.on("message", (message) => {
                                         if(customCounterData[index].counters[dataIndex].channels[channelIndex].id == message.channel.id)
                                         {
                                             noChannel = false;
-                                            customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + 1;
-                                            if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter > customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
+                                            if(matching)
+                                                customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + 1;
+                                            else
+                                            {
+                                                var reg = new RegExp(trigger, "g")
+                                                var add = (message.content.match(reg) || []).length
+                                                customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + add;
+                                            }
+                                            if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
                                             {
                                                 response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                                 message.channel.send(response).catch(error => console.log("Send Error - " + error))
@@ -2616,8 +2623,15 @@ bot.on("message", (message) => {
                                     if(counterDataToAdd.channels[channelIndex].id == message.channel.id)
                                     {
                                         noChannel = false;
-                                        counterDataToAdd.channels[channelIndex].counter = counterDataToAdd.channels[channelIndex].counter + 1;
-                                        if(counterDataToAdd.channels[channelIndex].counter > counterDataToAdd.channels[channelIndex].lastCounter + limit)
+                                        if(matching)
+                                            counterDataToAdd.channels[channelIndex].counter = counterDataToAdd.channels[channelIndex].counter + 1;
+                                        else
+                                        {
+                                            var reg = new RegExp(trigger, "g")
+                                            var add = (message.content.match(reg) || []).length
+                                            counterDataToAdd.channels[channelIndex].counter = counterDataToAdd.channels[channelIndex].counter + add;
+                                        }
+                                        if(counterDataToAdd.channels[channelIndex].counter >= counterDataToAdd.channels[channelIndex].lastCounter + limit)
                                         {
                                             response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                             message.channel.send(response).catch(error => console.log("Send Error - " + error))
