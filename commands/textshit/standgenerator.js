@@ -157,6 +157,7 @@ class StandGeneratorCommand extends command.Command
             }
 
             const standName = uniqueNamesGenerator(' ')
+            const enemyStandName = uniqueNamesGenerator(' ')
             var standTextSelf = "***『Stand User』<@" + message.author.id + ">***\n\n***『Stand Name』" + toTitleCase(standName) 
             + "***\n\n*Power - " + selfAbilities[0]
             + "*\n\n*Speed - " + selfAbilities[1] + "*\n\n*Range - " + selfAbilities[2] + "*\n\n"
@@ -165,7 +166,7 @@ class StandGeneratorCommand extends command.Command
             + selfAbilities[5] + "*"
             
             var standTextOpponent = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』"
-             + toTitleCase(standName) + "***\n\n*Power - " + opponentAbilities[0]
+             + toTitleCase(enemyStandName) + "***\n\n*Power - " + opponentAbilities[0]
             + "*\n\n*Speed - " + opponentAbilities[1] + "*\n\n*Range - " + opponentAbilities[2] + "*\n\n"
             + "*Durability - " + opponentAbilities[3] + "*\n\n*Precision - " + opponentAbilities[4] + "*\n\n*Potential - " 
             + opponentAbilities[5] + "*"
