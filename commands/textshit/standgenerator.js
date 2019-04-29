@@ -62,7 +62,7 @@ class StandGeneratorCommand extends command.Command
             if(args.toLowerCase().startsWith("battle "))
             {
                 battle = true;
-                if(!otherUser)
+                if(userID == message.author.id)
                 {
                     message.channel.send("<@" + message.author.id + "> You must tag another user for a stand battle.").catch(error => console.log("Send Error - " + error));
                     return;
