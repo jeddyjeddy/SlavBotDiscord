@@ -143,11 +143,11 @@ class StandGeneratorCommand extends command.Command
 
             var result = ""
 
-            if(selfPoints > opponentAbilities)
+            if(selfPoints > opponentPoints)
             {
                 result = "***<@" + message.author.id + "> has defeated <@" + userID + "> !!!***"
             }
-            else if (selfPoints < opponentAbilities)
+            else if (selfPoints < opponentPoints)
             {
                 result = "***<@" + userID + "> has defeated <@" + message.author.id + "> !!!***"
             }
