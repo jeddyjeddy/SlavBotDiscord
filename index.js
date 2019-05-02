@@ -1130,7 +1130,10 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         const roleName = newRoles[i].name
                         setTimeout(() => {
                             if(premiumSupporter)
-                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron. You will also be allowed to have 1 custom response on Slav Bot. Contact an Admin on the support server to add your response.").catch(error => console.log("Send Error - " + error));
+                            {
+                                DatabaseFunctions.addUserTokens(newMemberData.user.id, 500000)
+                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron. You have also received a one time payment of 500k War Tokens for opting for our highest tier.").catch(error => console.log("Send Error - " + error));
+                            }
                             else
                                 newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron.").catch(error => console.log("Send Error - " + error));
                         }, 500)
