@@ -93,7 +93,7 @@ dbl.on('posted', () => {
             }
         
             var options5 = {
-                url: 'https://discordbots.group/api/bot/' + bot.user.id,
+                url: 'https://api.discordbots.group/v1/bot/' + bot.user.id,
                 method: 'POST',
                 headers: headers5,
                 body: JSON.stringify({"count": guildSize})
