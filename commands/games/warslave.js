@@ -444,7 +444,7 @@ class WarSlaveCommand extends command.Command
                                     if(slaves[i].users[slaveIndex].id == userID)
                                     {
                                         slaveFound = true;
-                                        var value = salves[i].users[slaveIndex].price;
+                                        var value = slaves[i].users[slaveIndex].price;
     
                                         if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
@@ -537,7 +537,7 @@ class WarSlaveCommand extends command.Command
                                     if(slaves[i].users[slaveIndex].id == userID)
                                     {
                                         slaveFound = true;
-                                        var value = salves[i].users[slaveIndex].price;
+                                        var value = slaves[i].users[slaveIndex].price;
     
                                         if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
