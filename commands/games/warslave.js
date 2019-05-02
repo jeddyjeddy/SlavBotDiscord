@@ -101,7 +101,7 @@ class WarSlaveCommand extends command.Command
                     if(slave.users.length > 0)
                     {
                         var copies = false;
-                        for(var i = 0; i < war.countries.length; i++)
+                        for(var i = 0; i < slave.users.length; i++)
                         {
                             for(var slaveIndex = 0; slaveIndex < slave[i].users.length; slaveIndex++)
                             {
@@ -775,7 +775,7 @@ class WarSlaveCommand extends command.Command
                             var timestamp = (new Date(Date.now()).toJSON());
                             for(var index = 0; index < lists.length; index++)
                             {
-                                message.channel.send("", {embed: {title: "***List of Slaves You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Slaves You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
