@@ -101,20 +101,17 @@ class WarSlaveCommand extends command.Command
                     if(slave.users.length > 0)
                     {
                         var copies = false;
-                        for(var i = 0; i < slave.users.length; i++)
+                        for(var slaveIndex = 0; slaveIndex < slave.users.length; slaveIndex++)
                         {
-                            for(var slaveIndex = 0; slaveIndex < slave[i].users.length; slaveIndex++)
+                            for(var slaveIndex2 = 0; slaveIndex2 < slave.users.length; slaveIndex2++)
                             {
-                                for(var slaveIndex2 = 0; slaveIndex2 < slave[i].users.length; slaveIndex2++)
+                                if(slave.users[slaveIndex].id == slave.users[slaveIndex2].id && slaveIndex2 != slaveIndex)
                                 {
-                                    if(slave[i].users[slaveIndex].id == slave[i].users[slaveIndex2].id && slaveIndex2 != slaveIndex)
-                                    {
-                                        slave[i].users.splice(slaveIndex2, 1)
-                                        copies = true;
-                                    }
+                                    slave.users.splice(slaveIndex2, 1)
+                                    copies = true;
                                 }
-
                             }
+
                         }
 
                         if(copies)
