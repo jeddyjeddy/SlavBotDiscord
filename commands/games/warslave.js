@@ -439,6 +439,19 @@ class WarSlaveCommand extends command.Command
                             if(otherUser && userID != message.author.id && !isBot)
                             {
                                 var slaveFound = false;
+                                var selfOwner = "none"
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == message.author.id)
+                                    {
+                                        if(slaves[i].users[slaveIndex].owner != "")
+                                        {
+                                            selfOwner = slaves[i].users[slaveIndex].owner
+                                        }
+                                    }
+                                }
+
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                 {
                                     if(slaves[i].users[slaveIndex].id == userID)
@@ -449,6 +462,14 @@ class WarSlaveCommand extends command.Command
                                         if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
                                             message.channel.send("", {embed: {title: "***Slave Already Owned***", description: "<@" + message.author.id + "> You have already own <@" + userID + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else if(slaves[i].users[slaveIndex].owner != "")
+                                        {
+                                            message.channel.send("", {embed: {title: "***Slave Already Owned***", description: "<@" + slaves[i].users[slaveIndex].owner + "> owns <@" + userID + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else if(slaves[i].users[slaveIndex].id == selfOwner)
+                                        {
+                                            message.channel.send("", {embed: {title: "***Cannot Own Your Master***", description: "<@" + slaves[i].users[slaveIndex].owner + "> owns you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {
