@@ -484,7 +484,7 @@ class WarSlaveCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mentiona a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if (args.toLowerCase().startsWith("sell"))
@@ -561,7 +561,7 @@ class WarSlaveCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mentiona a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if(args.toLowerCase().startsWith("profile"))
@@ -620,19 +620,35 @@ class WarSlaveCommand extends command.Command
                                     }
                                 }
 
+                                var thumbnail = "";
+    
+                                if(user.avatarURL != undefined && user.avatarURL != null)
+                                    thumbnail = user.avatarURL
+
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                 {
                                     if(slaves[i].users[slaveIndex].id == userID)
                                     {
                                         var price = slaves[i].users[slaveIndex].price;
                                         slaveFound = true
-                                        message.channel.send("", {embed: {title: "***Slave Profile for" + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " owns " + count + " slaves.\n" + user.username + " is worth " + numberWithCommas(price) + " war tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        var ownerText = ""
+
+                                        if(slaves[i].users[slaveIndex].owner != "")
+                                        {
+                                            ownerText = "\n\nThis slave is owned by <@" + slaves[i].users[slaveIndex].owner + ">"
+                                        }
+                                        else
+                                        {
+                                            ownerText = "\n\nThis slave is not owned by anyone."
+                                        }
+
+                                        message.channel.send("", {embed: {title: "***Slave Profile for" + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " owns " + count + " slaves.\n" + user.username + " is worth " + numberWithCommas(price) + " war tokens." + ownerText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
 
                                 if(!slaveFound)
                                 {
-                                    message.channel.send("", {embed: {title: "***Slave Profile for" + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " owns " + count + " slaves.\n" + user.username + " is worth 500 war tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Slave Profile for" + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " owns " + count + " slaves.\n" + user.username + " is worth 500 war tokens.\n\nThis slave is not owned by anyone.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     slaves[i].users.push({id: userID,  owner: "", price: 500})
                                 }
                             }
@@ -641,6 +657,8 @@ class WarSlaveCommand extends command.Command
                                 var count = 0;
                                 var price = 500;
                                 var slaveFound = false;
+                                var ownerText = ""
+                                
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                 {
                                     if(slaves[i].users[slaveIndex].owner == message.author.id)
@@ -652,6 +670,15 @@ class WarSlaveCommand extends command.Command
                                     {
                                         price = slaves[i].users[slaveIndex].price;
                                         slaveFound = true;
+                                        
+                                        if(slaves[i].users[slaveIndex].owner != "")
+                                        {
+                                            ownerText = "\n\You are owned by <@" + slaves[i].users[slaveIndex].owner + ">"
+                                        }
+                                        else
+                                        {
+                                            ownerText = "\n\nYou are not owned by anyone."
+                                        }
                                     }
                                 }
 
@@ -666,7 +693,7 @@ class WarSlaveCommand extends command.Command
                                     thumbnail = message.author.avatarURL
     
                                 var timestamp = (new Date(Date.now()).toJSON());
-                                message.channel.send("", {embed: {title: "***Slave Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou own " + count + " slaves.\nYou are worth " + price + " war tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));    
+                                message.channel.send("", {embed: {title: "***Slave Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou own " + count + " slaves.\nYou are worth " + price + " war tokens." + ownerText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));    
                             }
                         }
                         else
