@@ -476,6 +476,11 @@ class WWCommand extends command.Command
                             {  
                                 const date = new Date(IndexRef.getCooldown(message.author.id))
     
+                                if(date == null || date == undefined)
+                                {
+                                    date = new Date()
+                                }
+
                                 if(date.getTime() <= (new Date()).getTime())
                                 {
                                     var maxValue = 2000;
