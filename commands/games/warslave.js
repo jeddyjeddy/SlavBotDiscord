@@ -430,7 +430,7 @@ class WarSlaveCommand extends command.Command
                             var isBot = false;
                             for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                             {
-                                if(mentions[mentionIndex].id == users[userIndex])
+                                if(mentions[mentionIndex].id == userID)
                                 {
                                     isBot = mentions[mentionIndex].bot
                                 }
@@ -523,7 +523,7 @@ class WarSlaveCommand extends command.Command
                             var isBot = false;
                             for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                             {
-                                if(mentions[mentionIndex].id == users[userIndex])
+                                if(mentions[mentionIndex].id == userID)
                                 {
                                     isBot = mentions[mentionIndex].bot
                                 }
