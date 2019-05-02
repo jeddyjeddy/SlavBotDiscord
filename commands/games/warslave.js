@@ -743,20 +743,25 @@ class WarSlaveCommand extends command.Command
 
                             var lists = []
                             var item = ""
-                            var text = ""
+                            var users = []
                             for(var index = 0; index < slaves[i].users.length; index++)
                             {
                                 if(slaves[i].users[index].owner == message.author.id)
                                 {
-                                    text = text + "<@" + slaves[i].users[index].id + ">"
-                                    if((item + text + "\n").length < 2048)
-                                    {
-                                        item = item + text + "\n";
-                                    }
-                                    else
-                                    {
-                                        lists.push(item);
-                                    }
+                                    users.push(slaves[i].users[index].id)
+                                }
+                            }
+
+                            for(var index = 0; index < users.length; index++)
+                            {
+                                var text = "<@" + users[index] + ">"
+                                if((item + text + "\n").length < 2048)
+                                {
+                                    item = item + text + "\n";
+                                }
+                                else
+                                {
+                                    lists.push(item);
                                 }
                             }
 
