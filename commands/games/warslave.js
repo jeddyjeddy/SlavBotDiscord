@@ -517,15 +517,23 @@ class WarSlaveCommand extends command.Command
                                 {
                                     var value = 500;
     
-                                    if(!IndexRef.subtractTokens(message.author.id, value))
+                                    
+                                    if(userID == selfOwner)
                                     {
-                                        message.channel.send("", {embed: {title: "***Failed To Buy Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase <@" + userID + ">. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        slaves[i].users.push({id: userID,  owner: "", price: 500})
+                                        message.channel.send("", {embed: {title: "***Cannot Own Your Master***", description: "<@" + userID + "> owns you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
-                                    {                                                
-                                        message.channel.send("", {embed: {title: "***Successfully Purchased Slave***", description: "<@" + message.author.id + "> You have purchased <@" + userID + ">. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        slaves[i].users.push({id: userID,  owner: message.author.id, price: 500})
+                                    {
+                                        if(!IndexRef.subtractTokens(message.author.id, value))
+                                        {
+                                            message.channel.send("", {embed: {title: "***Failed To Buy Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase <@" + userID + ">. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            slaves[i].users.push({id: userID,  owner: "", price: 500})
+                                        }
+                                        else
+                                        {                                                
+                                            message.channel.send("", {embed: {title: "***Successfully Purchased Slave***", description: "<@" + message.author.id + "> You have purchased <@" + userID + ">. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            slaves[i].users.push({id: userID,  owner: message.author.id, price: 500})
+                                        }
                                     }
                                 }
                             }
