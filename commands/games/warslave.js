@@ -103,13 +103,13 @@ class WarSlaveCommand extends command.Command
                         var copies = false;
                         for(var i = 0; i < war.countries.length; i++)
                         {
-                            for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                            for(var slaveIndex = 0; slaveIndex < slave[i].users.length; slaveIndex++)
                             {
-                                for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
+                                for(var slaveIndex2 = 0; slaveIndex2 < slave[i].users.length; slaveIndex2++)
                                 {
-                                    if(slaves[i].users[slaveIndex].id == slaves[i].users[slaveIndex2].id && slaveIndex2 != slaveIndex)
+                                    if(slave[i].users[slaveIndex].id == slave[i].users[slaveIndex2].id && slaveIndex2 != slaveIndex)
                                     {
-                                        slaves[i].users.splice(slaveIndex2, 1)
+                                        slave[i].users.splice(slaveIndex2, 1)
                                         copies = true;
                                     }
                                 }
@@ -118,7 +118,7 @@ class WarSlaveCommand extends command.Command
                         }
 
                         if(copies)
-                            firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                            firebase.database().ref("serversettings/" + message.guild.id + "/slaves").set(JSON.stringify(slave))
                         
                     }
 
