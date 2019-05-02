@@ -57,7 +57,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)"]
         });
     }
 
@@ -715,6 +715,44 @@ class WarSlaveCommand extends command.Command
     
                                 var timestamp = (new Date(Date.now()).toJSON());
                                 message.channel.send("", {embed: {title: "***Slave Profile for " + message.author.username + "***", description: "You currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\nYou own " + count + " slave(s).\nYou are worth " + price + " war tokens." + ownerText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));    
+                            }
+                        }
+                        else if(args.toLowerCase().startsWith("list"))
+                        {
+
+                            var lists = []
+                            var item = ""
+                            var text = ""
+                            for(var index = 0; index < slaves[i].users.length; index++)
+                            {
+                                if(slaves[i].users[index].owner == message.author.id)
+                                {
+                                    text = text + "<@" + slaves[i].users[index].id + ">"
+                                }
+
+                                if((item + text + "\n").length < 2048)
+                                {
+                                    item = item + text + "\n";
+                                }
+                                else
+                                {
+                                    lists.push(item);
+                                }
+                            }
+
+                            if(item != "")
+                            {
+                                lists.push(item)
+                            }
+                            else if(lists.length == 0)
+                            {
+                                lists.push("No Slaves Owned")
+                            }
+
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            for(var index = 0; index < lists.length; index++)
+                            {
+                                message.channel.send("", {embed: {title: "***List of Slaves You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
