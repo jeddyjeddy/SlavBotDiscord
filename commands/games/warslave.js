@@ -476,7 +476,7 @@ class WarSlaveCommand extends command.Command
 
                                         if(!IndexRef.subtractTokens(message.author.id, freedomValue))
                                         {
-                                            message.channel.send("", {embed: {title: "***Failed To Buy Freedom***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase your freedom. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. Your freedom price is x10 your slave price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Failed To Buy Freedom***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase your freedom. You need " + numberWithCommas(freedomValue) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. Your freedom price is x10 your slave price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {                                                
