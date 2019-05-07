@@ -396,15 +396,16 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
+                                                var priceAdd = Math.floor((Math.random() * amount) + 1)
                                                 IndexRef.subtractTokens(message.author.id, amount)
-                                                IndexRef.addTokens(users[userIndex], amount)
+                                                IndexRef.addTokens(users[userIndex], priceAdd)
                                                 var newPrice = 0;
 
                                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                                 {
                                                     if(slaves[i].users[slaveIndex].id == users[userIndex])
                                                     {
-                                                        newPrice = slaves[i].users[slaveIndex].price + Math.floor((Math.random() * amount) + 1)
+                                                        newPrice = slaves[i].users[slaveIndex].price + priceAdd
                                                         slaves[i].users[slaveIndex].price = newPrice
                                                     }
                                                 }
@@ -412,8 +413,8 @@ class WarSlaveCommand extends command.Command
                                                 var timestamp = (new Date(Date.now()).toJSON());
                                                 
 
-                                                message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> now has a value of " + numberWithCommas(newPrice) + " war tokens.", 
-                                                {embed: {title: "***Gift Given To Slave***", description: "<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> now has a value of " + numberWithCommas(newPrice) + " war tokens.", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Given on"}}}).catch(error => {console.log("Send Error - " + error); });                                                   
+                                                message.channel.send("<@" + message.author.id + "> has has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", 
+                                                {embed: {title: "***Gift Given To Slave***", description: "<@" + message.author.id + "> has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Given on"}}}).catch(error => {console.log("Send Error - " + error); });                                                   
                                             }
                                         }
                                         
