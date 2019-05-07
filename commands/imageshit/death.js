@@ -70,7 +70,7 @@ class DeathCommand extends command.Command
                 }
 
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("death.png").then(function (deathImage) {
+                Jimp.read("death.jpg").then(function (deathImage) {
                     console.log("got image");
                     var BG = new Jimp(deathImage.bitmap.width, deathImage.bitmap.height)
                     Jimp.read(urls[0]).then(function (image1) {
@@ -254,7 +254,7 @@ class DeathCommand extends command.Command
 
             Promise.all(promises).then(() => { 
                 message.channel.send("***calling death***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("death.png").then(function (deathImage) {
+                Jimp.read("death.jpg").then(function (deathImage) {
                     console.log("got image");
                     var BG = new Jimp(deathImage.bitmap.width, deathImage.bitmap.height)
                     Jimp.read(profileURLs[0]).then(function (image1) {
