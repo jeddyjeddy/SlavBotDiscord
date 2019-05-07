@@ -72,23 +72,21 @@ class DeathCommand extends command.Command
                 message.channel.send("***taking images***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("death.jpg").then(function (deathImage) {
                     console.log("got image");
-                    var BG = new Jimp(deathImage.bitmap.width, deathImage.bitmap.height)
                     Jimp.read(urls[0]).then(function (image1) {
                         image1.cover(125, 125)
-                        BG.composite(image1, 635, 35)
+                        deathImage.composite(image1, 635, 35)
                         Jimp.read(urls[1]).then(function (image2) {
                             image2.cover(90, 90)
-                            BG.composite(image2, 335, 35)
+                            deathImage.composite(image2, 335, 35)
                             Jimp.read(urls[2]).then(function (image3) {
                                 image3.cover(80, 80)
-                                BG.composite(image3, 140, 65)
+                                deathImage.composite(image3, 140, 65)
                                 Jimp.read(urls[3]).then(function (image4) {
                                     image4.cover(70, 70)
-                                    BG.composite(image4, 10, 80)
-                                    var mergedImage = BG.composite(deathImage, 0, 0);
+                                    deathImage.composite(image4, 10, 80)
                                 
                                     const file = "TempStorage/" + shortid.generate() + ".png"
-                                    mergedImage.write(file, function(error){
+                                    deathImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
@@ -259,20 +257,19 @@ class DeathCommand extends command.Command
                     var BG = new Jimp(deathImage.bitmap.width, deathImage.bitmap.height)
                     Jimp.read(profileURLs[0]).then(function (image1) {
                         image1.resize(125, 125)
-                        BG.composite(image1, 635, 35)
+                        deathImage.composite(image1, 635, 35)
                         Jimp.read(profileURLs[1]).then(function (image2) {
                             image2.resize(90, 90)
-                            BG.composite(image2, 335, 35)
+                            deathImage.composite(image2, 335, 35)
                             Jimp.read(profileURLs[2]).then(function (image3) {
                                 image3.resize(80, 80)
-                                BG.composite(image3, 140, 65)
+                                deathImage.composite(image3, 140, 65)
                                 Jimp.read(profileURLs[3]).then(function (image4) {
                                     image4.resize(70, 70)
-                                    BG.composite(image4, 10, 80)
-                                    var mergedImage = BG.composite(deathImage, 0, 0);
+                                    deathImage.composite(image4, 10, 80)
                                 
                                     const file = "TempStorage/" + shortid.generate() + ".png"
-                                    mergedImage.write(file, function(error){
+                                    deathImage.write(file, function(error){
                                         if(error) { console.log(error); return;};
                                         console.log("got merged image");
                                         console.log(file);
