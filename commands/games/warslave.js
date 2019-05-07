@@ -480,9 +480,10 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {                                                
-                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             IndexRef.addTokens(selfOwner, value)
                                             slaves[i].users[slaveIndex].owner = "";
+                                            slaves[i].users[slaveIndex].price = freedomValue;
                                         }
                                     }
                                 }

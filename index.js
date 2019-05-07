@@ -1939,6 +1939,7 @@ function arrangeVotes(empty)
                                             highestVoteID = message.id;
                                             var getUser = false;
 
+                                            userID = ""
                                             for(var index = 0; index < messageContent.length; index++)
                                             {
                                                 if(getUser)
