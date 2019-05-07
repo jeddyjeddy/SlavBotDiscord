@@ -258,43 +258,50 @@ class WarSlaveCommand extends command.Command
                             {
                                 amount = amount[0]
 
-                                if(users.length > 0)
+                                if(amount > 0)
                                 {
-                                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                    if(users.length > 0)
                                     {
-                                        if(IndexRef.getTokens(message.author.id) < amount)
+                                        for(var userIndex = 0; userIndex < users.length; userIndex++)
                                         {
-                                            message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to give to another user.").catch(error => {console.log("Send Error - " + error); });   
-                                        }
-                                        else
-                                        {
-                                            var mentions = message.mentions.users.array()
-                                            var isBot = false;
-                                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                            if(IndexRef.getTokens(message.author.id) < amount)
                                             {
-                                                if(mentions[mentionIndex].id == users[userIndex])
-                                                {
-                                                    isBot = mentions[mentionIndex].bot
-                                                }
-                                            }
-
-                                            if(users[userIndex] == message.author.id || isBot)
-                                            {
-                                                message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
+                                                message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to give to another user.").catch(error => {console.log("Send Error - " + error); });   
                                             }
                                             else
                                             {
-                                                IndexRef.subtractTokens(message.author.id, amount)
-                                                IndexRef.addTokens(users[userIndex], amount)
-                                                message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                var mentions = message.mentions.users.array()
+                                                var isBot = false;
+                                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                                {
+                                                    if(mentions[mentionIndex].id == users[userIndex])
+                                                    {
+                                                        isBot = mentions[mentionIndex].bot
+                                                    }
+                                                }
+    
+                                                if(users[userIndex] == message.author.id || isBot)
+                                                {
+                                                    message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
+                                                }
+                                                else
+                                                {
+                                                    IndexRef.subtractTokens(message.author.id, amount)
+                                                    IndexRef.addTokens(users[userIndex], amount)
+                                                    message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                }
                                             }
+                                            
                                         }
-                                        
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
                                     }
                                 }
                                 else
                                 {
-                                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                    message.channel.send("<@" + message.author.id + "> Amount should be greater than 0.").catch(error => {console.log("Send Error - " + error); });   
                                 }
                             }
                             else
@@ -355,74 +362,81 @@ class WarSlaveCommand extends command.Command
                             {
                                 amount = amount[0]
 
-                                if(users.length > 0)
+                                if(amount > 0)
                                 {
-                                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                    if(users.length > 0)
                                     {
-                                        if(IndexRef.getTokens(message.author.id) < amount)
+                                        for(var userIndex = 0; userIndex < users.length; userIndex++)
                                         {
-                                            message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to gift to your slave.").catch(error => {console.log("Send Error - " + error); });   
-                                        }
-                                        else
-                                        {
-                                            var mentions = message.mentions.users.array()
-                                            var isBot = false;
-                                            var thumbnail = "";
-                                                    
-                                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                            if(IndexRef.getTokens(message.author.id) < amount)
                                             {
-                                                if(mentions[mentionIndex].id == users[userIndex])
-                                                {
-                                                    isBot = mentions[mentionIndex].bot
-                                                    
-                                                    if(mentions[mentionIndex].avatarURL != undefined && mentions[mentionIndex].avatarURL != null)
-                                                        thumbnail = mentions[mentionIndex].avatarURL
-                                                }
-                                            }
-
-                                            var owner = false;
-
-                                            for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
-                                            {
-                                                if(slaves[i].users[slaveIndex].owner == message.author.id)
-                                                {
-                                                    owner = true;
-                                                }
-                                            }
-
-                                            if(users[userIndex] == message.author.id || isBot || !owner)
-                                            {
-                                                message.channel.send("<@" + message.author.id + "> tag a slave you own.").catch(error => {console.log("Send Error - " + error); });   
+                                                message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to gift to your slave.").catch(error => {console.log("Send Error - " + error); });   
                                             }
                                             else
                                             {
-                                                var priceAdd = Math.floor((Math.random() * amount) + 1)
-                                                IndexRef.subtractTokens(message.author.id, amount)
-                                                IndexRef.addTokens(users[userIndex], priceAdd)
-                                                var newPrice = 0;
-
-                                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                                var mentions = message.mentions.users.array()
+                                                var isBot = false;
+                                                var thumbnail = "";
+                                                        
+                                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                 {
-                                                    if(slaves[i].users[slaveIndex].id == users[userIndex])
+                                                    if(mentions[mentionIndex].id == users[userIndex])
                                                     {
-                                                        newPrice = slaves[i].users[slaveIndex].price + priceAdd
-                                                        slaves[i].users[slaveIndex].price = newPrice
+                                                        isBot = mentions[mentionIndex].bot
+                                                        
+                                                        if(mentions[mentionIndex].avatarURL != undefined && mentions[mentionIndex].avatarURL != null)
+                                                            thumbnail = mentions[mentionIndex].avatarURL
                                                     }
                                                 }
-
-                                                var timestamp = (new Date(Date.now()).toJSON());
-                                                
-
-                                                message.channel.send("<@" + message.author.id + "> has has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", 
-                                                {embed: {title: "***Gift Given To Slave***", description: "<@" + message.author.id + "> has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Given on"}}}).catch(error => {console.log("Send Error - " + error); });                                                   
+    
+                                                var owner = false;
+    
+                                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                                {
+                                                    if(slaves[i].users[slaveIndex].owner == message.author.id)
+                                                    {
+                                                        owner = true;
+                                                    }
+                                                }
+    
+                                                if(users[userIndex] == message.author.id || isBot || !owner)
+                                                {
+                                                    message.channel.send("<@" + message.author.id + "> tag a slave you own.").catch(error => {console.log("Send Error - " + error); });   
+                                                }
+                                                else
+                                                {
+                                                    var priceAdd = Math.floor((Math.random() * amount) + 1)
+                                                    IndexRef.subtractTokens(message.author.id, amount)
+                                                    IndexRef.addTokens(users[userIndex], priceAdd)
+                                                    var newPrice = 0;
+    
+                                                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                                    {
+                                                        if(slaves[i].users[slaveIndex].id == users[userIndex])
+                                                        {
+                                                            newPrice = slaves[i].users[slaveIndex].price + priceAdd
+                                                            slaves[i].users[slaveIndex].price = newPrice
+                                                        }
+                                                    }
+    
+                                                    var timestamp = (new Date(Date.now()).toJSON());
+                                                    
+    
+                                                    message.channel.send("<@" + message.author.id + "> has has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", 
+                                                    {embed: {title: "***Gift Given To Slave***", description: "<@" + message.author.id + "> has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Given on"}}}).catch(error => {console.log("Send Error - " + error); });                                                   
+                                                }
                                             }
+                                            
                                         }
-                                        
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
                                     }
                                 }
                                 else
                                 {
-                                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                    message.channel.send("<@" + message.author.id + "> Amount should be greater than 0.").catch(error => {console.log("Send Error - " + error); });   
                                 }
                             }
                             else

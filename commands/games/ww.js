@@ -589,43 +589,50 @@ class WWCommand extends command.Command
                                 {
                                     amount = amount[0]
 
-                                    if(users.length > 0)
+                                    if(amount > 0)
                                     {
-                                        for(var userIndex = 0; userIndex < users.length; userIndex++)
+                                        if(users.length > 0)
                                         {
-                                            if(IndexRef.getTokens(message.author.id) < amount)
+                                            for(var userIndex = 0; userIndex < users.length; userIndex++)
                                             {
-                                                message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to give to another user.").catch(error => {console.log("Send Error - " + error); });   
-                                            }
-                                            else
-                                            {
-                                                var mentions = message.mentions.users.array()
-                                                var isBot = false;
-                                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                                if(IndexRef.getTokens(message.author.id) < amount)
                                                 {
-                                                    if(mentions[mentionIndex].id == users[userIndex])
-                                                    {
-                                                        isBot = mentions[mentionIndex].bot
-                                                    }
-                                                }
-
-                                                if(users[userIndex] == message.author.id || isBot)
-                                                {
-                                                    message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
+                                                    message.channel.send("<@" + message.author.id + "> You do not have " + numberWithCommas(amount) + " tokens to give to another user.").catch(error => {console.log("Send Error - " + error); });   
                                                 }
                                                 else
                                                 {
-                                                    IndexRef.subtractTokens(message.author.id, amount)
-                                                    IndexRef.addTokens(users[userIndex], amount)
-                                                    message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                    var mentions = message.mentions.users.array()
+                                                    var isBot = false;
+                                                    for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                                    {
+                                                        if(mentions[mentionIndex].id == users[userIndex])
+                                                        {
+                                                            isBot = mentions[mentionIndex].bot
+                                                        }
+                                                    }
+    
+                                                    if(users[userIndex] == message.author.id || isBot)
+                                                    {
+                                                        message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
+                                                    }
+                                                    else
+                                                    {
+                                                        IndexRef.subtractTokens(message.author.id, amount)
+                                                        IndexRef.addTokens(users[userIndex], amount)
+                                                        message.channel.send("<@" + message.author.id + "> has given " + numberWithCommas(amount) + " token(s) to <@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                                                    }
                                                 }
+                                                
                                             }
-                                            
+                                        }
+                                        else
+                                        {
+                                            message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
                                         }
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                                        message.channel.send("<@" + message.author.id + "> Amount should be greater than 0.").catch(error => {console.log("Send Error - " + error); });   
                                     }
                                 }
                                 else
