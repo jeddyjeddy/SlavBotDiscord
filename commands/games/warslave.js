@@ -57,7 +57,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)"]
         });
     }
 
@@ -442,6 +442,50 @@ class WarSlaveCommand extends command.Command
                             else
                             {
                                 message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
+                            }
+                        }
+                        else if (args.toLowerCase().startsWith("buy freedom"))
+                        {
+                            
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            var selfOwner = "none"
+
+                            for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                            {
+                                if(slaves[i].users[slaveIndex].id == message.author.id)
+                                {
+                                    if(slaves[i].users[slaveIndex].owner != "")
+                                    {
+                                        selfOwner = slaves[i].users[slaveIndex].owner
+                                    }
+                                }
+                            }
+
+                            if(selfOwner == "none")
+                            {
+                                message.channel.send("", {embed: {title: "***No Owner***", description: "<@" + message.author.id + "> You are not owned by anyone.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == message.author.id)
+                                    {
+                                        var value = slaves[i].users[slaveIndex].price;
+                                        var freedomValue = value * 10;
+
+                                        if(!IndexRef.subtractTokens(message.author.id, freedomValue))
+                                        {
+                                            message.channel.send("", {embed: {title: "***Failed To Buy Freedom***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase your freedom. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. Your freedom price is x10 your slave price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {                                                
+                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            IndexRef.addTokens(selfOwner, value)
+                                            slaves[i].users[slaveIndex].owner = "";
+                                        }
+                                    }
+                                }
                             }
                         }
                         else if (args.toLowerCase().startsWith("buy"))
