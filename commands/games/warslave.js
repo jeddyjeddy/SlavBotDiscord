@@ -143,7 +143,7 @@ class WarSlaveCommand extends command.Command
                     {
                         if(args.toLowerCase().startsWith("collect"))
                         {  
-                            const date = new Date(IndexRef.getCooldown(message.author.id))
+                            var date = new Date(IndexRef.getCooldown(message.author.id))
 
                             if(date == null || date == undefined)
                             {

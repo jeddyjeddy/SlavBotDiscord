@@ -474,7 +474,7 @@ class WWCommand extends command.Command
                         {
                             if(args.toLowerCase().startsWith("collect"))
                             {  
-                                const date = new Date(IndexRef.getCooldown(message.author.id))
+                                var date = new Date(IndexRef.getCooldown(message.author.id))
     
                                 if(date == null || date == undefined)
                                 {
@@ -635,7 +635,7 @@ class WWCommand extends command.Command
                             }
                             else if(args.toLowerCase().startsWith("list"))
                             {
-                                const date = new Date(wars[i].listTimestamp)
+                                var date = new Date(wars[i].listTimestamp)
                                 if(date == null || date == undefined)
                                 {
                                     date = new Date()
