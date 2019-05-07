@@ -1921,35 +1921,6 @@ function arrangeVotes(empty)
                             if(message.author.id == bot.user.id && !messageContent.includes(mainVoteMessage))
                             {
                                 console.log("Valid Vote Message")
-                                var getUser = false;
-
-                                if(userID == "")
-                                {
-                                    for(var index = 0; index < messageContent.length; index++)
-                                    {
-                                        if(getUser)
-                                        {
-                                            if(messageContent[index].toString() == ">")
-                                            {
-                                                index = messageContent.length;
-                                            }
-                                            else
-                                            {
-                                                if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
-                                                {
-                                                    userID = userID + messageContent[index].toString();
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if(messageContent[index].toString() == "<")
-                                            {
-                                                 getUser = true;
-                                            } 
-                                        }
-                                    }   
-                                }
 
                                 //Count votes
                                 const reactions = message.reactions.array();
@@ -1966,6 +1937,32 @@ function arrangeVotes(empty)
                                         {
                                             highestVotes = reactions[reactionIndex].count;
                                             highestVoteID = message.id;
+                                            var getUser = false;
+
+                                            for(var index = 0; index < messageContent.length; index++)
+                                            {
+                                                if(getUser)
+                                                {
+                                                    if(messageContent[index].toString() == ">")
+                                                    {
+                                                        index = messageContent.length;
+                                                    }
+                                                    else
+                                                    {
+                                                        if(messageContent[index].toString() != "@" && !isNaN(messageContent[index].toString()))
+                                                        {
+                                                            userID = userID + messageContent[index].toString();
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if(messageContent[index].toString() == "<")
+                                                    {
+                                                         getUser = true;
+                                                    } 
+                                                }
+                                            } 
                                         }
                                     }
                                 }
