@@ -131,8 +131,11 @@ class WWCommand extends command.Command
                         }
                     }
 
-                    if(war.listTimestamp == undefined || war.listTimestamp == null)
+                    if(war.listTimestamp == undefined || war.listTimestamp == null || war.listTimestamp == "")
                     {
+                        if(war.listTimestamp == "")
+                            console.log("EMPTY TIMESTAMP ERROR FOUND")
+
                         war.listTimestamp = (new Date(Date.now()).toJSON());
                         firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
                     }
