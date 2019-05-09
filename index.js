@@ -2419,7 +2419,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                             i = args.length;
                             otherUser = true;
                             if(endIndex == -1)
-                                endIndex = index 
+                                endIndex = i 
                         }
                         else
                         {
@@ -2539,7 +2539,7 @@ bot.on("message", (message) => {
                     {
                          getUser = true;
                          if(endIndex == -1)
-                            endIndex = index 
+                            endIndex = i 
                     } 
                 }
             }
@@ -2557,9 +2557,6 @@ bot.on("message", (message) => {
             {
                 amount = amountText.map(Number);
             }
-
-            console.log(amount)
-            console.log(role)
 
             if(amount.length > 0)
             {
