@@ -2487,7 +2487,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                         }
                         else
                         {
-                            if(!DatabaseFunctions.subtractTokens(user.id, price))
+                            if(!DatabaseFunctions.subtractUserTokens(user.id, price))
                             {
                                 user.send("", {embed: {title: `***Failed To Buy ${roleName}***`, description: "You do not have enough tokens to purchase ***" + roleName + ".*** You need " + numberWithCommas(price) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getTokens(user.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: message.client.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                             }
