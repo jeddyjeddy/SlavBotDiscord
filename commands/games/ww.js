@@ -323,6 +323,7 @@ class WWCommand extends command.Command
                                 wars[i].countries = [];
                                 wars[i].ended = false;
                                 var timestamp = (new Date(Date.now()).toJSON());
+                                wars[i].listTimestamp = timestamp
                                 message.channel.send("", {embed: {title: "***World War***", description: "New WW session has started.\n\n***Guide:***\nFight to conquer the world. Now that a game has started, it will not end until someone conquers every single country there is.\n\nUsers can conquer countries using War Tokens. Users can also take countries from others with tokens (the value of countries increase based on the number of times it has been conquered).\n\nUsers can gather resources using `" + commandPrefix + "ww collect` to earn War Tokens (the tokens can be used in WW games on other servers) that can be used to conquer different countries. These tokens can also be earned by voting for Slav Bot on discordbots.org (use `" + commandPrefix + "vote` to get the link) or by participating in token giveaways on the support server (use `" + commandPrefix + "support` to get the invite link).\n\nYou can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens monthly (use `" + commandPrefix + "patreon` for the patreon link).\n\nYou can also win tokens by using `" + commandPrefix + "dailyspin.\n\nYou can get info on a country using `" + commandPrefix + "ww info <country-name/country-id>` and conquer any country by using `" + commandPrefix + "ww buy <country-name/country-id>`, you can get a list of all the countries using `" + commandPrefix + "ww list`.\n\nYou can also give your tokens to other users by using `" + commandPrefix + "ww give <amount> @User1 @User2`.\n\nDon't be surprised if this game lasts for weeks, no one said you can conquer the world in a day. You can check your profile using `" + commandPrefix + "ww profile [@User (optional)]` to see how many tokens you or another user have and which countries you or another user have conquered. You can also check the local leaderboards for WW Games using `" + commandPrefix + "ww ranks`.\n\nThe server owner can end a session at any time by using `" + commandPrefix + "ww end`.\n\nGood luck everyone, may the best of you win.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Started on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else if(args.toLowerCase().startsWith("ranks"))
@@ -476,9 +477,10 @@ class WWCommand extends command.Command
                         {
                             if(args.toLowerCase().startsWith("collect"))
                             {  
+                                var cooldown = IndexRef.getCooldown(message.author.id)
                                 var date = new Date(IndexRef.getCooldown(message.author.id))
     
-                                if(date == null || date == undefined)
+                                if(cooldown == null || cooldown == undefined || cooldown == "")
                                 {
                                     date = new Date()
                                 }
@@ -645,7 +647,7 @@ class WWCommand extends command.Command
                             else if(args.toLowerCase().startsWith("list"))
                             {
                                 var date = new Date(wars[i].listTimestamp)
-                                if(date == null || date == undefined)
+                                if(wars[i].listTimestamp == null || wars[i].listTimestamp == undefined || wars[i].listTimestamp == "")
                                 {
                                     date = new Date()
                                 }

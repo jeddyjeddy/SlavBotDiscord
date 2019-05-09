@@ -143,9 +143,10 @@ class WarSlaveCommand extends command.Command
                     {
                         if(args.toLowerCase().startsWith("collect"))
                         {  
+                            var cooldown = IndexRef.getCooldown(message.author.id)
                             var date = new Date(IndexRef.getCooldown(message.author.id))
 
-                            if(date == null || date == undefined)
+                            if(cooldown == null || cooldown == undefined || cooldown == "")
                             {
                                 date = new Date()
                             }
