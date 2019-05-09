@@ -3916,6 +3916,15 @@ bot.login(process.env.BOT_TOKEN).then(function()
                         }
                     }
                 })
+
+                var channels = guilds[i].channels.array();
+                for(var index = 0; index < channels.length; index++)
+                {
+                    if(channels[index].id == marketID || channels[index].id == voteChannelID || channels[index].id == suggestionChannelID)
+                    {
+                        channels[index].fetchMessages().catch(error => console.log("On Message Fetch Suggestion Error - " + error));
+                    }
+                }
             }
         }
 
