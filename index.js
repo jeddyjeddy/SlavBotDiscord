@@ -2404,7 +2404,8 @@ bot.on("messageReactionAdd", (reaction, user) => {
         }
         else if(reaction.message.channel.id == marketID)
         {
-            if(reaction.emoji.name == '🛒' && reaction.message.embeds[0].title.contains("For Sale") && !user.bot)
+            console.log("Market reaction")
+            if(reaction.emoji.name == '🛒' && reaction.message.author.id == bot.user.id)
             {
                 var role = "", price = 0
                 var endIndex = -1;
