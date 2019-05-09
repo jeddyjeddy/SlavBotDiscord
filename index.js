@@ -2572,8 +2572,9 @@ bot.on("message", (message) => {
                     }
                 }
 
-                message.channel.send("", {embed: {title: `***${roleName} For Sale***`, description: "***Role:*** <@&" + role + ">\n***Price:*** " + numberWithCommas(price) + " war tokens.\n\nSimply react with 🛒 to buy this role. If the purchase fails, you must react to the message again.", thumbnail: {url: bot.user.avatarURL}, color: 14717196, footer: {icon_url: avatar}}}).then((msg) => {
+                message.channel.send("", {embed: {title: `***${roleName} For Sale***`, description: "***Role:*** <@&" + role + ">\n***Price:*** " + numberWithCommas(price) + " war tokens.\n\nSimply react with 🛒 to buy this role. If the purchase fails, you must react to the message again.", thumbnail: {url: bot.user.avatarURL}, color: 14717196, footer: {icon_url: bot.user.avatarURL}}}).then((msg) => {
                     msg.react('🛒')
+                    message.delete().catch(error => console.log("Delete Error - " + error))
                 }).catch(error => console.log("Send Error - " + error))
             }
         }
@@ -2622,7 +2623,7 @@ bot.on("message", (message) => {
                             authorAvatar = message.author.avatarURL;
                             listenToReactions();
                             message.delete(500).then(() => {
-                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, thumbnail: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: avatar, text: "Submitted on"}}})
+                                message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, thumbnail: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: bot.user.avatarURL, text: "Submitted on"}}})
                                 .then((newMessage) => newMessage.react('✔').then(() => newMessage.react('❌')).catch(error => console.log("Send Error - " + error)));
                                 user.send("Your suggestion has been submitted for approval. You will receive a message once an Admin has made their decision.").catch(error => console.log("Send Error - " + error))
                             }).catch(error => console.log("Delete Error - " + error))
