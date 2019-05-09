@@ -516,8 +516,8 @@ class WWCommand extends command.Command
                                         }
                                     }
 
-                                    if(maxPercInc > 200)
-                                        maxPercInc = 200;
+                                    if(maxPercInc > 1000)
+                                        maxPercInc = 1000;
 
                                     maxValue = Math.floor(2000 * ((maxPercInc/100) + 1))
 

@@ -2,8 +2,6 @@ const command = require("discord.js-commando");
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-const DBL = require("dblapi.js");
-const dbl = new DBL(process.env.DBL_TOKEN);
 
 class BotStatsCommand extends command.Command
  {
@@ -20,10 +18,16 @@ class BotStatsCommand extends command.Command
 
     async run(message, args)
     {
-        dbl.getStats(message.client.user.id).then(stats => {
-            var guildSize = stats.server_count
-            message.channel.send("<@" + message.author.id + "> Slav Bot is currently on " + numberWithCommas(guildSize) + " servers.").catch(error => console.log("Send Error - " + error));
-        })
+        msg.client.shard.fetchClientValues('guilds.size')
+			.then(results => {
+                var guildSize = 0
+				for(var i in results)
+				{
+					guildSize  = guildSize + results[i]
+				}
+                message.channel.send("<@" + message.author.id + "> Slav Bot is currently on " + numberWithCommas(guildSize) + " servers.").catch(error => console.log("Send Error - " + error));
+			})
+			.catch(console.error);
     }
 }
 
