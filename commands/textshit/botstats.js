@@ -18,7 +18,7 @@ class BotStatsCommand extends command.Command
 
     async run(message, args)
     {
-        msg.client.shard.fetchClientValues('guilds.size')
+        message.client.shard.fetchClientValues('guilds.size')
 			.then(results => {
                 var guildSize = 0
 				for(var i in results)
