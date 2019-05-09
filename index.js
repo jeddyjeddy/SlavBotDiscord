@@ -2558,6 +2558,9 @@ bot.on("message", (message) => {
                 amount = amountText.map(Number);
             }
 
+            console.log(amount)
+            console.log(role)
+
             if(amount.length > 0)
             {
                 price = amount[0]
