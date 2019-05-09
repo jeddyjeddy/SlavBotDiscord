@@ -1,6 +1,6 @@
 const commando = require("discord.js-commando");
 const bot = new commando.Client({
-    owner: "281876391535050762",
+    owner: ["281876391535050762", "263945639384055808", "219598209075380225"],
     unknownCommandResponse: false,
     invite: "https://discord.gg/2T259Pf",
     messageCacheMaxSize: 50});
@@ -2060,7 +2060,7 @@ function addToVoteList(currentVotes, empty)
 
                                         for(var userIndex = 0; userIndex < users.length; userIndex++)
                                         {
-                                            if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
+                                            if(users[userIndex].id == bot.client.owners[0].id || users[userIndex].id == bot.client.owners[1].id || users[userIndex].id == bot.client.owners[2].id)
                                             {
                                                 if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
                                                 {
@@ -2199,7 +2199,7 @@ function createVoteMessage(message, empty)
     }
 }
 
-const contributionsChannelID = "483375148108349454"
+const contributionsChannelID = "483375148108349454", marketID = "576018838290694164"
 
 bot.on("messageReactionAdd", (reaction, user) => {
     if(reaction.message.guild.id == supportServerID)
@@ -2402,6 +2402,86 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 }
             }
         }
+        else if(reaction.message.channel.id == marketID)
+        {
+            if(reaction.message.author.id == bot.user.id && reaction.emoji.name == '🛒' && reaction.message.embeds.length > 0 && !user.bot)
+            {
+                var role = "", price = 0
+                var endIndex = -1;
+                var getUser = false;
+                var args = reaction.message.embeds[0].description
+                for(var i = 0; i < args.length; i++)
+                {
+                    if(getUser)
+                    {
+                        if(args[i].toString() == ">")
+                        {
+                            i = args.length;
+                            otherUser = true;
+                            if(endIndex == -1)
+                                endIndex = index 
+                        }
+                        else
+                        {
+                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                            {
+                                role = role + args[i].toString();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(args[i].toString() == "<")
+                        {
+                            getUser = true;
+                        } 
+                    }
+                }
+
+                var options = ""
+        
+                for(var index = endIndex; index < args.length; index++)
+                {
+                    if(args[index] != ",")
+                        options = options + args[index];
+                }
+
+                var amountText = options.match(/\d+/g);
+                var amount = []
+                if(amountText != null)
+                {
+                    amount = amountText.map(Number);
+                }
+
+                if(amount.length > 0)
+                {
+                    price = amount[0]
+
+                    var roles = reaction.message.guild.roles.array()
+                    var roleName = ""
+                    for(var i = 0; roles.length; i++)
+                    {
+                        if(roles[i].id == role)
+                        {
+                            roleName = roles[i].name
+                        }
+                    }
+
+                    if(!DatabaseFunctions.subtractTokens(user.id, price))
+                    {
+                        user.send("", {embed: {title: `***Failed To Buy ${roleName}***`, description: "You do not have enough tokens to purchase ***" + roleName + ".*** You need " + numberWithCommas(price) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getTokens(user.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: message.client.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                    }
+                    else
+                    {                                                
+                        reaction.message.guild.fetchMember(user).then(function(member){
+                            member.addRole(role).then(() => {
+                                user.send("You have successfully purchased the ***" + roleName + "*** role for " + numberWithCommas(price) + " war tokens!", {embed: {title: `***${roleName} Bought***`, description: "You have successfully purchased the ***" + roleName + "*** role. You now have " + numberWithCommas(DatabaseFunctions.getTokens(message.author.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: message.client.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            }).catch(error => console.log("Role Error - " + error))
+                        })
+                    }
+                }
+            }
+        }
     }
 })
 
@@ -2428,6 +2508,74 @@ bot.on("message", (message) => {
         if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
         {
             levelUp(message.author, message.channel);
+        }
+
+        if(message.channel.id == marketID && message.author.id == bot.client.owners[0].id)
+        {
+            var role = "", price = 0
+            var endIndex = -1;
+            var getUser = false;
+            var args = message.content
+            for(var i = 0; i < args.length; i++)
+            {
+                if(getUser)
+                {
+                    if(args[i].toString() == ">")
+                    {
+                        i = args.length;
+                        otherUser = true;
+                    }
+                    else
+                    {
+                        if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                        {
+                            role = role + args[i].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[i].toString() == "<")
+                    {
+                         getUser = true;
+                         if(endIndex == -1)
+                            endIndex = index 
+                    } 
+                }
+            }
+
+            var options = ""
+    
+            for(var index = 0; index < endIndex; index++)
+            {
+                options = options + args[index];
+            }
+
+            var amountText = options.match(/\d+/g);
+            var amount = []
+            if(amountText != null)
+            {
+                amount = amountText.map(Number);
+            }
+
+            if(amount.length > 0)
+            {
+                price = amount[0]
+
+                var roles = message.guild.roles.array()
+                var roleName = ""
+                for(var i = 0; roles.length; i++)
+                {
+                    if(roles[i].id == role)
+                    {
+                        roleName = roles[i].name
+                    }
+                }
+
+                message.channel.send("", {embed: {title: `***${roleName} For Sale***`, description: "***Role:*** <@&" + role + ">\n***Price:*** " + numberWithCommas(price) + " war tokens.\n\nSimply react with 🛒 to buy this role. If the purchase fails, you must react to the message again.", thumbnail: {url: bot.user.avatarURL}, color: 14717196, footer: {icon_url: avatar}}}).then((msg) => {
+                    msg.react('🛒')
+                }).catch(error => console.log("Send Error - " + error))
+            }
         }
 
         if(message.channel.id == suggestionChannelID && message.author.id != bot.user.id)
