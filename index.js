@@ -2452,7 +2452,9 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 {
                     amount = amountText.map(Number);
                 }
-
+                console.log(roleName)
+                console.log(role)
+                console.log(price)
                 if(amount.length > 0)
                 {
                     price = amount[0]
@@ -2466,10 +2468,6 @@ bot.on("messageReactionAdd", (reaction, user) => {
                             roleName = roles[i].name
                         }
                     }
-
-                    console.log(roleName)
-                    console.log(role)
-                    console.log(price)
 
                     const finalPrice = price
                     const name = roleName
