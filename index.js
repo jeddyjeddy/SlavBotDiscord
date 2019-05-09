@@ -2060,7 +2060,7 @@ function addToVoteList(currentVotes, empty)
 
                                         for(var userIndex = 0; userIndex < users.length; userIndex++)
                                         {
-                                            if(users[userIndex].id == bot.owners[0].id || users[userIndex].id == bot.owners[1].id || users[userIndex].id == bot.owners[2].id)
+                                            if(users[userIndex].id == "281876391535050762" || users[userIndex].id == "263945639384055808" || users[userIndex].id == "219598209075380225")
                                             {
                                                 if(reaction.emoji.name == '✔' && voteCounter < voteLimit)
                                                 {
@@ -2510,7 +2510,7 @@ bot.on("message", (message) => {
             levelUp(message.author, message.channel);
         }
 
-        if(message.channel.id == marketID && message.author.id == bot.owners[0].id)
+        if(message.channel.id == marketID && message.author.id == "281876391535050762")
         {
             var role = "", price = 0
             var endIndex = -1;
