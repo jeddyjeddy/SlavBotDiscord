@@ -2423,7 +2423,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
                         }
                         else
                         {
-                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                            if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] != "&"))
                             {
                                 role = role + args[i].toString();
                             }
@@ -2527,7 +2527,7 @@ bot.on("message", (message) => {
                     }
                     else
                     {
-                        if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                        if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] != "&"))
                         {
                             role = role + args[i].toString();
                         }
