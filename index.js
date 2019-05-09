@@ -2467,12 +2467,18 @@ bot.on("messageReactionAdd", (reaction, user) => {
                         }
                     }
 
+                    console.log(roleName)
+                    console.log(role)
+                    console.log(price)
+
+                    const finalPrice = price
+                    const name = roleName
 
                     reaction.message.guild.fetchMember(user).then(function(member){
 
                         var hasRole = false;
                         var userRoles = member.roles.array()
-
+                                            
                         for(var i = 0; i < userRoles.length; i++)
                         {
                             if(userRoles[i].id == role)
@@ -2483,18 +2489,22 @@ bot.on("messageReactionAdd", (reaction, user) => {
                         
                         if(hasRole)
                         {
-                            member.send("", {embed: {title: `***${roleName} Already Purchased***`, description: "You have alread purchased ***" + roleName + ".***", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            member.send("", {embed: {title: `***${name} Already Purchased***`, description: "You have alread purchased ***" + name + ".***", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            console.log("Already has role")
                         }
                         else
                         {
-                            if(!DatabaseFunctions.subtractUserTokens(member.id, price))
+                            if(!DatabaseFunctions.subtractUserTokens(member.id, finalPrice))
                             {
-                                member.send("", {embed: {title: `***Failed To Buy ${roleName}***`, description: "You do not have enough tokens to purchase ***" + roleName + ".*** You need " + numberWithCommas(price) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                                member.send("", {embed: {title: `***Failed To Buy ${name}***`, description: "You do not have enough tokens to purchase ***" + name + ".*** You need " + numberWithCommas(finalPrice) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                                console.log("Already has role")
                             }
                             else
-                            {                                                
+                            {                                 
+                                console.log("Got Role")               
                                 member.addRole(role).then(() => {
-                                    member.send("You have successfully purchased the ***" + roleName + "*** role for " + numberWithCommas(price) + " war tokens!", {embed: {title: `***${roleName} Bought***`, description: "You have successfully purchased the ***" + roleName + "*** role. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                                    console.log("Role Added")
+                                    member.send("You have successfully purchased the ***" + name + "*** role for " + numberWithCommas(finalPrice) + " war tokens!", {embed: {title: `***${name} Bought***`, description: "You have successfully purchased the ***" + name + "*** role. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                                 }).catch(error => console.log("Role Error - " + error))
                             }  
                         }  
