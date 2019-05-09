@@ -2459,7 +2459,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
 
                     var roles = reaction.message.guild.roles.array()
                     var roleName = ""
-                    for(var i = 0; roles.length; i++)
+                    for(var i = 0; i < roles.length; i++)
                     {
                         if(roles[i].id == role)
                         {
@@ -2564,7 +2564,7 @@ bot.on("message", (message) => {
 
                 var roles = message.guild.roles.array()
                 var roleName = ""
-                for(var i = 0; roles.length; i++)
+                for(var i = 0; i < roles.length; i++)
                 {
                     if(roles[i].id == role)
                     {
