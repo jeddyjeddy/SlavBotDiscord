@@ -2404,7 +2404,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
         }
         else if(reaction.message.channel.id == marketID)
         {
-            if(reaction.emoji.name == '🛒' && reaction.message.embeds.length > 0 && !user.bot)
+            if(reaction.message.author.id == bot.user.id && reaction.emoji.name == '🛒' && reaction.message.embeds.length > 0 && !user.bot)
             {
                 var role = "", price = 0
                 var endIndex = -1;
@@ -2452,6 +2452,9 @@ bot.on("messageReactionAdd", (reaction, user) => {
                 {
                     amount = amountText.map(Number);
                 }
+
+                console.log(amount)
+                console.log(role)
 
                 if(amount.length > 0)
                 {
