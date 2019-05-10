@@ -1467,7 +1467,7 @@ async function initData() {
                                             if(hasRole)
                                             {
                                                 if(botMember.hasPermission("ADMINISTRATOR") || botMember.hasPermission("MANAGE_ROLES")){
-                                                    member.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                    member.removeRole(muteRole).catch(error => console.log("Role Error - " + error));
                                                     removeMutedUser(data.key, data.data[i].key)
                                                 }
                                             } 
@@ -1492,7 +1492,7 @@ async function initData() {
                                                 if(hasRole)
                                                 {
                                                     if(botRef.hasPermission("ADMINISTRATOR") || botRef.hasPermission("MANAGE_ROLES")){
-                                                        memberRef.removeRole(muteRole).catch(error => console.log("Send Error - " + error));
+                                                        memberRef.removeRole(muteRole).catch(error => console.log("Role Error - " + error));
                                                         removeMutedUser(savedData.key, savedData.data[dataIndex].key)
                                                     }
                                                 }
@@ -1668,6 +1668,7 @@ bot.on("guildMemberAdd", (member) => {
     {
         var roles = member.roles.array()                    
         var hasGopnikRole = false, hasSlavRole = false;
+        var gopnikRoleRef, slavRoleRef;
         for(var i = 0; i < roles.length; i++)
         {
             if(roles[i].id == gopnikRole)
@@ -1682,15 +1683,11 @@ bot.on("guildMemberAdd", (member) => {
 
         if(hasGopnikRole)
         {
-            firebase.database().ref("patrons/" + member.id).set(1)
+            member.removeRole(gopnikRole).then(member.addRole(gopnikRole).catch(error => console.log("Role Error - " + error))).catch(error => console.log("Role Error - " + error))
         }
         else if(hasSlavRole)
         {
-            firebase.database().ref("patrons/" + member.id).set(0)
-        }
-        else
-        {
-            firebase.database().ref("patrons/" + member.id).remove()
+            member.removeRole(slavRole).then(member.addRole(slavRole).catch(error => console.log("Role Error - " + error))).catch(error => console.log("Role Error - " + error))
         }
     }
 
