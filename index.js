@@ -3860,7 +3860,7 @@ function verifyPatrons(members)
                 }
 
                 if(!joined)
-                    snap.ref().remove();
+                    snap.ref.remove();
             })
         }
     })
