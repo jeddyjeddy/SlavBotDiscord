@@ -481,10 +481,11 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {                                                
-                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.\n\nYou have a 10 minute freedom cooldown period in which no one can purchase you.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             IndexRef.addTokens(selfOwner, value)
                                             slaves[i].users[slaveIndex].owner = "";
                                             slaves[i].users[slaveIndex].price = freedomValue;
+                                            slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 600000)).toJSON()
                                         }
                                     }
                                 }
@@ -569,15 +570,35 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {
-                                            if(!IndexRef.subtractTokens(message.author.id, value))
+                                            var freedomCooldownOver = true;
+                                            var cooldownTimestamp = "";
+                                            if(slaves[i].users[slaveIndex].cooldown != null && slaves[i].users[slaveIndex].cooldown != undefined && slaves[i].users[slaveIndex].cooldown != "")
                                             {
-                                                message.channel.send("", {embed: {title: "***Failed To Buy Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase <@" + userID + ">. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                var time = new Date(slaves[i].users[slaveIndex].cooldown)
+
+                                                if((new Date()).getTime() < time.getTime())
+                                                {
+                                                    freedomCooldownOver = false;
+                                                    cooldownTimestamp = slaves[i].users[slaveIndex].cooldown;
+                                                }
+                                            }
+
+                                            if(freedomCooldownOver)
+                                            {
+                                                if(!IndexRef.subtractTokens(message.author.id, value))
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Failed To Buy Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase <@" + userID + ">. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                                else
+                                                {                                                
+                                                    message.channel.send("", {embed: {title: "***Successfully Purchased Slave***", description: "<@" + message.author.id + "> You have purchased <@" + userID + ">. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    
+                                                    slaves[i].users[slaveIndex].owner = message.author.id;
+                                                }
                                             }
                                             else
-                                            {                                                
-                                                message.channel.send("", {embed: {title: "***Successfully Purchased Slave***", description: "<@" + message.author.id + "> You have purchased <@" + userID + ">. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                
-                                                slaves[i].users[slaveIndex].owner = message.author.id;
+                                            {
+                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to purchase <@" + userID + "> until their 10 minute freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
