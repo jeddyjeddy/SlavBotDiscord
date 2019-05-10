@@ -19,7 +19,7 @@ Manager.on("message", (shard, message) => {
             var data = JSON.parse(message)
             if(data["respawnAlert"] == "all")
             {
-                if(shardToUse.id == shard.id + 1)
+                if(shardToUse.id == shard.id)
                 {
                     Manager.respawnAll()
                 }
