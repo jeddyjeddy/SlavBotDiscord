@@ -201,7 +201,7 @@ class WarSlaveCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***Cooldown***", description: "<@" + message.author.id + "> You cannot collect more slave trading resources until the 2 minute cooldown is over.", color: 65339, timestamp: IndexRef.getCooldown(message.author.id), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Cooldown***", description: "<@" + message.author.id + "> You cannot collect more slave trading resources until the 2 hour cooldown is over.", color: 65339, timestamp: IndexRef.getCooldown(message.author.id), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                             }
                                 
                             
@@ -481,11 +481,11 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {                                                
-                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.\n\nYou have a 10 minute freedom cooldown period in which no one can purchase you.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back.\n\nYou have a 2 hour freedom cooldown period in which no one can purchase you.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             IndexRef.addTokens(selfOwner, value)
                                             slaves[i].users[slaveIndex].owner = "";
                                             slaves[i].users[slaveIndex].price = freedomValue;
-                                            slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 600000)).toJSON()
+                                            slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
                                         }
                                     }
                                 }
@@ -598,7 +598,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to purchase <@" + userID + "> until their 10 minute freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to purchase <@" + userID + "> until their 2 hour freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
