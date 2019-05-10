@@ -1668,7 +1668,6 @@ bot.on("guildMemberAdd", (member) => {
     {
         var roles = member.roles.array()                    
         var hasGopnikRole = false, hasSlavRole = false;
-        var gopnikRoleRef, slavRoleRef;
         for(var i = 0; i < roles.length; i++)
         {
             if(roles[i].id == gopnikRole)
