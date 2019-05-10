@@ -1663,6 +1663,37 @@ bot.on("channelCreate", (channel) => {
 var welcomeResponses = ["Hail, comrade,", "Pass the semechki,", "Nice addidas tracksuit,", "You're not a Western spy, right?", "Let's see who can squat longer,", "Heels touch ground when Slavs are around,"];
 
 bot.on("guildMemberAdd", (member) => {
+
+    if(member.guild.id == supportServerID)
+    {
+        var roles = member.roles.array()                    
+        var hasGopnikRole = false, hasSlavRole = false;
+        for(var i = 0; i < roles.length; i++)
+        {
+            if(roles[i].id == gopnikRole)
+            {
+                hasGopnikRole = true;
+            }
+            else if (roles[i].id == slavRole)
+            {
+                hasSlavRole = true;
+            }
+        }
+
+        if(hasGopnikRole)
+        {
+            firebase.database().ref("patrons/" + member.id).set(1)
+        }
+        else if(hasSlavRole)
+        {
+            firebase.database().ref("patrons/" + member.id).set(0)
+        }
+        else
+        {
+            firebase.database().ref("patrons/" + member.id).remove()
+        }
+    }
+
     var hasWelcome = false;
     var channelID;
     for(var i = 0; i < welcomeData.length; i++)
