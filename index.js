@@ -1696,6 +1696,12 @@ bot.on("guildMemberAdd", (member) => {
 bot.on("guildMemberRemove", (member) => {
     var hasWelcome = false;
     var channelID;
+
+    if(member.guild.id == supportServerID)
+    {
+        firebase.database().ref("patrons/" + member.id).remove()
+    }
+
     for(var i = 0; i < welcomeData.length; i++)
     {
         if(welcomeData[i].key == member.guild.id)
@@ -3838,6 +3844,28 @@ function paySupporters()
     
 }
 
+function verifyPatrons(members)
+{
+    firebase.database().ref("patrons").once('value').then(function(snapshot) {
+        if(snapshot.val() != null)
+        {
+            snapshot.forEach(snap => {
+                var joined = false
+                for(var i = 0; i < members.length; i++)
+                {
+                    if(members[i].id == snap.key)
+                    {
+                        joined = true
+                    }
+                }
+
+                if(!joined)
+                    snap.ref().remove();
+            })
+        }
+    })
+}
+
 bot.login(process.env.BOT_TOKEN).then(function()
 {    
     signedIntoDiscord = true;
@@ -3853,7 +3881,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
             if(guilds[i].id == supportServerID)
             {
                 var members = guilds[i].members.array()
-
+                verifyPatrons(members)
                 members.forEach(member => {
                     var roles = member.roles.array()                    
                     var hasGopnikRole = false, hasSlavRole = false;
