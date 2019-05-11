@@ -1744,10 +1744,28 @@ bot.on("guildMemberRemove", (member) => {
     var channelID;
 
     if(member.guild.id == supportServerID)
-    {        
-        firebase.database().ref("patrons/" + member.id).remove()
-    }
+    {
+        var roles = member.roles.array()                    
+        var hasGopnikRole = false, hasSlavRole = false;
+        for(var i = 0; i < roles.length; i++)
+        {
+            if(roles[i].id == gopnikRole)
+            {
+                hasGopnikRole = true;
+            }
+            else if (roles[i].id == slavRole)
+            {
+                hasSlavRole = true;
+            }
+        }
 
+        if(hasGopnikRole || hasSlavRole)
+        {
+            member.send("Your patreon benefits are no longer active, you must join the support server again to regain them.").catch(error => console.log("Send Error - " + error))
+            firebase.database().ref("patrons/" + member.id).remove()
+        }
+    }
+    
     for(var i = 0; i < welcomeData.length; i++)
     {
         if(welcomeData[i].key == member.guild.id)
