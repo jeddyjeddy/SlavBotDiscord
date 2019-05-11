@@ -1086,6 +1086,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
+                        var alreadyGiven = false;
                         var promises = [];
                         
                         for(var index = 0; index < channels.length; index++)
@@ -1103,6 +1104,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                             if(allMessages[msgIndex].content.indexOf(userIDText) > -1)
                                             {
                                                 added = true;
+                                                alreadyGiven = true;
                                             }
                                             else
                                             {
@@ -1128,7 +1130,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
 
                         const roleName = newRoles[i].name
 
-                        if(added)
+                        if(alreadyGiven)
                         {
                             if(premiumSupporter)
                                 newMemberData.user.send("Welcome Back! Your benefits for ***" + premiumRoleName + "*** tier have been added back.").catch(error => console.log("Send Error - " + error));
@@ -1160,6 +1162,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         var channels = newMemberData.guild.channels.array();
                         var userIDText = "\n<@" + newMemberData.id + ">"
                         var added = false;
+                        var alreadyGiven = false;
                         var promises = [];
                         
                         for(var index = 0; index < channels.length; index++)
@@ -1177,6 +1180,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                             if(allMessages[msgIndex].content.indexOf(userIDText) > -1)
                                             {
                                                 added = true;
+                                                alreadyGiven = true;
                                             }
                                             else
                                             {
@@ -1202,7 +1206,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
 
                         const roleName = newRoles[i].name
 
-                        if(added)
+                        if(alreadyGiven)
                         {
                             newMemberData.user.send("Welcome Back! Your benefits for ***" + roleName + "*** tier have been added back.").catch(error => console.log("Send Error - " + error));
                         }
@@ -1765,7 +1769,7 @@ bot.on("guildMemberRemove", (member) => {
             firebase.database().ref("patrons/" + member.id).remove()
         }
     }
-    
+
     for(var i = 0; i < welcomeData.length; i++)
     {
         if(welcomeData[i].key == member.guild.id)
