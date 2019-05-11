@@ -1135,15 +1135,15 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                         }
                                         else
                                         {
-                                            DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                                            DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000)
                                             setTimeout(() => {
                                                 if(premiumSupporter)
                                                 {
                                                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 500000)
-                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron. You have also received a one time payment of 500k War Tokens for opting for our highest tier.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
+                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 250k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron. You have also received a one time payment of 500k War Tokens for opting for our highest tier.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
                                                 }
                                                 else
-                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
+                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 250k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
                                             }, 500)
                                         }
                                      
@@ -1208,9 +1208,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                         }
                                         else
                                         {
-                                            DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                                            DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
                                             setTimeout(() => {
-                                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 50k War Tokens for the World War and War Slave games and will receive this every month as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
+                                                newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-slavs* channel in Slav Support. You have also been given 100k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
                                             }, 500)
                                         }
                                         
@@ -3858,6 +3858,21 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
+function ordinalSuffix(i) {
+    var j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
+
 function paySupporters()
 {
     var guilds = bot.guilds.array()
@@ -3877,17 +3892,17 @@ function paySupporters()
                         const today = new Date()
                         if(role.id == gopnikRole)
                         {
-                            DatabaseFunctions.addUserTokens(member.id, 100000)
+                            DatabaseFunctions.addUserTokens(member.id, 250000)
                             setTimeout(() => {
-                                member.send("You have been given your monthly payment of 100k War Tokens for " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                member.send("You have been given your weekly payment of 250k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             }, 500)
                             payed = true;
                         }
                         else if(role.id == slavRole)
                         {
-                            DatabaseFunctions.addUserTokens(member.id, 50000)
+                            DatabaseFunctions.addUserTokens(member.id, 100000)
                             setTimeout(() => {
-                                member.send("You have been given your monthly payment of 50k War Tokens " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                member.send("You have been given your weekly payment of 100k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
                             }, 500)
                             payed = true;
                         }
@@ -3897,12 +3912,9 @@ function paySupporters()
 
             var paymentDate = (new Date(Date.now()));
             firebase.database().ref("patreondate").set(paymentDate.toJSON())
-            var scheduleDate;
-            if (paymentDate.getMonth() == 11) {
-                scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
-            } else {
-                scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
-            }
+            var scheduleDate = new Date();
+            scheduleDate.setDate(paymentDate.getDate() + 7);
+            scheduleDate.setHours(0, 0, 0, 0)
 
             schedule.scheduleJob(scheduleDate, function(){
                 paySupporters()
@@ -3993,18 +4005,15 @@ bot.login(process.env.BOT_TOKEN).then(function()
                     {
                         paymentDate = new Date(snapshot.val());
 
-                        if(today.getMonth() != paymentDate.getMonth())
+                        if(today.getDate() >= paymentDate.getDate() + 7)
                         {
                             paySupporters();
                         }
                         else
                         {
-                            var scheduleDate;
-                            if (paymentDate.getMonth() == 11) {
-                                scheduleDate = new Date(paymentDate.getFullYear() + 1, 0, 1);
-                            } else {
-                                scheduleDate = new Date(paymentDate.getFullYear(), paymentDate.getMonth() + 1, 1);
-                            }
+                            var scheduleDate = new Date();
+                            scheduleDate.setDate(paymentDate.getDate() + 7);
+                            scheduleDate.setHours(0, 0, 0, 0)
     
                             schedule.scheduleJob(scheduleDate, function(){
                                 paySupporters()
