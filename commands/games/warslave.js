@@ -487,6 +487,7 @@ class WarSlaveCommand extends command.Command
                                             else
                                             {
                                                 var requestFound = false;
+                                                var indexToRemove = -1;
                                                 for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
                                                 {
                                                     if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
@@ -504,12 +505,25 @@ class WarSlaveCommand extends command.Command
                                                             }
                                                         }
                                                         message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted**", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                        slaves[i].users[slaveIndex].requests[requestIndex].splice(requestIndex, 1)
+                                                        indexToRemove = requestIndex
                                                     }
                                                 }
 
                                                 if(!requestFound)
                                                     message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                else
+                                                {
+                                                    var newRequests = []
+                                                    for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                                    {
+                                                        if(requestIndex != indexToRemove)
+                                                        {
+                                                            newRequests.push(slaves[i].users[slaveIndex].requests[requestIndex])
+                                                        }
+                                                    }
+
+                                                    slaves[i].users[slaveIndex].requests = newRequests
+                                                }
                                             }
                                         }
                                     } 
@@ -553,18 +567,33 @@ class WarSlaveCommand extends command.Command
                                             else
                                             {
                                                 var requestFound = false;
+                                                var indexToRemove = -1;
+                                                
                                                 for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
                                                 {
                                                     if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
                                                     {
                                                         requestFound = true;
                                                         message.channel.send("<@" + requestUser + ">", {embed: {title: "***Trade Request Denied**", description: "<@" + message.author.id + "> has denied the trade request of <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                        slaves[i].users[slaveIndex].requests[requestIndex].splice(requestIndex, 1)
+                                                        indexToRemove = requestIndex
                                                     }
                                                 }
 
                                                 if(!requestFound)
                                                     message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                else
+                                                {
+                                                    var newRequests = []
+                                                    for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                                    {
+                                                        if(requestIndex != indexToRemove)
+                                                        {
+                                                            newRequests.push(slaves[i].users[slaveIndex].requests[requestIndex])
+                                                        }
+                                                    }
+
+                                                    slaves[i].users[slaveIndex].requests = newRequests
+                                                }
                                             }
                                         }
                                     } 
