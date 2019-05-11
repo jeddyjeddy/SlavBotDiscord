@@ -451,6 +451,7 @@ class WarSlaveCommand extends command.Command
 
                             if(args.toLowerCase().startsWith("trade accept"))
                             {
+                                var mentions = message.mentions.users.array()
                                 var requestUser = ""
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
@@ -516,6 +517,7 @@ class WarSlaveCommand extends command.Command
                             }
                             else if(args.toLowerCase().startsWith("trade decline"))
                             {
+                                var mentions = message.mentions.users.array()
                                 var requestUser = ""
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
