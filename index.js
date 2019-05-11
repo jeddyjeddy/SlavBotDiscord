@@ -1157,7 +1157,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 else if(newRoles[i].id == slavRole)
                 {
                     const roleName = newRoles[i].name
-                    
+
                     if(newSlavSupporter)
                     {
                         console.log("New Slav Supporter")
@@ -1765,7 +1765,7 @@ bot.on("guildMemberRemove", (member) => {
 
         if(hasGopnikRole || hasSlavRole)
         {
-            member.send("Your patreon benefits are no longer active, you must join the support server again to regain them.").catch(error => console.log("Send Error - " + error))
+            member.send("Your patreon benefits are no longer active, you must join the support server again and contact the owner to regain them.").catch(error => console.log("Send Error - " + error))
             firebase.database().ref("patrons/" + member.id).remove()
         }
     }
