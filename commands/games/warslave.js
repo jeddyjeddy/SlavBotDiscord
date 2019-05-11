@@ -394,7 +394,7 @@ class WarSlaveCommand extends command.Command
     
                                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                                 {
-                                                    if(slaves[i].users[slaveIndex].owner == message.author.id)
+                                                    if(slaves[i].users[slaveIndex].owner == message.author.id && slaves[i].users[slaveIndex].id == users[userIndex])
                                                     {
                                                         owner = true;
                                                     }
