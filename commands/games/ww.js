@@ -606,16 +606,17 @@ class WWCommand extends command.Command
                                                 else
                                                 {
                                                     var mentions = message.mentions.users.array()
-                                                    var isBot = false;
+                                                    var isBot = false, notValid = true;
                                                     for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                     {
-                                                        if(mentions[mentionIndex].id == users[userIndex])
+                                                        if(mentions[mentionIndex].id == userID)
                                                         {
                                                             isBot = mentions[mentionIndex].bot
+                                                            notValid = false;
                                                         }
                                                     }
     
-                                                    if(users[userIndex] == message.author.id || isBot)
+                                                    if(users[userIndex] == message.author.id || isBot || notValid)
                                                     {
                                                         message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
                                                     }

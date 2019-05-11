@@ -117,6 +117,12 @@ class WarSlaveCommand extends command.Command
                                 }
                             }
 
+                            if(slave.users[slaveIndex].id.contains("&"))
+                            {
+                                slave.users.splice(slaveIndex, 1)
+                                copies = true;
+                            }
+
                         }
 
                         if(copies)
@@ -272,16 +278,17 @@ class WarSlaveCommand extends command.Command
                                             else
                                             {
                                                 var mentions = message.mentions.users.array()
-                                                var isBot = false;
+                                                var isBot = false, notValid = true;
                                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                 {
-                                                    if(mentions[mentionIndex].id == users[userIndex])
+                                                    if(mentions[mentionIndex].id == userID)
                                                     {
                                                         isBot = mentions[mentionIndex].bot
+                                                        notValid = false;
                                                     }
                                                 }
     
-                                                if(users[userIndex] == message.author.id || isBot)
+                                                if(users[userIndex] == message.author.id || isBot || notValid)
                                                 {
                                                     message.channel.send("<@" + message.author.id + "> tag another user.").catch(error => {console.log("Send Error - " + error); });   
                                                 }
@@ -376,7 +383,7 @@ class WarSlaveCommand extends command.Command
                                             else
                                             {
                                                 var mentions = message.mentions.users.array()
-                                                var isBot = false;
+                                                var isBot = false, notValid = true;
                                                 var thumbnail = "";
                                                         
                                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
@@ -384,7 +391,7 @@ class WarSlaveCommand extends command.Command
                                                     if(mentions[mentionIndex].id == users[userIndex])
                                                     {
                                                         isBot = mentions[mentionIndex].bot
-                                                        
+                                                        notValid = false;
                                                         if(mentions[mentionIndex].avatarURL != undefined && mentions[mentionIndex].avatarURL != null)
                                                             thumbnail = mentions[mentionIndex].avatarURL
                                                     }
@@ -400,7 +407,7 @@ class WarSlaveCommand extends command.Command
                                                     }
                                                 }
     
-                                                if(users[userIndex] == message.author.id || isBot || !owner)
+                                                if(users[userIndex] == message.author.id || isBot || !owner || notValid)
                                                 {
                                                     message.channel.send("<@" + message.author.id + "> tag a slave you own.").catch(error => {console.log("Send Error - " + error); });   
                                                 }
@@ -788,16 +795,17 @@ class WarSlaveCommand extends command.Command
 
                             var timestamp = (new Date(Date.now()).toJSON());
                             var mentions = message.mentions.users.array()
-                            var isBot = false;
+                            var isBot = false, notValid = true;
                             for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                             {
                                 if(mentions[mentionIndex].id == userID)
                                 {
                                     isBot = mentions[mentionIndex].bot
+                                    notValid = false;
                                 }
                             }
 
-                            if(otherUser && userID != message.author.id && !isBot)
+                            if(otherUser && userID != message.author.id && !isBot && !notValid)
                             {
                                 var slaveFound = false;
                                 var selfOwner = "none"
@@ -930,16 +938,17 @@ class WarSlaveCommand extends command.Command
 
                             var timestamp = (new Date(Date.now()).toJSON());
                             var mentions = message.mentions.users.array()
-                            var isBot = false;
+                            var isBot = false, notValid = true;
                             for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                             {
                                 if(mentions[mentionIndex].id == userID)
                                 {
                                     isBot = mentions[mentionIndex].bot
+                                    notValid = false;
                                 }
                             }
 
-                            if(otherUser && userID != message.author.id && !isBot)
+                            if(otherUser && userID != message.author.id && !isBot && !notValid)
                             {
                                 var slaveFound = false;
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
