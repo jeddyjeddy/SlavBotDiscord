@@ -1080,6 +1080,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             {
                 if(newRoles[i].id == gopnikRole)
                 {
+                    const roleName = newRoles[i].name
+
                     if(newGopnikSupporter)
                     {
                         console.log("New Gopnik Supporter")
@@ -1124,8 +1126,6 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                            channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
                                         }
 
-                                        const roleName = newRoles[i].name
-
                                         if(alreadyGiven)
                                         {
                                             if(premiumSupporter)
@@ -1156,6 +1156,8 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 }
                 else if(newRoles[i].id == slavRole)
                 {
+                    const roleName = newRoles[i].name
+                    
                     if(newSlavSupporter)
                     {
                         console.log("New Slav Supporter")
@@ -1199,8 +1201,6 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                         {
                                             channel.send("<@" + newMemberData.id + ">").catch(error => console.log("New Supporter Message Send Error - " + error));
                                         }
-
-                                        const roleName = newRoles[i].name
 
                                         if(alreadyGiven)
                                         {
