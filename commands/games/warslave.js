@@ -57,7 +57,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (List of trade requests you have been sent)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)"]
         });
     }
 
@@ -568,7 +568,7 @@ class WarSlaveCommand extends command.Command
                                             {
                                                 var requestFound = false;
                                                 var indexToRemove = -1;
-                                                
+
                                                 for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
                                                 {
                                                     if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
@@ -705,7 +705,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                         }
                                     }
-                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${otherSlaveOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + otherSlaveOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your slave <@" + otherSlave + "> for <@" + selfSlave + ">\n\nTo accept this trade, use the command `" + commandPrefix + "warslave accept @" + message.author.tag + "` and to decline, send the command `" + commandPrefix + "warslave decline @" + message.author.tag + "`", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${otherSlaveOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + otherSlaveOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your slave <@" + otherSlave + "> for <@" + selfSlave + ">\n\nTo accept this trade, use the command `" + commandPrefix + "warslave accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "warslave decline @" + message.author.tag + "`", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
