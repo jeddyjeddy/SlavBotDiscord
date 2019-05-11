@@ -504,7 +504,7 @@ class WarSlaveCommand extends command.Command
                                                                 slaves[i].users[slaveIndex2].owner = requestUser
                                                             }
                                                         }
-                                                        message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted**", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted***", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                         indexToRemove = requestIndex
                                                     }
                                                 }
@@ -574,7 +574,7 @@ class WarSlaveCommand extends command.Command
                                                     if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
                                                     {
                                                         requestFound = true;
-                                                        message.channel.send("<@" + requestUser + ">", {embed: {title: "***Trade Request Denied**", description: "<@" + message.author.id + "> has denied the trade request of <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        message.channel.send("<@" + requestUser + ">", {embed: {title: "***Trade Request Denied***", description: "<@" + message.author.id + "> has denied the trade request of <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                         indexToRemove = requestIndex
                                                     }
                                                 }
