@@ -11,7 +11,7 @@ Manager.on("message", (shard, message) => {
             if(shardToUse.id == shard.id + 1)
             {
                 var data = JSON.parse(message)
-                shardToUse.eval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have received " + ${data["token1"]} + " tokens. You now have " + ${data["token2"]} + " tokens. You can now use the \`dailyspin\` command. Use \`help ww\` for more info on these tokens and \`help dailyspin\` for info on Daily Spins.").catch(error => console.log("Send Error - " + error));}, rejection => {this.shard.send(${JSON.stringify(data)});});`)
+                shardToUse.eval(`this.fetchUser(${data["user"]}).then(user => {user.send("Thank you for voting, you have received " + ${data["token1"]} + " tokens. You now have " + ${data["token2"]} + " tokens. You can now use the \`dailyspin\` command. Use \`help ww\` or \`help warslave\` for more info on these tokens and \`help dailyspin\` for info on Daily Spins.").catch(error => console.log("Send Error - " + error));}, rejection => {this.shard.send(${JSON.stringify(data)});});`)
             }
         }
         else if(message.toString().indexOf("respawnAlert") > -1)
