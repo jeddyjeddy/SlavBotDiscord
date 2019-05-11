@@ -57,7 +57,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (List of trade requests you have been sent)"]
         });
     }
 
@@ -443,6 +443,239 @@ class WarSlaveCommand extends command.Command
                             else
                             {
                                 message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
+                            }
+                        }
+                        else if (args.toLowerCase().startsWith("trade"))
+                        {
+                            var timestamp = (new Date(Date.now()).toJSON());
+
+                            if(args.toLowerCase().startsWith("trade accept"))
+                            {
+                                var requestUser = ""
+                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                {
+                                    if(!mentions[mentionIndex].isBot && mentions[mentionIndex].id != message.author.id)
+                                    {
+                                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                        {
+                                            if(slaves[i].users[slaveIndex].id == mentions[mentionIndex].id)
+                                            {
+                                                if(requestUser == "")
+                                                {
+                                                    requestUser = slaves[i].users[slaveIndex].id
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(requestUser == "")
+                                {
+                                    message.channel.send("", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> Please tag a user who has sent a request to you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                    {
+                                        if(slaves[i].users[slaveIndex].id == message.author.id)
+                                        {
+                                            if(slaves[i].users[slaveIndex].requests == null || slaves[i].users[slaveIndex].requests == undefined)
+                                            {
+                                                message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else
+                                            {
+                                                var requestFound = false;
+                                                for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                                {
+                                                    if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
+                                                    {
+                                                        requestFound = true;
+                                                        for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
+                                                        {
+                                                            if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven)
+                                                            {
+                                                                slaves[i].users[slaveIndex2].owner = message.author.id
+                                                            }
+                                                            else if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken)
+                                                            {
+                                                                slaves[i].users[slaveIndex2].owner = requestUser
+                                                            }
+                                                        }
+                                                        message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted**", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        slaves[i].users[slaveIndex].requests[requestIndex].splice(requestIndex, 1)
+                                                    }
+                                                }
+
+                                                if(!requestFound)
+                                                    message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                            else if(args.toLowerCase().startsWith("trade decline"))
+                            {
+                                var requestUser = ""
+                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                {
+                                    if(!mentions[mentionIndex].isBot && mentions[mentionIndex].id != message.author.id)
+                                    {
+                                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                        {
+                                            if(slaves[i].users[slaveIndex].id == mentions[mentionIndex].id)
+                                            {
+                                                if(requestUser == "")
+                                                {
+                                                    requestUser = slaves[i].users[slaveIndex].id
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(requestUser == "")
+                                {
+                                    message.channel.send("", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> Please tag a user who has sent a request to you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                    {
+                                        if(slaves[i].users[slaveIndex].id == message.author.id)
+                                        {
+                                            if(slaves[i].users[slaveIndex].requests == null || slaves[i].users[slaveIndex].requests == undefined)
+                                            {
+                                                message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else
+                                            {
+                                                var requestFound = false;
+                                                for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                                {
+                                                    if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
+                                                    {
+                                                        requestFound = true;
+                                                        message.channel.send("<@" + requestUser + ">", {embed: {title: "***Trade Request Denied**", description: "<@" + message.author.id + "> has denied the trade request of <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        slaves[i].users[slaveIndex].requests[requestIndex].splice(requestIndex, 1)
+                                                    }
+                                                }
+
+                                                if(!requestFound)
+                                                    message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                            else if(args.toLowerCase().startsWith("trade list"))
+                            {
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == message.author.id)
+                                    {
+                                        if(slaves[i].users[slaveIndex].requests == null || slaves[i].users[slaveIndex].requests == undefined)
+                                        {
+                                            message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {
+                                            var lists = []
+                                            var item = ""
+
+                                            for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                            {
+                                                var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + slaves[i].users[slaveIndex].requests[requestIndex].user + "> has requested to trade <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + "> for <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">"
+                                                if((item + text + "\n\n").length < 2048)
+                                                {
+                                                    item = item + text + "\n\n";
+                                                }
+                                                else
+                                                {
+                                                    lists.push(item);
+                                                }
+                                            }
+
+                                            if(item != "")
+                                            {
+                                                lists.push(item)
+                                            }
+                                            
+                                            if(lists.length == 0)
+                                            {
+                                                message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else
+                                            {
+                                                for(var index = 0; index < lists.length; index++)
+                                                {
+                                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                var mentions = message.mentions.users.array()
+                                var selfSlave = "", otherSlave = "", otherSlaveOwner = ""
+    
+                                for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                                {
+                                    if(!mentions[mentionIndex].isBot)
+                                    {
+                                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                        {
+                                            if(slaves[i].users[slaveIndex].id == mentions[mentionIndex].id)
+                                            {
+                                                if(slaves[i].users[slaveIndex].owner == message.author.id && selfSlave == "")
+                                                    selfSlave = slaves[i].users[slaveIndex].id
+    
+                                                if(slaves[i].users[slaveIndex].owner != message.author.id 
+                                                    && slaves[i].users[slaveIndex].owner != "" && otherSlave == "")
+                                                {
+                                                    otherSlave = slaves[i].users[slaveIndex].id; 
+                                                    otherSlaveOwner = slaves[i].users[slaveIndex].owner;
+                                                }  
+                                            }
+                                        }
+                                    }
+                                }
+    
+                                if(selfSlave == "" || otherSlave == "")
+                                {
+                                    message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must tag a slave you own and another slave that is owned in order to send a trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                    {
+                                        if(slaves[i].users[slaveIndex].id == otherSlaveOwner)
+                                        {
+                                            if(slaves[i].users[slaveIndex].requests == null || slaves[i].users[slaveIndex].requests == undefined)
+                                            {
+                                                slaves[i].users[slaveIndex].requests = [{user: message.author.id, slaveGiven: selfSlave, slaveTaken: otherSlave}]
+                                            }
+                                            else
+                                            {
+                                                var notReplaced = true;
+                                                for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
+                                                {
+                                                    if(slaves[i].users[slaveIndex].requests[requestIndex].user == message.author.id)
+                                                    {
+                                                        notReplaced = false;
+                                                        slaves[i].users[slaveIndex].requests[requestIndex] = {user: message.author.id, slaveGiven: selfSlave, slaveTaken: otherSlave}
+                                                    }
+                                                }
+
+                                                if(notReplaced)
+                                                    slaves[i].users[slaveIndex].requests.push({user: message.author.id, slaveGiven: selfSlave, slaveTaken: otherSlave})
+                                            }
+                                        }
+                                    }
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${otherSlaveOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + otherSlaveOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your slave <@" + otherSlave + "> for <@" + selfSlave + ">\n\nTo accept this trade, use the command `" + commandPrefix + "warslave accept @" + message.author.tag + "` and to decline, send the command `" + commandPrefix + "warslave decline @" + message.author.tag + "`", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
                             }
                         }
                         else if (args.toLowerCase().startsWith("buy freedom"))
