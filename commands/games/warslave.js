@@ -117,7 +117,7 @@ class WarSlaveCommand extends command.Command
                                 }
                             }
 
-                            if(((slave.users[slaveIndex].id).toString()).contains("&"))
+                            if(((slave.users[slaveIndex].id).toString()).indexOf("&") > -1)
                             {
                                 slave.users.splice(slaveIndex, 1)
                                 copies = true;
