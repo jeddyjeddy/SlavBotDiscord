@@ -4051,6 +4051,8 @@ bot.login(process.env.BOT_TOKEN).then(function()
                     }
                 }
             }
+
+            guilds[i].fetchMembers().catch(error => console.log("Fetch Members Error - " + error))
         }
 
         if(bot.shard.id == 0)
