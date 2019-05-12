@@ -141,6 +141,31 @@ class WarSlaveCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
+        for(var i = 0; i < slaves.length; i++)
+        {
+            if(slaves[i].key == message.guild.id)
+            {
+                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                {
+                    if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                    {
+                        var members = message.guild.members.array()
+                        var exists = false;
+                        for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                        {
+                            if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
+                            {
+                                exists = true;
+                            }
+                        }
+
+                        if(!exists)
+                            slaves[i].users[slaveIndex].owner = ""
+                    }
+                }
+            }
+        }
+
         setImmediate(() => {
             Promise.all(promises).then(() => {
                 for(var i = 0; i < slaves.length; i++)
