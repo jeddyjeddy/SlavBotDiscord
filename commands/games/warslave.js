@@ -151,7 +151,6 @@ class WarSlaveCommand extends command.Command
                         {
                             if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
                             {
-
                                 message.guild.fetchMembers.then((members) => {
                                     for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
                                     {
