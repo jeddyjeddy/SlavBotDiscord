@@ -126,13 +126,38 @@ class WarSlaveCommand extends command.Command
                         }
 
                         if(copies)
-                            firebase.database().ref("serversettings/" + message.guild.id + "/slaves").set(JSON.stringify(slave))
-                        
+                            firebase.database().ref("serversettings/" + message.guild.id + "/slaves").set(JSON.stringify(slave))                        
                     }
 
                     slaves.push(slave)
                 }
             }))
+
+            for(var i = 0; i < slaves.length; i++)
+            {
+                if(slaves[i].key == message.guild.id)
+                {
+                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                    {
+                        if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                        {
+                            promises.push(message.guild.fetchMembers().then((members) => {
+                                for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                {
+                                    if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
+                                    {
+                                        exists = true;
+                                    }
+        
+                                    if(!exists)
+                                        slaves[i].users[slaveIndex].owner = ""
+                                }
+                            }))                
+                        }
+                    }
+                }
+            }
+            
         }
 
         var commandPrefix= "!"
@@ -147,24 +172,6 @@ class WarSlaveCommand extends command.Command
                 {
                     if(slaves[i].key == message.guild.id)
                     {
-                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
-                        {
-                            if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
-                            {
-                                message.guild.fetchMembers().then((members) => {
-                                    for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-                                    {
-                                        if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
-                                        {
-                                            exists = true;
-                                        }
-
-                                        if(!exists)
-                                            slaves[i].users[slaveIndex].owner = ""
-                                    }
-                                })                    
-                            }
-                        }
                         if(args.toLowerCase().startsWith("collect"))
                         {  
                             var cooldown = IndexRef.getCooldown(message.author.id)
