@@ -1040,6 +1040,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         var newBanditSupporter = true;
         var newBabushkaSupporter = true;
         var premiumSupporter = false;
+        var newPremiumSupporter = true;
         var oldRoles = oldMemberData.roles.array();
         for(var i = 0; i < oldRoles.length; i++)
         {
@@ -1066,12 +1067,17 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             {
                 newBabushkaSupporter = false;
             }
+
+            if(oldRoles[i].id == premiumRole)
+            {
+                newPremiumSupporter = false;
+            }
         }
 
         if(newGopnikSupporter || newSlavSupporter)
         {
             var newRoles = newMemberData.roles.array();
-
+        
             var premiumName = "";
             for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRoles[i].name;}}
             const premiumRoleName = premiumName;
@@ -1135,15 +1141,17 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                                         }
                                         else
                                         {
-                                            DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000)
                                             setTimeout(() => {
                                                 if(premiumSupporter)
                                                 {
                                                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 500000)
-                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 250k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron. You have also received a one time payment of 500k War Tokens for opting for our highest tier.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
+                                                    newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role and ***" + premiumRoleName + "***. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 500k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
                                                 }
                                                 else
+                                                {
+                                                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000)
                                                     newMemberData.user.send("Thank you for supporting Slav Bot! You have been given the ***" + roleName + "*** role. Your name should be added on the *hall-of-gopniks* channel in Slav Support. If that is not the case, then please inform an Admin or the Owner on Slav Support. You have also been given 250k War Tokens for the World War and War Slave games and will receive this every week as long as you continue to be a patron.\n\nLeaving the support server means being unable to receive these benefits, you must join back to regain them.").catch(error => console.log("Send Error - " + error));
+                                                }
                                             }, 500)
                                         }
                                      
@@ -1221,6 +1229,19 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
                     }
                 }
+            }
+        }
+        else if(newPremiumSupporter)
+        {
+            var newRoles = newMemberData.roles.array();
+        
+            var premiumName = "";
+            for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRoles[i].name;}}
+            const premiumRoleName = premiumName;
+
+            if(premiumSupporter)
+            {
+                newMemberData.user.send("Thank you for upgrading! Your benefits for ***" + premiumRoleName + "*** tier have been added. You will now receive 500k war tokens every week.").catch(error => console.log("Send Error - " + error));
             }
         }
 
@@ -3890,7 +3911,15 @@ function paySupporters()
                     if(!payed)
                     {
                         const today = new Date()
-                        if(role.id == gopnikRole)
+                        if(role.id == premiumRole)
+                        {
+                            DatabaseFunctions.addUserTokens(member.id, 500000)
+                            setTimeout(() => {
+                                member.send("You have been given your weekly payment of 500k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                            }, 500)
+                            payed = true;
+                        }
+                        else if(role.id == gopnikRole)
                         {
                             DatabaseFunctions.addUserTokens(member.id, 250000)
                             setTimeout(() => {
