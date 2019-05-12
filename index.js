@@ -1074,7 +1074,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             }
         }
 
-        if(newGopnikSupporter || newSlavSupporter)
+        if(newGopnikSupporter || newSlavSupporter || newPremiumSupporter)
         {
             var newRoles = newMemberData.roles.array();
         
@@ -1161,6 +1161,10 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                             }
                         }
                     }
+                    else if(newPremiumSupporter && premiumSupporter)
+                    {
+                        newMemberData.user.send("Thank you for upgrading! Your benefits for ***" + premiumRoleName + "*** tier have been added. You will now receive 500k war tokens every week.").catch(error => console.log("Send Error - " + error));
+                    }
                 }
                 else if(newRoles[i].id == slavRole)
                 {
@@ -1229,19 +1233,6 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                         }
                     }
                 }
-            }
-        }
-        else if(newPremiumSupporter)
-        {
-            var newRoles = newMemberData.roles.array();
-        
-            var premiumName = "";
-            for(var i = 0; i < newRoles.length; i++){if(newRoles[i].id == premiumRole){premiumSupporter = true;premiumName = newRoles[i].name;}}
-            const premiumRoleName = premiumName;
-
-            if(premiumSupporter)
-            {
-                newMemberData.user.send("Thank you for upgrading! Your benefits for ***" + premiumRoleName + "*** tier have been added. You will now receive 500k war tokens every week.").catch(error => console.log("Send Error - " + error));
             }
         }
 
