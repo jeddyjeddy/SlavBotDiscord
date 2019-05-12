@@ -609,7 +609,7 @@ class WWCommand extends command.Command
                                                     var isBot = false, notValid = true;
                                                     for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                     {
-                                                        if(mentions[mentionIndex].id == userID)
+                                                        if(mentions[mentionIndex].id == users[userIndex])
                                                         {
                                                             isBot = mentions[mentionIndex].bot
                                                             notValid = false;
