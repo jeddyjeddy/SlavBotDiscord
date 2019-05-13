@@ -140,7 +140,8 @@ class WarSlaveCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        promises.push(message.guild.fetchMembers().then((members) => {
+        promises.push(message.guild.fetchMembers().then(() => {
+            var members = message.guild.members.array()
             for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
             {
                 for(var i = 0; i < slaves.length; i++)

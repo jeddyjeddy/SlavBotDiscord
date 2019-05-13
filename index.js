@@ -3893,8 +3893,9 @@ function paySupporters()
     {
         if(guilds[i].id == supportServerID)
         {
-            guilds[i].fetchMembers().then((members) => {
-                members.array().forEach(member => {
+            guilds[i].fetchMembers().then(() => {
+                var members = guilds[i].members.array()
+                members.forEach(member => {
                     var roles = member.roles.array()
                     var payed = false;
                     roles.forEach(role => {
@@ -3980,9 +3981,10 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
-                guilds[i].fetchMembers().then((members) => {
+                guilds[i].fetchMembers().then(() => {
+                    var members = guilds[i].members.array()
                     verifyPatrons(members)
-                    members.array().forEach(member => {
+                    members.forEach(member => {
                         var roles = member.roles.array()                    
                         var hasGopnikRole = false, hasSlavRole = false;
                         for(var i = 0; i < roles.length; i++)
