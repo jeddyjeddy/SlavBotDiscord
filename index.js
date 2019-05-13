@@ -3893,7 +3893,7 @@ function paySupporters()
     {
         if(guilds[i].id == supportServerID)
         {
-            guilds[i].fetchMembers().then(members => {
+            guilds[i].fetchMembers().then((members) => {
                 members.forEach(member => {
                     var roles = member.roles.array()
                     var payed = false;
@@ -3980,7 +3980,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
-                guilds[i].fetchMembers().then(members => {
+                guilds[i].fetchMembers().then((members) => {
                     verifyPatrons(members)
                     members.forEach(member => {
                         var roles = member.roles.array()                    
