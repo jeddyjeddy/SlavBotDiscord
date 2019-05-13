@@ -3982,7 +3982,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
-                const guild = guild[i]
+                const guild = guilds[i]
                 guild.fetchMembers().then(() => {
                     var members = guild.members.array()
                     verifyPatrons(members)
