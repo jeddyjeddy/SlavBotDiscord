@@ -2,8 +2,7 @@ const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: ["281876391535050762", "263945639384055808", "219598209075380225"],
     unknownCommandResponse: false,
-    invite: "https://discord.gg/2T259Pf",
-    fetchAllMembers: true
+    invite: "https://discord.gg/2T259Pf"
 });
 
 const DBL = require("dblapi.js");
@@ -3894,52 +3893,52 @@ function paySupporters()
     {
         if(guilds[i].id == supportServerID)
         {
-            var members = guilds[i].members.array()
-
-            members.forEach(member => {
-                var roles = member.roles.array()
-                var payed = false;
-                roles.forEach(role => {
-                    if(!payed)
-                    {
-                        const today = new Date()
-                        if(role.id == premiumRole)
+            guilds[i].fetchMembers().then(members => {
+                members.forEach(member => {
+                    var roles = member.roles.array()
+                    var payed = false;
+                    roles.forEach(role => {
+                        if(!payed)
                         {
-                            DatabaseFunctions.addUserTokens(member.id, 500000)
-                            setTimeout(() => {
-                                member.send("You have been given your weekly payment of 500k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                            }, 500)
-                            payed = true;
+                            const today = new Date()
+                            if(role.id == premiumRole)
+                            {
+                                DatabaseFunctions.addUserTokens(member.id, 500000)
+                                setTimeout(() => {
+                                    member.send("You have been given your weekly payment of 500k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                }, 500)
+                                payed = true;
+                            }
+                            else if(role.id == gopnikRole)
+                            {
+                                DatabaseFunctions.addUserTokens(member.id, 250000)
+                                setTimeout(() => {
+                                    member.send("You have been given your weekly payment of 250k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                }, 500)
+                                payed = true;
+                            }
+                            else if(role.id == slavRole)
+                            {
+                                DatabaseFunctions.addUserTokens(member.id, 100000)
+                                setTimeout(() => {
+                                    member.send("You have been given your weekly payment of 100k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                                }, 500)
+                                payed = true;
+                            }
                         }
-                        else if(role.id == gopnikRole)
-                        {
-                            DatabaseFunctions.addUserTokens(member.id, 250000)
-                            setTimeout(() => {
-                                member.send("You have been given your weekly payment of 250k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                            }, 500)
-                            payed = true;
-                        }
-                        else if(role.id == slavRole)
-                        {
-                            DatabaseFunctions.addUserTokens(member.id, 100000)
-                            setTimeout(() => {
-                                member.send("You have been given your weekly payment of 100k War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                            }, 500)
-                            payed = true;
-                        }
-                    }
+                    });
                 });
-            });
-
-            var paymentDate = (new Date(Date.now()));
-            firebase.database().ref("patreondate").set(paymentDate.toJSON())
-            var scheduleDate = new Date();
-            scheduleDate.setDate(paymentDate.getDate() + 7);
-            scheduleDate.setHours(0, 0, 0, 0)
-
-            schedule.scheduleJob(scheduleDate, function(){
-                paySupporters()
-            });
+    
+                var paymentDate = (new Date(Date.now()));
+                firebase.database().ref("patreondate").set(paymentDate.toJSON())
+                var scheduleDate = new Date();
+                scheduleDate.setDate(paymentDate.getDate() + 7);
+                scheduleDate.setHours(0, 0, 0, 0)
+    
+                schedule.scheduleJob(scheduleDate, function(){
+                    paySupporters()
+                });
+            })
         }
     }
     
@@ -3981,76 +3980,77 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
-                var members = guilds[i].members.array()
-                verifyPatrons(members)
-                members.forEach(member => {
-                    var roles = member.roles.array()                    
-                    var hasGopnikRole = false, hasSlavRole = false;
-                    for(var i = 0; i < roles.length; i++)
-                    {
-                        if(roles[i].id == gopnikRole)
+                guilds[i].fetchMembers().then(members => {
+                    verifyPatrons(members)
+                    members.forEach(member => {
+                        var roles = member.roles.array()                    
+                        var hasGopnikRole = false, hasSlavRole = false;
+                        for(var i = 0; i < roles.length; i++)
                         {
-                            hasGopnikRole = true;
+                            if(roles[i].id == gopnikRole)
+                            {
+                                hasGopnikRole = true;
+                            }
+                            else if (roles[i].id == slavRole)
+                            {
+                                hasSlavRole = true;
+                            }
                         }
-                        else if (roles[i].id == slavRole)
+        
+                        if(hasGopnikRole)
                         {
-                            hasSlavRole = true;
+                            firebase.database().ref("patrons/" + member.id).set(1)
                         }
-                    }
-    
-                    if(hasGopnikRole)
-                    {
-                        firebase.database().ref("patrons/" + member.id).set(1)
-                    }
-                    else if(hasSlavRole)
-                    {
-                        firebase.database().ref("patrons/" + member.id).set(0)
-                    }
-                    else
-                    {
-                        firebase.database().ref("patrons/" + member.id).remove()
-                    }
-                });
-
-                firebase.database().ref("patreondate").once('value').then(function(snapshot) {
-                    var paymentDate;
-                    var today = (new Date(Date.now()));
-                    if(snapshot.val() == null)
-                    {
-                        var date = (new Date(Date.now()));
-                        paymentDate = date;
-                        firebase.database().ref("patreondate").set(date.toJSON())
-                        paySupporters();
-                    }
-                    else
-                    {
-                        paymentDate = new Date(snapshot.val());
-
-                        if(today.getDate() >= paymentDate.getDate() + 7)
+                        else if(hasSlavRole)
                         {
+                            firebase.database().ref("patrons/" + member.id).set(0)
+                        }
+                        else
+                        {
+                            firebase.database().ref("patrons/" + member.id).remove()
+                        }
+                    });
+
+                    firebase.database().ref("patreondate").once('value').then(function(snapshot) {
+                        var paymentDate;
+                        var today = (new Date(Date.now()));
+                        if(snapshot.val() == null)
+                        {
+                            var date = (new Date(Date.now()));
+                            paymentDate = date;
+                            firebase.database().ref("patreondate").set(date.toJSON())
                             paySupporters();
                         }
                         else
                         {
-                            var scheduleDate = new Date();
-                            scheduleDate.setDate(paymentDate.getDate() + 7);
-                            scheduleDate.setHours(0, 0, 0, 0)
-    
-                            schedule.scheduleJob(scheduleDate, function(){
-                                paySupporters()
-                            });
+                            paymentDate = new Date(snapshot.val());
+
+                            if(today.getDate() >= paymentDate.getDate() + 7)
+                            {
+                                paySupporters();
+                            }
+                            else
+                            {
+                                var scheduleDate = new Date();
+                                scheduleDate.setDate(paymentDate.getDate() + 7);
+                                scheduleDate.setHours(0, 0, 0, 0)
+        
+                                schedule.scheduleJob(scheduleDate, function(){
+                                    paySupporters()
+                                });
+                            }
+                        }
+                    })
+
+                    var channels = guilds[i].channels.array();
+                    for(var index = 0; index < channels.length; index++)
+                    {
+                        if(channels[index].id == marketID || channels[index].id == voteChannelID || channels[index].id == suggestionChannelID)
+                        {
+                            channels[index].fetchMessages().catch(error => console.log("On Message Fetch Suggestion Error - " + error));
                         }
                     }
                 })
-
-                var channels = guilds[i].channels.array();
-                for(var index = 0; index < channels.length; index++)
-                {
-                    if(channels[index].id == marketID || channels[index].id == voteChannelID || channels[index].id == suggestionChannelID)
-                    {
-                        channels[index].fetchMessages().catch(error => console.log("On Message Fetch Suggestion Error - " + error));
-                    }
-                }
             }
         }
 
