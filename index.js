@@ -2,7 +2,8 @@ const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: ["281876391535050762", "263945639384055808", "219598209075380225"],
     unknownCommandResponse: false,
-    invite: "https://discord.gg/2T259Pf"
+    invite: "https://discord.gg/2T259Pf",
+    fetchAllMembers: true
 });
 
 const DBL = require("dblapi.js");

@@ -140,30 +140,30 @@ class WarSlaveCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-      /*  for(var i = 0; i < slaves.length; i++)
-        {
-            if(slaves[i].key == message.guild.id)
+        promises.push(message.guild.fetchMembers().then((members) => {
+            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
             {
-                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                for(var i = 0; i < slaves.length; i++)
                 {
-                    if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                    if(slaves[i].key == message.guild.id)
                     {
-                        promises.push(message.guild.fetchMembers().then((members) => {
-                            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                        {
+                            if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
                             {
                                 if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
                                 {
                                     exists = true;
                                 }
-    
+                
                                 if(!exists)
-                                    slaves[i].users[slaveIndex].owner = ""
+                                    slaves[i].users[slaveIndex].owner = ""           
                             }
-                        }))                
+                        }
                     }
                 }
             }
-        }*/
+        }))   
 
         setImmediate(() => {
             Promise.all(promises).then(() => {
