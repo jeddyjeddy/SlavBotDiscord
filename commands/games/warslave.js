@@ -142,24 +142,26 @@ class WarSlaveCommand extends command.Command
 
         promises.push(message.guild.fetchMembers().then(() => {
             var members = message.guild.members.array()
-            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+            
+            for(var i = 0; i < slaves.length; i++)
             {
-                for(var i = 0; i < slaves.length; i++)
+                if(slaves[i].key == message.guild.id)
                 {
-                    if(slaves[i].key == message.guild.id)
+                    for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                     {
-                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                        if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
                         {
-                            if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                            var exists = false;
+                            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
                             {
                                 if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
                                 {
                                     exists = true;
                                 }
-                
-                                if(!exists)
-                                    slaves[i].users[slaveIndex].owner = ""           
                             }
+            
+                            if(!exists)
+                                slaves[i].users[slaveIndex].owner = ""           
                         }
                     }
                 }
