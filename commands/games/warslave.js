@@ -140,7 +140,7 @@ class WarSlaveCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        for(var i = 0; i < slaves.length; i++)
+      /*  for(var i = 0; i < slaves.length; i++)
         {
             if(slaves[i].key == message.guild.id)
             {
@@ -163,7 +163,7 @@ class WarSlaveCommand extends command.Command
                     }
                 }
             }
-        }
+        }*/
 
         setImmediate(() => {
             Promise.all(promises).then(() => {
