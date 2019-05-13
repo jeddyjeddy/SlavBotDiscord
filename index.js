@@ -3893,8 +3893,9 @@ function paySupporters()
     {
         if(guilds[i].id == supportServerID)
         {
-            guilds[i].fetchMembers().then(() => {
-                var members = guilds[i].members.array()
+            const guild = guilds[i]
+            guild.fetchMembers().then(() => {
+                var members = guild.members.array()
                 members.forEach(member => {
                     var roles = member.roles.array()
                     var payed = false;
@@ -3981,8 +3982,9 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
-                guilds[i].fetchMembers().then(() => {
-                    var members = guilds[i].members.array()
+                const guild = guild[i]
+                guild.fetchMembers().then(() => {
+                    var members = guild.members.array()
                     verifyPatrons(members)
                     members.forEach(member => {
                         var roles = member.roles.array()                    
@@ -4044,7 +4046,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                         }
                     })
 
-                    var channels = guilds[i].channels.array();
+                    var channels = guild.channels.array();
                     for(var index = 0; index < channels.length; index++)
                     {
                         if(channels[index].id == marketID || channels[index].id == voteChannelID || channels[index].id == suggestionChannelID)
