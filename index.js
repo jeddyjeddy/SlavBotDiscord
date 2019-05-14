@@ -3056,10 +3056,12 @@ bot.on("message", (message) => {
 
         if(message.content.toLowerCase().indexOf("message counter") > -1 && message.guild.id == supportServerID)
         {
+            var sent = false;
             for(var i = 0; i < userMessageCount.length; i++)
             {
-                if(userMessageCount[i].userID == message.author.id)
+                if(userMessageCount[i].userID == message.author.id && !sent)
                 {
+                    sent = true;
                     const messageCount = numberWithCommas(userMessageCount[i].messages)
                     message.channel.send("<@" + message.author.id + "> You have sent " + messageCount + " messages on the support server.").catch(error => console.log("Send Error - " + error));
                 }
