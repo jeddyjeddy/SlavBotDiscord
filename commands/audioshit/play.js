@@ -49,7 +49,7 @@ class PlayCommand extends command.Command
                                     if(files[i] == args.toLowerCase() + ".mp3")
                                     {
                                         playing = true;
-                                        connection.playFile("audio/" + files[i])
+                                        connection.playFile("audio/" + files[i]).catch(error => console.log("Play Error - " + error))
                                         message.channel.send("<@" + message.author.id + "> Playing ***" + files[i] + "***").catch(error => console.log("Send Error - " + error));
                                     }
                                 }
@@ -86,7 +86,7 @@ class PlayCommand extends command.Command
                                     if(files[i] == args.toLowerCase() + ".mp3")
                                     {
                                         playing = true;
-                                        message.guild.voiceConnection.playFile("audio/" + files[i])
+                                        message.guild.voiceConnection.playFile("audio/" + files[i]).catch(error => console.log("Play Error - " + error))
                                         message.channel.send("<@" + message.author.id + "> Playing ***" + files[i] + "***").catch(error => console.log("Send Error - " + error));
                                     }
                                 }

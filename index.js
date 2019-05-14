@@ -1847,7 +1847,7 @@ function levelUp(user, channel)
                     DatabaseFunctions.addUserTokens(user.id, 10000)
                     const messageCount = userMessageCount[i].messages
                     setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.").catch(error => console.log("Send Error - " + error));	
+                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
                     }, 500)
                 }
                 else if(userMessageCount[i].messages % 100 == 0)
@@ -1855,7 +1855,7 @@ function levelUp(user, channel)
                     DatabaseFunctions.addUserTokens(user.id, 1000)
                     const messageCount = userMessageCount[i].messages
                     setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.").catch(error => console.log("Send Error - " + error));	
+                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
                     }, 500)
                 }
             }
@@ -3052,6 +3052,18 @@ bot.on("message", (message) => {
         if(message.content.toLowerCase().indexOf("you there?") > -1)
         {
             message.channel.send("Of course, bless the Motherland").catch(error => console.log("Send Error - " + error));
+        }
+
+        if(message.content.toLowerCase().indexOf("message counter") > -1 && message.guild.id == supportServerID)
+        {
+            for(var i = 0; i < userMessageCount.length; i++)
+            {
+                if(userMessageCount[i].userID == message.author.id)
+                {
+                    const messageCount = numberWithCommas(userMessageCount[i].messages)
+                    message.channel.send("<@" + message.author.id + "> You have sent " + messageCount + " messages on the support server.").catch(error => console.log("Send Error - " + error));
+                }
+            }
         }
     }
 
