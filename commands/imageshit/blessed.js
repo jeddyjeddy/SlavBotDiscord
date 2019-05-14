@@ -56,10 +56,24 @@ class BlessedCommand extends command.Command
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error)); return console.log(err); }
             
-            if(redditResponse[0].data.children == undefined)
+            if(redditResponse[0] == undefined)
             {
                 if(messageCheck(message.id))
-                    this.run(message, args)
+                this.run(message, args)
+
+                return; 
+            }
+            else if(redditResponse[0].data == undefined)
+            {
+                if(messageCheck(message.id))
+                this.run(message, args)
+
+                return; 
+            }
+            else if(redditResponse[0].data.children == undefined)
+            {
+                if(messageCheck(message.id))
+                this.run(message, args)
 
                 return; 
             }
