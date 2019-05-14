@@ -82,9 +82,8 @@ class SkillCommand extends command.Command
                     Jimp.loadFont("skyrimskill.fnt").then(function (skillFont) {
                         skillImage.print(skillFont, 50, 110, {
                             text: args.toString().toUpperCase(),
-                            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
-                            alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
-                          }, 440).resize(skyrimImage.bitmap.width, Jimp.AUTO);
+                            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
+                        }, 440).resize(skyrimImage.bitmap.width, Jimp.AUTO);
                         const addHeight = skyrimImage.bitmap.height;
                         var finalImage = (new Jimp(skyrimImage.bitmap.width, skyrimImage.bitmap.height + skillImage.bitmap.height)).composite(skyrimImage, 0, 0).composite(skillImage, 0, addHeight);
     
