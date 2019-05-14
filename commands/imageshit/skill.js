@@ -45,6 +45,13 @@ class SkillCommand extends command.Command
             
             return;
         }
+
+        if(args.length > 10)
+        {
+            message.channel.send("<@" + message.author.id + "> A maximum of 10 characters are only allowed.").catch(error => {console.log("Send Error - " + error)});
+            
+            return;
+        }
         
         var url = "";
 
