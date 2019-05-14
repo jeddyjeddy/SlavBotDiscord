@@ -148,30 +148,25 @@ class WarSlaveCommand extends command.Command
                 {
                     if(slaves[i].key == message.guild.id)
                     {
-                        for(var i = 0; i < slaves.length; i++)
+                        for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                         {
-                            if(slaves[i].key == message.guild.id)
+                            if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
                             {
-                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                var exists = false;
+                                var members = message.guild.members.array()
+                                for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
                                 {
-                                    if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                                    if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
                                     {
-                                        var exists = false;
-                                        for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-                                        {
-                                            if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
-                                            {
-                                                exists = true;
-                                            }
-                                        }
-                        
-                                        if(!exists)
-                                            slaves[i].users[slaveIndex].owner = ""           
+                                        exists = true;
                                     }
                                 }
+                
+                                if(!exists)
+                                    slaves[i].users[slaveIndex].owner = ""           
                             }
                         }
-
+                        
                         if(args.toLowerCase().startsWith("collect"))
                         {  
                             var cooldown = IndexRef.getCooldown(message.author.id)
