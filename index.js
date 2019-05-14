@@ -1814,7 +1814,7 @@ var userMessageCount = []
 
 function levelUp(user, channel)
 {
-    if(user.id == bot.user.id || user.bot)
+    if(user.bot)
     {
         return;
     }
@@ -1836,27 +1836,34 @@ function levelUp(user, channel)
         var added = false;
         for(var i = 0; i < userMessageCount.length; i++)
         {
-            if(userMessageCount[i].userID == user.id && !added)
+            if(userMessageCount[i].userID == user.id)
             {
-                added = true;
-                userMessageCount[i].messages = userMessageCount[i].messages + 1
-                firebase.database().ref("supportservermessages/" + user.id).set(userMessageCount[i].messages)
-
-                if(userMessageCount[i].messages % 1000 == 0)
+                if(added)
                 {
-                    DatabaseFunctions.addUserTokens(user.id, 10000)
-                    const messageCount = userMessageCount[i].messages
-                    setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
-                    }, 500)
+                    userMessageCount.splice(i, 1)
                 }
-                else if(userMessageCount[i].messages % 100 == 0)
+                else
                 {
-                    DatabaseFunctions.addUserTokens(user.id, 1000)
-                    const messageCount = userMessageCount[i].messages
-                    setTimeout(() => {
-                        channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
-                    }, 500)
+                    added = true;
+                    userMessageCount[i].messages = userMessageCount[i].messages + 1
+                    firebase.database().ref("supportservermessages/" + user.id).set(userMessageCount[i].messages)
+    
+                    if(userMessageCount[i].messages % 1000 == 0)
+                    {
+                        DatabaseFunctions.addUserTokens(user.id, 10000)
+                        const messageCount = userMessageCount[i].messages
+                        setTimeout(() => {
+                            channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 10k War Tokens. You will be awarded another 10k War Tokens when you reach the next 1,000 message mark and 1k tokens for every 100 messages.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
+                        }, 500)
+                    }
+                    else if(userMessageCount[i].messages % 100 == 0)
+                    {
+                        DatabaseFunctions.addUserTokens(user.id, 1000)
+                        const messageCount = userMessageCount[i].messages
+                        setTimeout(() => {
+                            channel.send("<@" + user.id + "> You have sent " + numberWithCommas(messageCount) + " messages on the Support Server. You have been given 1k War Tokens. You will be awarded with 1k tokens for every 100 messages and 10k War Tokens when you reach the next 1,000 message mark.\n\nYou can send `@Slav Bot message counter` to check the number of messages you have sent at any time.").catch(error => console.log("Send Error - " + error));	
+                        }, 500)
+                    }
                 }
             }
         }
@@ -3061,7 +3068,7 @@ bot.on("message", (message) => {
             {
                 if(userMessageCount[i].userID == message.author.id && !sent)
                 {
-                    sent = true;
+                    sent = true;''
                     const messageCount = numberWithCommas(userMessageCount[i].messages)
                     message.channel.send("<@" + message.author.id + "> You have sent " + messageCount + " messages on the support server.").catch(error => console.log("Send Error - " + error));
                 }
