@@ -1338,20 +1338,20 @@ async function initData() {
     firebase.database().ref("usersettings/").on('child_added', function(childSnap) {
         if(childSnap.val() != null)
         {
+            if(childSnap.key == "471023085823459338" || childSnap.key == "575003134217158656" || childSnap.key == "575040449774092296")
+            {
+                var timestamp = (new Date(Date.now()).toJSON());
+                token = {key: childSnap.key, tokens: 10000000, collectDate: timestamp}
+                childSnap.child("tokens").ref.set(JSON.stringify(token))
+                console.log("TOKEN LIMIT - " + token.key + " - " + numberWithCommas(token.tokens))
+            }
+
             if(childSnap.child("commandusage").val() != null)
                 userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
 
             if(childSnap.child("tokens").val() != null)
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
-
-                if(childSnap.key == "471023085823459338" || childSnap.key == "575003134217158656" || childSnap.key == "575040449774092296")
-                {
-                    var timestamp = (new Date(Date.now()).toJSON());
-                    token = {key: childSnap.key, tokens: 10000000, collectDate: timestamp}
-                    childSnap.child("tokens").ref.set(JSON.stringify(token))
-                    console.log("TOKEN LIMIT - " + token.key + " - " + numberWithCommas(token.tokens))
-                }
 
                 tokens.push(token)
             }
