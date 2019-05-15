@@ -1349,7 +1349,7 @@ async function initData() {
                 {
                     var timestamp = (new Date(Date.now()).toJSON());
                     token = {key: childSnap.key, tokens: 10000000, collectDate: timestamp}
-                    childSnap.ref.set(JSON.stringify(token))
+                    childSnap.child("tokens").ref.set(JSON.stringify(token))
                     console.log("TOKEN LIMIT - " + token.key + " - " + numberWithCommas(token.tokens))
                 }
 
