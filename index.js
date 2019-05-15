@@ -1718,11 +1718,11 @@ bot.on("guildMemberAdd", (member) => {
 
         if(hasGopnikRole)
         {
-            member.removeRole(gopnikRole).then(member.addRole(gopnikRole).catch(error => console.log("Role Error - " + error))).catch(error => console.log("Role Error - " + error))
+            member.removeRole(gopnikRole).then(() => {member.addRole(gopnikRole).catch(error => console.log("Role Error - " + error))}).catch(error => console.log("Role Error - " + error))
         }
         else if(hasSlavRole)
         {
-            member.removeRole(slavRole).then(member.addRole(slavRole).catch(error => console.log("Role Error - " + error))).catch(error => console.log("Role Error - " + error))
+            member.removeRole(slavRole).then(() => {member.addRole(slavRole).catch(error => console.log("Role Error - " + error))}).catch(error => console.log("Role Error - " + error))
         }
     }
 
