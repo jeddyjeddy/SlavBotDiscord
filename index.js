@@ -1334,26 +1334,6 @@ function commandUsageAscending(a, b)
 
 async function initData() {
     console.log("Init Data")
-    
-    if(bot.shard.id == 0)
-    {
-        firebase.database().ref("usersettings/").once('value').then(function(snap) {
-
-            snap.forEach(childSnap => {
-                if(childSnap.val() != null)
-                {
-                    if(childSnap.child("tokens").val() != null)
-                    {
-                        var token = JSON.parse(childSnap.child("tokens").val())
-        
-                        if(token >= 100000000)
-                            console.log("TOKEN LIMIT")
-                    }
-                }
-            })
-            
-        })
-    }
 
     firebase.database().ref("usersettings/").on('child_added', function(childSnap) {
         if(childSnap.val() != null)
@@ -1365,7 +1345,7 @@ async function initData() {
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
 
-                if(token >= 100000000)
+                if(token.tokens >= 100000000)
                     console.log("TOKEN LIMIT")
 
                 tokens.push(token)
