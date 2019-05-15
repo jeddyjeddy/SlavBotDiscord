@@ -1345,8 +1345,10 @@ async function initData() {
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
 
-                if(token.tokens >= 100000000)
-                    console.log("TOKEN LIMIT - " + token.key)
+                if(token.key == "471023085823459338" || token.key == "575003134217158656" || token.key == "575040449774092296")
+                {
+                    console.log("TOKEN LIMIT - " + token.key + " - " + numberWithCommas(token.tokens))
+                }
 
                 tokens.push(token)
             }
