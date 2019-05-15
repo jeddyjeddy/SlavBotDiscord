@@ -1159,6 +1159,7 @@ class WarSlaveCommand extends command.Command
                                 else
                                 {
                                     lists.push(item);
+                                    item = ""
                                 }
                             }
 
