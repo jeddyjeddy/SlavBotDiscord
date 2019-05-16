@@ -123,6 +123,11 @@ class WarSlaveCommand extends command.Command
                                 copies = true;
                             }
 
+
+                            if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
+                            {
+                                slave.users[slaveIndex].owner = ""
+                            }
                         }
 
                         if(copies)
@@ -701,7 +706,7 @@ class WarSlaveCommand extends command.Command
                                     }
                                 }
     
-                                if(selfSlave == "" || otherSlave == "")
+                                if(selfSlave == "" || otherSlave == "" || selfSlave == otherSlaveOwner)
                                 {
                                     message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must tag a slave you own and another slave that is owned in order to send a trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
