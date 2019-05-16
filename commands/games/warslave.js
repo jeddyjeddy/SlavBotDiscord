@@ -520,24 +520,48 @@ class WarSlaveCommand extends command.Command
                                             else
                                             {
                                                 var requestFound = false;
+                                                var notValid = false;
                                                 var indexToRemove = -1;
                                                 for(var requestIndex = 0; requestIndex < slaves[i].users[slaveIndex].requests.length; requestIndex++)
                                                 {
                                                     if(slaves[i].users[slaveIndex].requests[requestIndex].user == requestUser)
                                                     {
                                                         requestFound = true;
+
                                                         for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
                                                         {
                                                             if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven)
                                                             {
-                                                                slaves[i].users[slaveIndex2].owner = message.author.id
+                                                                if(slaves[i].users[slaveIndex2].owner != requestUser)
+                                                                    notValid = true;
                                                             }
                                                             else if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken)
                                                             {
-                                                                slaves[i].users[slaveIndex2].owner = requestUser
+                                                                if(slaves[i].users[slaveIndex2].owner != message.author.id)
+                                                                    notValid = true;
                                                             }
                                                         }
-                                                        message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted***", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+
+                                                        if(notValid)
+                                                        {
+                                                            message.channel.send("<@" + message.author.id + "> The trade request is no longer valid.", {embed: {title: "***Trade Request Invalid***", description: "The trade request of <@" + requestUser + "> is invalid as the owners of one or more of the slaves have changed.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        }
+                                                        else
+                                                        {
+                                                            for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
+                                                            {
+                                                                if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven)
+                                                                {
+                                                                    slaves[i].users[slaveIndex2].owner = message.author.id
+                                                                }
+                                                                else if(slaves[i].users[slaveIndex2].id == slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken)
+                                                                {
+                                                                    slaves[i].users[slaveIndex2].owner = requestUser
+                                                                }
+                                                            }
+                                                            message.channel.send("<@" + requestUser + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveTaken + ">\n<@" + message.author.id + "> now owns <@" + slaves[i].users[slaveIndex].requests[requestIndex].slaveGiven + ">", {embed: {title: "***Trade Request Accepted***", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                        }
+                                                       
                                                         indexToRemove = requestIndex
                                                     }
                                                 }
@@ -738,7 +762,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                         }
                                     }
-                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${otherSlaveOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + otherSlaveOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your slave <@" + otherSlave + "> for <@" + selfSlave + ">\n\nTo accept this trade, use the command `" + commandPrefix + "warslave accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "warslave decline @" + message.author.tag + "`", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${otherSlaveOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + otherSlaveOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your slave <@" + otherSlave + "> for <@" + selfSlave + ">\n\nTo accept this trade, use the command `" + commandPrefix + "warslave accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "warslave decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
