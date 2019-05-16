@@ -127,6 +127,7 @@ class WarSlaveCommand extends command.Command
                             if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
                             {
                                 slave.users[slaveIndex].owner = ""
+                                copies = true;
                             }
                         }
 
