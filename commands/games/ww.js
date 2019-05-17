@@ -15,7 +15,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         if(!listening)
         {
             firebase.database().ref("patrons").on("child_added", function(snapshot){
-                patrons.push({userID: snapshot.key, type: snapshot.val()})
+                var added = false;
+                for(var i = 0; i < patrons.length; i++)
+                {
+                    if(patrons[i] == snapshot.key)
+                    {
+                        added = true;
+                        patrons[i].type = snapshot.val()
+                    }
+                }
+
+                if(!added)
+                    patrons.push({userID: snapshot.key, type: snapshot.val()})
             })
             
             firebase.database().ref("patrons").on("child_removed", function(snapshot){
