@@ -87,12 +87,19 @@ class TierCommand extends command.Command
                     {
                         const data = avatars[i]
                         promises.push(Jimp.read(data.avatarURL).then(function(avatarImage){
-                            var size = 62
-                            var x = 93 + (((size + 5) * data.column))
-                            var y = 10 + (70 * data.row)
 
-                            avatarImage.resize(size, size)
-                            tierImage.composite(avatarImage, x, y)
+                            if(avatarImage != undefined || avatarImage != null)
+                            {
+                                var size = 62
+                                var x = 93 + (((size + 5) * data.column))
+                                var y = 10 + (70 * data.row)
+    
+                                avatarImage.resize(size, size)
+                                tierImage.composite(avatarImage, x, y)
+                            }
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                            console.log(err.message);
                         }))
                     }
 
