@@ -131,7 +131,7 @@ class AwwnimeCommand extends command.Command
 
             if(title == "" || title == null)
             {
-                title = "***Blessed Image***";
+                title = "***Awwnime Moment***";
             }
             else
             {

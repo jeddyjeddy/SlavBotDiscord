@@ -126,7 +126,7 @@ class DankMemeCommand extends command.Command
             
             if(title == "" || title == null)
             {
-                title = "***Yes***";
+                title = "***Dank Meme***";
             }
             else
             {
