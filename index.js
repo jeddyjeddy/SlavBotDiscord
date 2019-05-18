@@ -2659,12 +2659,12 @@ bot.on("message", (message) => {
                     var roles = member.roles.array()
                     for(var i = 0; i < roles.length; i++)
                     {
-                        if(roels[i].id == legacyRole)
+                        if(roles[i].id == legacyRole)
                         {
                             giveLegacy = false;
                         }
 
-                        if(roels[i].id == verifiedRole)
+                        if(roles[i].id == verifiedRole)
                         {
                             giveVerified = false;
                         }
