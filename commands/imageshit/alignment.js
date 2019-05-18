@@ -295,59 +295,66 @@ class AlignmentCommand extends command.Command
                     }));
                 }
             }
-            Promise.all(promises).then(() => { 
-                message.channel.send("***creating chart***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("chart.png").then(function (alignmentImage) {
-                    console.log("got image");
-                    var BG = new Jimp(alignmentImage.bitmap.width, alignmentImage.bitmap.height)
-                    Jimp.read(profileURLs[0]).then(function (image1) {
-                        image1.cover(287, 183)
-                        BG.composite(image1, 24, 10)
-                        Jimp.read(profileURLs[1]).then(function (image2) {
-                            image2.cover(288, 182)
-                            BG.composite(image2, 356, 12)
-                            Jimp.read(profileURLs[2]).then(function (image3) {
-                                image3.cover(286, 181)
-                                BG.composite(image3, 690, 11)
-                                Jimp.read(profileURLs[3]).then(function (image4) {
-                                    image4.cover(288, 178)
-                                    BG.composite(image4, 23, 280)
-                                    Jimp.read(profileURLs[4]).then(function (image5) {
-                                        image5.cover(287, 181)
-                                        BG.composite(image5, 357, 278)
-                                        Jimp.read(profileURLs[5]).then(function (image6) {
-                                            image6.cover(309, 182)
-                                            BG.composite(image6, 688, 278)
-                                            Jimp.read(profileURLs[6]).then(function (image7) {
-                                                image7.cover(290, 182)
-                                                BG.composite(image7, 22, 544)
-                                                Jimp.read(profileURLs[7]).then(function (image8) {
-                                                    image8.cover(288, 180)
-                                                    BG.composite(image8, 356, 544)
-                                                    Jimp.read(profileURLs[8]).then(function (image9) {
-                                                        image9.cover(288, 180)
-                                                        BG.composite(image9, 689, 544)
-                                                        
-                                                        var mergedImage = BG.composite(alignmentImage, 0, 0);
-                                            
-                                                        const file = "TempStorage/" + shortid.generate() + ".png"
-                                                        mergedImage.write(file, function(error){
-                                                            if(error) { console.log(error); return;};
-                                                            console.log("got merged image");
-                                                            console.log(file);
-                                                            message.channel.send("***Alignment Chart***", {
-                                                                files: [file]
-                                                            }).then(function(){
-                                                                
-                                
-                                                                fs.remove(file, resultHandler);
-                                                            }).catch(function (err) {
-                                                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                                console.log(err.message);
-                                                                
-                                                                fs.remove(file, resultHandler);
+
+            setImmediate(() => {
+                Promise.all(promises).then(() => { 
+                    message.channel.send("***creating chart***").catch(error => {console.log("Send Error - " + error); });
+                    Jimp.read("chart.png").then(function (alignmentImage) {
+                        console.log("got image");
+                        var BG = new Jimp(alignmentImage.bitmap.width, alignmentImage.bitmap.height)
+                        Jimp.read(profileURLs[0]).then(function (image1) {
+                            image1.cover(287, 183)
+                            BG.composite(image1, 24, 10)
+                            Jimp.read(profileURLs[1]).then(function (image2) {
+                                image2.cover(288, 182)
+                                BG.composite(image2, 356, 12)
+                                Jimp.read(profileURLs[2]).then(function (image3) {
+                                    image3.cover(286, 181)
+                                    BG.composite(image3, 690, 11)
+                                    Jimp.read(profileURLs[3]).then(function (image4) {
+                                        image4.cover(288, 178)
+                                        BG.composite(image4, 23, 280)
+                                        Jimp.read(profileURLs[4]).then(function (image5) {
+                                            image5.cover(287, 181)
+                                            BG.composite(image5, 357, 278)
+                                            Jimp.read(profileURLs[5]).then(function (image6) {
+                                                image6.cover(309, 182)
+                                                BG.composite(image6, 688, 278)
+                                                Jimp.read(profileURLs[6]).then(function (image7) {
+                                                    image7.cover(290, 182)
+                                                    BG.composite(image7, 22, 544)
+                                                    Jimp.read(profileURLs[7]).then(function (image8) {
+                                                        image8.cover(288, 180)
+                                                        BG.composite(image8, 356, 544)
+                                                        Jimp.read(profileURLs[8]).then(function (image9) {
+                                                            image9.cover(288, 180)
+                                                            BG.composite(image9, 689, 544)
+                                                            
+                                                            var mergedImage = BG.composite(alignmentImage, 0, 0);
+                                                
+                                                            const file = "TempStorage/" + shortid.generate() + ".png"
+                                                            mergedImage.write(file, function(error){
+                                                                if(error) { console.log(error); return;};
+                                                                console.log("got merged image");
+                                                                console.log(file);
+                                                                message.channel.send("***Alignment Chart***", {
+                                                                    files: [file]
+                                                                }).then(function(){
+                                                                    
+                                    
+                                                                    fs.remove(file, resultHandler);
+                                                                }).catch(function (err) {
+                                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                                    console.log(err.message);
+                                                                    
+                                                                    fs.remove(file, resultHandler);
+                                                                });
+                                                                console.log("Message Sent");
                                                             });
-                                                            console.log("Message Sent");
+                                                        }).catch(function (err) {
+                                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                            console.log(err.message);
+                                                            
                                                         });
                                                     }).catch(function (err) {
                                                         message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -390,18 +397,14 @@ class AlignmentCommand extends command.Command
                             
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
                         
                     });
-                }).catch(function (err) {
-                    console.log(err.message);
-                    
-                });
-            }).catch((e) => {
-                console.log("User Data Error - " + e.message);
-                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
-            });
+                }).catch((e) => {
+                    console.log("User Data Error - " + e.message);
+                    message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
+                }); 
+            })
         }
     }
 }

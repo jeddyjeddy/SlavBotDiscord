@@ -281,54 +281,60 @@ class WaifuChartCommand extends command.Command
                 }
             }
 
-            Promise.all(promises).then(() => { 
-                message.channel.send("***creating waifu chart***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("waifuchart.png").then(function (waifuchartImage) {
-                    console.log("got image");
-                    var BG = new Jimp(waifuchartImage.bitmap.width, waifuchartImage.bitmap.height)
-                    Jimp.read(profileURLs[0]).then(function (image1) {
-                        image1.cover(365, 308)
-                        BG.composite(image1, 35, 32)
-                        Jimp.read(profileURLs[1]).then(function (image2) {
-                            image2.cover(365, 308)
-                            BG.composite(image2, 35, 455)
-                            Jimp.read(profileURLs[2]).then(function (image3) {
-                                image3.cover(365, 308)
-                                BG.composite(image3, 35, 863)
-                                Jimp.read(profileURLs[3]).then(function (image4) {
-                                    image4.cover(365, 308)
-                                    BG.composite(image4, 1500, 35)
-                                    Jimp.read(profileURLs[4]).then(function (image5) {
-                                        image5.cover(365, 308)
-                                        BG.composite(image5, 1500, 465)
-                                        Jimp.read(profileURLs[5]).then(function (image6) {
-                                            image6.cover(365, 308)
-                                            BG.composite(image6, 1500, 871)
-                                            
-                                            Jimp.read(profileURLs[6]).then(function (image7) {
-                                                image7.cover(626, 580)
-                                                BG.composite(image7, 633, 267)
+            setImmediate(() => {
+                Promise.all(promises).then(() => { 
+                    message.channel.send("***creating waifu chart***").catch(error => {console.log("Send Error - " + error); });
+                    Jimp.read("waifuchart.png").then(function (waifuchartImage) {
+                        console.log("got image");
+                        var BG = new Jimp(waifuchartImage.bitmap.width, waifuchartImage.bitmap.height)
+                        Jimp.read(profileURLs[0]).then(function (image1) {
+                            image1.cover(365, 308)
+                            BG.composite(image1, 35, 32)
+                            Jimp.read(profileURLs[1]).then(function (image2) {
+                                image2.cover(365, 308)
+                                BG.composite(image2, 35, 455)
+                                Jimp.read(profileURLs[2]).then(function (image3) {
+                                    image3.cover(365, 308)
+                                    BG.composite(image3, 35, 863)
+                                    Jimp.read(profileURLs[3]).then(function (image4) {
+                                        image4.cover(365, 308)
+                                        BG.composite(image4, 1500, 35)
+                                        Jimp.read(profileURLs[4]).then(function (image5) {
+                                            image5.cover(365, 308)
+                                            BG.composite(image5, 1500, 465)
+                                            Jimp.read(profileURLs[5]).then(function (image6) {
+                                                image6.cover(365, 308)
+                                                BG.composite(image6, 1500, 871)
                                                 
-                                                var mergedImage = BG.composite(waifuchartImage, 0, 0);
-                                    
-                                                const file = "TempStorage/" + shortid.generate() + ".png"
-                                                mergedImage.write(file, function(error){
-                                                    if(error) { console.log(error); return;};
-                                                    console.log("got merged image");
-                                                    console.log(file);
-                                                    message.channel.send("Waifu Chart:", {
-                                                        files: [file]
-                                                    }).then(function(){
-                                                        
-                        
-                                                        fs.remove(file, resultHandler);
-                                                    }).catch(function (err) {
-                                                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                        console.log(err.message);
-                                                        
-                                                        fs.remove(file, resultHandler);
+                                                Jimp.read(profileURLs[6]).then(function (image7) {
+                                                    image7.cover(626, 580)
+                                                    BG.composite(image7, 633, 267)
+                                                    
+                                                    var mergedImage = BG.composite(waifuchartImage, 0, 0);
+                                        
+                                                    const file = "TempStorage/" + shortid.generate() + ".png"
+                                                    mergedImage.write(file, function(error){
+                                                        if(error) { console.log(error); return;};
+                                                        console.log("got merged image");
+                                                        console.log(file);
+                                                        message.channel.send("Waifu Chart:", {
+                                                            files: [file]
+                                                        }).then(function(){
+                                                            
+                            
+                                                            fs.remove(file, resultHandler);
+                                                        }).catch(function (err) {
+                                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                            console.log(err.message);
+                                                            
+                                                            fs.remove(file, resultHandler);
+                                                        });
+                                                        console.log("Message Sent");
                                                     });
-                                                    console.log("Message Sent");
+                                                }).catch(function (err) {
+                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                    console.log(err.message);
+                                                    
                                                 });
                                             }).catch(function (err) {
                                                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
@@ -361,18 +367,14 @@ class WaifuChartCommand extends command.Command
                             
                         });
                     }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                         console.log(err.message);
                         
                     });
-                }).catch(function (err) {
-                    console.log(err.message);
-                    
+                }).catch((e) => {
+                    console.log("User Data Error - " + e.message);
+                    message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
                 });
-            }).catch((e) => {
-                console.log("User Data Error - " + e.message);
-                message.channel.send("User data not found").catch(error => console.log("Send Error - " + error));
-            });
+            })
         }
     }
 }

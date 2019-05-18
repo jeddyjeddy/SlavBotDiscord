@@ -116,24 +116,26 @@ class TierCommand extends command.Command
                         }))
                     }
 
-                    Promise.all(promises).then(() => {
-                        const file = "TempStorage/" + shortid.generate() + ".png"
-                        tierImage.write(file, function(error){
-                            if(error) { console.log(error); return;};
-                            console.log(file);
-                            message.channel.send("***Tier List***", {
-                                files: [file]
-                            }).then(function(){
-                                fs.remove(file, resultHandler);
-                            }).catch(function (err) {
-                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                console.log(err.message);
-                                
-                                fs.remove(file, resultHandler);
+                    setImmediate(() => {
+                        Promise.all(promises).then(() => {
+                            const file = "TempStorage/" + shortid.generate() + ".png"
+                            tierImage.write(file, function(error){
+                                if(error) { console.log(error); return;};
+                                console.log(file);
+                                message.channel.send("***Tier List***", {
+                                    files: [file]
+                                }).then(function(){
+                                    fs.remove(file, resultHandler);
+                                }).catch(function (err) {
+                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                    console.log(err.message);
+                                    
+                                    fs.remove(file, resultHandler);
+                                });
+                                console.log("Message Sent");
                             });
-                            console.log("Message Sent");
-                        });
-                    })  
+                        })  
+                    })
             }).catch(function (err) {
                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
