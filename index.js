@@ -2638,7 +2638,7 @@ bot.on("message", (message) => {
     if(message.guild.id == supportServerID)
     {
         //Support Server Social Channels and VIP Channels
-        if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617" && !message.author.bot)
+        if((message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617") && !message.author.bot)
         {
             levelUp(message.author, message.channel);
 
