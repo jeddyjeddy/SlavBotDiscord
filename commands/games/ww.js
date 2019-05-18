@@ -244,6 +244,7 @@ class WWCommand extends command.Command
                         {
                             wars[i].ended = true;
                             message.channel.send("<@" + message.author.id + "> Ended WW Session").catch(error => {console.log("Send Error - " + error); });
+                            firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
                             return;
                         }
                         else if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("remove"))
