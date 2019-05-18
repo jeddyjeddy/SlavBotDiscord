@@ -43,12 +43,10 @@ class TierCommand extends command.Command
         
                     for(var i = 0; i < membersArray.length; i++)
                     {
-                        if(membersArray[i].avatarURL != undefined && membersArray[i].avatarURL != null)
+                        if(membersArray[i].user.avatarURL != undefined && membersArray[i].user.avatarURL != null)
                         {
                             members.push(membersArray[i])
                         }
-
-                        console.log("Avatar for " + membersArray[i].id + " is " + membersArray[i].avatarURL)
                     }
         
                     for(var i = 0; i < 7; i++)
@@ -76,7 +74,7 @@ class TierCommand extends command.Command
         
                             if(!alreadyAdded)
                             {
-                                avatars.push({id: user.id, avatarURL: user.avatarURL, row: i, column: index})
+                                avatars.push({id: user.id, avatarURL: user.user.avatarURL, row: i, column: index})
                             }
                             else
                             {
