@@ -86,16 +86,26 @@ class TierCommand extends command.Command
                     for(var i = 0; i < avatars.length; i++)
                     {
                         const data = avatars[i]
+                        var errorColumn = 0, errorRow = -1
                         promises.push(Jimp.read(data.avatarURL).then(function(avatarImage){
-
                             if(avatarImage != undefined || avatarImage != null)
                             {
                                 var size = 62
-                                var x = 93 + (((size + 5) * data.column))
+                                var x = 93 + (((size + 5) * (data.column - errorColumn)))
                                 var y = 10 + (70 * data.row)
     
                                 avatarImage.resize(size, size)
                                 tierImage.composite(avatarImage, x, y)
+                            }
+                            else
+                            {
+                                if(errorRow == data.row)
+                                    errorColumn = errorColumn + 1
+                                else
+                                {
+                                    errorRow = data.row
+                                    errorColumn = 1
+                                }
                             }
                         }).catch(function (err) {
                             message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
