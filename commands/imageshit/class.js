@@ -159,6 +159,9 @@ class ClassCommand extends command.Command
             {
                 return;
             }
+
+            message.guild.fetchMembers()
+            
             var profileURLs = [];
             var profiles = [];
             console.log("users class");

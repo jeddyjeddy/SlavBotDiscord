@@ -9,7 +9,6 @@ var resultHandler = function(err) {
        console.log("file deleted");
     }
 }
-const skills = ["alchemy", "alteration", "archery", "block", "conjuration", "destruction", "enchanting", "heavy armor", "illusion", "light armor", "lockpicking", "one-handed", "pickpocket", "restoration", "smithing", "sneak", "speech", "two-handed"]
 
 var CommandCounter = require("../../index.js")
 
