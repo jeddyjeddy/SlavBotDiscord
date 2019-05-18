@@ -90,6 +90,9 @@ class TierCommand extends command.Command
                         promises.push(Jimp.read(data.avatarURL).then(function(avatarImage){
                             if(avatarImage != undefined || avatarImage != null)
                             {
+                                if(errorRow != data.row)
+                                    errorColumn = 0
+
                                 var size = 62
                                 var x = 93 + (((size + 5) * (data.column - errorColumn)))
                                 var y = 10 + (70 * data.row)
