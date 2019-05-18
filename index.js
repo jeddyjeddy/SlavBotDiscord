@@ -2679,7 +2679,7 @@ bot.on("message", (message) => {
                         const avatarURL = avatar
 
                         member.addRole(legacyRole).then(() => {
-                            message.channel.send("<@" + message.author.id + "> Thank you for supporting Slav Bot since the very beginning. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Thank you for always being here***`, description: "You been given the <@&" + legacyRole + "> role for being with us since 2018, thank you for your support.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> Thank you for supporting Slav Bot since the very beginning. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Thank you for always being here***`, description: "You have been given the <@&" + legacyRole + "> role for being with us since 2018, thank you for your support.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                         }).catch(error => console.log("Role Error - " + error))
                     }
 
@@ -2692,7 +2692,7 @@ bot.on("message", (message) => {
                         const avatarURL = avatar
 
                         member.addRole(verifiedRole).then(() => {
-                            message.channel.send("<@" + message.author.id + "> You have become a verified member. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Congratulations On Being Verified***`, description: "You been given the <@&" + verifiedRole + "> role for being with us for over 3 months.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> You have become a verified member. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Congratulations On Being Verified***`, description: "You have been given the <@&" + verifiedRole + "> role for being with us for over 3 months.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                         }).catch(error => console.log("Role Error - " + error))
                     }
                 }
