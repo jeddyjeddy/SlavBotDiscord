@@ -88,7 +88,7 @@ class TierCommand extends command.Command
                         const data = avatars[i]
                         promises.push(Jimp.read(data.avatarURL).then(function(avatarImage){
                             var size = 62
-                            var x = 93 + ((size * data.column) + 20)
+                            var x = 93 + (((size + 5) * data.column))
                             var y = 10 + (70 * data.row)
 
                             avatarImage.resize(size, size)
