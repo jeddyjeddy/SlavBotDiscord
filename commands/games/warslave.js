@@ -5,6 +5,16 @@ var firebase = require("firebase");
 var signedIntoFirebase = false;
 var listening = false;
 var patrons = [{userID: "", type: 0}];
+const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
+
+function rankAscending(a, b)
+{
+    if (a.slaveCount < b.slaveCount)
+        return 1;
+    if (a.slaveCount > b.slaveCount)
+        return -1;
+    return 0;
+}
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -68,7 +78,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)"]
         });
     }
 
@@ -1044,6 +1054,76 @@ class WarSlaveCommand extends command.Command
                                 message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
+                        else if(args.toLowerCase().startsWith("ranks"))
+                            {
+                                var ranks = []
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    var slaveCount = 0;
+                                    for(var slaveIndex2 = 0; slaveIndex2 < slave.users.length; slaveIndex2++)
+                                    {
+                                        if(slaves[i].users[slaveIndex2].owner == slaves[i].users[slaveIndex].id)
+                                            slaveCount++;
+                                    }
+
+                                    ranks.push({id: slaves[i].users[slaveIndex].id, slaveCount: slaveCount})
+                                }
+
+                                if(ranks.length == 0)
+                                {
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    message.channel.send("", {embed: {title: "**Local War Slave Leaderboard for _" + message.guild.name + "_ - Top 10 players :trophy:**",
+                                    description: "No slaves owned by any user.",
+                                    color: 16757505,
+                                    timestamp: timestamp,
+                                    footer: {
+                                      icon_url: message.client.user.avatarURL,
+                                      text: "Sent on"
+                                    }}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    ranks.sort(rankAscending);
+                                    var members = message.guild.members.array();
+                                    var names = [];
+                        
+                                    for(var userIndex = 0; userIndex < ranks.length; userIndex++)
+                                    {
+                                        for(var index = 0; index < members.length; index++)
+                                        {
+                                            if(members[index].id == ranks[userIndex].id)
+                                            {
+                                                names.push(members[index].user.username);
+                                            }
+                                        }
+                                    }
+                                    
+                                    var descriptionList = "";
+                        
+                                    var length = ranks.length;
+    
+                                    if(length > 10)
+                                    {
+                                        length = 10;
+                                    }
+    
+                                    for(var rankIndex = 0; rankIndex < length; rankIndex++)
+                                    {
+                                        descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(ranks[rankIndex].slaveCount) + "`` - **" + names[rankIndex] + "**\n");
+                                    }
+                        
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    message.channel.send("", {embed: {title: "**Local War Slave Leaderboard for _" + message.guild.name + "_ - Top 10 players :trophy:**",
+                                    description: "**Rank** - Number of Slaves Owned - Name\n" + descriptionList,
+                                    color: 16757505,
+                                    timestamp: timestamp,
+                                    footer: {
+                                      icon_url: message.client.user.avatarURL,
+                                      text: "Sent on"
+                                    }}}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
                         else if(args.toLowerCase().startsWith("profile"))
                         {
                             var otherUser = false;

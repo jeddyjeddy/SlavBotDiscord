@@ -360,11 +360,11 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
-                                        for(var i = 0; i < members.length; i++)
+                                        for(var index = 0; index < members.length; index++)
                                         {
-                                            if(members[i].id == localLeaderboards[userIndex].key)
+                                            if(members[index].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push(members[i].user.username);
+                                                names.push(members[iindex].user.username);
                                             }
                                         }
                                     }
@@ -378,9 +378,9 @@ class WWCommand extends command.Command
                                         length = 10;
                                     }
     
-                                    for(var i = 0; i < length; i++)
+                                    for(var rankIndex = 0; rankIndex < length; rankIndex++)
                                     {
-                                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].wins) + "`` - **" + names[i] + "**\n");
+                                        descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(localLeaderboards[rankIndex].wins) + "`` - **" + names[rankIndex] + "**\n");
                                     }
                         
                                     var timestamp = (new Date(Date.now()).toJSON());
