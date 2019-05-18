@@ -44,7 +44,11 @@ class TierCommand extends command.Command
                     for(var i = 0; i < membersArray.length; i++)
                     {
                         if(membersArray[i].avatarURL != undefined && membersArray[i].avatarURL != null)
+                        {
                             members.push(membersArray[i])
+                        }
+
+                        console.log("Avatar for " + membersArray[i].id + " is " + membersArray[i].avatarURL)
                     }
         
                     for(var i = 0; i < 7; i++)
