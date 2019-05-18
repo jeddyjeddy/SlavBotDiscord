@@ -2610,6 +2610,16 @@ bot.on("messageReactionAdd", (reaction, user) => {
 
 var customResponses = [], customCounters = [], customCounterData = []
 
+const legacyRole = "579099265071054849", verifiedRole = "579100033543045144"
+
+function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
 bot.on("message", (message) => {
     if(!signedIntoFirebase)
     {
@@ -2631,6 +2641,63 @@ bot.on("message", (message) => {
         if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
         {
             levelUp(message.author, message.channel);
+
+            message.guild.fetchMember(message.author).then((member) => {
+                var giveLegacy = false, giveVerified = false;
+                if(member.joinedAt.getFullYear() == 2018)
+                {
+                    giveLegacy = true;
+                }
+
+                if(monthDiff(member.joinedAt, new Date()) >= 3)
+                {
+                    giveVerified = true;
+                }
+
+                if(giveLegacy || giveVerified)
+                {
+                    var roles = member.roles.array()
+                    for(var i = 0; i < roles.length; i++)
+                    {
+                        if(roels[i].id == legacyRole)
+                        {
+                            giveLegacy = false;
+                        }
+
+                        if(roels[i].id == verifiedRole)
+                        {
+                            giveVerified = false;
+                        }
+                    }
+
+                    if(giveLegacy)
+                    {
+                        var avatar = ""
+                        if(message.author.avatarURL != null && message.author.avatarURL != undefined)
+                            avatar = message.author.avatarURL
+
+                        const avatarURL = avatar
+
+                        member.addRole(legacyRole).then(() => {
+                            message.channel.send("<@" + message.author.id + "> Thank you for supporting Slav Bot since the very beginning. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Thank you for always being here***`, description: "You been given the <@&" + legacyRole + "> role for being with us since 2018, thank you for your support.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                        }).catch(error => console.log("Role Error - " + error))
+                    }
+
+                    if(giveVerified)
+                    {
+                        var avatar = ""
+                        if(message.author.avatarURL != null && message.author.avatarURL != undefined)
+                            avatar = message.author.avatarURL
+
+                        const avatarURL = avatar
+
+                        member.addRole(giveVerified).then(() => {
+                            message.channel.send("<@" + message.author.id + "> You have become a verified member. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Congratulations On Being Verified***`, description: "You been given the <@&" + verifiedRole + "> role for being with us for over 3 months.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                        }).catch(error => console.log("Role Error - " + error))
+                    }
+                }
+
+            }).catch((error) => console.log(error.message));
         }
 
         if(message.channel.id == marketID && message.author.id == "281876391535050762")
