@@ -45,7 +45,7 @@ class AnimeGirlDabbingCommand extends command.Command
             name: "animegirldabbing",
             group: "imageshit",
             memberName: "animegirldabbing",
-            description: "Gives a random Image of an anime girl from /r/animegirlsdabbing. This is even worse.",
+            description: "Gives a random Image of an anime girl dabbing from /r/animegirlsdabbing. This is even worse.",
             examples: ["`!animegirldabbing`"]
         });
     }
