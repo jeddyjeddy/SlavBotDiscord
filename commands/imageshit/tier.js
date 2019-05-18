@@ -32,7 +32,7 @@ class TierCommand extends command.Command
         
         message.guild.fetchMembers()
         .then(() => {
-            message.channel.send("***generating tier list***").catch(error => {console.log("Send Error - " + error); });
+                message.channel.send("***generating tier list***").catch(error => {console.log("Send Error - " + error); });
                 Jimp.read("tier.png").then(function (tierImage) { 
                     console.log("got image");
 
@@ -88,7 +88,7 @@ class TierCommand extends command.Command
                         const data = avatars[i]
                         promises.push(Jimp.read(data.avatarURL).then(function(avatarImage){
                             var size = 62
-                            var x = 93 + ((size * data.column) + 1)
+                            var x = 93 + ((size * data.column) + 5)
                             var y = 10 + (70 * data.row)
 
                             avatarImage.resize(size, size)
