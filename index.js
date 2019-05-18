@@ -2638,7 +2638,7 @@ bot.on("message", (message) => {
     if(message.guild.id == supportServerID)
     {
         //Support Server Social Channels and VIP Channels
-        if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617")
+        if(message.channel.parentID == "465605360980590602" || message.channel.parentID == "511437738944495617" && !message.author.bot)
         {
             levelUp(message.author, message.channel);
 
@@ -2691,7 +2691,7 @@ bot.on("message", (message) => {
 
                         const avatarURL = avatar
 
-                        member.addRole(giveVerified).then(() => {
+                        member.addRole(verifiedRole).then(() => {
                             message.channel.send("<@" + message.author.id + "> You have become a verified member. You can check out more roles in <#" + marketID + ">.", {embed: {title: `***Congratulations On Being Verified***`, description: "You been given the <@&" + verifiedRole + "> role for being with us for over 3 months.", thumbnail: {url: avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                         }).catch(error => console.log("Role Error - " + error))
                     }
