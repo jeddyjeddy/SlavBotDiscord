@@ -37,22 +37,22 @@ function completeCheck(messageID)
     }
 }
 
-class AwwnimeCommand extends command.Command
+class AnimeGirlCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "awwnime",
+            name: "animegirl",
             group: "imageshit",
-            memberName: "awwnime",
-            description: "Gives a random Image of an anime girl from /r/awwnime. The weebs made me do this.",
-            examples: ["`!awwnime`"]
+            memberName: "animegirl",
+            description: "Gives a random Image of an anime girl from /r/animegirls. The weebs made me do this.",
+            examples: ["`!animegirl`"]
         });
     }
 
     async run(message, args)
     {
-        var url = "https://www.reddit.com/r/awwnime/random/.json";
+        var url = "https://www.reddit.com/r/animegirls/random/.json";
         request(url, { json: true }, (err, res, redditResponse) => {
             if (err) { message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error)); return console.log(err); }
             
@@ -131,7 +131,7 @@ class AwwnimeCommand extends command.Command
 
             if(title == "" || title == null)
             {
-                title = "***Awwnime Moment***";
+                title = "***Anime Girl Moment***";
             }
             else
             {
@@ -153,4 +153,4 @@ class AwwnimeCommand extends command.Command
     }
 }
 
-module.exports = AwwnimeCommand;
+module.exports = AnimeGirlCommand;
