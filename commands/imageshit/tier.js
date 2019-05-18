@@ -74,7 +74,7 @@ class TierCommand extends command.Command
         
                             if(!alreadyAdded)
                             {
-                                avatars.push({id: user.id, avatarURL: user.user.avatarURL.replace(/?search=2048/g, ""), row: i, column: index})
+                                avatars.push({id: user.id, avatarURL: user.user.avatarURL.replace(/size=2048/g, "size=128").replace(/size=1024/g, "size=128").replace(/size=512/g, "size=128").replace(/size=256/g, "size=128"), row: i, column: index})
                             }
                             else
                             {
