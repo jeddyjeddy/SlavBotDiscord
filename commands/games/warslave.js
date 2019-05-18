@@ -1061,7 +1061,7 @@ class WarSlaveCommand extends command.Command
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                 {
                                     var slaveCount = 0;
-                                    for(var slaveIndex2 = 0; slaveIndex2 < slave.users.length; slaveIndex2++)
+                                    for(var slaveIndex2 = 0; slaveIndex2 < slave[i].users.length; slaveIndex2++)
                                     {
                                         if(slaves[i].users[slaveIndex2].owner == slaves[i].users[slaveIndex].id)
                                             slaveCount++;
