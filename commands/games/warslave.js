@@ -460,7 +460,7 @@ class WarSlaveCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    var priceAdd = Math.floor((0.25 * amount) + 1)
+                                                    var priceAdd = Math.floor(0.25 * amount)
                                                     IndexRef.subtractTokens(message.author.id, amount)
                                                     IndexRef.addTokens(users[userIndex], priceAdd)
                                                     var newPrice = 0;
