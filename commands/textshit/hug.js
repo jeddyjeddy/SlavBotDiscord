@@ -16,8 +16,6 @@ function httpGetAsync(theUrl, callback)
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
           callback(data);
-          console.log(theUrl)
-          console.log(data)
         });
       
       }).on("error", (err) => {
@@ -53,6 +51,7 @@ function grab_data(anon_id)
 {
     // set the apikey and limit
     var apikey = process.env.TENOR_API;
+    console.log(apikey)
     var lmt = 50;
 
     // test search term
