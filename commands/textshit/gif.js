@@ -32,7 +32,7 @@ function tenorCallback_anonid(responsetext)
     anon_id = response_objects["anon_id"];
 }
 
-var url = "https://api.tenor.com/v1/anonid?key=" + "ZLIZMBP5A30Z";
+var url = "https://api.tenor.com/v1/anonid?key=" + process.env.TENOR_API;
 
 httpGetAsync(url,tenorCallback_anonid); 
 
@@ -65,7 +65,7 @@ class GIFCommand extends command.Command
         if(search != "")
         {
             setImmediate(() => {
-                var apikey = "ZLIZMBP5A30Z";
+                var apikey = process.env.TENOR_API;
                 var lmt = 50;
             
                 // using default locale of en_US

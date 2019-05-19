@@ -50,7 +50,7 @@ function tenorCallback_search2(responsetext)
 function grab_data(anon_id)
 {
     // set the apikey and limit
-    var apikey = "ZLIZMBP5A30Z";
+    var apikey = process.env.TENOR_API;
     var lmt = 50;
 
     // test search term
@@ -88,7 +88,7 @@ function tenorCallback_anonid(responsetext)
     grab_data(anon_id);
 }
 
-var url = "https://api.tenor.com/v1/anonid?key=" + "ZLIZMBP5A30Z";
+var url = "https://api.tenor.com/v1/anonid?key=" + process.env.TENOR_API;
 
 httpGetAsync(url,tenorCallback_anonid); 
 
