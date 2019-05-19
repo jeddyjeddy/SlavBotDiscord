@@ -38,16 +38,16 @@ httpGetAsync(url,tenorCallback_anonid);
 
 
 
-class HugCommand extends command.Command
+class GIFCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "hug",
+            name: "gif",
             group: "textshit",
-            memberName: "hug",
-            description: "Hug yourself or another user.",
-            examples: ["`!hug`", "`!hug @User`"]
+            memberName: "gif",
+            description: "Search a GIF.",
+            examples: ["`!gif <search-term>`", "`!gif explosion`"]
         });
     }
 
@@ -108,4 +108,4 @@ class HugCommand extends command.Command
     }
 }
 
-module.exports = HugCommand;
+module.exports = GIFCommand;
