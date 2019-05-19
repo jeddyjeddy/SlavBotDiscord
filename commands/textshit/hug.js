@@ -1,28 +1,26 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 var gifs = null;
+const https = require('https');
 
 function httpGetAsync(theUrl, callback)
 {
-    // create the request object
-    var xmlHttp = new XMLHttpRequest();
-
-    // set the state change callback to capture when the response comes in
-    xmlHttp.onreadystatechange = function()
-    {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        {
-            callback(xmlHttp.responseText);
-        }
-    }
-
-    // open as a GET call, pass in the url and set async = True
-    xmlHttp.open("GET", theUrl, true);
-
-    // call send with no params as they were passed in on the url string
-    xmlHttp.send(null);
-
-    return;
+    https.get(theUrl, (resp) => {
+        let data = '';
+      
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+      
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+          callback(data);
+        });
+      
+      }).on("error", (err) => {
+        console.log("Error: " + err.message);
+      });
 }
 
 // callback for the top 8 GIFs of search
