@@ -162,6 +162,7 @@ class HugCommand extends command.Command
                     message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                 });
+                httpGetAsync(url,tenorCallback_anonid); 
             }
         }
         else
@@ -183,6 +184,7 @@ class HugCommand extends command.Command
                     message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
                     console.log(err.message);
                 });
+                httpGetAsync(url,tenorCallback_anonid); 
             }
         }
     }
