@@ -81,7 +81,7 @@ class GIFCommand extends command.Command
                 
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
-                    var response_objects = JSON.parse(responsetext);
+                    var response_objects = JSON.parse(data);
                     var gifs = response_objects["results"];
                     var randomGif = Math.floor(Math.random() * gifs.length)
                     var url = gifs[randomGif]["media"][0]["gif"]["url"]
