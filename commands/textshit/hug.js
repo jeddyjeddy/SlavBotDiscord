@@ -16,6 +16,8 @@ function httpGetAsync(theUrl, callback)
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
           callback(data);
+          console.log(theUrl)
+          console.log(data)
         });
       
       }).on("error", (err) => {
