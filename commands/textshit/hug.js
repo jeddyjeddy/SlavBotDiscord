@@ -65,8 +65,6 @@ function tenorCallback_anonid(responsetext)
 
     anon_id = response_objects["anon_id"];
 
-    user_anon_id = anon_id;
-
     // pass on to grab_data
     grab_data(anon_id);
 }
