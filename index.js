@@ -36,12 +36,15 @@ dbl.on('posted', () => {
                 }
     
                 // Start the request
-                request(options, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        // Print out the response body
-                        console.log("Bots for discord success")
-                    }
+                setImmediate(() => {
+                    request(options, function (error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            // Print out the response body
+                            console.log("Bots for discord success")
+                        }
+                    })
                 })
+                
     
                 // Set the headers
                 
@@ -59,14 +62,16 @@ dbl.on('posted', () => {
                     body: JSON.stringify({'guild_count': guildSize})
                 }
             
-                // Start the request
-                request(options2, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        // Print out the response body
-                        console.log("Discord services success")
-                    }
+                setImmediate(() => {
+                    request(options2, function (error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            // Print out the response body
+                            console.log("Discord services success")
+                        }
+                    })    
                 })
-    
+                // Start the request
+               
                 var headers3 = {
                     'Authorization': process.env.BOTS_ON_DISCORD_API,
                     'Content-Type': 'application/json'
@@ -81,11 +86,14 @@ dbl.on('posted', () => {
                 }
             
                 // Start the request
-                request(options3, function (error, response, body) {
-                    if (!error) {
-                        // Print out the response body
-                        console.log("Bots on discord success")
-                    }
+
+                setImmediate(() => {
+                    request(options3, function (error, response, body) {
+                        if (!error) {
+                            // Print out the response body
+                            console.log("Bots on discord success")
+                        }
+                    })   
                 })
     
                 var headers5 = {
@@ -101,11 +109,13 @@ dbl.on('posted', () => {
                 }
             
                 // Start the request
-                request(options5, function (error, response, body) {
-                    if (!error) {
-                        // Print out the response body
-                        console.log("discordbots.group success")
-                    }
+                setImmediate(() => {
+                    request(options5, function (error, response, body) {
+                        if (!error) {
+                            // Print out the response body
+                            console.log("discordbots.group success")
+                        }
+                    })
                 })
     
                 var headers8 = {
@@ -121,11 +131,13 @@ dbl.on('posted', () => {
                 }
             
                 // Start the request
-                request(options8, function (error, response, body) {
-                    if (!error) {
-                        // Print out the response body
-                        console.log("discord bot world success")
-                    }
+                setImmediate(() => {
+                    request(options8, function (error, response, body) {
+                        if (!error) {
+                            // Print out the response body
+                            console.log("discord bot world success")
+                        }
+                    })
                 })
     
                 var headers9 = {
@@ -140,13 +152,16 @@ dbl.on('posted', () => {
                     body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
                 }
             
-                // Start the request
-                request(options9, function (error, response, body) {
-                    if (!error) {
-                        // Print out the response body
-                        console.log("discord bots gg success")
-                    }
+                setImmediate(() => {
+                    request(options9, function (error, response, body) {
+                        if (!error) {
+                            // Print out the response body
+                            console.log("discord bots gg success")
+                        }
+                    })
                 })
+                // Start the request
+               
             });
             
         }
@@ -164,13 +179,15 @@ dbl.on('posted', () => {
         }
     
         // Start the request
-        request(options6, function (error, response, body) {
-            if (!error) {
-                // Print out the response body
-                console.log("DBL.com success")
-            }
+        setImmediate(() => {
+            request(options6, function (error, response, body) {
+                if (!error) {
+                    // Print out the response body
+                    console.log("DBL.com success")
+                }
+            })
         })
-    
+         
         bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " v" + (bot.shard.id + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
     })
 });
