@@ -84,14 +84,25 @@ class GIFCommand extends command.Command
                     resp.on('end', () => {
                         var response_objects = JSON.parse(data);
                         var gifs = response_objects["results"];
-                        var randomGif = Math.floor(Math.random() * gifs.length)
-                        var url = gifs[randomGif]["media"][0]["gif"]["url"]
-                        message.channel.send("<@" + message.author.id + "> Random GIF for ***" + args.toString() + "***", {
-                            files: [url]
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                            console.log(err.message);
-                        });
+
+                        if(gifs.length == 0 || gifs == undefined || gifs == null)
+                        {
+                            message.channel.send("<@" + message.author.id + "> No GIF found for ***" + args.toString() + "***").catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                console.log(err.message);
+                            });
+                        }
+                        else
+                        {
+                            var randomGif = Math.floor(Math.random() * gifs.length)
+                            var url = gifs[randomGif]["media"][0]["gif"]["url"]
+                            message.channel.send("<@" + message.author.id + "> Random GIF for ***" + args.toString() + "***", {
+                                files: [url]
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                                console.log(err.message);
+                            });
+                        }
                     });
                     
                     }).on("error", (err) => {
