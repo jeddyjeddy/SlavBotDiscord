@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-var gifs = null;
+var gifs = null, gifsLonely = null;
 const https = require('https');
 
 function httpGetAsync(theUrl, callback)
@@ -35,6 +35,16 @@ function tenorCallback_search(responsetext)
     return;
 }
 
+function tenorCallback_search2(responsetext)
+{
+    // parse the json response
+    var response_objects = JSON.parse(responsetext);
+
+    gifsLonely = response_objects["results"];
+
+    console.log("GIFs Loaded")
+    return;
+}
 
 // function to call the trending and category endpoints
 function grab_data(anon_id)
@@ -49,8 +59,17 @@ function grab_data(anon_id)
     // using default locale of en_US
     var search_url = "https://api.tenor.com/v1/search?tag=" + search_term + "&key=" +
             apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
+            
 
     httpGetAsync(search_url,tenorCallback_search);
+
+    var search_term2 = "lonely-anime-hug";
+
+    // using default locale of en_US
+    var search_url2 = "https://api.tenor.com/v1/search?tag=" + search_term2 + "&key=" +
+            apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
+
+    httpGetAsync(search_url2,tenorCallback_search2);    
 
     // data will be loaded by each call's callback
     return;
@@ -147,10 +166,24 @@ class HugCommand extends command.Command
         }
         else
         {
-            message.channel.send("<@" + message.author.id + "> Tag another user to hug.").catch(function (err) {
-                message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                console.log(err.message);
-            });
+            if(gifsLonely != null)
+            {
+                var randomGif = Math.floor(Math.random() * gifsLonely.length)
+                var url = gifsLonely[randomGif]["media"][0]["gif"]["url"]
+                message.channel.send("<@" + message.author.id + "> ***hugged themselves***", {
+                    files: [url]
+                }).catch(function (err) {
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    console.log(err.message);
+                });
+            }
+            else
+            {
+                message.channel.send("<@" + message.author.id + "> ***hugged themselves***").catch(function (err) {
+                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                    console.log(err.message);
+                });
+            }
         }
     }
 }
