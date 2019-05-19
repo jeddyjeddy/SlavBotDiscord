@@ -78,7 +78,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave steal @User` (Steal a slave for x100 their original price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)", "`!warslave reset` (Reset the game. Can only be used by server owners.)"]
         });
     }
 
@@ -974,6 +974,143 @@ class WarSlaveCommand extends command.Command
                             else
                             {
                                 message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
+                        else if (args.toLowerCase().startsWith("steal"))
+                        {
+                            var otherUser = false;
+                            var userID = "";
+                            var getUser = false;
+                            for(var index = 0; index < args.length; index++)
+                            {
+                                if(getUser)
+                                {
+                                    if(args[index].toString() == ">")
+                                    {
+                                        index = args.length;
+                                        otherUser = true;
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
+                                        {
+                                            userID = userID + args[index].toString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
+                                }
+                            }
+
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            var mentions = message.mentions.users.array()
+                            var isBot = false, notValid = true;
+                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                            {
+                                if(mentions[mentionIndex].id == userID)
+                                {
+                                    isBot = mentions[mentionIndex].bot
+                                    notValid = false;
+                                }
+                            }
+
+                            if(otherUser && userID != message.author.id && !isBot && !notValid)
+                            {
+                                var slaveFound = false;
+                                var selfOwner = "none"
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == message.author.id)
+                                    {
+                                        if(slaves[i].users[slaveIndex].owner != "")
+                                        {
+                                            selfOwner = slaves[i].users[slaveIndex].owner
+                                        }
+                                    }
+                                }
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == userID)
+                                    {
+                                        slaveFound = true;
+                                        var value = slaves[i].users[slaveIndex].price * 100;
+    
+                                        if(slaves[i].users[slaveIndex].owner == message.author.id)
+                                        {
+                                            message.channel.send("", {embed: {title: "***Slave Already Owned***", description: "<@" + message.author.id + "> You already own <@" + userID + ">\n\nYou can't steal your own slave", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else if(slaves[i].users[slaveIndex].id == selfOwner)
+                                        {
+                                            message.channel.send("", {embed: {title: "***Cannot Own Your Master***", description: "<@" + slaves[i].users[slaveIndex].id + "> owns you.\n\nYou can't steal your master.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else if(slaves[i].users[slaveIndex].owner == "")
+                                        {
+                                            message.channel.send("", {embed: {title: "***Slave Not Owned By Any User***", description: "<@" + userID + "> has not been purchased by any user. You must tag a slave owned by someone to steal it.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {
+                                            var freedomCooldownOver = true;
+                                            var cooldownTimestamp = "";
+                                            if(slaves[i].users[slaveIndex].cooldown != null && slaves[i].users[slaveIndex].cooldown != undefined && slaves[i].users[slaveIndex].cooldown != "")
+                                            {
+                                                var time = new Date(slaves[i].users[slaveIndex].cooldown)
+
+                                                if((new Date()).getTime() < time.getTime())
+                                                {
+                                                    freedomCooldownOver = false;
+                                                    cooldownTimestamp = slaves[i].users[slaveIndex].cooldown;
+                                                }
+                                            }
+
+                                            if(freedomCooldownOver)
+                                            {
+                                                if(!IndexRef.subtractTokens(message.author.id, value))
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Failed To Steal Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to steal <@" + userID + ">. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nStealing slaves requires x100 their original price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                                else
+                                                {                                                
+                                                    message.channel.send("<@" + message.author.id + "> has stolen <@" + userID + "> from <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Stole Slave***", description: "<@" + message.author.id + "> You have stolen <@" + userID + "> from <@" + slaves[i].users[slaveIndex].owner + "> for x100 the slave's price. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    
+                                                    slaves[i].users[slaveIndex].owner = message.author.id;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to steal <@" + userID + "> until their 2 hour freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(!slaveFound)
+                                {
+                                    message.channel.send("", {embed: {title: "***Slave Not Owned By Any User***", description: "<@" + userID + "> has not been purchased by any user. You must tag a slave owned by someone to steal it.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
+                            else
+                            {
+                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
+                        else if (args.toLowerCase().startsWith("reset"))
+                        {
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            if(message.author.id == message.guild.ownerID)
+                            {
+                                message.channel.send("Game Reset", {embed: {title: "***Game Reset***", description: "<@" + message.author.id + "> has reset the game. All slaves are now free. All prices have been reset.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                slaves[i].users = []
+                            }
+                            else
+                            {
+                                message.channel.send("", {embed: {title: "***You Are Not The Owner***", description: "<@" + message.author.id + "> Only the server owner can reset the game.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if (args.toLowerCase().startsWith("sell"))
