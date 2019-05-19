@@ -138,49 +138,49 @@ class DailySpinCommand extends command.Command
                                             {
                                                 if(chance >= 0.975 && isPatron)
                                                 {
-                                                    prize = 75000
+                                                    prize = 1000000
                                                     goldenPrize = true;
                                                 }
                                                 else
                                                 {
-                                                    prize = 50000
+                                                    prize = 500000
                                                 }
                                             }
                                             else if(chance >= 0.925)
                                             {
-                                                prize = 45000
+                                                prize = 450000
                                             }
                                             else if(chance >= 0.875)
                                             {
-                                                prize = 40000
+                                                prize = 400000
                                             }
                                             else if(chance >= 0.85)
                                             {
-                                                prize = 35000
+                                                prize = 350000
                                             }
                                             else if(chance >= 0.825)
                                             {
-                                                prize = 30000
+                                                prize = 300000
                                             }
                                             else if(chance >= 0.8)
                                             {
-                                                prize = 25000
+                                                prize = 250000
                                             }
                                             else if(chance >= 0.775)
                                             {
-                                                prize = 20000
+                                                prize = 200000
                                             }
                                             else if(chance >= 0.6)
                                             {
-                                                prize = 15000
+                                                prize = 150000
                                             }
                                             else if(chance >= 0.2)
                                             {
-                                                prize = 10000
+                                                prize = 100000
                                             }
                                             else 
                                             {
-                                                prize = 5000
+                                                prize = 50000
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
@@ -230,49 +230,49 @@ class DailySpinCommand extends command.Command
                                             {
                                                 if(chance >= 0.975 && isPatron)
                                                 {
-                                                    prize = 75000
+                                                    prize = 1000000
                                                     goldenPrize = true;
                                                 }
                                                 else
                                                 {
-                                                    prize = 50000
+                                                    prize = 500000
                                                 }
                                             }
                                             else if(chance >= 0.925)
                                             {
-                                                prize = 45000
+                                                prize = 450000
                                             }
                                             else if(chance >= 0.875)
                                             {
-                                                prize = 40000
+                                                prize = 400000
                                             }
                                             else if(chance >= 0.85)
                                             {
-                                                prize = 35000
+                                                prize = 350000
                                             }
                                             else if(chance >= 0.825)
                                             {
-                                                prize = 30000
+                                                prize = 300000
                                             }
                                             else if(chance >= 0.8)
                                             {
-                                                prize = 25000
+                                                prize = 250000
                                             }
                                             else if(chance >= 0.775)
                                             {
-                                                prize = 20000
+                                                prize = 200000
                                             }
                                             else if(chance >= 0.6)
                                             {
-                                                prize = 15000
+                                                prize = 150000
                                             }
                                             else if(chance >= 0.2)
                                             {
-                                                prize = 10000
+                                                prize = 100000
                                             }
                                             else 
                                             {
-                                                prize = 5000
+                                                prize = 50000
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
