@@ -64,39 +64,40 @@ class GIFCommand extends command.Command
         
         if(search != "")
         {
-            var apikey = "ZLIZMBP5A30Z";
-            var lmt = 50;
-        
-            // using default locale of en_US
-            var search_url = "https://api.tenor.com/v1/search?tag=" + search + "&key=" +
-                    apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
-        
-            https.get(search_url, (resp) => {
-                let data = '';
-                
-                // A chunk of data has been recieved.
-                resp.on('data', (chunk) => {
-                    data += chunk;
-                });
-                
-                // The whole response has been received. Print out the result.
-                resp.on('end', () => {
-                    var response_objects = JSON.parse(data);
-                    var gifs = response_objects["results"];
-                    var randomGif = Math.floor(Math.random() * gifs.length)
-                    var url = gifs[randomGif]["media"][0]["gif"]["url"]
-                    message.channel.send("<@" + message.author.id + "> Random GIF for ***" + args.toString() + "***", {
-                        files: [url]
-                    }).catch(function (err) {
-                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                        console.log(err.message);
-                    });
-                });
-                
-                }).on("error", (err) => {
-                console.log("Error: " + err.message);
-            });
+            setImmediate(() => {
+                var apikey = "ZLIZMBP5A30Z";
+                var lmt = 50;
             
+                // using default locale of en_US
+                var search_url = "https://api.tenor.com/v1/search?tag=" + search + "&key=" +
+                        apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
+            
+                https.get(search_url, (resp) => {
+                    let data = '';
+                    
+                    // A chunk of data has been recieved.
+                    resp.on('data', (chunk) => {
+                        data += chunk;
+                    });
+                    
+                    // The whole response has been received. Print out the result.
+                    resp.on('end', () => {
+                        var response_objects = JSON.parse(data);
+                        var gifs = response_objects["results"];
+                        var randomGif = Math.floor(Math.random() * gifs.length)
+                        var url = gifs[randomGif]["media"][0]["gif"]["url"]
+                        message.channel.send("<@" + message.author.id + "> Random GIF for ***" + args.toString() + "***", {
+                            files: [url]
+                        }).catch(function (err) {
+                            message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                            console.log(err.message);
+                        });
+                    });
+                    
+                    }).on("error", (err) => {
+                    console.log("Error: " + err.message);
+                });
+            })
         }
         else
         {
