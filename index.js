@@ -16,162 +16,163 @@ var request = require('request');
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
-    if(bot.shard.id == 0)
-    {
-        dbl.getStats(bot.user.id).then(stats => {
-            console.log(stats) // {"server_count":2,"shards":[]}
-            var guildSize = stats.server_count;
-            var headers = {
-                'Authorization': process.env.BOTS_FOR_DISCORD_API,
-                'Content-Type': 'application/json'
-            }
+    setImmediate(() => {
+        if(bot.shard.id == 0)
+        {
+            dbl.getStats(bot.user.id).then(stats => {
+                console.log(stats) // {"server_count":2,"shards":[]}
+                var guildSize = stats.server_count;
+                var headers = {
+                    'Authorization': process.env.BOTS_FOR_DISCORD_API,
+                    'Content-Type': 'application/json'
+                }
+        
+                // Configure the request
+                var options = {
+                    url: 'https://botsfordiscord.com/api/bot/' + bot.user.id,
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({'count': guildSize, 'server_count': guildSize})
+                }
     
-            // Configure the request
-            var options = {
-                url: 'https://botsfordiscord.com/api/bot/' + bot.user.id,
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({'count': guildSize, 'server_count': guildSize})
-            }
-
-            // Start the request
-            request(options, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    // Print out the response body
-                    console.log("Bots for discord success")
+                // Start the request
+                request(options, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        // Print out the response body
+                        console.log("Bots for discord success")
+                    }
+                })
+    
+                // Set the headers
+                
+                var headers2 = {
+                    'Authorization': process.env.DISCORD_SERVICES,
+                    'Content-Type': 'application/json'
                 }
-            })
-
-            // Set the headers
             
-            var headers2 = {
-                'Authorization': process.env.DISCORD_SERVICES,
-                'Content-Type': 'application/json'
-            }
-        
-            // Configure the request
+                // Configure the request
+                
+                var options2 = {
+                    url: 'https://discord.services/api/bots/' + bot.user.id,
+                    method: 'POST',
+                    headers: headers2,
+                    body: JSON.stringify({'guild_count': guildSize})
+                }
             
-            var options2 = {
-                url: 'https://discord.services/api/bots/' + bot.user.id,
-                method: 'POST',
-                headers: headers2,
-                body: JSON.stringify({'guild_count': guildSize})
-            }
-        
-            // Start the request
-            request(options2, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    // Print out the response body
-                    console.log("Discord services success")
+                // Start the request
+                request(options2, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        // Print out the response body
+                        console.log("Discord services success")
+                    }
+                })
+    
+                var headers3 = {
+                    'Authorization': process.env.BOTS_ON_DISCORD_API,
+                    'Content-Type': 'application/json'
                 }
-            })
-
-            var headers3 = {
-                'Authorization': process.env.BOTS_ON_DISCORD_API,
-                'Content-Type': 'application/json'
-            }
-        
-            // Configure the request
-            var options3 = {
-                url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
-                method: 'POST',
-                headers: headers3,
-                body: JSON.stringify({"guildCount": guildSize})
-            }
-        
-            // Start the request
-            request(options3, function (error, response, body) {
-                if (!error) {
-                    // Print out the response body
-                    console.log("Bots on discord success")
+            
+                // Configure the request
+                var options3 = {
+                    url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
+                    method: 'POST',
+                    headers: headers3,
+                    body: JSON.stringify({"guildCount": guildSize})
                 }
-            })
-
-            var headers5 = {
-                'Authorization': process.env.DISCORD_BOTS_GROUP,
-                'Content-Type': 'application/json'
-            }
-        
-            var options5 = {
-                url: 'https://api.discordbots.group/v1/bot/' + bot.user.id,
-                method: 'POST',
-                headers: headers5,
-                body: JSON.stringify({"count": guildSize})
-            }
-        
-            // Start the request
-            request(options5, function (error, response, body) {
-                if (!error) {
-                    // Print out the response body
-                    console.log("discordbots.group success")
+            
+                // Start the request
+                request(options3, function (error, response, body) {
+                    if (!error) {
+                        // Print out the response body
+                        console.log("Bots on discord success")
+                    }
+                })
+    
+                var headers5 = {
+                    'Authorization': process.env.DISCORD_BOTS_GROUP,
+                    'Content-Type': 'application/json'
                 }
-            })
-
-            var headers8 = {
-                'Authorization': process.env.DISCORDBOT_WORLD,
-                'Content-Type': 'application/json'
-            }
-        
-            var options8 = {
-                url: 'https://discordbot.world/api/bot/' + bot.user.id + "/stats",
-                method: 'POST',
-                headers: headers8,
-                body: JSON.stringify({"guild_count": guildSize, "shard_count": bot.shard.count})
-            }
-        
-            // Start the request
-            request(options8, function (error, response, body) {
-                if (!error) {
-                    // Print out the response body
-                    console.log("discord bot world success")
+            
+                var options5 = {
+                    url: 'https://api.discordbots.group/v1/bot/' + bot.user.id,
+                    method: 'POST',
+                    headers: headers5,
+                    body: JSON.stringify({"count": guildSize})
                 }
-            })
-
-            var headers9 = {
-                'Authorization': process.env.DISCORDBOTS_GG,
-                'Content-Type': 'application/json'
-            }
-        
-            var options9 = {
-                url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
-                method: 'POST',
-                headers: headers9,
-                body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
-            }
-        
-            // Start the request
-            request(options9, function (error, response, body) {
-                if (!error) {
-                    // Print out the response body
-                    console.log("discord bots gg success")
+            
+                // Start the request
+                request(options5, function (error, response, body) {
+                    if (!error) {
+                        // Print out the response body
+                        console.log("discordbots.group success")
+                    }
+                })
+    
+                var headers8 = {
+                    'Authorization': process.env.DISCORDBOT_WORLD,
+                    'Content-Type': 'application/json'
                 }
-            })
-        });
-        
-    }
-
-    var headers6 = {
-        'Authorization': process.env.DISCORD_BOT_LIST,
-        'Content-Type': 'application/json'
-    }
-
-    var options6 = {
-        url: 'https://discordbotlist.com/api/bots/' + bot.user.id + "/stats",
-        method: 'POST',
-        headers: headers6,
-        body: JSON.stringify({"guilds": bot.guilds.size, "shard_id": bot.shard.id})
-    }
-
-    // Start the request
-    request(options6, function (error, response, body) {
-        if (!error) {
-            // Print out the response body
-            console.log("DBL.com success")
+            
+                var options8 = {
+                    url: 'https://discordbot.world/api/bot/' + bot.user.id + "/stats",
+                    method: 'POST',
+                    headers: headers8,
+                    body: JSON.stringify({"guild_count": guildSize, "shard_count": bot.shard.count})
+                }
+            
+                // Start the request
+                request(options8, function (error, response, body) {
+                    if (!error) {
+                        // Print out the response body
+                        console.log("discord bot world success")
+                    }
+                })
+    
+                var headers9 = {
+                    'Authorization': process.env.DISCORDBOTS_GG,
+                    'Content-Type': 'application/json'
+                }
+            
+                var options9 = {
+                    url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
+                    method: 'POST',
+                    headers: headers9,
+                    body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
+                }
+            
+                // Start the request
+                request(options9, function (error, response, body) {
+                    if (!error) {
+                        // Print out the response body
+                        console.log("discord bots gg success")
+                    }
+                })
+            });
+            
         }
-    })
-
-    bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " v" + (bot.shard.id + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));
     
+        var headers6 = {
+            'Authorization': process.env.DISCORD_BOT_LIST,
+            'Content-Type': 'application/json'
+        }
+    
+        var options6 = {
+            url: 'https://discordbotlist.com/api/bots/' + bot.user.id + "/stats",
+            method: 'POST',
+            headers: headers6,
+            body: JSON.stringify({"guilds": bot.guilds.size, "shard_id": bot.shard.id})
+        }
+    
+        // Start the request
+        request(options6, function (error, response, body) {
+            if (!error) {
+                // Print out the response body
+                console.log("DBL.com success")
+            }
+        })
+    
+        bot.user.setActivity('Despacito ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " v" + (bot.shard.id + 1), { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
+    })
 });
     
 dbl.on('error', e => {
