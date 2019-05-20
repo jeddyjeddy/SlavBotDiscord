@@ -1237,7 +1237,7 @@ class TictacCommand extends command.Command
                         }
                         else
                         {
-                            message.channel.send("A game of Tic-Tac-Toe between <@" + sessions.owner + "> and <@" + sessions.user + "> is still going on.").catch(error => {console.log("Send Error - " + error); });
+                            message.channel.send("A game of Tic-Tac-Toe between <@" + sessions[i].owner + "> and <@" + sessions[i].user + "> is still going on.").catch(error => {console.log("Send Error - " + error); });
                         }
                     }
                     else
