@@ -16,7 +16,7 @@ var request = require('request');
 dbl.on('posted', () => {
     console.log('Server count posted!');
     
-    setImmediate(() => {
+    setTimeout(() => {
         if(bot.shard.id == 0)
         {
             dbl.getStats(bot.user.id).then(stats => {
@@ -36,7 +36,7 @@ dbl.on('posted', () => {
                 }
     
                 // Start the request
-                setImmediate(() => {
+                setTimeout(() => {
                     request(options, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
                             // Print out the response body
@@ -57,7 +57,7 @@ dbl.on('posted', () => {
                         
                             // Start the request
             
-                            setImmediate(() => {
+                            setTimeout(() => {
                                 request(options3, function (error, response, body) {
                                     if (!error) {
                                         // Print out the response body
@@ -75,7 +75,7 @@ dbl.on('posted', () => {
                                         }
                                     
                                         // Start the request
-                                        setImmediate(() => {
+                                        setTimeout(() => {
                                             request(options5, function (error, response, body) {
                                                 if (!error) {
                                                     // Print out the response body
@@ -93,7 +93,7 @@ dbl.on('posted', () => {
                                                     }
                                                 
                                                     // Start the request
-                                                    setImmediate(() => {
+                                                    setTimeout(() => {
                                                         request(options8, function (error, response, body) {
                                                             if (!error) {
                                                                 // Print out the response body
@@ -110,26 +110,26 @@ dbl.on('posted', () => {
                                                                     body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
                                                                 }
                                                             
-                                                                setImmediate(() => {
+                                                                setTimeout(() => {
                                                                     request(options9, function (error, response, body) {
                                                                         if (!error) {
                                                                             // Print out the response body
                                                                             console.log("discord bots gg success")
                                                                         }
                                                                     })
-                                                                })
+                                                                }, 5000)
                                                             }
                                                         })
-                                                    })
+                                                    }, 5000)
                                                 }
                                             })
-                                        })
+                                        }, 5000)
                                     }
                                 })   
-                            })
+                            }, 5000)
                         }
                     })
-                })               
+                }, 5000)               
             });
             
         }
@@ -157,11 +157,11 @@ dbl.on('posted', () => {
         })
          
         bot.user.setActivity('The sound of a ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " inch penis smacking " + (bot.shard.id + 1) + " people.", { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
-    })
+    }, 5000)
 });
     
 dbl.on('error', e => {
-console.log(`Oops! ${e}`);
+    console.log(`Oops! ${e}`);
 });
 
 bot.on('guildDelete', mem => {
