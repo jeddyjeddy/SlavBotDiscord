@@ -167,7 +167,7 @@ class WWCommand extends command.Command
                 {
                     if(wars[i].key == message.guild.id)
                     {
-                        if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("generate"))
+                        if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("generate"))
                         {
                             var endIndex = -1;
                             var users = []
@@ -247,7 +247,7 @@ class WWCommand extends command.Command
                             firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
                             return;
                         }
-                        else if(message.author.id == message.client.owners[0].id && args.toLowerCase().startsWith("remove"))
+                        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("remove"))
                         {
                             var endIndex = -1;
                             var users = []
