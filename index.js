@@ -40,103 +40,81 @@ dbl.on('posted', () => {
                     request(options, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
                             // Print out the response body
-                            console.log("Bots for discord success")
-                                             
-                            var headers2 = {
-                                'Authorization': process.env.DISCORD_SERVICES,
+                            console.log("Bots for discord success")                                            
+                        
+                            var headers3 = {
+                                'Authorization': process.env.BOTS_ON_DISCORD_API,
                                 'Content-Type': 'application/json'
                             }
                         
                             // Configure the request
-                            
-                            var options2 = {
-                                url: 'https://discord.services/api/bots/' + bot.user.id,
+                            var options3 = {
+                                url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
                                 method: 'POST',
-                                headers: headers2,
-                                body: JSON.stringify({'guild_count': guildSize})
+                                headers: headers3,
+                                body: JSON.stringify({"guildCount": guildSize})
                             }
                         
+                            // Start the request
+            
                             setImmediate(() => {
-                                request(options2, function (error, response, body) {
-                                    if (!error && response.statusCode == 200) {
+                                request(options3, function (error, response, body) {
+                                    if (!error) {
                                         // Print out the response body
-                                        console.log("Discord services success")
-                                        var headers3 = {
-                                            'Authorization': process.env.BOTS_ON_DISCORD_API,
+                                        console.log("Bots on discord success")
+                                        var headers5 = {
+                                            'Authorization': process.env.DISCORD_BOTS_GROUP,
                                             'Content-Type': 'application/json'
                                         }
                                     
-                                        // Configure the request
-                                        var options3 = {
-                                            url: 'https://bots.ondiscord.xyz/bot-api/bots/' + bot.user.id + "/guilds",
+                                        var options5 = {
+                                            url: 'https://api.discordbots.group/v1/bot/' + bot.user.id,
                                             method: 'POST',
-                                            headers: headers3,
-                                            body: JSON.stringify({"guildCount": guildSize})
+                                            headers: headers5,
+                                            body: JSON.stringify({"count": guildSize})
                                         }
                                     
                                         // Start the request
-                        
                                         setImmediate(() => {
-                                            request(options3, function (error, response, body) {
+                                            request(options5, function (error, response, body) {
                                                 if (!error) {
                                                     // Print out the response body
-                                                    console.log("Bots on discord success")
-                                                    var headers5 = {
-                                                        'Authorization': process.env.DISCORD_BOTS_GROUP,
+                                                    console.log("discordbots.group success")
+                                                    var headers8 = {
+                                                        'Authorization': process.env.DISCORDBOT_WORLD,
                                                         'Content-Type': 'application/json'
                                                     }
                                                 
-                                                    var options5 = {
-                                                        url: 'https://api.discordbots.group/v1/bot/' + bot.user.id,
+                                                    var options8 = {
+                                                        url: 'https://discordbot.world/api/bot/' + bot.user.id + "/stats",
                                                         method: 'POST',
-                                                        headers: headers5,
-                                                        body: JSON.stringify({"count": guildSize})
+                                                        headers: headers8,
+                                                        body: JSON.stringify({"guild_count": guildSize, "shard_count": bot.shard.count})
                                                     }
                                                 
                                                     // Start the request
                                                     setImmediate(() => {
-                                                        request(options5, function (error, response, body) {
+                                                        request(options8, function (error, response, body) {
                                                             if (!error) {
                                                                 // Print out the response body
-                                                                console.log("discordbots.group success")
-                                                                var headers8 = {
-                                                                    'Authorization': process.env.DISCORDBOT_WORLD,
+                                                                console.log("discord bot world success")
+                                                                var headers9 = {
+                                                                    'Authorization': process.env.DISCORDBOTS_GG,
                                                                     'Content-Type': 'application/json'
                                                                 }
                                                             
-                                                                var options8 = {
-                                                                    url: 'https://discordbot.world/api/bot/' + bot.user.id + "/stats",
+                                                                var options9 = {
+                                                                    url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
                                                                     method: 'POST',
-                                                                    headers: headers8,
-                                                                    body: JSON.stringify({"guild_count": guildSize, "shard_count": bot.shard.count})
+                                                                    headers: headers9,
+                                                                    body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
                                                                 }
                                                             
-                                                                // Start the request
                                                                 setImmediate(() => {
-                                                                    request(options8, function (error, response, body) {
+                                                                    request(options9, function (error, response, body) {
                                                                         if (!error) {
                                                                             // Print out the response body
-                                                                            console.log("discord bot world success")
-                                                                            var headers9 = {
-                                                                                'Authorization': process.env.DISCORDBOTS_GG,
-                                                                                'Content-Type': 'application/json'
-                                                                            }
-                                                                        
-                                                                            var options9 = {
-                                                                                url: 'https://discord.bots.gg/api/v1/bots/' + bot.user.id + "/stats",
-                                                                                method: 'POST',
-                                                                                headers: headers9,
-                                                                                body: JSON.stringify({"guildCount": guildSize, "shardCount": bot.shard.count})
-                                                                            }
-                                                                        
-                                                                            setImmediate(() => {
-                                                                                request(options9, function (error, response, body) {
-                                                                                    if (!error) {
-                                                                                        // Print out the response body
-                                                                                        console.log("discord bots gg success")
-                                                                                    }
-                                                                                })
-                                                                            })
+                                                                            console.log("discord bots gg success")
                                                                         }
                                                                     })
                                                                 })
@@ -144,10 +122,10 @@ dbl.on('posted', () => {
                                                         })
                                                     })
                                                 }
-                                            })   
+                                            })
                                         })
                                     }
-                                })    
+                                })   
                             })
                         }
                     })
