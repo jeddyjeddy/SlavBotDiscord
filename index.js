@@ -1239,28 +1239,28 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             {
                 if(newBlyComradesSupporter && newRoles[i].id == blyComrades)
                 {
-                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 25000)
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 1000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 25k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 1 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
                 if(newBanditSupporter && newRoles[i].id == bandits)
                 {
-                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000)
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 2500000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 50k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 2.5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
                 if(newBabushkaSupporter && newRoles[i].id == babushkaFavs)
                 {
-                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 100000)
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 5000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 100k War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
             }
