@@ -130,7 +130,7 @@ dbl.on('posted', () => {
                         }
                     })
                 }, 5000)               
-            });
+            }).catch(error => console.log("DBL Error - " + error));;
             
         }
     
@@ -570,99 +570,108 @@ var DatabaseFunctions = {
                     userCommandUsage[index].data.uses += 1;
                     firebase.database().ref("usersettings/" + userCommandUsage[index].key + "/commandusage").set(JSON.stringify(userCommandUsage[index].data));
                     const i = index;
-                    dbl.hasVoted(userID).then(voted => {
-                        if (!voted)
-                        {
-                            if(userCommandUsage[i].data.requestsSent < 3)
+                    setTimeout(() => {
+                        dbl.hasVoted(userID).then(voted => {
+                            if (!voted)
                             {
-                                dbl.isWeekend().then(weekend => {
-                                    if (weekend)
-                                    {
-                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
-                                        {
-                                            console.log("Sending Weekend Request")
-                                           
-                                            bot.fetchUser(userID)
-                                            .then(user => {
-                                                user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
-                                                        user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
-                                                    }).catch(error => console.log("Send Error - " + error))
-                                                }).catch(error => console.log("Send Error - " + error));
-                                            }, rejection => {
-                                                    console.log(rejection.message);
-                                            });
-                                
-                                            userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
-                                            userCommandUsage[i].data.requestsSent += 1;
-                                            firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
-                                        {
-                                            console.log("Sending Regular Request")
-                                           
-                                            bot.fetchUser(userID)
-                                            .then(user => {
-                                                user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                    user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
-                                                        user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
-                                                    }).catch(error => console.log("Send Error - " + error))
-                                                }).catch(error => console.log("Send Error - " + error));
-                                            }, rejection => {
-                                                    console.log(rejection.message);
-                                            });
-                                        
-                                            userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
-                                            userCommandUsage[i].data.requestsSent += 1;
-                                            firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                        }
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                dbl.getVotes().then(votes => {
-                                    if (votes.find(vote => vote.id == userID))
-                                    {
-                                        userCommandUsage[i].data.requestsSent = 0;
-                                        firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                        DatabaseFunctions.commandCounterChange(userID)
-                                    }
-                                    else
-                                    {
+                                if(userCommandUsage[i].data.requestsSent < 3)
+                                {
+                                    setTimeout(() => {
                                         dbl.isWeekend().then(weekend => {
                                             if (weekend)
                                             {
                                                 if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
                                                 {
+                                                    console.log("Sending Weekend Request")
+                                                   
+                                                    bot.fetchUser(userID)
+                                                    .then(user => {
+                                                        user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                                            user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
+                                                                user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                                            }).catch(error => console.log("Send Error - " + error))
+                                                        }).catch(error => console.log("Send Error - " + error));
+                                                    }, rejection => {
+                                                            console.log(rejection.message);
+                                                    });
+                                        
                                                     userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
                                                     userCommandUsage[i].data.requestsSent += 1;
+                                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                                 }
                                             }
                                             else
                                             {
                                                 if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
                                                 {
-                                                    userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
+                                                    console.log("Sending Regular Request")
+                                                   
+                                                    bot.fetchUser(userID)
+                                                    .then(user => {
+                                                        user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                                            user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
+                                                                user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                                            }).catch(error => console.log("Send Error - " + error))
+                                                        }).catch(error => console.log("Send Error - " + error));
+                                                    }, rejection => {
+                                                            console.log(rejection.message);
+                                                    });
+                                                
+                                                    userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
                                                     userCommandUsage[i].data.requestsSent += 1;
+                                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                                 }
                                             }
-        
-                                            if(userCommandUsage[i].data.requestsSent > 5)
+                                        }).catch(error => console.log("DBL Error - " + error));
+                                    }, 5000)
+                                }
+                                else
+                                {
+                                    setTimeout(() => {
+                                        dbl.getVotes().then(votes => {
+                                            if (votes.find(vote => vote.id == userID))
                                             {
                                                 userCommandUsage[i].data.requestsSent = 0;
+                                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                                DatabaseFunctions.commandCounterChange(userID)
                                             }
-        
-                                            firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                        });
-                                    }
-                                }); 
+                                            else
+                                            {
+                                                setTimeout(() => {
+                                                    dbl.isWeekend().then(weekend => {
+                                                        if (weekend)
+                                                        {
+                                                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
+                                                            {
+                                                                userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
+                                                                userCommandUsage[i].data.requestsSent += 1;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
+                                                            {
+                                                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
+                                                                userCommandUsage[i].data.requestsSent += 1;
+                                                            }
+                                                        }
+                    
+                                                        if(userCommandUsage[i].data.requestsSent > 5)
+                                                        {
+                                                            userCommandUsage[i].data.requestsSent = 0;
+                                                        }
+                    
+                                                        firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                                                    }).catch(error => console.log("DBL Error - " + error));
+                                                }, 5000)
+                                            }
+                                        }).catch(error => console.log("DBL Error - " + error));
+                                    }, 5000)
+                                }
                             }
-                        }
-                    });
+                        }).catch(error => console.log("DBL Error - " + error));
+                    }, 5000)
+                    
                 }
             }
         
