@@ -130,7 +130,7 @@ dbl.on('posted', () => {
                         }
                     })
                 }, 5000)               
-            }).catch(error => console.log("DBL Error - " + error));;
+            }).catch(error => console.log("DBL Error - " + error));
             
         }
     
