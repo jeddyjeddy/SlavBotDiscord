@@ -1256,6 +1256,104 @@ class WarSlaveCommand extends command.Command
                                 message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
+                        else if (args.toLowerCase().startsWith("turncoat"))
+                        {
+                            var otherUser = false;
+                            var userID = "";
+                            var getUser = false;
+                            for(var index = 0; index < args.length; index++)
+                            {
+                                if(getUser)
+                                {
+                                    if(args[index].toString() == ">")
+                                    {
+                                        index = args.length;
+                                        otherUser = true;
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
+                                        {
+                                            userID = userID + args[index].toString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
+                                }
+                            }
+
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            var mentions = message.mentions.users.array()
+                            var isBot = false, notValid = true;
+                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                            {
+                                if(mentions[mentionIndex].id == userID)
+                                {
+                                    isBot = mentions[mentionIndex].bot
+                                    notValid = false;
+                                }
+                            }
+
+                            if(otherUser && userID != message.author.id && !isBot && !notValid)
+                            {
+                                var slaveFound = false;
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == message.author.id)
+                                    {
+                                        slaveFound = true;
+                                        if(slaves[i].users[slaveIndex].owner == "")
+                                        {
+                                            message.channel.send("", {embed: {title: "***Owner Change Failed***", description: "<@" + message.author.id + "> You are not owned by anyone. This command is for slaves who are owned and want to change their owner.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {
+                                            var selfOwner = slaves[i].users[slaveIndex].owner
+
+                                            var value = slaves[i].users[slaveIndex].price * 10;
+    
+                                            if(userID == message.author.id)
+                                            {
+                                                message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You cannot be your own owner.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else if(userID == selfOwner)
+                                            {
+                                                message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You are already owned by <@" + userID + ">.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else
+                                            {
+                                                if(!IndexRef.subtractTokens(message.author.id, value))
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You do not have enough tokens to change your owner. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\Changing your owner requires you to spend x10 your original price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                                else
+                                                {                                                
+                                                    message.channel.send("<@" + message.author.id + "> has become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Changed Owner***", description: "<@" + message.author.id + "> You have become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + "> for " + numberWithCommas(value) + " tokens (x10 the your price). You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. <@" + message.author.id + "> You now have a 2 hour cooldown until someone can steal or purchase you." , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    
+                                                    slaves[i].users[slaveIndex].owner = userID;
+                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(!slaveFound)
+                                {
+                                    message.channel.send("", {embed: {title: "***Owner Change Failed***", description: "<@" + message.author.id + "> You are not owned by anyone. This command is for slaves who are owned and want to change their owner.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
+                            else
+                            {
+                                message.channel.send("", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> You must mention a user to become their slave.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
                         else if (args.toLowerCase().startsWith("reset"))
                         {
                             var timestamp = (new Date(Date.now()).toJSON());
