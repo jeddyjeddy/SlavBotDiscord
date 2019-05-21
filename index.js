@@ -129,7 +129,7 @@ dbl.on('posted', () => {
                             }, 5000)
                         }
                     })
-                }, 5000)               
+                }, 60000)               
             }).catch(error => console.log("DBL Error - " + error));
             
         }
@@ -623,7 +623,7 @@ var DatabaseFunctions = {
                                                 }
                                             }
                                         }).catch(error => console.log("DBL Error - " + error));
-                                    }, 5000)
+                                    }, 60000)
                                 }
                                 else
                                 {
@@ -663,14 +663,14 @@ var DatabaseFunctions = {
                     
                                                         firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                                                     }).catch(error => console.log("DBL Error - " + error));
-                                                }, 5000)
+                                                }, 60000)
                                             }
                                         }).catch(error => console.log("DBL Error - " + error));
-                                    }, 5000)
+                                    }, 60000)
                                 }
                             }
                         }).catch(error => console.log("DBL Error - " + error));
-                    }, 5000)
+                    }, 60000)
                     
                 }
             }
