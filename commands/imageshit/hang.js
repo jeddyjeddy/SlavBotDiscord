@@ -108,7 +108,7 @@ class HangCommand extends command.Command
                         var x = 135
                         var y = 200
 
-                        userImage.cover(420, 305);
+                        userImage.cover(420, 305, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
                         
                         var blank = new Jimp(hangImage.bitmap.width, hangImage.bitmap.height);
                         blank.composite(userImage, x, y)        
@@ -182,7 +182,7 @@ class HangCommand extends command.Command
                         var x = 135
                         var y = 200
 
-                        userImage.cover(420, 305);
+                        userImage.cover(420, 305, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
                         var blank = new Jimp(hangImage.bitmap.width, hangImage.bitmap.height);
                         blank.composite(userImage, x, y)        
