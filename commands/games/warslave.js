@@ -637,7 +637,7 @@ class WarSlaveCommand extends command.Command
                                                     var timestamp = (new Date(Date.now()).toJSON());
                                                     
     
-                                                    message.channel.send("<@" + message.author.id + "> has has sent a gift to their slave <@" + users[userIndex] + ">", 
+                                                    message.channel.send("<@" + message.author.id + "> has sent a gift to their slave <@" + users[userIndex] + ">", 
                                                     {embed: {title: "***Gift Given To Slave***", description: "<@" + message.author.id + "> has sent a gift of " + numberWithCommas(amount) + " token(s) to their slave. <@" + users[userIndex] + "> ended up receiving " + numberWithCommas(priceAdd) + " token(s) and now has a value of " + numberWithCommas(newPrice) + " war token(s).\n\nGifts will always be received as 25% of the amount given.", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Given on"}}}).catch(error => {console.log("Send Error - " + error); });                                                   
                                                 }
                                             }
