@@ -144,6 +144,12 @@ class WarSlaveCommand extends command.Command
                                 copies = true;
                             }
 
+                            if(isNaN(parseInt(slave.users[slaveIndex].id)))
+                            {
+                                slave.users.splice(slaveIndex, 1)
+                                copies = true;
+                            }
+
 
                             if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
                             {
