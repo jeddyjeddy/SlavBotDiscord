@@ -1330,6 +1330,27 @@ function commandUsageAscending(a, b)
 async function initData() {
     console.log("Init Data")
 
+    if(bot.shard.id == 0)
+    {
+        firebase.database().ref("payments").on('child_added', (snap) => {
+            if(snap.child('completed').val() == false)
+            {
+                const amount = snap.child('amount').val()
+                const transactionID = snap.key
+                const timestamp = snap.child('timestamp').val()
+                const userID = snap.child('userID').val()
+                DatabaseFunctions.addUserTokens(snap.child('userID').val(), amount);
+                snap.child('completed').ref.set(true)
+                bot.fetchUser(userID).then(user => {
+                    user.send("Thank you for your purchase of " + numberWithCommas(amount) + " War Tokens, they have been added to your account.", {embed: {title: `***Purchase Invoice***`, description: "***Product*** - " + numberWithCommas(amount) + " War Tokens\n***Transaction ID*** - " + transactionID + "\n\nThank you for your purchase!", thumbnail: {url: bot.user.avatarURL}, color: 65339, timestamp: timestamp, footer: {icon_url: bot.user.avatarURL, text: "Purchased on"}}}).catch(error => console.log("Send Error - " + error));
+                }, rejection => {
+                    var messageData = JSON.stringify({user: userID, amount: numberWithCommas(giveawayToken), transactionID : transactionID, timestamp: timestamp})
+                    bot.shard.send(messageData)
+                });
+            }
+        })
+    }
+
     firebase.database().ref("usersettings/").on('child_added', function(childSnap) {
         if(childSnap.val() != null)
         {
