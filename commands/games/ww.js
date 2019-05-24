@@ -983,13 +983,20 @@ class WWCommand extends command.Command
                                         }
                                     }
         
-                                    var thumbnail = "";
+                                    if(user != undefined && user != null)
+                                    {
+                                        var thumbnail = "";
         
-                                    if(user.avatarURL != undefined && user.avatarURL != null)
-                                        thumbnail = user.avatarURL
-        
-                                    var timestamp = (new Date(Date.now()).toJSON());
-                                    message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " has conquered " + count + " countries out of " + allCountries.length + ".\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        if(user.avatarURL != undefined && user.avatarURL != null)
+                                            thumbnail = user.avatarURL
+            
+                                        var timestamp = (new Date(Date.now()).toJSON());
+                                        message.channel.send("", {embed: {title: "***Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n " + user.username + " has conquered " + count + " countries out of " + allCountries.length + ".\n" + user.username + " has won " + numberWithCommas(winCount) + " times on ***" + message.guild.name + "***.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> User not found on this server.").catch(error => console.log("Send Error - " + error));
+                                    }
                                 }
                                 else
                                 {
