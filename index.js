@@ -1893,7 +1893,7 @@ function levelUp(user, channel)
     })
 }
 
-const suggestionLimit = 10, voteLimit = 5, titleLimit = 30, descriptionLimit = 600;
+const suggestionLimit = 15, voteLimit = 10, titleLimit = 30, descriptionLimit = 600;
 
 function listenToReactions()
 {
