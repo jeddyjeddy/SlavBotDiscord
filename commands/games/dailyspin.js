@@ -92,7 +92,7 @@ class DailySpinCommand extends command.Command
         var hasVoted = false;
         promises.push(dbl.hasVoted(message.author.id).then(voted => {
             hasVoted = voted;
-        }))
+        }).catch(error => console.log("DBL Error - " + error)))
 
         var isPatron = false;
         for(var i = 0; i < patrons.length; i++)
