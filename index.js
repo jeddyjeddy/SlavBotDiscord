@@ -164,15 +164,24 @@ dbl.on('error', e => {
     console.log(`Oops! ${e}`);
 });
 
-bot.on('guildDelete', mem => {
+bot.on('guildCreate', guild => {
     if(signedIntoFirebase)
     {
-        var channels = mem.channels.array();
+        customSettingsInit(guild)
+    }
+});
+
+bot.on('guildDelete', guild => {
+    if(signedIntoFirebase)
+    {
+        var channels = guild.channels.array();
         for(var i = 0; i < channels.length; i++)
         {
             firebase.database().ref("serversettings/" + channels[i].id).remove();
         }
-        firebase.database().ref("serversettings/" + mem.id).remove();
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").off()
+        firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").off()
+        firebase.database().ref("serversettings/" + guild.id).remove();
     }
 });
 
@@ -1618,54 +1627,58 @@ async function initData() {
             }
         })  
 
-        const server = guild.id;
-        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value', (snap) => {
-            if(snap.val() != null)
-            {
-                var found = false;
-                for(var i = 0; i < customResponses.length; i++)
-                {
-                    if(customResponses[i].guild == server)
-                    {
-                        customResponses[i].responses = JSON.parse(snap.val())
-                        found = true;
-                    }
-                }
-
-                if(!found)
-                    customResponses.push({guild: server, responses: JSON.parse(snap.val())})
-            }
-        })
-
-        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").on('value', (snap) => {
-            if(snap.val() != null)
-            {
-                var found = false;
-                for(var i = 0; i < customCounters.length; i++)
-                {
-                    if(customCounters[i].guild == server)
-                    {
-                        customCounters[i].counters = JSON.parse(snap.val())
-                        found = true;
-                    }
-                }
-
-                if(!found)
-                    customCounters.push({guild: server, counters: JSON.parse(snap.val())})
-            }
-        })
-
-        await firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
-            if(snap.val() != null)
-            {
-                customCounterData.push({guild: server, counters: JSON.parse(snap.val())})
-            }
-            else
-            {
-                customCounterData.push({guild: server, counters: []})
-            }
-        })
+        customSettingsInit(guild)
     })    
+}
+
+function customSettingsInit(guild)
+{
+    firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value', (snap) => {
+        if(snap.val() != null)
+        {
+            var found = false;
+            for(var i = 0; i < customResponses.length; i++)
+            {
+                if(customResponses[i].guild == server)
+                {
+                    customResponses[i].responses = JSON.parse(snap.val())
+                    found = true;
+                }
+            }
+
+            if(!found)
+                customResponses.push({guild: server, responses: JSON.parse(snap.val())})
+        }
+    })
+
+    firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").on('value', (snap) => {
+        if(snap.val() != null)
+        {
+            var found = false;
+            for(var i = 0; i < customCounters.length; i++)
+            {
+                if(customCounters[i].guild == server)
+                {
+                    customCounters[i].counters = JSON.parse(snap.val())
+                    found = true;
+                }
+            }
+
+            if(!found)
+                customCounters.push({guild: server, counters: JSON.parse(snap.val())})
+        }
+    })
+
+    firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
+        if(snap.val() != null)
+        {
+            customCounterData.push({guild: server, counters: JSON.parse(snap.val())})
+        }
+        else
+        {
+            customCounterData.push({guild: server, counters: []})
+        }
+    })
 }
 
 bot.on("channelCreate", (channel) => {
