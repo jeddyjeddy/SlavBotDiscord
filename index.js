@@ -1633,6 +1633,7 @@ async function initData() {
 
 function customSettingsInit(guild)
 {
+    const server = guild.id
     firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value', (snap) => {
         if(snap.val() != null)
         {
