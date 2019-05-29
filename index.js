@@ -2,7 +2,8 @@ const commando = require("discord.js-commando");
 const bot = new commando.Client({
     owner: ["281876391535050762", "263945639384055808", "219598209075380225"],
     unknownCommandResponse: false,
-    invite: "https://discord.gg/2T259Pf"
+    invite: "https://discord.gg/2T259Pf",
+    commandPrefix: "!"
 });
 
 const DBL = require("dblapi.js");
@@ -1404,6 +1405,7 @@ async function initData() {
 
     var guilds = bot.guilds.array()
     guilds.forEach(async (guild) => {
+        if(msg.guild.commandPrefix == null) msg.guild.commandPrefix = "!"
         await firebase.database().ref("serversettings/" + guild.id).once('value').then(function(childSnap) {
             if(childSnap.val() != null)
             {
