@@ -1405,7 +1405,7 @@ async function initData() {
 
     var guilds = bot.guilds.array()
     guilds.forEach(async (guild) => {
-        if(msg.guild.commandPrefix == null) msg.guild.commandPrefix = "!"
+        if(guild.commandPrefix == null) guild.commandPrefix = "!"
         await firebase.database().ref("serversettings/" + guild.id).once('value').then(function(childSnap) {
             if(childSnap.val() != null)
             {
