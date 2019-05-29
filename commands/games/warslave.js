@@ -124,37 +124,43 @@ class WarSlaveCommand extends command.Command
                         var copies = false;
                         for(var slaveIndex = 0; slaveIndex < slave.users.length; slaveIndex++)
                         {
-                            for(var slaveIndex2 = 0; slaveIndex2 < slave.users.length; slaveIndex2++)
+                            if(slave.users[slaveIndex] != undefined && slave.users[slaveIndex] != null)
                             {
-                                if(slave.users[slaveIndex].id == slave.users[slaveIndex2].id && slaveIndex2 != slaveIndex)
+                                for(var slaveIndex2 = 0; slaveIndex2 < slave.users.length; slaveIndex2++)
                                 {
-                                    slave.users.splice(slaveIndex2, 1)
+                                    if(slave.users[slaveIndex2] != undefined && slave.users[slaveIndex2] != null)
+                                    {
+                                        if(slave.users[slaveIndex].id == slave.users[slaveIndex2].id && slaveIndex2 != slaveIndex)
+                                        {
+                                            slave.users.splice(slaveIndex2, 1)
+                                            copies = true;
+                                        }
+                                        else if(slave.users[slaveIndex].owner == slave.users[slaveIndex2].id && slave.users[slaveIndex].id == slave.users[slaveIndex2].owner && slave.users[slaveIndex].owner != "")
+                                        {
+                                            slave.users[slaveIndex].owner = ""
+                                            copies = true;
+                                        }
+                                    }
+                                }
+    
+                                if(((slave.users[slaveIndex].id).toString()).indexOf("&") > -1)
+                                {
+                                    slave.users.splice(slaveIndex, 1)
                                     copies = true;
                                 }
-                                else if(slave.users[slaveIndex].owner == slave.users[slaveIndex2].id && slave.users[slaveIndex].id == slave.users[slaveIndex2].owner && slave.users[slaveIndex].owner != "")
+    
+                                if(isNaN(parseInt(slave.users[slaveIndex].id)))
+                                {
+                                    slave.users.splice(slaveIndex, 1)
+                                    copies = true;
+                                }
+    
+    
+                                if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
                                 {
                                     slave.users[slaveIndex].owner = ""
                                     copies = true;
                                 }
-                            }
-
-                            if(((slave.users[slaveIndex].id).toString()).indexOf("&") > -1)
-                            {
-                                slave.users.splice(slaveIndex, 1)
-                                copies = true;
-                            }
-
-                            if(isNaN(parseInt(slave.users[slaveIndex].id)))
-                            {
-                                slave.users.splice(slaveIndex, 1)
-                                copies = true;
-                            }
-
-
-                            if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
-                            {
-                                slave.users[slaveIndex].owner = ""
-                                copies = true;
                             }
                         }
 
