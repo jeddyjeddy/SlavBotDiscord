@@ -150,7 +150,7 @@ class WarSlaveCommand extends command.Command
                                     slave.users.splice(slaveIndex, 1)
                                     copies = true;
                                 }
-                                else(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
+                                else if(slave.users[slaveIndex].id == slave.users[slaveIndex].owner)
                                 {
                                     slave.users[slaveIndex].owner = ""
                                     copies = true;
