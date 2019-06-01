@@ -801,13 +801,22 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
+        var added = false;
         for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
                 tokens[index].tokens = parseInt(tokens[index].tokens) + parseInt(amount);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                added = true;
             }
+        }
+
+        if(!added)
+        {
+            var timestamp = (new Date(Date.now()).toJSON());
+            var token = {key: userID, tokens: 0, collectDate: timestamp}
+            tokens.push(token);
         }
     },
 
@@ -1351,12 +1360,6 @@ async function initData() {
                 {
                     console.log("TOKEN BOUNDARY - " + token.key)
                 }
-            }
-            else
-            {
-                var timestamp = (new Date(Date.now()).toJSON());
-                var token = {key: childSnap.key, tokens: 0, collectDate: timestamp}
-                tokens.push(token);
             }
         }
     })
