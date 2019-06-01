@@ -102,6 +102,8 @@ class WarSlaveCommand extends command.Command
 
         if(!existingData)
         {
+            promises.push(message.guild.fetchMembers())   
+
             promises.push(firebase.database().ref("serversettings/" + message.guild.id + "/slaves").once('value').then(function(snapshot){
                 if(snapshot.val() == null)
                 {
@@ -164,9 +166,7 @@ class WarSlaveCommand extends command.Command
 
                     slaves.push(slave)
                 }
-            }))   
-            
-            promises.push(message.guild.fetchMembers())   
+            }))               
         }
 
         var commandPrefix= "!"
