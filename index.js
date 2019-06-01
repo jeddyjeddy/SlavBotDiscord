@@ -833,17 +833,18 @@ var DatabaseFunctions = {
     addUserTokens: function(userID, amount)
     {
         setImmediate(() => {
+            var added = false
             for(var index = 0; index < tokens.length; index++)
             {
                 if(tokens[index].key == userID)
                 {
                     tokens[index].tokens = tokens[index].tokens + amount;
                     firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-                    return;
+                    added = true;
                 }
             }
     
-            if(signedIntoDiscord)
+            if(signedIntoDiscord && !added)
             {
                 DatabaseFunctions.getUserTokens(userID)
                 DatabaseFunctions.addUserTokens(userID, amount)
