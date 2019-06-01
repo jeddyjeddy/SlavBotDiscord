@@ -876,19 +876,21 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                var members = message.guild.members.array()
-                                                for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-                                                {
+                                                message.guild.fetchMembers().then(() => {
+                                                    var members = message.guild.members.array()
+                                                    for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                                    {
+                                                        for(var index = 0; index < lists.length; index++)
+                                                        {
+                                                            lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
+                                                        }
+                                                    }
+    
                                                     for(var index = 0; index < lists.length; index++)
                                                     {
-                                                        lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
+                                                        message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                     }
-                                                }
-
-                                                for(var index = 0; index < lists.length; index++)
-                                                {
-                                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                }
+                                                })
                                             }
                                         }
                                     }
@@ -1712,19 +1714,21 @@ class WarSlaveCommand extends command.Command
 
                             var timestamp = (new Date(Date.now()).toJSON());
 
-                            var members = message.guild.members.array()
-                            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-                            {
+                            message.guild.fetchMembers().then(() => {
+                                var members = message.guild.members.array()
+                                for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                {
+                                    for(var index = 0; index < lists.length; index++)
+                                    {
+                                        lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
+                                    }
+                                }
+    
                                 for(var index = 0; index < lists.length; index++)
                                 {
-                                    lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
+                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Slaves You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
-                            }
-
-                            for(var index = 0; index < lists.length; index++)
-                            {
-                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Slaves You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                            }
+                            })
                         }
                         else
                         {
