@@ -103,8 +103,6 @@ class WWCommand extends command.Command
 
         if(!existingData)
         {
-            promises.push(message.guild.fetchMembers())   
-
             promises.push(firebase.database().ref("serversettings/" + message.guild.id + "/wars").once('value').then(function(snapshot){
                 if(snapshot.val() == null)
                 {
