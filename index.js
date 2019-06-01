@@ -817,8 +817,9 @@ var DatabaseFunctions = {
         if(!added)
         {
             var timestamp = (new Date(Date.now()).toJSON());
-            var token = {key: userID, tokens: 0, collectDate: timestamp}
+            var token = {key: userID, tokens: amount, collectDate: timestamp}
             tokens.push(token);
+            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
         }
     },
 
