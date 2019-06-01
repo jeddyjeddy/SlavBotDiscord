@@ -1358,12 +1358,6 @@ async function initData() {
                 var token = JSON.parse(childSnap.child("tokens").val())
 
                 tokens.push(token)
-
-                if(token.tokens > 1000000000)
-                {
-                    token.tokens = 1000000000
-                    childSnap.child("tokens").ref.set(JSON.stringify(token))
-                }
             }
         }
     })
