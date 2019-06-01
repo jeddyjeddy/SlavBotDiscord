@@ -801,7 +801,6 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
-        var added = false
         for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
@@ -1347,6 +1346,17 @@ async function initData() {
                 var token = JSON.parse(childSnap.child("tokens").val())
 
                 tokens.push(token)
+
+                if(tokens.tokens > 1000000000)
+                {
+                    console.log("TOKEN BOUNDARY - " + token.key)
+                }
+            }
+            else
+            {
+                var timestamp = (new Date(Date.now()).toJSON());
+                var token = {key: userID, tokens: 0, collectDate: timestamp}
+                tokens.push(token);
             }
         }
     })
