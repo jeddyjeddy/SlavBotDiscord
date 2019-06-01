@@ -1355,7 +1355,7 @@ async function initData() {
             else
             {
                 var timestamp = (new Date(Date.now()).toJSON());
-                var token = {key: userID, tokens: 0, collectDate: timestamp}
+                var token = {key: childSnap.key, tokens: 0, collectDate: timestamp}
                 tokens.push(token);
             }
         }
