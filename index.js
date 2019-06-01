@@ -1356,7 +1356,7 @@ async function initData() {
 
                 tokens.push(token)
 
-                if(tokens.tokens > 1000000000)
+                if(token.tokens > 1000000000)
                 {
                     console.log("TOKEN BOUNDARY - " + token.key)
                 }
