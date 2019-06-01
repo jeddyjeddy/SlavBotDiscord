@@ -196,7 +196,21 @@ class WarSlaveCommand extends command.Command
                                 }
                 
                                 if(!exists)
-                                    slaves[i].users[slaveIndex].owner = ""           
+                                    slaves[i].users[slaveIndex].owner = ""  
+                                else
+                                {
+                                    var ownerExists = false
+                                    for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                    {
+                                        if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
+                                        {
+                                            ownerExists = true;
+                                        }
+                                    }
+                    
+                                    if(!ownerExists)
+                                        slaves[i].users[slaveIndex].owner = ""           
+                                }
                             }
                         }
 
