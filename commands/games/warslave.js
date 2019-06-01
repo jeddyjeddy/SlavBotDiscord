@@ -183,7 +183,7 @@ class WarSlaveCommand extends command.Command
                     {
                         for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                         {
-                            if(slaves[i].users[slaveIndex].owner != message.author.id && slaves[i].users[slaveIndex].owner != "")
+                            if(slaves[i].users[slaveIndex].owner != "")
                             {
                                 var exists = false;
                                 var members = message.guild.members.array()
