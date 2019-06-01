@@ -843,10 +843,11 @@ var DatabaseFunctions = {
             }
         }
 
-        if(signedIntoDiscord && !added)
+        if(!added)
         {
+            DatabaseFunctions.getUserTokens(userID)
+
             setImmediate(() => {
-                DatabaseFunctions.getUserTokens(userID)
                 DatabaseFunctions.addUserTokens(userID, amount)
             })
         }
