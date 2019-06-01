@@ -1359,9 +1359,10 @@ async function initData() {
 
                 tokens.push(token)
 
-                if(token.tokens > 100000000000)
+                if(token.tokens > 1000000000)
                 {
-                    console.log("TOKEN BOUNDARY - " + token.key)
+                    token.tokens = 1000000000
+                    childSnap.child("tokens").ref.set(JSON.stringify(token))
                 }
             }
         }
