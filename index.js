@@ -832,24 +832,24 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
-        setImmediate(() => {
-            var added = false
-            for(var index = 0; index < tokens.length; index++)
+        var added = false
+        for(var index = 0; index < tokens.length; index++)
+        {
+            if(tokens[index].key == userID)
             {
-                if(tokens[index].key == userID)
-                {
-                    tokens[index].tokens = tokens[index].tokens + amount;
-                    firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-                    added = true;
-                }
+                tokens[index].tokens = tokens[index].tokens + amount;
+                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                added = true;
             }
-    
-            if(signedIntoDiscord && !added)
-            {
+        }
+
+        if(signedIntoDiscord && !added)
+        {
+            setImmediate(() => {
                 DatabaseFunctions.getUserTokens(userID)
                 DatabaseFunctions.addUserTokens(userID, amount)
-            }
-        })
+            })
+        }
     },
 
     subtractUserTokens: function(userID, amount)
