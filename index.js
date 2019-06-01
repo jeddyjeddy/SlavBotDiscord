@@ -816,10 +816,19 @@ var DatabaseFunctions = {
 
         if(!added)
         {
-            var timestamp = (new Date(Date.now()).toJSON());
-            var token = {key: userID, tokens: amount, collectDate: timestamp}
-            tokens.push(token);
-            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+            if(signedIntoDiscord && signedIntoFirebase)
+            {
+                var timestamp = (new Date(Date.now()).toJSON());
+                var token = {key: userID, tokens: amount, collectDate: timestamp}
+                tokens.push(token);
+                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+            }
+            else
+            {
+                setTimeout(() => {
+                    DatabaseFunctions.addUserTokens(userID, amount)
+                }, 10000)
+            }
         }
     },
 
@@ -1356,7 +1365,6 @@ async function initData() {
             if(childSnap.child("tokens").val() != null)
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
-
                 tokens.push(token)
             }
         }

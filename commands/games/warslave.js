@@ -1452,11 +1452,9 @@ class WarSlaveCommand extends command.Command
                                         if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
                                             IndexRef.addTokens(message.author.id, slaves[i].users[slaveIndex].price)
-                                            const priceToSend = slaves[i].users[slaveIndex].price
-                                            const slaveSold = userID
-                                            setImmediate(() => {
-                                                message.channel.send("", {embed: {title: "***Successfully Sold Slave***", description: "<@" + message.author.id + "> You have sold <@" + slaveSold + "> for " + numberWithCommas(priceToSend) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nSelling your slaves removes all their cooldown effects.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            })
+                                       
+                                            message.channel.send("", {embed: {title: "***Successfully Sold Slave***", description: "<@" + message.author.id + "> You have sold <@" + userID + "> for " + numberWithCommas(slaves[i].users[slaveIndex].price) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nSelling your slaves removes all their cooldown effects.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+
                                             slaves[i].users[slaveIndex].owner = ""
                                             slaves[i].users[slaveIndex].price = slaves[i].users[slaveIndex].price + 500;
                                             slaves[i].users[slaveIndex].cooldown = (new Date()).toJSON()
