@@ -794,13 +794,6 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
-                firebase.database().ref("usersettings/" + userID + "/tokens").once('value').then(function(snapshot) {
-                    if(snapshot.val() != null)
-                    {
-                        var token = JSON.parse(snapshot.val())
-                        tokens[index] = token
-                    }
-                })
                 return tokens[index].tokens;
             }
         }
@@ -817,6 +810,20 @@ var DatabaseFunctions = {
                 var token = {key: userID, tokens: 0, collectDate: timestamp}
                 tokens.push(token);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+            }
+
+            for(var index = 0; index < tokens.length; index++)
+            {
+                if(tokens[index].key == userID)
+                {
+                    firebase.database().ref("usersettings/" + userID + "/tokens").on('value', function(snapshot) {
+                        if(snapshot.val() != null)
+                        {
+                            var token = JSON.parse(snapshot.val())
+                            tokens[index] = token
+                        }
+                    })
+                }
             }
         })
 
