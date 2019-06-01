@@ -797,37 +797,6 @@ var DatabaseFunctions = {
                 return tokens[index].tokens;
             }
         }
-
-        firebase.database().ref("usersettings/" + userID + "/tokens").once('value').then(function(snapshot) {
-            if(snapshot.val() != null)
-            {
-                var token = JSON.parse(snapshot.val())
-                tokens.push(token)
-            }
-            else
-            {
-                var timestamp = (new Date(Date.now()).toJSON());
-                var token = {key: userID, tokens: 0, collectDate: timestamp}
-                tokens.push(token);
-                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
-            }
-
-            for(var index = 0; index < tokens.length; index++)
-            {
-                if(tokens[index].key == userID)
-                {
-                    firebase.database().ref("usersettings/" + userID + "/tokens").on('value', function(snapshot) {
-                        if(snapshot.val() != null)
-                        {
-                            var token = JSON.parse(snapshot.val())
-                            tokens[index] = token
-                        }
-                    })
-                }
-            }
-        })
-
-        return 0;
     },
 
     addUserTokens: function(userID, amount)
@@ -837,19 +806,9 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
-                tokens[index].tokens = tokens[index].tokens + amount;
+                tokens[index].tokens = parseInt(tokens[index].tokens) + parseInt(amount);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
-                added = true;
             }
-        }
-
-        if(!added)
-        {
-            DatabaseFunctions.getUserTokens(userID)
-
-            setImmediate(() => {
-                DatabaseFunctions.addUserTokens(userID, amount)
-            })
         }
     },
 
@@ -861,7 +820,7 @@ var DatabaseFunctions = {
             {
                 if(tokens[index].tokens >= amount)
                 {
-                    tokens[index].tokens = tokens[index].tokens - amount;
+                    tokens[index].tokens = parseInt(tokens[index].tokens) - parseInt(amount);
                     firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
                     return true;
                 }
