@@ -189,7 +189,7 @@ class WarSlaveCommand extends command.Command
                                 var members = message.guild.members.array()
                                 for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
                                 {
-                                    if(members[memberIndex].id == slaves[i].users[slaveIndex].owner)
+                                    if(members[memberIndex].id == slaves[i].users[slaveIndex].id)
                                     {
                                         exists = true;
                                     }
