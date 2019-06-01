@@ -731,7 +731,7 @@ class WWCommand extends command.Command
                                     {
                                         for(var index = 0; index < lists.length; index++)
                                         {
-                                            lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
+                                            lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
                                         }
                                     }
 
