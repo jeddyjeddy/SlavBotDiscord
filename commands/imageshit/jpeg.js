@@ -88,7 +88,6 @@ class JpegCommand extends command.Command
                                 {
                                     messageID = msg.id;
                                     url = attachments[i].url;
-                                    console.log("JPEG URL - " + url)
                                 }
                             }
                         }
