@@ -166,10 +166,8 @@ dbl.on('error', e => {
 });
 
 bot.on('guildCreate', guild => {
-    if(signedIntoFirebase)
-    {
-        customSettingsInit(guild)
-    }
+    customSettingsInit(guild)
+    console.log("New Server - " + guild.id)
 });
 
 bot.on('guildDelete', guild => {
