@@ -412,7 +412,9 @@ class ShotCommand extends command.Command
         }
         else
         {
-            this.run(message, args); 
+            setImmediate(() => {
+                this.run(message, args); 
+            })
         }
     }
 }
