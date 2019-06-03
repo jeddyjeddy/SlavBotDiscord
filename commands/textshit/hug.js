@@ -51,7 +51,7 @@ function grab_data(anon_id)
 {
     // set the apikey and limit
     var apikey = process.env.TENOR_API;
-    console.log(apikey)
+    console.log("TENOR API - " + apikey)
     var lmt = 50;
 
     // test search term
