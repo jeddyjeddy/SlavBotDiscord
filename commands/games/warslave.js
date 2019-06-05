@@ -752,7 +752,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                message.channel.send("", {embed: {title: "***Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to protect <@" + userID + "> until their current 2 hour cooldown period is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to protect <@" + userID + "> until their current 2 hour cooldown period is over.", color: 16711680, timestamp: slaves[i].users[slaveIndex].cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }                               
                                         }
                                         else
