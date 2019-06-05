@@ -735,7 +735,7 @@ class WarSlaveCommand extends command.Command
                                                 time = new Date(slaves[i].users[slaveIndex].cooldown)
                                             }
 
-                                            if((new Date()).getTime() <= time.getTime())
+                                            if((new Date()).getTime() >= time.getTime())
                                             {
                                                 const protectionValue = slaves[i].users[slaveIndex].price * 10;
 
