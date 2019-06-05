@@ -104,7 +104,7 @@ class EatCommand extends command.Command
                             console.log("got avatar");
                             userImage.resize(150, 150);
                             authorImage.resize(110, 110);
-                            authorImage.opacity(0.5)
+                            authorImage.opacity(0.75)
                             var xAuthor = 95
                             var yAuthor = 80
                             var x = 235
