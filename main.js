@@ -1,5 +1,21 @@
 console.log("Starting Bot")
 const { ShardingManager } = require('discord.js');
+
+const fs = require('fs');
+const path = require('path');
+
+const directory = 'TempStorage';
+
+fs.readdir(directory, (err, files) => {
+  if (err) throw err;
+
+  for (const file of files) {
+    fs.unlink(path.join(directory, file), err => {
+      if (err) throw err;
+    });
+  }
+});
+
 const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN, totalShards: 6, respawn: true });
 Manager.spawn();
 Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
