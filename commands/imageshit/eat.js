@@ -11,26 +11,33 @@ var resultHandler = function(err) {
 }
 var CommandCounter = require("../../index.js")
 
-const selfResponses = [" I have a bigger knife", ", they won't find your body",  " I know where you live", " can you do *anything* properly?", " you're not stabbing me, *I'm* stabbing you"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
+const selfResponses = [", they won't find your body once I digest it",  " I know where you live", " can' you do *anything* properly'?", " you're not eating me, *I'm* eating you"," you have just turned all of the gopniks against you, blyat", " you will hear hardbass in your sleep"];
 
-class StabCommand extends command.Command
+class EatCommand extends command.Command
  {
     constructor(client)
     {
         super(client, {
-            name: "stab",
+            name: "eat",
             group: "imageshit",
-            memberName: "stab",
-            description: "Stab yourself or another user.",
-            examples: ["`!stab`", "`!stab @User`"]
+            memberName: "eat",
+            description: "Eat another user.",
+            examples: ["`!eat`", "`!eat @User`"]
         });
     }
 
     async run(message, args)
     {
+        
         CommandCounter.addCommandCounter(message.author.id)
         var otherUser = false;
         var userID = "";
+
+        var commandPrefix= "!"
+        if(message.guild != null)
+        {
+            commandPrefix = message.guild.commandPrefix
+        }
 
         if(args.length > 0)
         {
@@ -81,7 +88,7 @@ class StabCommand extends command.Command
                 }))
 
                 
-            Jimp.read("stab.jpg").then(function (kidnapImage) {
+            Jimp.read("eat.jpg").then(function (eatImage) {
                 console.log("got image");
                 if(message.author.avatarURL == undefined || message.author.avatarURL == null)
                 {
@@ -95,20 +102,21 @@ class StabCommand extends command.Command
                         Jimp.read(url).then(function (userImage) {
                         
                             console.log("got avatar");
-                            userImage.resize(90, 90);
-                            authorImage.resize(80, 80);
-                            var xAuthor = 160
-                            var yAuthor = 160
-                            var x = 400
-                            var y = 50
-                            var mergedImageKidnapper = kidnapImage.composite(authorImage, xAuthor, yAuthor );
-                            var mergedImage = mergedImageKidnapper.composite(userImage, x, y);
+                            userImage.resize(150, 150);
+                            authorImage.resize(110, 110);
+                            authorImage.opacity(0.5)
+                            var xAuthor = 95
+                            var yAuthor = 80
+                            var x = 235
+                            var y = 115
+                            var mergedImageEat = eatImage.composite(authorImage, xAuthor, yAuthor );
+                            var mergedImage = mergedImageEat.composite(userImage, x, y);
                             const file = "TempStorage/" + shortid.generate() + ".png"
                             mergedImage.write(file, function(error){
                                 if(error) { console.log(error); return;};
                                 console.log("got merged image");
                                 console.log(file);
-                                message.channel.send("<@" + message.author.id+ "> ***stabbed*** <@" + userID + ">", {
+                                message.channel.send("<@" + message.author.id+ "> ***ate*** <@" + userID + ">", {
                                     files: [file]
                                 }).then(function(){
                                     if(userID == message.client.user.id)
@@ -149,45 +157,9 @@ class StabCommand extends command.Command
         }
         else
         {
-            Jimp.read(message.author.avatarURL).then(function (userImage) {
-                Jimp.read("sudoku.png").then(function (kidnapImage) {     
-                    userImage.resize(160, 160);
-                    var x = 380
-                    var y = 30
-                    userImage.rotate(60)
-                    var mergedImage = kidnapImage.composite(userImage, x, y);
-                    const file = "TempStorage/" + shortid.generate() + ".png"
-                    mergedImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log("got merged image");
-                        console.log(file);
-                        message.channel.send("<@" + message.author.id+ "> ***has committed sudoku***", {
-                            files: [file]
-                        }).then(function(){
-                            fs.remove(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.remove(file, resultHandler);
-                        });
-                        console.log("Message Sent");
-                    });
-                }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                    console.log(err.message);
-                });
-            }).catch(function (err) {
-                if(message.author.avatarURL == undefined || message.author.avatarURL == null)
-                {
-                    message.channel.send("<@" + message.author.id + "> No avatar found.").catch(error => {console.log("Send Error - " + error); });
-                }
-                else
-                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                console.log(err.message);
-            });
+            message.channel.send("<@" + message.author.id + "> Please tag another user. Use `" + commandPrefix + "help eat` for more info.").catch(error => {console.log("Send Error - " + error); });  
         }
     }
 }
 
-module.exports = StabCommand;
+module.exports = EatCommand;

@@ -78,7 +78,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave steal @User` (Steal a slave for x100 their original price)", "`!warslave turncoat @User` (Change your owner for x10 your price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)", "`!warslave reset` (Reset the game. Can only be used by server owners.)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave steal @User` (Steal a slave for x100 their original price)", "`!warslave turncoat @User` (Change your owner for x10 your price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave protect @User` (Add a 2 hour cooldown period to protect your slave for x10 their price)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)", "`!warslave reset` (Reset the game. Can only be used by server owners.)"]
         });
     }
 
@@ -673,6 +673,105 @@ class WarSlaveCommand extends command.Command
                                 message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                             }
                         }
+                        else if (args.toLowerCase().startsWith("protect"))
+                        {
+                            var otherUser = false;
+                            var userID = "";
+                            var getUser = false;
+                            for(var index = 0; index < args.length; index++)
+                            {
+                                if(getUser)
+                                {
+                                    if(args[index].toString() == ">")
+                                    {
+                                        index = args.length;
+                                        otherUser = true;
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
+                                        {
+                                            userID = userID + args[index].toString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
+                                }
+                            }
+
+                            const timestamp = (new Date(Date.now()).toJSON());
+                            var mentions = message.mentions.users.array()
+                            var isBot = false, notValid = true;
+                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                            {
+                                if(mentions[mentionIndex].id == userID)
+                                {
+                                    isBot = mentions[mentionIndex].bot
+                                    notValid = false;
+                                }
+                            }
+
+                            if(otherUser && userID != message.author.id && !isBot && !notValid)
+                            {
+                                var slaveFound = false;
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == userID)
+                                    {
+                                        slaveFound = true;
+    
+                                        if(slaves[i].users[slaveIndex].owner == message.author.id)
+                                        {
+                                            var time = new Date()
+
+                                            if(slaves[i].users[slaveIndex].cooldown != null && slaves[i].users[slaveIndex].cooldown != undefined && slaves[i].users[slaveIndex].cooldown != "")
+                                            {
+                                                time = new Date(slaves[i].users[slaveIndex].cooldown)
+                                            }
+
+                                            if((new Date()).getTime() <= time.getTime())
+                                            {
+                                                const protectionValue = slaves[i].users[slaveIndex].price * 10;
+
+                                                if(!IndexRef.subtractTokens(message.author.id, protectionValue))
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Failed To Protect Slave***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase protection for your slave. You need " + numberWithCommas(protectionValue) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. The protection price is x10 your slave's price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                                else
+                                                {                                                
+                                                    message.channel.send("Slave Protected for " + numberWithCommas(protectionValue) + " tokens! Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! Your slave has a 2 hour protection period in which no one can purchase or steal them.", {embed: {title: "***Protection Bought***", description: "<@" + message.author.id + "> You have bought protection for your slave. Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nYour slave has a 2 hour protection period in which no one can purchase or steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    slaves[i].users[slaveIndex].price = protectionValue;
+                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                                }   
+                                            }
+                                            else
+                                            {
+                                                message.channel.send("", {embed: {title: "***Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to protect <@" + userID + "> until their current 2 hour cooldown period is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                            }                               
+                                        }
+                                        else
+                                        {
+                                            message.channel.send("", {embed: {title: "***Slave Not Owned***", description: "<@" + message.author.id + "> You do not own <@" + userID + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                    }
+                                }
+
+                                if(!slaveFound)
+                                {
+                                    message.channel.send("", {embed: {title: "***Slave Not Owned***", description: "<@" + message.author.id + "> You do not own <@" + userID + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    slaves[i].users.push({id: userID,  owner: "", price: 500})
+                                }
+                            }
+                            else
+                            {
+                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
                         else if (args.toLowerCase().startsWith("trade"))
                         {
                             var timestamp = (new Date(Date.now()).toJSON());
@@ -1006,7 +1105,7 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {                                                
-                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You have a 2 hour freedom cooldown period in which no one can purchase you.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nYou have a 2 hour freedom cooldown period in which no one can purchase you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("Freedom Bought for " + numberWithCommas(freedomValue) + " tokens! You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You have a 2 hour freedom cooldown period in which no one can purchase or steal you.", {embed: {title: "***Freedom Bought***", description: "<@" + message.author.id + "> You are now free and have no owner. You are now worth " + numberWithCommas(freedomValue) + " tokens! <@" + selfOwner + "> has been given " + numberWithCommas(value) + " tokens back. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nYou have a 2 hour freedom cooldown period in which no one can purchase or steal you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             IndexRef.addTokens(selfOwner, value)
                                             slaves[i].users[slaveIndex].owner = "";
                                             slaves[i].users[slaveIndex].price = freedomValue;
@@ -1102,7 +1201,7 @@ class WarSlaveCommand extends command.Command
                                             {
                                                 var time = new Date(slaves[i].users[slaveIndex].cooldown)
 
-                                                if((new Date()).getTime() < time.getTime())
+                                                if((new Date()).getTime() <= time.getTime())
                                                 {
                                                     freedomCooldownOver = false;
                                                     cooldownTimestamp = slaves[i].users[slaveIndex].cooldown;
@@ -1124,7 +1223,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to purchase <@" + userID + "> until their 2 hour freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to purchase <@" + userID + "> until their 2 hour cooldown period is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
@@ -1245,7 +1344,7 @@ class WarSlaveCommand extends command.Command
                                             {
                                                 var time = new Date(slaves[i].users[slaveIndex].cooldown)
 
-                                                if((new Date()).getTime() < time.getTime())
+                                                if((new Date()).getTime() <= time.getTime())
                                                 {
                                                     freedomCooldownOver = false;
                                                     cooldownTimestamp = slaves[i].users[slaveIndex].cooldown;
@@ -1269,7 +1368,7 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                message.channel.send("", {embed: {title: "***Freedom Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to steal <@" + userID + "> until their 2 hour freedom cooldown is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Cooldown Not Over***", description: "<@" + message.author.id + "> You are unable to steal <@" + userID + "> until their 2 hour cooldown period is over.", color: 16711680, timestamp: cooldownTimestamp, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
@@ -1447,7 +1546,6 @@ class WarSlaveCommand extends command.Command
                                     if(slaves[i].users[slaveIndex].id == userID)
                                     {
                                         slaveFound = true;
-                                        var value = slaves[i].users[slaveIndex].price;
     
                                         if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
