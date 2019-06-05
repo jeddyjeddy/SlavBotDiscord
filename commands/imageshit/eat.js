@@ -102,11 +102,10 @@ class EatCommand extends command.Command
                         Jimp.read(url).then(function (userImage) {
                         
                             console.log("got avatar");
-                            userImage.resize(150, 150);
+                            userImage.resize(85, 85);
                             authorImage.resize(110, 110);
-                            authorImage.opacity(0.75)
-                            var xAuthor = 95
-                            var yAuthor = 80
+                            var xAuthor = 120
+                            var yAuthor = 30
                             var x = 235
                             var y = 115
                             var mergedImageEat = eatImage.composite(authorImage, xAuthor, yAuthor );
