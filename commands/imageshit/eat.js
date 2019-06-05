@@ -102,7 +102,7 @@ class EatCommand extends command.Command
                         Jimp.read(url).then(function (userImage) {
                         
                             console.log("got avatar");
-                            userImage.resize(85, 85);
+                            userImage.resize(145, 145);
                             authorImage.resize(110, 110);
                             var xAuthor = 120
                             var yAuthor = 30
