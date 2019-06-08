@@ -113,7 +113,7 @@ class Bigmojiommand extends command.Command
                     }
                     else
                     {
-                        message.channel.send(emoji.name, {files: [emoji.url]}).catch(error => {console.log("Send Error - " + error); });
+                        message.channel.send(`<:${emoji.name}:${emoji.id}>`, {files: [`https://cdn.discordapp.com/emojis/${emoji.id}.png`]}).catch(error => {console.log("Send Error - " + error); });
                     }
                 })
                 .catch(console.error);            
