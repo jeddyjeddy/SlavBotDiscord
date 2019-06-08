@@ -9,7 +9,7 @@ class Bigmojiommand extends command.Command
             name: "bigmoji",
             group: "imageshit",
             memberName: "bigmoji",
-            description: "Gives a high res version of a custom emoji from any discord server the bot is on.",
+            description: "Gives a high res version of a custom emoji from any discord server.",
             examples: ["`!bigmoji <emoji>`"]
         });
     }
@@ -87,54 +87,10 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                var localEmojis = message.client.emojis.array()
-                var localEmoji = undefined
-                for(var i = 0; i < localEmojis.length; i++)
-                {
-                    if(localEmojis[i].id == emojiID)
-                    {
-                        localEmoji = localEmojis[i];
-                    }
-                }
-
-                if(localEmoji == undefined)
-                {
-                    message.channel.send("***Searching external shards for Emoji, this may take a while.***")
-                    message.client.shard.broadcastEval('this.emojis.array()')
-                    .then(results => {
-                        var emoji = undefined;
-    
-                        for(var emojiIndex in results)
-                        {
-                            if(emoji == undefined)
-                            {
-                                var emojis = results[emojiIndex]
-                                for(var i = 0; i < emojis.length; i++)
-                                {
-                                    if(emojis[i].id == emojiID)
-                                    {
-                                        emoji = emojis[i];
-                                    }
-                                }
-                            }
-                        }
-        
-                        if(emoji == undefined)
-                        {
-                            message.channel.send("<@" + message.author.id + "> The given emoji was not found on any of the servers this bot is on, use `" + commandPrefix + "help bigmoji` for help.").catch(error => {console.log("Send Error - " + error); });
-                            return;
-                        }
-                        else
-                        {
-                            message.channel.send(`<:${emoji.name}:${emoji.id}>`, {files: [`https://cdn.discordapp.com/emojis/${emoji.id}.png`]}).catch(error => {console.log("Send Error - " + error); });
-                        }
-                    })
-                    .catch(console.error);    
-                }
-                else
-                {
-                    message.channel.send(localEmoji.toString(), {files: [localEmoji.url]}).catch(error => {console.log("Send Error - " + error); });
-                }        
+                message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.png`]}).catch(error => { 
+                        message.channel.send("<@" + message.author.id + "> The given emoji was not found, use `" + commandPrefix + "help bigmoji` for help.").catch(error => {console.log("Send Error - " + error); 
+                    });
+                });  
             }
         }
         else
