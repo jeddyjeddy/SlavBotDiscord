@@ -87,26 +87,35 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                var emojis = message.client.emojis.array()
-                var emoji = undefined;
-
-                for(var i = 0; i < emojis.length; i++)
-                {
-                    if(emojis[i].id == emojiID)
+                message.client.shard.fetchClientValues('emojis')
+                .then(results => {
+                    var emojis = []
+                    for(var i in results)
                     {
-                        emoji = emojis[i];
+                        emojis.push(results[i].array())
                     }
-                }
 
-                if(emoji == undefined)
-                {
-                    message.channel.send("<@" + message.author.id + "> The given emoji was not found on any of the servers this bot is on, use `" + commandPrefix + "help bigmoji` for help.").catch(error => {console.log("Send Error - " + error); });
-                    return;
-                }
-                else
-                {
-                    message.channel.send(emoji.toString(), {files: [emoji.url]}).catch(error => {console.log("Send Error - " + error); });
-                }
+                    var emoji = undefined;
+
+                    for(var i = 0; i < emojis.length; i++)
+                    {
+                        if(emojis[i].id == emojiID)
+                        {
+                            emoji = emojis[i];
+                        }
+                    }
+    
+                    if(emoji == undefined)
+                    {
+                        message.channel.send("<@" + message.author.id + "> The given emoji was not found on any of the servers this bot is on, use `" + commandPrefix + "help bigmoji` for help.").catch(error => {console.log("Send Error - " + error); });
+                        return;
+                    }
+                    else
+                    {
+                        message.channel.send(emoji.toString(), {files: [emoji.url]}).catch(error => {console.log("Send Error - " + error); });
+                    }
+                })
+                .catch(console.error);            
             }
         }
         else
