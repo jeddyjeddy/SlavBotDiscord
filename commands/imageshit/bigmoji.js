@@ -89,20 +89,20 @@ class Bigmojiommand extends command.Command
             {
                 message.client.shard.broadcastEval('this.emojis.array()')
                 .then(results => {
-                    console.log(results)
-                    var emojis = []
-                    for(var i in results)
-                    {
-                        emojis.push(results[i])
-                    }
-
                     var emoji = undefined;
 
-                    for(var i = 0; i < emojis.length; i++)
+                    for(var emojiIndex in results)
                     {
-                        if(emojis[i].id == emojiID)
+                        if(emoji == undefined)
                         {
-                            emoji = emojis[i];
+                            var emojis = results[emojiIndex]
+                            for(var i = 0; i < emojis.length; i++)
+                            {
+                                if(emojis[i].id == emojiID)
+                                {
+                                    emoji = emojis[i];
+                                }
+                            }
                         }
                     }
     
