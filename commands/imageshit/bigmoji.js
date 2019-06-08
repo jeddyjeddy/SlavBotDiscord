@@ -87,7 +87,7 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                message.client.shard.fetchClientValues('emojis.array()')
+                message.client.shard.broadcastEval('return this.emojis.array()')
                 .then(results => {
                     console.log(results)
                     var emojis = []
