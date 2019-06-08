@@ -87,7 +87,7 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                var localEmojis = message.guild.emojis.array()
+                var localEmojis = message.client.emojis.array()
                 var localEmoji = undefined
                 for(var i = 0; i < localEmojis.length; i++)
                 {
@@ -99,7 +99,7 @@ class Bigmojiommand extends command.Command
 
                 if(localEmoji == undefined)
                 {
-                    message.channel.send("***Searching external servers, this may take a while.***")
+                    message.channel.send("***Searching external shards for Emoji, this may take a while.***")
                     message.client.shard.broadcastEval('this.emojis.array()')
                     .then(results => {
                         var emoji = undefined;
