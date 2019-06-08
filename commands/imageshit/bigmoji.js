@@ -87,12 +87,12 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                message.client.shard.fetchClientValues('emojis')
+                message.client.shard.fetchClientValues('emojis.array()')
                 .then(results => {
                     var emojis = []
                     for(var i in results)
                     {
-                        emojis.push(results[i].array())
+                        emojis.push(results[i])
                     }
 
                     var emoji = undefined;
