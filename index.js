@@ -3429,10 +3429,7 @@ bot.on("message", (message) => {
                     else
                     {
                         swearCounter = [{key: "Key", value: 0, valueToCheck: 10, specialCheck: 1000}];
-                    }
-
-                    message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
-                   
+                    }                   
                     
                     var hasKey = false;
                     var index = 1;
@@ -3491,9 +3488,7 @@ bot.on("message", (message) => {
                 });
             }
             else
-            {
-                message.channel.send("<@" + message.author.id + "> ***this is a christian server***").catch(error => console.log("Send Error - " + error));
-                
+            {                
                 var hasKey = false;
                 var index = 1;
             
