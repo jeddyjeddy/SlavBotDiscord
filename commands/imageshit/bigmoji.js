@@ -28,55 +28,27 @@ class Bigmojiommand extends command.Command
         if(args.length > 0)
         {
             console.log("args are present " + args);
-            var getEmoji = false;
-            var waitForEnd = false;
+
+            var addData = false
+            var dataFetched = false;
             for(var i = 0; i < args.length; i++)
             {
-                if(getEmoji)
+                if(!dataFetched)
                 {
-                    if(args[i].toString() == ">")
+                    if(addData)
                     {
-                        i = args.length;
+                        if(args[i] == ">")
+                            dataFetched = true
+                        else
+                            emojiID = emojiID + args[i].toString()
                     }
                     else
                     {
-                        if(waitForEnd)
+                        if(args[i] == "<")
                         {
-                            if(!isNaN(args[i].toString()))
-                            {
-                                emojiID = emojiID + args[i].toString();
-                            }
-                        }
-                        else
-                        {
-                            if(args[i].toString() == ":")
-                            {
-                                waitForEnd = true;
-                            }
+                            addData = true;
                         }
                     }
-                }
-                else
-                {
-                    if(args[i].toString() == "<")
-                    {
-                        if(args.length > i + 2)
-                        {
-                            if(args[i + 1].toString() == ":")
-                            {
-                                getEmoji = true;
-                                i = i++;
-                            }
-                        }
-                        else if(args.length > i + 1)
-                        {
-                            if(args[i + 1].toString() == ":")
-                            {
-                                getEmoji = true;
-                                i = i++;
-                            }
-                        }
-                    } 
                 }
             }
 
@@ -89,6 +61,11 @@ class Bigmojiommand extends command.Command
             {
                 while(emojiID.indexOf(":") > -1)
                     emojiID = emojiID.splice(0, emojiID.indexOf(":") + 1)
+
+                if(emojiID.indexOf(">") > -1)
+                {
+                    emojiID = emojiID.splice(emojiID.indexOf(">"))
+                }
 
                 message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.gif`]}).catch(error => { 
                     message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.png`]}).catch(error => { 
