@@ -59,12 +59,14 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                while(emojiID.indexOf(":") > -1)
-                    emojiID = emojiID.splice(0, emojiID.indexOf(":") + 1)
-
-                if(emojiID.indexOf(">") > -1)
+                while(emojiID.indexOf(":") > -1 && emojiID.length > 1)
                 {
-                    emojiID = emojiID.splice(emojiID.indexOf(">"))
+                    var newID = ""
+                    for(var i = emojiID.indexOf(":") + 1; i < emojiID.length; i++)
+                    {
+                        newID = newID + emojiID[i]
+                    }
+                    emojiID = newID;
                 }
 
                 message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.gif`]}).catch(error => { 
