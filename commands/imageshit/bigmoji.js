@@ -87,6 +87,9 @@ class Bigmojiommand extends command.Command
             }
             else
             {
+                if(emojiID.indexOf(":") > -1)
+                    emojiID = emojiID.splice(0, emojiID.indexOf(":") + 1)
+
                 message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.gif`]}).catch(error => { 
                     message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.png`]}).catch(error => { 
                         message.channel.send("<@" + message.author.id + "> The given emoji was not found, use `" + commandPrefix + "help bigmoji` for help.").catch(error => {console.log("Send Error - " + error); 
