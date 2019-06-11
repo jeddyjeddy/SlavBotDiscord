@@ -62,7 +62,7 @@ class Bigmojiommand extends command.Command
                     {
                         if(args.length > i + 2)
                         {
-                            if(args[i + 1].toString() == ":" || (args[i + 1].toString() + args[i + 2].toString()) == "a:")
+                            if(args[i + 1].toString() == ":")
                             {
                                 getEmoji = true;
                                 i = i++;
@@ -87,7 +87,7 @@ class Bigmojiommand extends command.Command
             }
             else
             {
-                if(emojiID.indexOf(":") > -1)
+                while(emojiID.indexOf(":") > -1)
                     emojiID = emojiID.splice(0, emojiID.indexOf(":") + 1)
 
                 message.channel.send(`Emoji Found`, {files: [`https://cdn.discordapp.com/emojis/${emojiID}.gif`]}).catch(error => { 
