@@ -100,7 +100,7 @@ class KeanuCommand extends command.Command
                     return;
                 }
                 message.channel.send("***taking image***").catch(error => {console.log("Send Error - " + error); });
-                Jimp.read("Keanu.png").then(function (KeanuImage) {
+                Jimp.read("keanu.png").then(function (KeanuImage) {
                     console.log("got image");
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
@@ -109,7 +109,7 @@ class KeanuCommand extends command.Command
                         var y = 350
 
                         userImage.cover(247, 235);
-                        
+
                         var blank = new Jimp(KeanuImage.bitmap.width, KeanuImage.bitmap.height);
                         blank.composite(userImage, x, y)        
         
@@ -174,7 +174,7 @@ class KeanuCommand extends command.Command
             }
 
             Promise.all(promises).then(() => {
-    Jimp.read("Keanu.png").then(function (KeanuImage) {
+    Jimp.read("keanu.png").then(function (KeanuImage) {
                     console.log("got image");
                     
                     Jimp.read(url).then(function (userImage) {
