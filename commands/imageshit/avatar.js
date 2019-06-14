@@ -80,7 +80,14 @@ class Avatarommand extends command.Command
 
         const ID = userID;
         Promise.all(promises).then(() => {
-            message.channel.send("Avatar of <@" + ID + ">\n" + url + "?size=2048").catch(function (err) {
+            if(url.indexOf("?") > -1)
+            {
+                url = url.split("?")[0]
+            }
+
+            url = url + "?size=2048"
+
+            message.channel.send("Avatar of <@" + ID + ">\n" + url).catch(function (err) {
                 message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
                 console.log(err.message);
             });
