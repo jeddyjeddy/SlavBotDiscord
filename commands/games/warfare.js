@@ -1222,7 +1222,7 @@ class WarfareCommand extends command.Command
                                                         var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
                                                         damageToDo = damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100)
     
-                                                        enemyPlayer.hp = enemyPlayer - damageToDo
+                                                        enemyPlayer.hp = enemyPlayer.hp - damageToDo
     
                                                         if(enemyPlayer.hp < 0)
                                                         {
