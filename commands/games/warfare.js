@@ -905,7 +905,7 @@ class WarfareCommand extends command.Command
 
                                 for(var rankIndex = 0; rankIndex < length; rankIndex++)
                                 {
-                                    descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(ranks[rankIndex].warfareCount) + "`` - **" + names[rankIndex] + "**\n");
+                                    descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(ranks[rankIndex].level) + "`` - **" + names[rankIndex] + "**\n");
                                 }
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
