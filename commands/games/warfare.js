@@ -1120,7 +1120,7 @@ class WarfareCommand extends command.Command
                                     }
                                 }
 
-                                if((user != undefined && user != null) && (isBot && notValid))
+                                if((user != undefined && user != null) && (!isBot && !notValid))
                                 {    
                                     for(var warfareIndex = 0; warfareIndex < warfare[i].players.length; warfareIndex++)
                                     {
