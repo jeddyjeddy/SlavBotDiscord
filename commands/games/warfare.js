@@ -1177,7 +1177,7 @@ class WarfareCommand extends command.Command
                                                                 if(xpCal < 500)
                                                                     xpCal = 500
 
-                                                                const xpChange = xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level)
+                                                                const xpChange = Math.floor(xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level))
     
                                                                 warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                                 warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpChange
@@ -1234,7 +1234,7 @@ class WarfareCommand extends command.Command
                                                         {
                                                             enemyPlayer.hp = 0
     
-                                                            const xpChange = 500 * (enemyPlayer.level/warfare[i].players[warfareIndex].level)
+                                                            const xpChange = Math.floor(500 * (enemyPlayer.level/warfare[i].players[warfareIndex].level))
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                             
