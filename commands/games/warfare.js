@@ -1243,13 +1243,13 @@ class WarfareCommand extends command.Command
                                                             const xpLoss = Math.floor(xpChange * 0.25)
                                                             
                                                             message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                                                     
+                                                            enemyPlayer.hp = 1000
                                                         }
                                                         else
                                                         {
                                                             message.channel.send("<@" + message.author.id + "> has attacked <@" + user.id + ">", {embed: {title: "***Attack Successful***", description: "<@" + message.author.id + "> has attacked <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has " + numberWithCommas(enemyPlayer.hp) + " HP (Use `" + commandPrefix +"warfare heal <amount-to-heal>` to heal).\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                         }  
     
-                                                        enemyPlayer.hp = 1000
                                                         warfare[i].players.push(enemyPlayer)
                                                     }
 
