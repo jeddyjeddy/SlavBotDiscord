@@ -1466,18 +1466,18 @@ class WarfareCommand extends command.Command
                                     {
                                         if(!IndexRef.subtractTokens(message.author.id, 1000000))
                                         {
-                                            message.channel.send("", {embed: {title: "***Failed To Purchase To Defend Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defend cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Failed To Purchase To Defense Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defense cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {
                                             var cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                             warfare[i].players[warfareIndex].defend = cooldown
-                                            message.channel.send("", {embed: {title: "***Successfully Purchased Defend Cooldown***", description: "<@" + message.author.id + "> You have successfully purchased a 2 hour defend cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Successfully Purchased Defense Cooldown***", description: "<@" + message.author.id + "> You have successfully purchased a 2 hour defense cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> You already have a 2 hour defense cooldown.").catch(error => {console.log("Send Error - " + error); });   
+                                        message.channel.send("<@" + message.author.id + "> You already have a 2 hour defense cooldown.", {embed: {title: "***Failed To Purchase To Defense Cooldown***", description: "<@" + message.author.id + "> You already have a 2 hour defense cooldown.", color: 16711680, timestamp: warfare[i].players[warfareIndex].defend, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => {console.log("Send Error - " + error); });   
                                     }
                                 }
                             }
@@ -1486,13 +1486,13 @@ class WarfareCommand extends command.Command
                             {
                                 if(!IndexRef.subtractTokens(message.author.id, 1000000))
                                 {
-                                    message.channel.send("", {embed: {title: "***Failed To Purchase To Defend Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defend cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Failed To Purchase To Defense Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defense cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     warfare[i].players.push({id: message.author.id, level: 1, xp: 0, hp: 1000, weapon: null})
                                 }
                                 else
                                 {
                                     warfare[i].players.push({id: message.author.id, level: 1, xp: 0, hp: 1000, weapon: null, defend: (new Date((new Date()).getTime() + 7200000)).toJSON()})
-                                    message.channel.send("", {embed: {title: "***Successfully Purchased Defend Cooldown***", description: "<@" + message.author.id + "> You have successfully purchased a 2 hour defend cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Successfully Purchased Defense Cooldown***", description: "<@" + message.author.id + "> You have successfully purchased a 2 hour defense cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
