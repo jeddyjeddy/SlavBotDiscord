@@ -957,16 +957,19 @@ class WarfareCommand extends command.Command
                                 var playerFound = false;
                                 var user;
                                 var mentions = message.mentions.users.array()
+                                var isBot = false, notValid = true;
 
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
                                     if(mentions[mentionIndex].id == userID)
                                     {
                                         user = mentions[mentionIndex];
+                                        isBot = mentions[mentionIndex].bot
+                                        notValid = false
                                     }
                                 }
 
-                                if(user != undefined && user != null)
+                                if((user != undefined && user != null) || (isBot || notValid))
                                 {
                                     var thumbnail = "";
     
@@ -1105,16 +1108,19 @@ class WarfareCommand extends command.Command
                                 var playerFound = false;
                                 var user;
                                 var mentions = message.mentions.users.array()
+                                var isBot = false, notValid = true;
 
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
                                     if(mentions[mentionIndex].id == userID)
                                     {
                                         user = mentions[mentionIndex];
+                                        isBot = mentions[mentionIndex].bot
+                                        notValid = false
                                     }
                                 }
 
-                                if(user != undefined && user != null)
+                                if((user != undefined && user != null) || (isBot || notValid))
                                 {    
                                     for(var warfareIndex = 0; warfareIndex < warfare[i].players.length; warfareIndex++)
                                     {
