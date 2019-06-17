@@ -1453,7 +1453,7 @@ class WarfareCommand extends command.Command
                                     var canBuy = false;
                                     if(warfare[i].players[warfareIndex].defend != null && warfare[i].players[warfareIndex].defend != undefined)
                                     {
-                                        if((new Date(warfare[i].players[warfareIndex].defend)).getTime() < (new Date()).getTime())
+                                        if((new Date(warfare[i].players[warfareIndex].defend)).getTime() >= (new Date()).getTime())
                                         {
                                             canBuy = true;
                                         }
