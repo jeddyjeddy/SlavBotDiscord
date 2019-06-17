@@ -1164,7 +1164,7 @@ class WarfareCommand extends command.Command
                                                                 warfare[i].players[enemyIndex].hp = 0
                                                                 message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
-                                                                const xpChange = (warfare[i].players[enemyIndex].xp * 0.25) * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level)
+                                                                const xpChange = (warfare[i].players[enemyIndex].xp * 0.25) * (warfare[i].players[enemyIndex].level.warfare[i].players[warfareIndex].level)
     
                                                                 warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                                 warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpChange
@@ -1220,7 +1220,7 @@ class WarfareCommand extends command.Command
                                                             enemyPlayer.hp = 0
                                                             message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
-                                                            const xpChange = (enemyPlayer.xp * 0.25) * (enemyPlayer.level/warfare[i].players[warfareIndex].level)
+                                                            const xpChange = (enemyPlayer.xp * 0.25) * (enemyPlayer.level.warfare[i].players[warfareIndex].level)
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                             enemyPlayer.xp = enemyPlayer.xp - xpChange
