@@ -1264,6 +1264,7 @@ class WarfareCommand extends command.Command
                                         if(warfare[i].players[warfareIndex].id == message.author.id)
                                         {
                                             playerFound = true
+                                            var noCooldown = false
                                             var attackCooldown = new Date()
 
                                             if(warfare[i].players[warfareIndex].attackCooldown != null && warfare[i].players[warfareIndex].attackCooldown != undefined)
@@ -1316,6 +1317,7 @@ class WarfareCommand extends command.Command
 
                                                             if(cooldown.getTime() > (new Date()).getTime())
                                                             {
+                                                                noCooldown = true
                                                                 message.channel.send("", {embed: {title: "***Defense Cooldown***", description: "<@" + message.author.id + "> You cannot attack <@" + user.id + "> as they have purchased a 2 hour defense cooldown.", color: 16711680, timestamp: cooldown.toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                                             }
                                                             else
@@ -1417,7 +1419,8 @@ class WarfareCommand extends command.Command
                                                         message.channel.send("<@" + message.author.id + "> Your weapon broke", {embed: {title: "***Your Weapon Broke***", description: "<@" + message.author.id + "> You have exceeded the number of uses for your current weapon. You must purchase a new weapon to attack again.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                     }
 
-                                                    warfare[i].players[warfareIndex].attackCooldown = (new Date((new Date()).getTime() + 30000)).toJSON()
+                                                    if(!noCooldown)
+                                                        warfare[i].players[warfareIndex].attackCooldown = (new Date((new Date()).getTime() + 30000)).toJSON()
                                                 }   
                                             } 
                                             else
