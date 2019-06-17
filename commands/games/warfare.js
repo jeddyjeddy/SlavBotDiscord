@@ -516,7 +516,7 @@ class WarfareCommand extends command.Command
                                                     emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
                                                     accuracy = Math.floor(Math.random() * 100)
                                                 }
-                                                var weaponName = uniqueNamesGenerator({length: 2})
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                                 warfare[i].players[index].weapon = weapon
                                                 message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -565,7 +565,7 @@ class WarfareCommand extends command.Command
                                         emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
                                         accuracy = Math.floor(Math.random() * 100)
                                     }
-                                    var weaponName = uniqueNamesGenerator({length: 2})
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                     playerData.weapon = weapon
                                     message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -634,7 +634,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 25)
                                                         accuracy = 25
                                                 }
-                                                var weaponName = uniqueNamesGenerator({length: 2})
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                                 var weapon = {name: weaponName + " " + emoji, rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                                 warfare[i].players[index].weapon = weapon
                                                 message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -686,7 +686,7 @@ class WarfareCommand extends command.Command
                                         if(accuracy < 25)
                                             accuracy = 25
                                     }
-                                    var weaponName = uniqueNamesGenerator({length: 2})
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                     playerData.weapon = weapon
                                     message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -752,7 +752,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 50)
                                                         accuracy = 50
                                                 }
-                                                var weaponName = uniqueNamesGenerator({length: 2})
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                                 warfare[i].players[index].weapon = weapon
                                                 message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -802,7 +802,7 @@ class WarfareCommand extends command.Command
                                             accuracy = 50
                                     }
 
-                                    var weaponName = uniqueNamesGenerator({length: 2})
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                     playerData.weapon = weapon
                                     message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
