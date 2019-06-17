@@ -427,7 +427,7 @@ class WarfareCommand extends command.Command
                                             }
                                             else
                                             {
-                                                var mentions = message.mentions.players.array()
+                                                var mentions = message.mentions.users.array()
                                                 var isBot = false, notValid = true;
                                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                                 {
@@ -956,7 +956,7 @@ class WarfareCommand extends command.Command
                             {
                                 var playerFound = false;
                                 var user;
-                                var mentions = message.mentions.players.array()
+                                var mentions = message.mentions.users.array()
 
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
@@ -1104,7 +1104,7 @@ class WarfareCommand extends command.Command
                             {
                                 var playerFound = false;
                                 var user;
-                                var mentions = message.mentions.players.array()
+                                var mentions = message.mentions.users.array()
 
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
