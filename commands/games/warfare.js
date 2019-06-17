@@ -1369,7 +1369,7 @@ class WarfareCommand extends command.Command
                                                                         if(user.avatarURL != undefined && user.avatarURL != null)
                                                                             thumbnail = user.avatarURL
             
-                                                                        message.channel.send("<@" + user.id + "> you have levelled down", {embed: {title: "***" + user.username + " Has Levelled Down***", description: "<@" + user.id + "> you have levelled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(newLevel) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                                        message.channel.send("<@" + user.id + "> you have leveled down", {embed: {title: "***" + user.username + " Has Leveled Down***", description: "<@" + user.id + "> you have leveled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(newLevel) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                                     }
                                                                     warfare[i].players[enemyIndex].hp = 1000 * warfare[i].players[enemyIndex].level
                                                                 }
@@ -1598,7 +1598,7 @@ class WarfareCommand extends command.Command
                                     if(message.author.avatarURL != undefined && message.author.avatarURL != null)
                                         thumbnail = message.author.avatarURL
                                         
-                                    message.channel.send("<@" + message.author.id + "> you have levelled up", {embed: {title: "***" + message.author.username + " Has Levelled Up***", description: "<@" + message.author.id + "> you have levelled up from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(warfare[i].players[playerIndex].level) + ".", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + "> you have leveled up", {embed: {title: "***" + message.author.username + " Has Leveled Up***", description: "<@" + message.author.id + "> you have leveled up from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(warfare[i].players[playerIndex].level) + ".", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else if(warfare[i].players[playerIndex].level < oldLevel)
                                 {
@@ -1607,7 +1607,7 @@ class WarfareCommand extends command.Command
                                     if(message.author.avatarURL != undefined && message.author.avatarURL != null)
                                         thumbnail = message.author.avatarURL
 
-                                    message.channel.send("<@" + message.author.id + "> you have levelled down", {embed: {title: "***" + message.author.username + " Has Levelled Down***", description: "<@" + message.author.id + "> you have levelled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(warfare[i].players[playerIndex].level) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + "> you have leveled down", {embed: {title: "***" + message.author.username + " Has Leveled Down***", description: "<@" + message.author.id + "> you have leveled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(warfare[i].players[playerIndex].level) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
