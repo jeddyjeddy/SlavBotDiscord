@@ -423,7 +423,7 @@ class WarSlaveCommand extends command.Command
                                 var timestamp = (new Date(Date.now()).toJSON());
 
                                 IndexRef.addTokens(message.author.id, collected)
-                                IndexRef.setCooldown(message.author.id, (new Date((new Date).getTime() + 120000)))
+                                IndexRef.setCooldown(message.author.id, (new Date((new Date()).getTime() + 120000)))
 
                                 message.channel.send("", {embed: {title: "***Slave Trading Resources Collected***", description: "<@" + message.author.id + "> You have collected ***" + numberWithCommas(collected) + " tokens***\n\n***Max value increase of " + numberWithCommas(maxPercInc) + "%*** _(current max value: " + numberWithCommas(maxValue) + " tokens)_ - Increase the max amount of tokens you can collect by owning slaves with a value greater than 1,000 tokens.\n\n***Collected Value Increase of " + collectedValInc + "%*** - You can increase the value of tokens you have collected. This is only available to those ***[supporting us on Patreon](https://www.patreon.com/merriemweebster)***.\n\n\n***[Patreon supporters get weekly tokens.](https://www.patreon.com/merriemweebster)***\n\n***[You can also purchase war tokens on our website. Special Weekend Sales for War Tokens every Friday, Saturday and Sunday.](https://slavbot.com/shop)***", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Collected on"}}}).catch(error => console.log("Send Error - " + error));
                             }
@@ -747,7 +747,7 @@ class WarSlaveCommand extends command.Command
                                                 {                                                
                                                     message.channel.send("Slave Protected for " + numberWithCommas(protectionValue) + " tokens! Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! Your slave has a 2 hour protection period in which no one can purchase or steal them.", {embed: {title: "***Protection Bought***", description: "<@" + message.author.id + "> You have bought protection for your slave. Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nYour slave has a 2 hour protection period in which no one can purchase or steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                     slaves[i].users[slaveIndex].price = protectionValue;
-                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                                 }   
                                             }
                                             else
@@ -1110,7 +1110,7 @@ class WarSlaveCommand extends command.Command
                                             IndexRef.addTokens(selfOwner, value)
                                             slaves[i].users[slaveIndex].owner = "";
                                             slaves[i].users[slaveIndex].price = freedomValue;
-                                            slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                            slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                         }
                                     }
                                 }
@@ -1363,7 +1363,7 @@ class WarSlaveCommand extends command.Command
                                                     message.channel.send("<@" + message.author.id + "> has stolen <@" + userID + "> from <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Stole Slave***", description: "<@" + message.author.id + "> You have stolen <@" + userID + "> from <@" + slaves[i].users[slaveIndex].owner + "> for " + numberWithCommas(value) + " tokens (x100 the slave's price). You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. <@" + userID + "> now has a 2 hour cooldown until someone can steal them again.\n\n<@" + userID + "> is now worth " + numberWithCommas(value) + " tokens." , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                     
                                                     slaves[i].users[slaveIndex].owner = message.author.id;
-                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                                     slaves[i].users[slaveIndex].price = value
                                                 }
                                             }
@@ -1466,7 +1466,7 @@ class WarSlaveCommand extends command.Command
                                                     message.channel.send("<@" + message.author.id + "> has become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Changed Owner***", description: "<@" + message.author.id + "> You have become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + "> for " + numberWithCommas(value) + " tokens (x10 your price). You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. <@" + message.author.id + "> You now have a 2 hour cooldown until someone can steal or purchase you." , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                     
                                                     slaves[i].users[slaveIndex].owner = userID;
-                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                                 }
                                             }
                                         }
