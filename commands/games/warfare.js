@@ -1298,10 +1298,6 @@ class WarfareCommand extends command.Command
                                                         weaponRank = "Legendary"
                                                     else
                                                         weaponRank = "Mythical"
-        
-
-                                                    warfare[i].players[warfareIndex].weapon.uses = warfare[i].players[warfareIndex].weapon.uses - 1
-                                                    weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
     
                                                     for(var enemyIndex = 0; enemyIndex < warfare[i].players.length; enemyIndex++)
                                                     {
@@ -1322,6 +1318,8 @@ class WarfareCommand extends command.Command
                                                             }
                                                             else
                                                             {
+                                                                warfare[i].players[warfareIndex].weapon.uses = warfare[i].players[warfareIndex].weapon.uses - 1
+                                                                weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                                                 var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
                                                                 damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
         
