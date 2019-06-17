@@ -1450,12 +1450,12 @@ class WarfareCommand extends command.Command
                                 if(warfare[i].players[warfareIndex].id == message.author.id)
                                 {
                                     playerFound = true
-                                    var canBuy = false;
+                                    var canBuy = true;
                                     if(warfare[i].players[warfareIndex].defend != null && warfare[i].players[warfareIndex].defend != undefined)
                                     {
-                                        if((new Date()).getTime() >= (new Date(warfare[i].players[warfareIndex].defend)).getTime())
+                                        if((new Date()).getTime() < (new Date(warfare[i].players[warfareIndex].defend)).getTime())
                                         {
-                                            canBuy = true;
+                                            canBuy = false;
                                         }
                                     }
 
