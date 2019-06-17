@@ -1298,6 +1298,34 @@ class WarfareCommand extends command.Command
                                         if(warfare[i].players[warfareIndex].id == message.author.id)
                                         {
                                             playerFound = true
+                                            var maxHP = 1000 * warfare[i].players[warfareIndex].level
+
+                                            if(warfare[i].players[warfareIndex].hp == maxHP)
+                                            {
+                                                message.channel.send("<@" + message.author.id + "> Your HP is full.").catch(error => {console.log("Send Error - " + error); });   
+                                            }
+                                            else
+                                            {
+                                                if(maxHP - warfare[i].players[warfareIndex].hp < amount)
+                                                {
+                                                    amount = maxHP - warfare[i].players[warfareIndex].hp
+                                                }
+
+                                                if(!IndexRef.subtractTokens(message.author.id, amount))
+                                                {
+                                                    message.channel.send("<@" + message.author.id + "> You do not have enough tokens to restore " + numberWithCommas(amount) + " HP.").catch(error => {console.log("Send Error - " + error); });   
+                                                }
+                                                else
+                                                {
+                                                    warfare[i].players[warfareIndex].hp = warfare[i].players[warfareIndex].hp + amount
+                                                    message.channel.send("<@" + message.author.id + "> You have restored " + numberWithCommas(amount) + " HP. You now have " + numberWithCommas(warfare[i].players[warfareIndex].hp) + " HP.").catch(error => {console.log("Send Error - " + error); });   
+
+                                                    if(warfare[i].players[warfareIndex].hp == maxHP)
+                                                    {
+                                                        message.channel.send("<@" + message.author.id + "> You have fully restored your HP.").catch(error => {console.log("Send Error - " + error); });   
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 
