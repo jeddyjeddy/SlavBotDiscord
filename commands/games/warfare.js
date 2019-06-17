@@ -1124,7 +1124,7 @@ class WarfareCommand extends command.Command
 
                                 for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
                                 {
-                                    if(mentions[mentionIndex].id == userID)
+                                    if(mentions[mentionIndex].id == userID && mentions[mentionIndex].id != message.author.id)
                                     {
                                         user = mentions[mentionIndex];
                                         isBot = mentions[mentionIndex].bot
@@ -1294,7 +1294,7 @@ class WarfareCommand extends command.Command
                                 }
                                 else
                                 {
-                                    message.channel.send("<@" + message.author.id + "> User not found on this server.").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + "> Tag another user to attack.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
