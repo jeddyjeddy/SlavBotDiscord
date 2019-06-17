@@ -27,7 +27,7 @@ Manager.on("message", (shard, message) => {
             if(shardToUse.id == shard.id + 1)
             {
                 var data = JSON.parse(message)
-                shardToUse.eval(`this.fetchUser("${data["user"]}").then(user => {user.send("Thank you for voting, you have received " + "${data["token1"]}" + " tokens. You now have " + "${data["token2"]}" + " tokens. You can now use the \`dailyspin\` command. Use \`help ww\` or \`help warslave\` for more info on these tokens and \`help dailyspin\` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));}, rejection => {this.shard.send(${JSON.stringify(data)});});`)
+                shardToUse.eval(`this.fetchUser("${data["user"]}").then(user => {user.send("Thank you for voting, you have received " + "${data["token1"]}" + " tokens. You now have " + "${data["token2"]}" + " tokens. You can now use the \`dailyspin\` command. Use \`help ww\`, \`help warslave\` or \`help warfare\` for more info on these tokens and \`help dailyspin\` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));}, rejection => {this.shard.send(${JSON.stringify(data)});});`)
             }
         }
         else if(message.toString().indexOf("transactionID") > -1)
