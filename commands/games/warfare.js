@@ -88,7 +88,7 @@ class WarfareCommand extends command.Command
             group: "games",
             memberName: "warfare",
             description: "Warfare is a PvP Game where you find weapons and use them to kill other players in order to gain XP. XP allows you to level up your character and increase your stats. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warfare profile [@User (optional)]` (Check your stats, or another user's stats)", "`!warfare collect` (Gather Warfare Resources)", "`!warfare ranks` (Check Local Leaderboards)", "`!warfare buy` (Check all available weapon packs)", "`!warfare buy <package>` (Buy a weapon pack)", "`!warfare drop` (Drop your current weapon)", "`!warfare attack @User` (Attack a user with your weapon)", "`!warfare heal <amount-to-heal>` (Restore your HP, 1 HP costs 1 War Token)", "`!warfare give <amount> @User1 @User2` (Give your tokens to another user)", "`!warfare reset` (Reset the game. Can only be used by server owners.)"]
+            examples: ["`!warfare profile [@User (optional)]` (Check your stats, or another user's stats)", "`!warfare collect` (Gather Warfare Resources)", "`!warfare ranks` (Check Local Leaderboards)", "`!warfare buy` (Check all available weapon packs)", "`!warfare buy <package>` (Buy a weapon pack)", "`!warfare drop` (Drop your current weapon)", "`!warfare attack @User` (Attack a user with your weapon)", "`!warfare defend` (Purchase a 2 hour Defence Cooldown for 1 Million War Tokens, protects you from all attacks for 2 hours)", "`!warfare heal <amount-to-heal>` (Restore your HP, 1 HP costs 1 War Token)", "`!warfare give <amount> @User1 @User2` (Give your tokens to another user)", "`!warfare reset` (Reset the game. Can only be used by server owners.)"]
         });
     }
 
@@ -1307,63 +1307,76 @@ class WarfareCommand extends command.Command
                                                         if(warfare[i].players[enemyIndex].id == user.id)
                                                         {
                                                             enemyFound = true;
+                                                            var cooldown = new Date()
                                                             
-                                                            var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
-                                                            damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
-    
-                                                            warfare[i].players[enemyIndex].hp = warfare[i].players[enemyIndex].hp - damageToDo
-    
-                                                            if(warfare[i].players[enemyIndex].hp < 0)
+                                                            if(warfare[i].players[enemyIndex].defend != null && warfare[i].players[enemyIndex].defend != undefined)
                                                             {
-                                                                warfare[i].players[enemyIndex].hp = 0
-    
-                                                                var xpCal = warfare[i].players[enemyIndex].xp * 0.25
+                                                                cooldown = new Date(warfare[i].players[enemyIndex].defend)
+                                                            }
 
-                                                                if(xpCal < 500)
-                                                                    xpCal = 500
-
-                                                                const xpChange = Math.floor(xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level) * 0.1)
-    
-                                                                warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
-
-                                                                const xpLoss = Math.floor(xpChange * 0.25)
-                                                                warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpLoss
-                                                             
-                                                                message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-
-                                                                if(warfare[i].players[enemyIndex].xp < 0)
-                                                                    warfare[i].players[enemyIndex].xp = 0
-    
-                                                                const oldLevel = parseInt(warfare[i].players[enemyIndex].level);
-                                                                var newLevel = 1;
-                                                                var levelFound = false;
-                                                                while(!levelFound)
-                                                                {
-                                                                    if(warfare[i].players[enemyIndex].xp < 100 * Math.pow(newLevel + 1, 2))
-                                                                    {
-                                                                        levelFound = true;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        newLevel++;
-                                                                    }
-                                                                }
-    
-                                                                if(newLevel < oldLevel)
-                                                                {
-                                                                    warfare[i].players[enemyIndex].level = newLevel;
-                                                                    var thumbnail = "";
-        
-                                                                    if(user.avatarURL != undefined && user.avatarURL != null)
-                                                                        thumbnail = user.avatarURL
-        
-                                                                    message.channel.send("<@" + user.id + "> you have levelled down", {embed: {title: "***" + user.username + " Has Levelled Down***", description: "<@" + user.id + "> you have levelled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(newLevel) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                                }
-                                                                warfare[i].players[enemyIndex].hp = 1000 * warfare[i].players[enemyIndex].level
+                                                            if(cooldown.getTime >= (new Date()).getTime())
+                                                            {
+                                                                message.channel.send("", {embed: {title: "***Defence Cooldown***", description: "<@" + message.author.id + "> You cannot attack this user as they have purchased a 2 hour defence cooldown.", color: 16711680, timestamp: cooldown.toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                                             }
                                                             else
                                                             {
-                                                                message.channel.send("<@" + message.author.id + "> has attacked <@" + user.id + ">", {embed: {title: "***Attack Successful***", description: "<@" + message.author.id + "> has attacked <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has " + numberWithCommas(warfare[i].players[enemyIndex].hp) + " HP (Use `" + commandPrefix +"warfare heal <amount-to-heal>` to heal).\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                                var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
+                                                                damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
+        
+                                                                warfare[i].players[enemyIndex].hp = warfare[i].players[enemyIndex].hp - damageToDo
+        
+                                                                if(warfare[i].players[enemyIndex].hp < 0)
+                                                                {
+                                                                    warfare[i].players[enemyIndex].hp = 0
+        
+                                                                    var xpCal = warfare[i].players[enemyIndex].xp * 0.25
+    
+                                                                    if(xpCal < 500)
+                                                                        xpCal = 500
+    
+                                                                    const xpChange = Math.floor(xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level) * 0.1)
+        
+                                                                    warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
+    
+                                                                    const xpLoss = Math.floor(xpChange * 0.25)
+                                                                    warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpLoss
+                                                                 
+                                                                    message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+    
+                                                                    if(warfare[i].players[enemyIndex].xp < 0)
+                                                                        warfare[i].players[enemyIndex].xp = 0
+        
+                                                                    const oldLevel = parseInt(warfare[i].players[enemyIndex].level);
+                                                                    var newLevel = 1;
+                                                                    var levelFound = false;
+                                                                    while(!levelFound)
+                                                                    {
+                                                                        if(warfare[i].players[enemyIndex].xp < 100 * Math.pow(newLevel + 1, 2))
+                                                                        {
+                                                                            levelFound = true;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            newLevel++;
+                                                                        }
+                                                                    }
+        
+                                                                    if(newLevel < oldLevel)
+                                                                    {
+                                                                        warfare[i].players[enemyIndex].level = newLevel;
+                                                                        var thumbnail = "";
+            
+                                                                        if(user.avatarURL != undefined && user.avatarURL != null)
+                                                                            thumbnail = user.avatarURL
+            
+                                                                        message.channel.send("<@" + user.id + "> you have levelled down", {embed: {title: "***" + user.username + " Has Levelled Down***", description: "<@" + user.id + "> you have levelled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(newLevel) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                                    }
+                                                                    warfare[i].players[enemyIndex].hp = 1000 * warfare[i].players[enemyIndex].level
+                                                                }
+                                                                else
+                                                                {
+                                                                    message.channel.send("<@" + message.author.id + "> has attacked <@" + user.id + ">", {embed: {title: "***Attack Successful***", description: "<@" + message.author.id + "> has attacked <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has " + numberWithCommas(warfare[i].players[enemyIndex].hp) + " HP (Use `" + commandPrefix +"warfare heal <amount-to-heal>` to heal).\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -1409,7 +1422,7 @@ class WarfareCommand extends command.Command
                                             } 
                                             else
                                             {
-                                                message.channel.send("", {embed: {title: "***Attack Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 30 seconds before you can attack another user again.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Attack Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 30 seconds before you can attack another user again.", color: 16711680, timestamp: attackCooldown.toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
@@ -1427,6 +1440,41 @@ class WarfareCommand extends command.Command
                             else
                             {
                                 message.channel.send("<@" + message.author.id + "> Your attack failed", {embed: {title: "***Attack Failed***", description: "<@" + message.author.id + "> Please select another player to attack.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
+                        else if(args.toLowerCase().startsWith("defend"))
+                        {
+                            for(var warfareIndex = 0; warfareIndex < warfare[i].players.length; warfareIndex++)
+                            {
+                                if(warfare[i].players[warfareIndex].id == message.author.id)
+                                {
+                                    var canBuy = true;
+                                    if(warfare[i].players[warfareIndex].defend != null && warfare[i].players[warfareIndex].defend != undefined)
+                                    {
+                                        if((new Date(warfare[i].players[warfareIndex].defend)).getTime >= (new Date()).getTime)
+                                        {
+                                            canBuy = true;
+                                        }
+                                    }
+
+                                    if(canBuy)
+                                    {
+                                        if(!IndexRef.subtractTokens(message.author.id, 1000000))
+                                        {
+                                            message.channel.send("", {embed: {title: "***Failed To Purchase To Defend Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defend cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {
+                                            var cooldown = (new Date((new Date).getTime() + 7200000)).toJSON()
+                                            warfare[i].players[warfareIndex].defend = cooldown
+                                            message.channel.send("", {embed: {title: "***Successfuly Purchased Defend Cooldown***", description: "<@" + message.author.id + "> You have successfuly purchased a 2 hour defend cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> You already have a 2 hour defence cooldown.").catch(error => {console.log("Send Error - " + error); });   
+                                    }
+                                }
                             }
                         }
                         else if(args.toLowerCase().startsWith("heal"))
