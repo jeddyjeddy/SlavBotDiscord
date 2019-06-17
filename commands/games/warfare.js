@@ -843,6 +843,7 @@ class WarfareCommand extends command.Command
                                     }
                                     else
                                     {
+                                        warfare[i].players[index].weapon = null
                                         message.channel.send("", {embed: {title: "***Weapon Dropped***", description: "<@" + message.author.id + "> You no longer have a weapon at hand.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
