@@ -486,7 +486,7 @@ class WarfareCommand extends command.Command
 
                                     if(fail)
                                     {
-                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purhcase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purchase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
@@ -601,7 +601,7 @@ class WarfareCommand extends command.Command
 
                                     if(fail)
                                     {
-                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purhcase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purchase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
@@ -722,7 +722,7 @@ class WarfareCommand extends command.Command
 
                                     if(fail)
                                     {
-                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purhcase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purchase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
