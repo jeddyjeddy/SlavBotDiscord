@@ -1444,14 +1444,16 @@ class WarfareCommand extends command.Command
                         }
                         else if(args.toLowerCase().startsWith("defend"))
                         {
+                            var playerFound = false
                             for(var warfareIndex = 0; warfareIndex < warfare[i].players.length; warfareIndex++)
                             {
                                 if(warfare[i].players[warfareIndex].id == message.author.id)
                                 {
+                                    playerFound = true
                                     var canBuy = true;
                                     if(warfare[i].players[warfareIndex].defend != null && warfare[i].players[warfareIndex].defend != undefined)
                                     {
-                                        if((new Date(warfare[i].players[warfareIndex].defend)).getTime >= (new Date()).getTime)
+                                        if((new Date(warfare[i].players[warfareIndex].defend)).getTime < (new Date()).getTime)
                                         {
                                             canBuy = true;
                                         }
@@ -1474,6 +1476,20 @@ class WarfareCommand extends command.Command
                                     {
                                         message.channel.send("<@" + message.author.id + "> You already have a 2 hour defence cooldown.").catch(error => {console.log("Send Error - " + error); });   
                                     }
+                                }
+                            }
+
+                            if(!playerFound)
+                            {
+                                if(!IndexRef.subtractTokens(message.author.id, 1000000))
+                                {
+                                    message.channel.send("", {embed: {title: "***Failed To Purchase To Defend Cooldown***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a 2 hour defend cooldown. You need " + numberWithCommas(1000000) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    warfare[i].players.push({id: message.author.id, level: 1, xp: 0, hp: 1000, weapon: null})
+                                }
+                                else
+                                {
+                                    warfare[i].players.push({id: message.author.id, level: 1, xp: 0, hp: 1000, weapon: null, defend: (new Date((new Date).getTime() + 7200000)).toJSON()})
+                                    message.channel.send("", {embed: {title: "***Successfuly Purchased Defend Cooldown***", description: "<@" + message.author.id + "> You have successfuly purchased a 2 hour defend cooldown. No user can attack you until the cooldown is over.", color: 16711680, timestamp: cooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
