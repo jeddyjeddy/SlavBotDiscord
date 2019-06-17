@@ -1172,7 +1172,12 @@ class WarfareCommand extends command.Command
                                                             {
                                                                 warfare[i].players[enemyIndex].hp = 0
     
-                                                                const xpChange = (warfare[i].players[enemyIndex].xp * 0.25) * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level)
+                                                                var xpCal = warfare[i].players[enemyIndex].xp * 0.25
+
+                                                                if(xpCal < 500)
+                                                                    xpCal = 500
+
+                                                                const xpChange = xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level)
     
                                                                 warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                                 warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpChange
@@ -1229,7 +1234,7 @@ class WarfareCommand extends command.Command
                                                         {
                                                             enemyPlayer.hp = 0
     
-                                                            const xpChange = (enemyPlayer.xp * 0.25) * (enemyPlayer.level/warfare[i].players[warfareIndex].level)
+                                                            const xpChange = 500 * (enemyPlayer.level/warfare[i].players[warfareIndex].level)
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                             
