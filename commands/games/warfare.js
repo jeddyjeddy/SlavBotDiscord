@@ -1314,7 +1314,7 @@ class WarfareCommand extends command.Command
                                                                 cooldown = new Date(warfare[i].players[enemyIndex].defend)
                                                             }
 
-                                                            if(cooldown.getTime >= (new Date()).getTime())
+                                                            if(cooldown.getTime < (new Date()).getTime())
                                                             {
                                                                 message.channel.send("", {embed: {title: "***Defence Cooldown***", description: "<@" + message.author.id + "> You cannot attack this user as they have purchased a 2 hour defence cooldown.", color: 16711680, timestamp: cooldown.toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
                                                             }
