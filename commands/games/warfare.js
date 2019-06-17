@@ -1164,7 +1164,7 @@ class WarfareCommand extends command.Command
                                                             enemyFound = true;
                                                             
                                                             var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
-                                                            damageToDo = damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100)
+                                                            damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
     
                                                             warfare[i].players[enemyIndex].hp = warfare[i].players[enemyIndex].hp - damageToDo
     
@@ -1220,7 +1220,7 @@ class WarfareCommand extends command.Command
                                                         var enemyPlayer = {id: user.id, level: 1, xp: 0, hp: 1000, weapon: null}
     
                                                         var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
-                                                        damageToDo = damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100)
+                                                        damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
     
                                                         enemyPlayer.hp = enemyPlayer.hp - damageToDo
     
