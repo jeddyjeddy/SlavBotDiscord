@@ -1213,8 +1213,8 @@ class WarfareCommand extends command.Command
                                                                         thumbnail = user.avatarURL
         
                                                                     message.channel.send("<@" + user.id + "> you have levelled down", {embed: {title: "***" + user.username + " Has Levelled Down***", description: "<@" + user.id + "> you have levelled down from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(newLevel) + ".", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                                    warfare[i].players[enemyIndex].hp = 1000 * warfare[i].players[enemyIndex].level
                                                                 }
+                                                                warfare[i].players[enemyIndex].hp = 1000 * warfare[i].players[enemyIndex].level
                                                             }
                                                             else
                                                             {
@@ -1249,6 +1249,7 @@ class WarfareCommand extends command.Command
                                                             message.channel.send("<@" + message.author.id + "> has attacked <@" + user.id + ">", {embed: {title: "***Attack Successful***", description: "<@" + message.author.id + "> has attacked <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has " + numberWithCommas(enemyPlayer.hp) + " HP (Use `" + commandPrefix +"warfare heal <amount-to-heal>` to heal).\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                         }  
     
+                                                        enemyPlayer.hp = 1000
                                                         warfare[i].players.push(enemyPlayer)
                                                     }
 
