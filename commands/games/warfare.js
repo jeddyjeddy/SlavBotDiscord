@@ -1278,12 +1278,7 @@ class WarfareCommand extends command.Command
                         }
                         else if(args.toLowerCase().startsWith("heal"))
                         {
-                            var options = ""    
-                            for(var index = 0; index < endIndex; index++)
-                            {
-                                options = options + args[index];
-                            }
-                            options = options.replace(/,/g, "")
+                            var options = args.replace(/,/g, "")
                             var amountText = options.match(/\d+/g);
                             var amount = []
                             if(amountText != null)
