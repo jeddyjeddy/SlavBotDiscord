@@ -526,7 +526,7 @@ class WarfareCommand extends command.Command
                                                 var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -575,7 +575,7 @@ class WarfareCommand extends command.Command
                                     var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                 } 
                                 
@@ -644,7 +644,7 @@ class WarfareCommand extends command.Command
                                                 var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji, rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -696,7 +696,7 @@ class WarfareCommand extends command.Command
                                     var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                 }  
 
@@ -762,7 +762,7 @@ class WarfareCommand extends command.Command
                                                 var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -812,7 +812,7 @@ class WarfareCommand extends command.Command
                                     var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + weapon.damage + "\n***Weapon Accuracy:*** " + weapon.accuracy + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date).getTime() + 60000)).toJSON()
                                 }  
                                 warfare[i].players.push(playerData)
@@ -1000,7 +1000,7 @@ class WarfareCommand extends command.Command
                                                 else
                                                     weaponRank = "Legendary"
 
-                                                weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + warfare[i].players[warfareIndex].weapon.damage + "\n***Weapon Accuracy:*** " + warfare[i].players[warfareIndex].weapon.accuracy + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                                weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                             }
 
                                             message.channel.send("", {embed: {title: "***Warfare Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n" + user.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
@@ -1053,7 +1053,7 @@ class WarfareCommand extends command.Command
                                             else
                                                 weaponRank = "Legendary"
 
-                                            weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + warfare[i].players[warfareIndex].weapon.damage + "\n***Weapon Accuracy:*** " + warfare[i].players[warfareIndex].weapon.accuracy + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                            weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                         }
 
                                         message.channel.send("", {embed: {title: "***Warfare Profile for " + message.author.username + "***", description: message.author.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n" + message.author.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
@@ -1155,7 +1155,7 @@ class WarfareCommand extends command.Command
         
 
                                                     warfare[i].players[warfareIndex].weapon.uses = warfare[i].players[warfareIndex].weapon.uses - 1
-                                                    weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + warfare[i].players[warfareIndex].weapon.damage + "\n***Weapon Accuracy:*** " + warfare[i].players[warfareIndex].weapon.accuracy + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                                    weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
     
                                                     for(var enemyIndex = 0; enemyIndex < warfare[i].players.length; enemyIndex++)
                                                     {
@@ -1171,13 +1171,14 @@ class WarfareCommand extends command.Command
                                                             if(warfare[i].players[enemyIndex].hp < 0)
                                                             {
                                                                 warfare[i].players[enemyIndex].hp = 0
-                                                                message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                                                 const xpChange = (warfare[i].players[enemyIndex].xp * 0.25) * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level)
     
                                                                 warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                                 warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpChange
-                                                                
+                                                             
+                                                                message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpChange) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+
                                                                 if(warfare[i].players[enemyIndex].xp < 0)
                                                                     warfare[i].players[enemyIndex].xp = 0
     
@@ -1227,15 +1228,12 @@ class WarfareCommand extends command.Command
                                                         if(enemyPlayer.hp < 0)
                                                         {
                                                             enemyPlayer.hp = 0
-                                                            message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                                             const xpChange = (enemyPlayer.xp * 0.25) * (enemyPlayer.level/warfare[i].players[warfareIndex].level)
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
-                                                            enemyPlayer.xp = enemyPlayer.xp - xpChange
                                                             
-                                                            if(enemyPlayer.xp < 0)
-                                                                enemyPlayer.xp = 0                                                       
+                                                            message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpChange) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                                                     
                                                         }
                                                         else
                                                         {
