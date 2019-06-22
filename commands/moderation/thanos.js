@@ -34,7 +34,7 @@ class ThanosCommand extends command.Command
                 var allMembers = message.guild.members.array()
                 for(var i = 0; i < allMembers.length; i++)
                 {
-                    if(allMembers[i].id != message.guild.ownerID && !allMembers[i].user.bot)
+                    if(allMembers[i].id != message.guild.ownerID && !allMembers[i].user.bot && allMembers[i].kickable)
                     {
                         users.push(allMembers[i])
                     }
@@ -68,7 +68,7 @@ class ThanosCommand extends command.Command
                 }
                 else
                 {
-                    message.channel.send("<@" + message.author.id + "> No users to kick.").catch(error => console.log("Send Error - " + error));
+                    message.channel.send("<@" + message.author.id + "> No users to kick. Bots and users with roles higher than Slav Bot can't be kicked.").catch(error => console.log("Send Error - " + error));
                 } 
             })
         }
