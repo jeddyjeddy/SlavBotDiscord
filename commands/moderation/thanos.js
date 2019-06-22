@@ -58,9 +58,9 @@ class ThanosCommand extends command.Command
 
                 if(victimsAmount > 0)
                 {
-                    for(var i = 0; i < 10; i++)
+                    for(var i = 0; i < 11; i++)
                     {
-                        if(i == 9)
+                        if(i == 10)
                         {
                             setTimeout(() => {
                                 users = getRandom(users, victimsAmount)
@@ -73,7 +73,7 @@ class ThanosCommand extends command.Command
                                 }
                     
                                 message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
-                            }, (i + 1) * 1000)
+                            }, i * 1000)
                         }
                         else
                         {
@@ -85,7 +85,7 @@ class ThanosCommand extends command.Command
                             {
                                 setTimeout(() => {
                                     message.channel.send("Balancing server in " + (10 - i) + " second(s)").catch(error => console.log("Send Error - " + error));
-                                }, (i + 1) * 1000) 
+                                }, i * 1000) 
                             }
                         }
                        
