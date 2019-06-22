@@ -1,20 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
 
-function getRandom(arr, n) {
-    var result = new Array(n),
-        len = arr.length,
-        taken = new Array(len);
-    if (n > len)
-        throw new RangeError("getRandom: more elements taken than available");
-    while (n--) {
-        var x = Math.floor(Math.random() * len);
-        result[n] = arr[x in taken ? taken[x] : x];
-        taken[x] = --len in taken ? taken[len] : len;
-    }
-    return result;
-}
-
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -69,16 +55,14 @@ class ThanosCommand extends command.Command
                             message.channel.send("Balancing server in 10 seconds").catch(error => console.log("Send Error - " + error));
                         }, 20000) 
                         setTimeout(() => {
-                            users = getRandom(users, victimsAmount)
-
-                            for(var i = 0; i < users.length; i++)
+                            for(var i = 0; i < victimsAmount; i++)
                             {
                                 users[i].kick("To preserve the balance of the server.").catch(function(error){
                                     console.log(error.message);
                                 })
                             }
                 
-                            message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> " + numberWithCommas(users.length) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
                         }, 30000)
                     }, 5000)
                 }
