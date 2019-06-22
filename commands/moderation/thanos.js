@@ -61,38 +61,25 @@ class ThanosCommand extends command.Command
                     message.channel.send(numberWithCommas(victimsAmount) + " users will be kicked in 30 seconds.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
 
                     setTimeout(() => {
-                        for(var i = 0; i < 31; i++)
-                        {
-                            if(i == 30)
+                        message.channel.send("Balancing server in 30 seconds").catch(error => console.log("Send Error - " + error));
+                        setTimeout(() => {
+                            message.channel.send("Balancing server in 20 seconds").catch(error => console.log("Send Error - " + error));
+                        }, 10000) 
+                        setTimeout(() => {
+                            message.channel.send("Balancing server in 10 seconds").catch(error => console.log("Send Error - " + error));
+                        }, 20000) 
+                        setTimeout(() => {
+                            users = getRandom(users, victimsAmount)
+
+                            for(var i = 0; i < users.length; i++)
                             {
-                                setTimeout(() => {
-                                    users = getRandom(users, victimsAmount)
-        
-                                    for(var i = 0; i < users.length; i++)
-                                    {
-                                        users[i].kick("To preserve the balance of the server.").catch(function(error){
-                                            console.log(error.message);
-                                        })
-                                    }
-                        
-                                    message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
-                                }, i * 1000)
+                                users[i].kick("To preserve the balance of the server.").catch(function(error){
+                                    console.log(error.message);
+                                })
                             }
-                            else
-                            {
-                                if(i == 0)
-                                {
-                                    message.channel.send("Balancing server in 30 second(s)").catch(error => console.log("Send Error - " + error));
-                                }
-                                else
-                                {
-                                    const index = 30 - i
-                                    setTimeout(() => {
-                                        message.channel.send("Balancing server in " + index + " second(s)").catch(error => console.log("Send Error - " + error));
-                                    }, i * 1000) 
-                                }
-                            }
-                        }
+                
+                            message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
+                        }, 30000)
                     }, 5000)
                 }
                 else
