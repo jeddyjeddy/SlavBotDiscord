@@ -34,7 +34,7 @@ class ThanosCommand extends command.Command
                 var allMembers = message.guild.members.array()
                 for(var i = 0; i < allMembers.length; i++)
                 {
-                    if(allMembers[i].id != message.guild.ownerID && !allMembers[i].bot)
+                    if(allMembers[i].id != message.guild.ownerID && !allMembers[i].user.bot)
                     {
                         users.push(allMembers[i])
                     }
