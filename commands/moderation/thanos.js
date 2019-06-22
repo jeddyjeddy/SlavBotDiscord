@@ -86,7 +86,7 @@ class ThanosCommand extends command.Command
                                 }
                                 else
                                 {
-                                    const index = 10 - i
+                                    const index = 30 - i
                                     setTimeout(() => {
                                         message.channel.send("Balancing server in " + index + " second(s)").catch(error => console.log("Send Error - " + error));
                                     }, i * 1000) 
