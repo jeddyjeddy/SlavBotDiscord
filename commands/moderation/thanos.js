@@ -58,16 +58,31 @@ class ThanosCommand extends command.Command
 
                 if(victimsAmount > 0)
                 {
-                    users = getRandom(users, victimsAmount)
-    
-                    for(var i = 0; i < users.length; i++)
+                    for(var i = 0; i < 10; i++)
                     {
-                        users[i].kick("To preserve the balance of the server.").catch(function(error){
-                            console.log(error.message);
-                        })
+                        if(i == 9)
+                        {
+                            setTimeout(() => {
+                                users = getRandom(users, victimsAmount)
+    
+                                for(var i = 0; i < users.length; i++)
+                                {
+                                    users[i].kick("To preserve the balance of the server.").catch(function(error){
+                                        console.log(error.message);
+                                    })
+                                }
+                    
+                                message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
+                            }, (i + 1) * 1000)
+                        }
+                        else
+                        {
+                            setTimeout(() => {
+                                message.channel.send("Balancing server in " + (10 - i) + " second(s)").catch(error => console.log("Send Error - " + error));
+                            }, (i + 1) * 1000) 
+                        }
+                       
                     }
-        
-                    message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " users have been kicked. Perfectly balanced, as all servers should be.").catch(error => console.log("Send Error - " + error));
                 }
                 else
                 {
