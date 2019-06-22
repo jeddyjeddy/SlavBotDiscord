@@ -62,7 +62,7 @@ class ThanosCommand extends command.Command
                                 })
                             }
                 
-                            message.channel.send("<@" + message.author.id + "> " + numberWithCommas(users.length) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + "> " + numberWithCommas(victimsAmount) + " user(s) have been kicked. Perfectly balanced, as all servers should be.", {files: ["thanos.gif"]}).catch(error => console.log("Send Error - " + error));
                         }, 30000)
                     }, 5000)
                 }
