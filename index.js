@@ -3960,8 +3960,10 @@ bot.on("message", (message) => {
 
 bot.on("disconnect", () => {
     console.log("Disconnected")
+    signedIntoDiscord = false;
     bot.login(process.env.BOT_TOKEN).then(function(){
         console.log("Reconnected")
+        signedIntoDiscord = true;
     });  
 })
 
