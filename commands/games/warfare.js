@@ -554,7 +554,7 @@ class WarfareCommand extends command.Command
                                                 var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -603,7 +603,7 @@ class WarfareCommand extends command.Command
                                     var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 } 
                                 
@@ -675,7 +675,7 @@ class WarfareCommand extends command.Command
                                                     weapon.damage = 500
 
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -730,7 +730,7 @@ class WarfareCommand extends command.Command
                                         weapon.damage = 500
 
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Rare Weapon Pack***", description: "<@" + message.author.id + "> has purchased a rare weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Rare\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 }  
 
@@ -799,7 +799,7 @@ class WarfareCommand extends command.Command
                                                     weapon.damage = 5000
 
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -852,7 +852,7 @@ class WarfareCommand extends command.Command
                                         weapon.damage = 5000
                                     
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Legendary Weapon Pack***", description: "<@" + message.author.id + "> has purchased a legendary weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Legendary\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 }  
                                 warfare[i].players.push(playerData)
@@ -920,7 +920,7 @@ class WarfareCommand extends command.Command
                                                     weapon.damage = 50000
 
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Mythical Weapon Pack***", description: "<@" + message.author.id + "> has purchased a mythical weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Mythical\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Mythical Weapon Pack***", description: "<@" + message.author.id + "> has purchased a mythical weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Mythical\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -973,7 +973,7 @@ class WarfareCommand extends command.Command
                                         weapon.damage = 50000
                                     
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Mythical Weapon Pack***", description: "<@" + message.author.id + "> has purchased a mythical weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Mythical\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Mythical Weapon Pack***", description: "<@" + message.author.id + "> has purchased a mythical weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Mythical\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 }  
                                 warfare[i].players.push(playerData)
@@ -1041,7 +1041,7 @@ class WarfareCommand extends command.Command
                                                     weapon.damage = 500000
 
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Divine Weapon Pack***", description: "<@" + message.author.id + "> has purchased a divine weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Divine\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Divine Weapon Pack***", description: "<@" + message.author.id + "> has purchased a divine weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Divine\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -1094,7 +1094,7 @@ class WarfareCommand extends command.Command
                                         weapon.damage = 500000
                                     
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Divine Weapon Pack***", description: "<@" + message.author.id + "> has purchased a divine weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Divine\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Divine Weapon Pack***", description: "<@" + message.author.id + "> has purchased a divine weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Divine\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 }  
                                 warfare[i].players.push(playerData)
@@ -1159,7 +1159,7 @@ class WarfareCommand extends command.Command
                                                     weapon.damage = 5000000
 
                                                 warfare[i].players[index].weapon = weapon
-                                                message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                                 warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                             }  
                                         }
@@ -1209,7 +1209,7 @@ class WarfareCommand extends command.Command
                                         weapon.damage = 5000000
                                     
                                     playerData.weapon = weapon
-                                    message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
                                     playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
                                 }  
                                 warfare[i].players.push(playerData)
@@ -1406,7 +1406,7 @@ class WarfareCommand extends command.Command
                                                 else
                                                     weaponRank = "Slavic"
 
-                                                weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                                weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Raw Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                             }
 
                                             var maxLevelText = ""
@@ -1472,7 +1472,7 @@ class WarfareCommand extends command.Command
                                             else
                                                 weaponRank = "Slavic"
 
-                                            weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                            weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Raw Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                         }
 
                                         var maxLevelText = ""
@@ -1609,7 +1609,7 @@ class WarfareCommand extends command.Command
                                                             else
                                                             {
                                                                 warfare[i].players[warfareIndex].weapon.uses = warfare[i].players[warfareIndex].weapon.uses - 1
-                                                                weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
+                                                                weaponText = "***__Weapon Details__***\n***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type***: " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Raw Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                                                 var damageToDo = Math.floor(Math.random() * warfare[i].players[warfareIndex].weapon.damage) + 1
                                                                 damageToDo = Math.floor(damageToDo * (warfare[i].players[warfareIndex].weapon.accuracy/100))
         
