@@ -79,6 +79,8 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const levelCap = 10000000
+
 class WarfareCommand extends command.Command
  {
     constructor(client)
@@ -129,6 +131,14 @@ class WarfareCommand extends command.Command
                     {
                         battle.key = message.guild.id;
                         firebase.database().ref("serversettings/" + message.guild.id + "/warfare").set(JSON.stringify(battle))
+                    }
+
+                    for(var index = 0; index < battle.players.length; index++)
+                    {
+                        if(battle.players[index].level > levelCap)
+                        {
+                            maxPercInc = warfare[i].players[index].level = levelCap
+                        }
                     }
 
                     warfare.push(battle)
@@ -1423,7 +1433,7 @@ class WarfareCommand extends command.Command
                                                         weaponRank = "Legendary"
                                                     else if(warfare[i].players[warfareIndex].weapon.rank == 3)
                                                         weaponRank = "Mythical"
-                                                    else
+                                                    else if(warfare[i].players[warfareIndex].weapon.rank == 4)
                                                         weaponRank = "Divine"
     
                                                     for(var enemyIndex = 0; enemyIndex < warfare[i].players.length; enemyIndex++)
@@ -1486,6 +1496,9 @@ class WarfareCommand extends command.Command
                                                                         {
                                                                             newLevel++;
                                                                         }
+
+                                                                        if(newLevel > levelCap)
+                                                                            newLevel = levelCap
                                                                     }
         
                                                                     if(newLevel < oldLevel)
@@ -1716,6 +1729,9 @@ class WarfareCommand extends command.Command
                                         }
                                     }
 
+                                    if(newLevel > levelCap)
+                                        newLevel = levelCap
+
                                     warfare[i].players[playerIndex].level = newLevel;
                                 }
 
@@ -1727,6 +1743,9 @@ class WarfareCommand extends command.Command
                                         thumbnail = message.author.avatarURL
                                         
                                     message.channel.send("<@" + message.author.id + "> you have leveled up", {embed: {title: "***" + message.author.username + " Has Leveled Up***", description: "<@" + message.author.id + "> you have leveled up from Level " + numberWithCommas(oldLevel) + " to Level " + numberWithCommas(warfare[i].players[playerIndex].level) + ".", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    
+                                    if(warfare[i].players[playerIndex].level == levelCap)
+                                        message.channel.send("<@" + message.author.id + "> you have reached the level cap", {embed: {title: "***" + message.author.username + " Has Reached the level cap***", description: "<@" + message.author.id + "> you have reached the level cap.", color: 65339, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else if(warfare[i].players[playerIndex].level < oldLevel)
                                 {
