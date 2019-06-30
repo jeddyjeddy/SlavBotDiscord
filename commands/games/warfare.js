@@ -142,6 +142,12 @@ class WarfareCommand extends command.Command
                             battle.players[index].level = levelCap
                             changed = true
                         }
+
+                        if(battle.players[index].xp > 100 * Math.pow(levelCap, 2))
+                        {
+                            battle.players[index].xp = 100 * Math.pow(levelCap, 2)
+                            changed = true
+                        }
                     }
 
                     if(changed)
@@ -1480,6 +1486,9 @@ class WarfareCommand extends command.Command
                                                                     const xpChange = Math.floor(xpCal * (warfare[i].players[enemyIndex].level/warfare[i].players[warfareIndex].level) * 0.1)
         
                                                                     warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
+
+                                                                    if(warfare[i].players[warfareIndex].xp > 100 * Math.pow(levelCap, 2))
+                                                                        warfare[i].players[warfareIndex].xp = 100 * Math.pow(levelCap, 2)
     
                                                                     const xpLoss = Math.floor(xpChange * 0.25)
                                                                     warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpLoss
@@ -1544,6 +1553,9 @@ class WarfareCommand extends command.Command
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                             
+                                                            if(warfare[i].players[warfareIndex].xp > 100 * Math.pow(levelCap, 2))
+                                                                warfare[i].players[warfareIndex].xp = 100 * Math.pow(levelCap, 2)
+
                                                             const xpLoss = Math.floor(xpChange * 0.25)
                                                             
                                                             message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                                                     
