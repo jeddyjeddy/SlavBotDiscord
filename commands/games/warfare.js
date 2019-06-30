@@ -79,7 +79,7 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const levelCap = 10000000
+const levelCap = 1000000
 
 class WarfareCommand extends command.Command
  {
@@ -133,13 +133,19 @@ class WarfareCommand extends command.Command
                         firebase.database().ref("serversettings/" + message.guild.id + "/warfare").set(JSON.stringify(battle))
                     }
 
+                    var changed = false
+
                     for(var index = 0; index < battle.players.length; index++)
                     {
                         if(battle.players[index].level > levelCap)
                         {
                             battle.players[index].level = levelCap
+                            changed = true
                         }
                     }
+
+                    if(changed)
+                        firebase.database().ref("serversettings/" + message.guild.id + "/warfare").set(JSON.stringify(battle))
 
                     warfare.push(battle)
                 }
