@@ -7,7 +7,7 @@ var listening = false;
 var patrons = [{userID: "", type: 0}];
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 const meleeWeapons = [":hammer:", ":pick:", ":dagger:"], rangedWeapons = [":gun:", ":bow_and_arrow:", ":bomb:"]
-const commonPrice = 1000, rarePrice = 10000, legendaryPrice = 100000, mythicalPrice = 1000000, divinePrice = 10000000;
+const commonPrice = 1000, rarePrice = 10000, legendaryPrice = 100000, mythicalPrice = 1000000, divinePrice = 10000000, slavicPrice = 100000000;
 const {uniqueNamesGenerator} = require('unique-names-generator');
 
 function rankAscending(a, b)
@@ -1094,10 +1094,125 @@ class WarfareCommand extends command.Command
                                 warfare[i].players.push(playerData)
                             }
                         }
+                        else if (args.toLowerCase() == "buy 6")
+                        {
+                            var playerFound = false
+                            for(var index = 0; index < warfare[i].players.length; index++)
+                            {
+                                if(warfare[i].players[index].id == message.author.id)
+                                {
+                                    playerFound = true
+                                    var fail = false;
+                                    if(warfare[i].players[index].purchaseCooldown != null && warfare[i].players[index].purchaseCooldown != undefined)
+                                    {
+                                        if((new Date(warfare[i].players[index].purchaseCooldown)).getTime() > (new Date()).getTime())
+                                        {
+                                            fail = true;
+                                        }
+                                    }
+
+                                    if(fail)
+                                    {
+                                        message.channel.send("", {embed: {title: "***Purchase Cooldown***", description: "<@" + message.author.id + "> You must wait for at least 1 minute before you can purchase another weapon pack.", color: 16711680, timestamp: warfare[i].players[index].purchaseCooldown, footer: {icon_url: message.client.user.avatarURL,text: "Cooldown until"}}}).catch(error => console.log("Send Error - " + error));
+                                    }
+                                    else
+                                    {
+                                        if(warfare[i].players[index].weapon == null || warfare[i].players[index].weapon == undefined)
+                                        {
+                                            var timestamp = (new Date(Date.now()).toJSON());
+    
+                                            if(!IndexRef.subtractTokens(message.author.id, slavicPrice))
+                                            {
+                                                message.channel.send("", {embed: {title: "***Failed To Purchase Slavic Weapon Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a slavic weapon pack. You need " + numberWithCommas(slavicPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                            else
+                                            { 
+                                                var melee = false
+                                                var emoji = ""
+                                                var accuracy = 0;
+                                                var weaponType = ""
+    
+                                                if(Math.random() >= 0.5)
+                                                    melee = true
+    
+                                                if(melee)
+                                                {
+                                                    weaponType = "Melee"
+                                                    emoji = meleeWeapons[Math.floor(Math.random() * meleeWeapons.length)]
+                                                    accuracy = 200
+                                                }
+                                                else
+                                                {
+                                                    weaponType = "Ranged"
+                                                    emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
+                                                    accuracy = 200
+                                                }
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weapon = {name: weaponName + " " + emoji,  rank: 5, damage: Math.floor(Math.random() * 50000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 30) + 1}
+                                                if(weapon.damage < 5000000)
+                                                    weapon.damage = 5000000
+
+                                                warfare[i].players[index].weapon = weapon
+                                                message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                                warfare[i].players[index].purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
+                                            }  
+                                        }
+                                        else
+                                        {
+                                            message.channel.send("", {embed: {title: "***Failed To Purchase Slavic Weapon Pack***", description: "<@" + message.author.id + "> You already have a weapon. Either use your weapon until it breaks or drop the weapon using `" + commandPrefix + "warfare drop`.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }   
+                                    }
+                                }
+                            }
+
+                            if(!playerFound)
+                            {
+                                var playerData = {id: message.author.id, level: 1, xp: 0, hp: 1000, weapon: null}
+                                var timestamp = (new Date(Date.now()).toJSON());
+    
+                                if(!IndexRef.subtractTokens(message.author.id, slavicPrice))
+                                {
+                                    message.channel.send("", {embed: {title: "***Failed To Purchase Slavic Weapon Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a slavic weapon pack. You need " + numberWithCommas(slavicPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                { 
+                                    var melee = false
+                                    var emoji = ""
+                                    var accuracy = 0;
+                                    var weaponType = ""
+
+                                    if(Math.random() >= 0.5)
+                                        melee = true
+
+                                    if(melee)
+                                    {
+                                        weaponType = "Melee"
+                                        emoji = meleeWeapons[Math.floor(Math.random() * meleeWeapons.length)]
+                                        accuracy = 200
+                                    }
+                                    else
+                                    {
+                                        weaponType = "Ranged"
+                                        emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
+                                        accuracy = 200
+                                    }
+
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weapon = {name: weaponName + " " + emoji,  rank: 4, damage: Math.floor(Math.random() * 50000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 25) + 1}
+                                    if(weapon.damage < 5000000)
+                                        weapon.damage = 5000000
+                                    
+                                    playerData.weapon = weapon
+                                    message.channel.send("", {embed: {title: "***Purchased Slavic Weapon Pack***", description: "<@" + message.author.id + "> has purchased a slavic weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Slavic\n***Max Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "%\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
+                                    playerData.purchaseCooldown = (new Date((new Date()).getTime() + 60000)).toJSON()
+                                }  
+                                warfare[i].players.push(playerData)
+                            }
+                        }
                         else if (args.toLowerCase().startsWith("buy"))
                         {
                             var timestamp = (new Date(Date.now()).toJSON());
-                            message.channel.send("", {embed: {title: "***Purchase Weapon Pack***", description: "<@" + message.author.id + "> Purchasing a weapon pack will give you a random weapon of the rank you chose. You can have only 1 weapon at hand until its uses are over, or you drop the weapon using `" + commandPrefix + "warfare drop`.\n\n***__Weapon Packs:__***\n`" + commandPrefix + "warfare buy 1` Buy a common weapon pack. (1,000 War Tokens)\n`" + commandPrefix + "warfare buy 2` Buy a rare weapon pack. (10,000 War Tokens)\n`" + commandPrefix + "warfare buy 3` Buy a legendary weapon pack. (100,000 War Tokens)\n`" + commandPrefix + "warfare buy 4` Buy a mythical weapon pack. (1,000,000 War Tokens)\n`" + commandPrefix + "warfare buy 5` Buy a Divine weapon pack. (10,000,000 War Tokens)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Purchase Weapon Pack***", description: "<@" + message.author.id + "> Purchasing a weapon pack will give you a random weapon of the rank you chose. You can have only 1 weapon at hand until its uses are over, or you drop the weapon using `" + commandPrefix + "warfare drop`.\n\n***__Weapon Packs:__***\n`" + commandPrefix + "warfare buy 1` Buy a common weapon pack. (1,000 War Tokens)\n`" + commandPrefix + "warfare buy 2` Buy a rare weapon pack. (10,000 War Tokens)\n`" + commandPrefix + "warfare buy 3` Buy a legendary weapon pack. (100,000 War Tokens)\n`" + commandPrefix + "warfare buy 4` Buy a mythical weapon pack. (1,000,000 War Tokens)\n`" + commandPrefix + "warfare buy 5` Buy a Divine weapon pack. (10,000,000 War Tokens)\n`" + commandPrefix + "warfare buy 6` Buy a Slavic weapon pack. (100,000,000 War Tokens)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else if (args.toLowerCase().startsWith("reset"))
                         {
@@ -1280,8 +1395,10 @@ class WarfareCommand extends command.Command
                                                     weaponRank = "Legendary"
                                                 else if(warfare[i].players[warfareIndex].weapon.rank == 3)
                                                     weaponRank = "Mythical"
-                                                else
+                                                    else if(warfare[i].players[warfareIndex].weapon.rank == 4)
                                                     weaponRank = "Divine"
+                                                else
+                                                    weaponRank = "Slavic"
 
                                                 weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                             }
@@ -1344,8 +1461,10 @@ class WarfareCommand extends command.Command
                                                 weaponRank = "Legendary"
                                             else if(warfare[i].players[warfareIndex].weapon.rank == 3)
                                                 weaponRank = "Mythical"
-                                            else
+                                            else if(warfare[i].players[warfareIndex].weapon.rank == 4)
                                                 weaponRank = "Divine"
+                                            else
+                                                weaponRank = "Slavic"
 
                                             weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                         }
@@ -1461,6 +1580,8 @@ class WarfareCommand extends command.Command
                                                         weaponRank = "Mythical"
                                                     else if(warfare[i].players[warfareIndex].weapon.rank == 4)
                                                         weaponRank = "Divine"
+                                                    else
+                                                        weaponRank = "Slavic"
     
                                                     for(var enemyIndex = 0; enemyIndex < warfare[i].players.length; enemyIndex++)
                                                     {
