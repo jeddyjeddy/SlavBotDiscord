@@ -148,6 +148,12 @@ class WarfareCommand extends command.Command
                             battle.players[index].xp = 100 * Math.pow(levelCap, 2)
                             changed = true
                         }
+
+                        if(battle.players[index].hp > 1000 * battle.players[index].level)
+                        {
+                            battle.players[index].hp = 1000 * battle.players[index].level
+                            changed = true
+                        }
                     }
 
                     if(changed)
