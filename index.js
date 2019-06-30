@@ -847,7 +847,10 @@ var DatabaseFunctions = {
             }
         }
 
-        return false;
+        if(amount > 0)
+            return false;
+        else
+            return true;
     },
 
     getTokenCooldown: function(userID)
