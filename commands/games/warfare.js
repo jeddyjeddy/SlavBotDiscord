@@ -1286,7 +1286,14 @@ class WarfareCommand extends command.Command
                                                 weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                             }
 
-                                            message.channel.send("", {embed: {title: "***Warfare Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n" + user.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            var maxLevelText = ""
+
+                                            if(warfare[i].players[warfareIndex].level == levelCap)
+                                                maxLevelText = numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level, 2))) + " (Max XP, Level Cap Reached)"
+                                            else
+                                                maxLevelText = numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")"
+
+                                            message.channel.send("", {embed: {title: "***Warfare Profile for " + user.username + "***", description: user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.\n" + user.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + maxLevelText + "\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }
     
@@ -1343,7 +1350,14 @@ class WarfareCommand extends command.Command
                                             weaponText = "***Weapon Name:*** " + warfare[i].players[warfareIndex].weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** " + weaponRank + "\n***Max Damage:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(warfare[i].players[warfareIndex].weapon.accuracy) + "%\n***Uses Left:*** " + warfare[i].players[warfareIndex].weapon.uses
                                         }
 
-                                        message.channel.send("", {embed: {title: "***Warfare Profile for " + message.author.username + "***", description: message.author.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n" + message.author.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        var maxLevelText = ""
+
+                                        if(warfare[i].players[warfareIndex].level == levelCap)
+                                            maxLevelText = numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level, 2))) + " (Max XP, Level Cap Reached)"
+                                        else
+                                            maxLevelText = numberWithCommas(100 * (Math.pow(warfare[i].players[warfareIndex].level + 1, 2))) + " (XP Required To Reach Level " + numberWithCommas(warfare[i].players[warfareIndex].level + 1) + ")"
+
+                                        message.channel.send("", {embed: {title: "***Warfare Profile for " + message.author.username + "***", description: message.author.username + " currently has " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n" + message.author.username + " is at Level " + numberWithCommas(warfare[i].players[warfareIndex].level) +".\n\n***__XP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].xp) + " / " + maxLevelText + "\n\n***__HP__***\n" + numberWithCommas(warfare[i].players[warfareIndex].hp) + " / " + numberWithCommas(warfare[i].players[warfareIndex].level * 1000) + " (Max HP)\n\n***__Weapon__***\n" + weaponText, color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
 
