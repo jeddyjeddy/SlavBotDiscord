@@ -137,7 +137,7 @@ class WarfareCommand extends command.Command
                     {
                         if(battle.players[index].level > levelCap)
                         {
-                            maxPercInc = warfare[i].players[index].level = levelCap
+                            maxPercInc = battle.players[index].level = levelCap
                         }
                     }
 
