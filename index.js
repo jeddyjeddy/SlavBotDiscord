@@ -561,7 +561,7 @@ var disableWelcomeChannel = (guildID) => {
 
     return false;
 }
-const giveawayToken = 10000;
+const giveawayToken = 100000;
 
 var DatabaseFunctions = {
     commandCounterChange: function(userID){
