@@ -1032,7 +1032,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
 slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
 blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", 
-semechkiSquad = "595609926764593154", shashnikSupplier = "595610676479787008", vodkaBrigade = "595610746898087936",
+semechkiSquad = "595609926764593154", shashlikSupplier = "595610676479787008", vodkaBrigade = "595610746898087936",
 premiumRole = "564441309557817344", suggestionChannelID = "565108835258335232", voteChannelID = "565108535625515018";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
@@ -1044,7 +1044,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         var newBanditSupporter = true;
         var newBabushkaSupporter = true;
         var newSemechkiSupporter = true;
-        var newShashnikSupporter = true;
+        var newShashlikSupporter = true;
         var newVodkaSupporter = true;
         var premiumSupporter = false;
         var newPremiumSupporter = true;
@@ -1085,9 +1085,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 newSemechkiSupporter = false;
             }
 
-            if(oldRoles[i].id == shashnikSupplier)
+            if(oldRoles[i].id == shashlikSupplier)
             {
-                newShashnikSupporter = false;
+                newShashlikSupporter = false;
             }
 
             if(oldRoles[i].id == vodkaBrigade)
@@ -1258,7 +1258,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             }
         }
 
-        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter || newSemechkiSupporter || newShashnikSupporter || newVodkaSupporter)
+        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter || newSemechkiSupporter || newShashlikSupporter || newVodkaSupporter)
         {
             var newRoles = newMemberData.roles.array();
             
@@ -1300,7 +1300,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     }, 500)
                 }
 
-                if(newShashnikSupporter && newRoles[i].id == shashnikSupplier)
+                if(newShashlikSupporter && newRoles[i].id == shashlikSupplier)
                 {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000000)
                     const roleName = newRoles[i].name
