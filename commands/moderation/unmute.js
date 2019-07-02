@@ -26,8 +26,8 @@ class UnmuteCommand extends command.Command
             return;
         }
         
-        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_ROLES") && message.author.id != message.guild.owner.id){
-            message.channel.send("<@" + message.author.id + "> This command is only available to the owner, or those with the Administrator Permission or the Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
+        if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_ROLES") && !message.guild.member(message.author).hasPermission("KICK_MEMBERS") && !message.guild.member(message.author).hasPermission("BAN_MEMBERS") && message.author.id != message.guild.owner.id){
+            message.channel.send("<@" + message.author.id + "> This command is only available to the owner, or those with either the Administrator Permission, the Manage Roles Permission, the Kick Members Permission, or the Ban Members Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
 
