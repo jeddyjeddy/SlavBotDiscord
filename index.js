@@ -1032,6 +1032,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 const supportServerID = "465522025440739328", gopnikRole = "495558203740913674", 
 slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
 blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", 
+semechkiSquad = "595609926764593154", shashnikSupplier = "595610676479787008", vodkaBrigade = "595610746898087936",
 premiumRole = "564441309557817344", suggestionChannelID = "565108835258335232", voteChannelID = "565108535625515018";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
@@ -1042,6 +1043,9 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         var newBlyComradesSupporter = true;
         var newBanditSupporter = true;
         var newBabushkaSupporter = true;
+        var newSemechkiSupporter = true;
+        var newShashnikSupporter = true;
+        var newVodkaSupporter = true;
         var premiumSupporter = false;
         var newPremiumSupporter = true;
         var oldRoles = oldMemberData.roles.array();
@@ -1074,6 +1078,21 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             if(oldRoles[i].id == premiumRole)
             {
                 newPremiumSupporter = false;
+            }
+
+            if(oldRoles[i].id == semechkiSquad)
+            {
+                newSemechkiSupporter = false;
+            }
+
+            if(oldRoles[i].id == shashnikSupplier)
+            {
+                newShashnikSupporter = false;
+            }
+
+            if(oldRoles[i].id == vodkaBrigade)
+            {
+                newVodkaSupporter = false;
             }
         }
 
@@ -1239,7 +1258,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             }
         }
 
-        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter)
+        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter || newSemechkiSupporter || newShashnikSupporter || newVodkaSupporter)
         {
             var newRoles = newMemberData.roles.array();
             
@@ -1269,6 +1288,33 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     const roleName = newRoles[i].name
                     setTimeout(() => {
                         newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                    }, 500)
+                }
+
+                if(newSemechkiSupporter && newRoles[i].id == semechkiSquad)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000000)
+                    const roleName = newRoles[i].name
+                    setTimeout(() => {
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 50 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                    }, 500)
+                }
+
+                if(newShashnikSupporter && newRoles[i].id == shashnikSupplier)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000000)
+                    const roleName = newRoles[i].name
+                    setTimeout(() => {
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 250 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                    }, 500)
+                }
+
+                if(newVodkaSupporter && newRoles[i].id == vodkaBrigade)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 1000000000)
+                    const roleName = newRoles[i].name
+                    setTimeout(() => {
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 1 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
             }
