@@ -1631,7 +1631,7 @@ class WarfareCommand extends command.Command
                                                                     if(warfare[i].players[warfareIndex].xp > 100 * Math.pow(levelCap, 2))
                                                                         warfare[i].players[warfareIndex].xp = 100 * Math.pow(levelCap, 2)
     
-                                                                    const xpLoss = Math.floor(xpChange * 0.25)
+                                                                    const xpLoss = Math.floor(xpChange * 0.025)
                                                                     warfare[i].players[enemyIndex].xp = warfare[i].players[enemyIndex].xp - xpLoss
                                                                  
                                                                     message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
@@ -1690,14 +1690,14 @@ class WarfareCommand extends command.Command
                                                         {
                                                             enemyPlayer.hp = 0
     
-                                                            const xpChange = Math.floor(500 * (enemyPlayer.level/warfare[i].players[warfareIndex].level) * 0.1)
+                                                            const xpChange = Math.floor(500 * (enemyPlayer.level/warfare[i].players[warfareIndex].level) * 0.01)
     
                                                             warfare[i].players[warfareIndex].xp = warfare[i].players[warfareIndex].xp + xpChange
                                                             
                                                             if(warfare[i].players[warfareIndex].xp > 100 * Math.pow(levelCap, 2))
                                                                 warfare[i].players[warfareIndex].xp = 100 * Math.pow(levelCap, 2)
 
-                                                            const xpLoss = Math.floor(xpChange * 0.25)
+                                                            const xpLoss = Math.floor(xpChange * 0.025)
                                                             
                                                             message.channel.send("<@" + message.author.id + "> has killed <@" + user.id + ">", {embed: {title: "***Attack Successful - Player Killed***", description: "<@" + message.author.id + "> has killed <@" + user.id + "> and has done " + numberWithCommas(damageToDo) + " damage!\n\n<@" + user.id + "> now has 0 HP. HP will now be restored.\n\n<@" + message.author.id + "> has gained " + numberWithCommas(xpChange) + " XP.\n<@" + user.id + "> has lost " + numberWithCommas(xpLoss) + " XP.\n\n" + weaponText, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                                                     
                                                             enemyPlayer.hp = 1000
