@@ -164,7 +164,7 @@ class WarnCommand extends command.Command
                                             {
                                                 warnings[index].users[userIndex].warnings = warnings[index].users[userIndex].warnings + 1;
 
-                                                message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                                message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
     
                                                 if(warnings[index].users[userIndex].warnings >= 3)
                                                 {
@@ -188,7 +188,7 @@ class WarnCommand extends command.Command
                                         else
                                         {
                                             warnings[index].users.push({id: member.id, warnings: 1})
-                                            message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a warning. Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                            message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of 1 warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
                                         }    
                                     }
                             
