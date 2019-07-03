@@ -57,8 +57,15 @@ class WarnCommand extends command.Command
         if(!foundGuild)
         {
             promises.push(firebase.database().ref("serversettings/" + message.guild.id + "/warnings").once('value').then((snap) => {
-                var data = JSON.parse(snap)
-                warnings.push(data)
+                if(snap.val() != null)
+                {
+                    var data = JSON.parse(snap.val())
+                    warnings.push(data)
+                }
+                else
+                {
+                    warnings.push({guild: message.guild.id, users: []})
+                }
             }))
         }
 
