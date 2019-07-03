@@ -21,7 +21,7 @@ class WarnCommand extends command.Command
         super(client, {
             name: "warn",
             group: "moderation",
-            memberName: "mute",
+            memberName: "warn",
             description: "Warns a member or members. User is banned after the third warning.",
             examples: ["`!warn @User`", "`!warn @User1 @User2`", "`!warn remove @User1 @User2`"]
         });
@@ -117,6 +117,10 @@ class WarnCommand extends command.Command
                         if(member.id == message.guild.owner.id)
                         {
                             message.channel.send("<@" + message.author.id + "> You cannot warn the owner of the server.").catch(error => console.log("Send Error - " + error));
+                        }
+                        else if(member.id == message.client.user.id)
+                        {
+                            message.channel.send("<@" + message.author.id + "> You cannot warn Slav Bot.").catch(error => console.log("Send Error - " + error));   
                         }
                         else
                         {
