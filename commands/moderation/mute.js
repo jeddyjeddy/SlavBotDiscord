@@ -25,7 +25,7 @@ class MuteCommand extends command.Command
         }
 
         if(!message.guild.member(message.client.user.id).hasPermission("ADMINISTRATOR") && !message.guild.member(message.author).hasPermission("MANAGE_ROLES")){
-            message.channel.send("<@" + message.author.id + "> Slav Bot requires either the Administrator Permission, the Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
+            message.channel.send("<@" + message.author.id + "> Slav Bot requires either the Administrator Permission or the Manage Roles Permission.").catch(error => console.log("Send Error - " + error))
             return;
         }
         
