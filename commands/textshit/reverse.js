@@ -26,6 +26,16 @@ class ReverseCommand extends command.Command
                 reversedText = reversedText + args[i]
             }
 
+            while(reversedText.indexOf("@everyone") > -1)
+            {
+                reversedText = reversedText.replace(/@everyone/g, "everyone")
+            }
+
+            while(reversedText.indexOf("@here") > -1)
+            {
+                reversedText = reversedText.replace(/@here/g, "here")
+            }
+
             message.channel.send(reversedText).catch(error => console.log("Send Error - " + error));
         }
         else
