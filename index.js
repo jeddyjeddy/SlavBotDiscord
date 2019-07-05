@@ -4243,7 +4243,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 var timestamp = (new Date());
                                 timestamp.setHours(0, 0, 0, 0)
                                 firebase.database().ref("usersettings/" + userID + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
-                                bot.fetchUser(user).then(user => {
+                                bot.fetchUser(userID).then(user => {
                                     user.send("Thank you for voting, you have received " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help ww\`, \`help warslave\` or \`help warfare\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                     var messageData = JSON.stringify({"user": user.id, "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(user.id))})
