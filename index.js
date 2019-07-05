@@ -4238,6 +4238,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                             
                             setImmediate(() => {
                                 const userID = data["user"].toString()
+                                console.log(userID + " HAS VOTED")
                                 DatabaseFunctions.addUserTokens(userID, giveawayToken);
                                 var timestamp = (new Date());
                                 timestamp.setHours(0, 0, 0, 0)
