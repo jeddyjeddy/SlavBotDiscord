@@ -1415,12 +1415,13 @@ async function initData() {
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
 
-                if(token.tokens > 100000000000)
+                //Code for global token resets
+                /*if(token.tokens > 100000000000)
                 {
                     token.tokens = 100000000000
                     console.log("RESET TOKENS FOR " + token.key)
                     firebase.database().ref("usersettings/" + token.key + "/tokens").set(JSON.stringify(token))
-                }
+                }*/
 
                 tokens.push(token)
             }
