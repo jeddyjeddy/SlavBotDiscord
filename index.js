@@ -1414,6 +1414,14 @@ async function initData() {
             if(childSnap.child("tokens").val() != null)
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
+
+                if(token.tokens > 100000000000)
+                {
+                    token.tokens = 100000000000
+                    console.log("RESET TOKENS FOR " + token.id)
+                    firebase.database().ref("usersettings/" + token.id + "/tokens").set(JSON.stringify(token))
+                }
+
                 tokens.push(token)
             }
         }
