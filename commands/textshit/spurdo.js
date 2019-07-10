@@ -64,6 +64,16 @@ class SpurdoCommand extends command.Command
                 finalText = finalText + " :DD"
             }
 
+            while(finalText.indexOf("@everyone") > -1)
+            {
+                finalText = finalText.replace(/@everyone/g, "everyone")
+            }
+    
+            while(finalText.indexOf("@here") > -1)
+            {
+                finalText = finalText.replace(/@here/g, "here")
+            }
+
             message.channel.send(finalText).catch(error => console.log("Send Error - " + error));
         }
         else

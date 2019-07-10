@@ -17,9 +17,19 @@ class ClapCommand extends command.Command
     async run(message, args)
     {
         CommandCounter.addCommandCounter(message.author.id)
+       
         if(args.length > 0)
         {
             var stringToSend = args.toString().replace(/ /g, ":clap:")
+            while(stringToSend.indexOf("@everyone") > -1)
+            {
+                stringToSend = stringToSend.replace(/@everyone/g, "everyone")
+            }
+    
+            while(stringToSend.indexOf("@here") > -1)
+            {
+                stringToSend = stringToSend.replace(/@here/g, "here")
+            }
             message.channel.send(stringToSend).catch(error => console.log("Send Error - " + error));
         }
         else

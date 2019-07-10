@@ -19,7 +19,17 @@ class FellasCommand extends command.Command
         CommandCounter.addCommandCounter(message.author.id)
         if(args.length > 0)
         {
-            message.channel.send("<@" + message.author.id + "> asks: Fellas, is it gay to " + args.toString()).catch(error => console.log("Send Error - " + error));
+            var stringToSend = args.toString()
+            while(stringToSend.indexOf("@everyone") > -1)
+            {
+                stringToSend = stringToSend.replace(/@everyone/g, "everyone")
+            }
+    
+            while(stringToSend.indexOf("@here") > -1)
+            {
+                stringToSend = stringToSend.replace(/@here/g, "here")
+            }
+            message.channel.send("<@" + message.author.id + "> asks: Fellas, is it gay to " + stringToSend).catch(error => console.log("Send Error - " + error));
             message.channel.send(":thinking:").catch(error => console.log("Send Error - " + error));
         }
         else
