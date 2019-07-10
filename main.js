@@ -61,8 +61,7 @@ Manager.on("message", (shard, message) => {
                         }
                     }
                 }
-            }
-            
+            }    
         }
     })
 })
