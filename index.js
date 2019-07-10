@@ -800,6 +800,20 @@ var DatabaseFunctions = {
 
         return 0;
     },
+    
+    resetUserTokens: function(maxAmount)
+    {
+        for(var index = 0; index < tokens.length; index++)
+        {
+            //Code for global token resets
+            if(tokens[index].tokens > maxAmount)
+            {
+                tokens[index].tokens = maxAmount
+                console.log("RESET TOKENS FOR " + tokens[index].key)
+                firebase.database().ref("usersettings/" + tokens[index].key + "/tokens").set(JSON.stringify(tokens[index]))
+            }
+        }
+    },
 
     addUserTokens: function(userID, amount)
     {
@@ -956,6 +970,10 @@ getTokens: function(userID)
 addTokens: function(userID, amount)
 {
     DatabaseFunctions.addUserTokens(userID, amount)
+},
+resetTokens: function(maxAmount)
+{
+    DatabaseFunctions.resetUserTokens(maxAmount)
 },
 subtractTokens: function(userID, amount)
 {
@@ -1414,15 +1432,6 @@ async function initData() {
             if(childSnap.child("tokens").val() != null)
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
-
-                //Code for global token resets
-                /*if(token.tokens > 100000000000)
-                {
-                    token.tokens = 100000000000
-                    console.log("RESET TOKENS FOR " + token.key)
-                    firebase.database().ref("usersettings/" + token.key + "/tokens").set(JSON.stringify(token))
-                }*/
-
                 tokens.push(token)
             }
         }

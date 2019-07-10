@@ -288,6 +288,12 @@ class WarSlaveCommand extends command.Command
                             
                             return;
                         }
+                        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("reset tokens"))
+                        {
+                            IndexRef.resetTokens(100000000000)
+                            message.channel.send("<@" + message.author.id + "> Tokens have been globally reset.")
+                            return;
+                        }
                         else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("remove"))
                         {
                             var endIndex = -1;
