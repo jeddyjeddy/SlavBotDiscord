@@ -212,7 +212,7 @@ class DailySpinCommand extends command.Command
                                 }
                                 else
                                 {
-                                    var lastVotedTime = JSON.parse(snapshot.val())
+                                    var lastVotedTime = snapshot.val()
                                     var lastVotedDate = new Date(lastVotedTime)
     
                                     if(today.getTime() < (lastVotedDate.getTime() + 43200000) || hasVoted)
