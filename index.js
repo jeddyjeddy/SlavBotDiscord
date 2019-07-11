@@ -565,7 +565,7 @@ const giveawayToken = 100000;
 
 var DatabaseFunctions = {
     commandCounterChange: function(userID){
-        if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
+        if(!signedIntoFirebase || userCommandUsage === [{key: "Key", data: {uses: 0, requestsSent: 0, usesCheck: 250}}])
         {
             return;
         }
@@ -580,108 +580,62 @@ var DatabaseFunctions = {
                     userCommandUsage[index].data.uses += 1;
                     firebase.database().ref("usersettings/" + userCommandUsage[index].key + "/commandusage").set(JSON.stringify(userCommandUsage[index].data));
                     const i = index;
-                    setTimeout(() => {
-                        dbl.hasVoted(userID).then(voted => {
-                            if (!voted)
+
+                    var voted = false;
+
+                    for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
+                    {
+                        if(votes[voteIndex].key == userCommandUsage[i].key)
+                        {
+                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 43200000)
                             {
-                                if(userCommandUsage[i].data.requestsSent < 3)
-                                {
-                                    setTimeout(() => {
-                                        dbl.isWeekend().then(weekend => {
-                                            if (weekend)
-                                            {
-                                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
-                                                {
-                                                    console.log("Sending Weekend Request")
-                                                   
-                                                    bot.fetchUser(userID)
-                                                    .then(user => {
-                                                        user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL. Votes made during the weekends are counted as double votes!\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                            user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
-                                                                user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
-                                                            }).catch(error => console.log("Send Error - " + error))
-                                                        }).catch(error => console.log("Send Error - " + error));
-                                                    }, rejection => {
-                                                            console.log(rejection.message);
-                                                    });
-                                        
-                                                    userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
-                                                    userCommandUsage[i].data.requestsSent += 1;
-                                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
-                                                {
-                                                    console.log("Sending Regular Request")
-                                                   
-                                                    bot.fetchUser(userID)
-                                                    .then(user => {
-                                                        user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                                            user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
-                                                                user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
-                                                            }).catch(error => console.log("Send Error - " + error))
-                                                        }).catch(error => console.log("Send Error - " + error));
-                                                    }, rejection => {
-                                                            console.log(rejection.message);
-                                                    });
-                                                
-                                                    userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
-                                                    userCommandUsage[i].data.requestsSent += 1;
-                                                    firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                                }
-                                            }
-                                        }).catch(error => console.log("DBL Error - " + error));
-                                    }, 5000)
-                                }
-                                else
-                                {
-                                    setTimeout(() => {
-                                        dbl.getVotes().then(votes => {
-                                            if (votes.find(vote => vote.id == userID))
-                                            {
-                                                userCommandUsage[i].data.requestsSent = 0;
-                                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                                DatabaseFunctions.commandCounterChange(userID)
-                                            }
-                                            else
-                                            {
-                                                setTimeout(() => {
-                                                    dbl.isWeekend().then(weekend => {
-                                                        if (weekend)
-                                                        {
-                                                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.weekendUsesCheck)
-                                                            {
-                                                                userCommandUsage[i].data.weekendUsesCheck = userCommandUsage[i].data.uses + 100;
-                                                                userCommandUsage[i].data.requestsSent += 1;
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
-                                                            {
-                                                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
-                                                                userCommandUsage[i].data.requestsSent += 1;
-                                                            }
-                                                        }
-                    
-                                                        if(userCommandUsage[i].data.requestsSent > 5)
-                                                        {
-                                                            userCommandUsage[i].data.requestsSent = 0;
-                                                        }
-                    
-                                                        firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
-                                                    }).catch(error => console.log("DBL Error - " + error));
-                                                }, 5000)
-                                            }
-                                        }).catch(error => console.log("DBL Error - " + error));
-                                    }, 5000)
-                                }
+                                voted = true;
                             }
-                        }).catch(error => console.log("DBL Error - " + error));
-                    }, 5000)
-                    
+                        }
+                    }
+
+                    if (!voted)
+                    {
+                        if(userCommandUsage[i].data.requestsSent < 3)
+                        {
+                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
+                            {
+                                console.log("Sending Regular Request")
+                                
+                                bot.fetchUser(userID)
+                                .then(user => {
+                                    user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                        user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
+                                            user.send("Check out our Slav Bot Merchandise!\nhttps://shop.spreadshirt.com/slavbot/").then(() => {
+                                                user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                            }).catch(error => console.log("Send Error - " + error))
+                                        }).catch(error => console.log("Send Error - " + error))
+                                    }).catch(error => console.log("Send Error - " + error));
+                                }, rejection => {
+                                        console.log(rejection.message);
+                                });
+                            
+                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
+                                userCommandUsage[i].data.requestsSent += 1;
+                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                            }
+                        }
+                        else
+                        {
+                            if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
+                            {
+                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;                                 
+                                userCommandUsage[i].data.requestsSent += 1;
+                            }
+
+                            if(userCommandUsage[i].data.requestsSent > 5)
+                            {
+                                userCommandUsage[i].data.requestsSent = 0;
+                            }
+
+                            firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+                        }
+                    }
                 }
             }
         
@@ -690,7 +644,7 @@ var DatabaseFunctions = {
                 firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
                     if(snapshot.child("commandusage").val() == null)
                     {
-                        var data = {key: userID, data: {uses: 1, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}};
+                        var data = {key: userID, data: {uses: 1, requestsSent: 0, usesCheck: 250}};
                         userCommandUsage.push(data);
                         firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data.data));
                     }
@@ -708,7 +662,7 @@ var DatabaseFunctions = {
             }
         }
     
-        if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}])
+        if(signedIntoFirebase && userCommandUsage !== [{key: "Key", data: {uses: 0, requestsSent: 0, usesCheck: 250}}])
         {
             firebase.database().ref("usersettings/" + userID).once('value').then(function(snapshot) {
                 if(snapshot.child("commandusage").val() != null)
@@ -717,7 +671,7 @@ var DatabaseFunctions = {
                 }
                 else
                 {
-                    userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}});
+                    userCommandUsage.push({key: userID, data: {uses: 0, requestsSent: 0, usesCheck: 250}});
                 }
               })
         }
@@ -1387,8 +1341,8 @@ bot.on("channelDelete", (channel) => {
     }
 })
 
-var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, weekendUsesCheck: 100, usesCheck: 250}}] 
-var tokens = [{key: "Key", tokens: 0, collectDate: ""}]
+var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, usesCheck: 250}}] 
+var tokens = [{key: "Key", tokens: 0, collectDate: ""}], votes = [{key: "Key", lastvote: null}]
 
 function commandUsageAscending(a, b)
 {
@@ -1434,6 +1388,11 @@ async function initData() {
                 var token = JSON.parse(childSnap.child("tokens").val())
                 tokens.push(token)
             }
+
+            if(childSnap.child("lastvote").val() != null)
+            {
+                votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+            }
         }
     })
 
@@ -1458,6 +1417,17 @@ async function initData() {
                     if(tokens[i].key == childSnap.key)
                     {
                         tokens[i] = JSON.parse(childSnap.child("tokens").val())
+                    }
+                }
+            }
+
+            if(childSnap.child("lastvote").val() != null)
+            {
+                for(var i = 0; i < votes.length; i++)
+                {
+                    if(votes[i].key == childSnap.key)
+                    {
+                        votes[i].lastvote = childSnap.child("lastvote").val()
                     }
                 }
             }
@@ -4260,7 +4230,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 DatabaseFunctions.addUserTokens(userID, giveawayToken);
                                 var timestamp = (new Date());
                                 timestamp.setHours(0, 0, 0, 0)
-                                firebase.database().ref("usersettings/" + userID + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
+                                firebase.database().ref("usersettings/" + userID + "/lastvote").set(timestamp.toJSON())
                                 bot.fetchUser(userID).then(user => {
                                     user.send("Thank you for voting, you have received " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help ww\`, \`help warslave\` or \`help warfare\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
