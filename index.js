@@ -1408,7 +1408,7 @@ async function initData() {
             {
                 if(childSnap.child("votestreak").val() != null)
                 {
-                    streaks.push({id: childSnap.key, streaks: childSnap.child("votestreak").val()})
+                    streaks.push({id: childSnap.key, streaks: parseInt(childSnap.child("votestreak").val())})
                 }
                 else
                 {
@@ -4286,7 +4286,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
 
                                         amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
                                         currentStreaks = streaks[streakIndex].streak
-                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(streaks[streakIndex].streak)
+                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(streaks[streakIndex].streak.toString())
                                     }
                                 }
 
