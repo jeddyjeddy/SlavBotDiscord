@@ -4132,6 +4132,15 @@ bot.login(process.env.BOT_TOKEN).then(function()
         {
             if(guilds[i].id == supportServerID)
             {
+                firebase.database().ref("supportservermessages").once('value').then(function(snapshot) {
+                    if(snapshot.val() != null)
+                    {
+                        snapshot.forEach(function(childSnap){
+                            userMessageCount.push({userID: childSnap.key, messages: childSnap.val()})
+                        });
+                    }
+                })
+
                 const guild = guilds[i]
                 guild.fetchMembers().then(() => {
                     var members = guild.members.array()
