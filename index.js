@@ -1404,13 +1404,16 @@ async function initData() {
                 votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
             }
 
-            if(childSnap.child("votestreak").val() != null)
+            if(bot.shard.id == 0)
             {
-                streaks.push({id: childSnap.key, streaks: childSnap.child("votestreak").val()})
-            }
-            else
-            {
-                streaks.push({id: childSnap.key, streaks: 0})
+                if(childSnap.child("votestreak").val() != null)
+                {
+                    streaks.push({id: childSnap.key, streaks: childSnap.child("votestreak").val()})
+                }
+                else
+                {
+                    streaks.push({id: childSnap.key, streaks: 0})
+                }
             }
         }
     })
@@ -1447,17 +1450,6 @@ async function initData() {
                     if(votes[i].key == childSnap.key)
                     {
                         votes[i].lastvote = childSnap.child("lastvote").val()
-                    }
-                }
-            }
-
-            if(childSnap.child("votestreak").val() != null)
-            {
-                for(var i = 0; i < streaks.length; i++)
-                {
-                    if(streaks[i].id == childSnap.key)
-                    {
-                        streaks[i].streak = childSnap.child("votestreak").val()
                     }
                 }
             }
