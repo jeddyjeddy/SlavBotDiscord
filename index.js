@@ -3200,7 +3200,7 @@ bot.on("message", (message) => {
             {
                 if(userMessageCount[i].userID == message.author.id && !sent)
                 {
-                    sent = true;''
+                    sent = true;
                     const messageCount = numberWithCommas(userMessageCount[i].messages)
                     message.channel.send("<@" + message.author.id + "> You have sent " + messageCount + " messages on the Social/VIP channels on the support server.").catch(error => console.log("Send Error - " + error));
                 }
