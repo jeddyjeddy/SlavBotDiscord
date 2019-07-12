@@ -157,7 +157,7 @@ dbl.on('posted', () => {
             })
         })
          
-        bot.user.setActivity('The sound of a ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " inch penis smacking " + (bot.shard.id + 1) + " people.", { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
+        bot.user.setActivity('The sound of a ' + numberWithCommas(Math.floor(Math.random() * 9999) + 1) + " inch ding dong smacking " + (bot.shard.id + 1) + " people.", { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
     }, 5000)
 });
     
