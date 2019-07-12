@@ -4286,7 +4286,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
 
                                         amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
                                         currentStreaks = streaks[streakIndex].streak
-                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(streaks[streakIndex].streak.toString())
+                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(parseInt(currentStreaks))
                                     }
                                 }
 
