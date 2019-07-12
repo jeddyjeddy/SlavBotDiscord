@@ -4282,10 +4282,10 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                         if(resetStreaks)
                                             streaks[streakIndex].streak = 0
                                         else
-                                            streaks[streakIndex].streak = streaks[streakIndex].streak + 1
+                                            streaks[streakIndex].streak = parseInt(streaks[streakIndex].streak) + 1
 
-                                        amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
-                                        currentStreaks = streaks[streakIndex].streak
+                                        amountToGive = giveawayToken + (streakToken * parseInt(streaks[streakIndex].streak))
+                                        currentStreaks = parseInt(streaks[streakIndex].streak)
 
                                         if(currentStreaks == null || currentStreaks == undefined)
                                             currentStreaks = 0
