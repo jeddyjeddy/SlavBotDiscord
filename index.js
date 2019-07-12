@@ -561,7 +561,7 @@ var disableWelcomeChannel = (guildID) => {
 
     return false;
 }
-const giveawayToken = 100000;
+const giveawayToken = 100000, streakToken = 50000;
 
 var DatabaseFunctions = {
     commandCounterChange: function(userID){
@@ -604,7 +604,16 @@ var DatabaseFunctions = {
                                 
                                 bot.fetchUser(userID)
                                 .then(user => {
-                                    user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + numberWithCommas(giveawayToken) + " War Tokens by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
+                                    var tokenText = numberWithCommas(giveawayToken) + " War Tokens"
+                                    for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
+                                    {
+                                        if(streaks[streakIndex].id == user.id)
+                                        {
+                                            tokenText = numberWithCommas(giveawayToken + (streakToken * streaks[streakIndex].streak)) + " War Tokens (Your vote streak is " + numberWithCommas(streaks[streakIndex].streak) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
+                                        }
+                                    }
+
+                                    user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + tokenText + " by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
                                         user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
                                             user.send("Check out our Slav Bot Merchandise!\nhttps://shop.spreadshirt.com/slavbot/").then(() => {
                                                 user.send("Join our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
@@ -1342,7 +1351,8 @@ bot.on("channelDelete", (channel) => {
 })
 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, usesCheck: 250}}] 
-var tokens = [{key: "Key", tokens: 0, collectDate: ""}], votes = [{key: "Key", lastvote: null}]
+var tokens = [{key: "Key", tokens: 0, collectDate: ""}], votes = [{key: "Key", lastvote: null}],
+streaks = [{id: "", streak: 0}]
 
 function commandUsageAscending(a, b)
 {
@@ -1370,7 +1380,7 @@ async function initData() {
                 bot.fetchUser(userID).then(user => {
                     user.send("Thank you for your purchase of " + numberWithCommas(amount) + " War Tokens, they have been added to your account.", {embed: {title: `***Purchase Invoice***`, description: "***Product*** - " + numberWithCommas(amount) + " War Tokens\n***Transaction ID*** - " + transactionID + "\n\nThank you for your purchase!", thumbnail: {url: bot.user.avatarURL}, color: 60155, timestamp: timestamp, footer: {icon_url: bot.user.avatarURL, text: "Purchased on"}}}).catch(error => console.log("Send Error - " + error));
                 }, rejection => {
-                    var messageData = JSON.stringify({user: userID, amount: numberWithCommas(giveawayToken), transactionID : transactionID, timestamp: timestamp})
+                    var messageData = JSON.stringify({user: userID, amount: numberWithCommas(amount), transactionID : transactionID, timestamp: timestamp})
                     bot.shard.send(messageData)
                 });
             }
@@ -1392,6 +1402,15 @@ async function initData() {
             if(childSnap.child("lastvote").val() != null)
             {
                 votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+            }
+
+            if(childSnap.child("votestreak").val() != null)
+            {
+                streaks.push({id: childSnap.key, streaks: childSnap.child("votestreak").val()})
+            }
+            else
+            {
+                streaks.push({id: childSnap.key, streaks: 0})
             }
         }
     })
@@ -1428,6 +1447,17 @@ async function initData() {
                     if(votes[i].key == childSnap.key)
                     {
                         votes[i].lastvote = childSnap.child("lastvote").val()
+                    }
+                }
+            }
+
+            if(childSnap.child("votestreak").val() != null)
+            {
+                for(var i = 0; i < streaks.length; i++)
+                {
+                    if(streaks[i].id == childSnap.key)
+                    {
+                        streaks[i].streak = childSnap.child("votestreak").val()
                     }
                 }
             }
@@ -4236,13 +4266,45 @@ bot.login(process.env.BOT_TOKEN).then(function()
                             setImmediate(() => {
                                 const userID = data["user"].toString()
                                 console.log(userID + " HAS VOTED")
-                                DatabaseFunctions.addUserTokens(userID, giveawayToken);
                                 var timestamp = (new Date());
+                                var amountToGive = giveawayToken
+                                var resetStreaks = true;
+
+                                for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
+                                {
+                                    if(votes[voteIndex].key == userCommandUsage[i].key)
+                                    {
+                                        if(timestamp < (new Date(votes[voteIndex].lastvote)).getTime() + 86400000)
+                                        {
+                                            resetStreaks = false;
+                                        }
+                                    }
+                                }
+
+                                var currentStreaks = 0
+
+                                for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
+                                {
+                                    if(streaks[streakIndex].id == userID)
+                                    {
+                                        if(resetStreaks)
+                                            streaks[streakIndex].streak = 0
+                                        else
+                                            streaks[streakIndex].streak = streaks[streakIndex].streak + 1
+
+                                        amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
+                                        currentStreaks = streaks[streakIndex].streak
+                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(streaks[streakIndex].streak)
+                                    }
+                                }
+
+                                DatabaseFunctions.addUserTokens(userID, amountToGive);
                                 firebase.database().ref("usersettings/" + userID + "/lastvote").set(timestamp.toJSON())
+                                
                                 bot.fetchUser(userID).then(user => {
-                                    user.send("Thank you for voting, you have received " + numberWithCommas(giveawayToken) + " tokens. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help ww\`, \`help warslave\` or \`help warfare\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
+                                    user.send("Thank you for voting, you have received " + numberWithCommas(amountToGive) + " tokens, you will receive " + numberWithCommas(amountToGive + streakToken) + " with your next voting streak (Your voting streak is now " + numberWithCommas(currentStreaks) + ", voting within the next 24 hours will increase your voting streak, each voting streak adds more tokens). You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help ww\`, \`help warslave\` or \`help warfare\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
-                                    var messageData = JSON.stringify({"user": user.id, "token1": numberWithCommas(giveawayToken), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(user.id))})
+                                    var messageData = JSON.stringify({"user": user.id, "streaks": currentStreaks, "nextToken" : numberWithCommas(amountToGive + streakToken), "token1": numberWithCommas(amountToGive), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(user.id))})
                                     bot.shard.send(messageData)
                                 });
                             })
