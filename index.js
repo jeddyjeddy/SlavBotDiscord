@@ -4274,7 +4274,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 {
                                     if(votes[voteIndex].key == userCommandUsage[i].key)
                                     {
-                                        if(timestamp < (new Date(votes[voteIndex].lastvote)).getTime() + 86400000)
+                                        if(timestamp.getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 86400000)
                                         {
                                             resetStreaks = false;
                                         }
