@@ -609,7 +609,12 @@ var DatabaseFunctions = {
                                     {
                                         if(streaks[streakIndex].id == user.id)
                                         {
-                                            tokenText = numberWithCommas(giveawayToken + (streakToken * streaks[streakIndex].streak)) + " War Tokens (Your vote streak is " + numberWithCommas(streaks[streakIndex].streak) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
+                                            var currentStreaks = streaks[streakIndex].streak
+
+                                            if(currentStreaks == null || currentStreaks == undefined)
+                                                currentStreaks = 0
+
+                                            tokenText = numberWithCommas(giveawayToken + (streakToken * currentStreaks)) + " War Tokens (Your vote streak is " + numberWithCommas(currentStreaks) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
                                         }
                                     }
 
