@@ -609,7 +609,7 @@ var DatabaseFunctions = {
                                     {
                                         if(streaks[streakIndex].id == user.id)
                                         {
-                                            tokenText = numberWithCommas(giveawayToken + (streakToken * streaks[streakIndex].streak)) + " War Tokens (Your vote streak is " + numberWithCommas(streaks[streakIndex].streak) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
+                                            tokenText = numberWithCommas(giveawayToken + (streakToken * parseInt(streaks[streakIndex].streak))) + " War Tokens (Your vote streak is " + numberWithCommas(parseInt(streaks[streakIndex].streak)) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
                                         }
                                     }
 
@@ -4290,7 +4290,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                         if(currentStreaks == null || currentStreaks == undefined)
                                             currentStreaks = 0
 
-                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(parseInt(currentStreaks))
+                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(JSON.stringify(currentStreaks))
                                     }
                                 }
 
