@@ -609,7 +609,7 @@ var DatabaseFunctions = {
                                     {
                                         if(streaks[streakIndex].id == user.id)
                                         {
-                                            tokenText = numberWithCommas(giveawayToken + (streakToken * parseInt(streaks[streakIndex].streak))) + " War Tokens (Your vote streak is " + numberWithCommas(parseInt(streaks[streakIndex].streak)) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
+                                            tokenText = numberWithCommas(giveawayToken + (streakToken * streaks[streakIndex].streak)) + " War Tokens (Your vote streak is " + numberWithCommas(streaks[streakIndex].streak) + ", voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
                                         }
                                     }
 
@@ -4279,18 +4279,21 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 {
                                     if(streaks[streakIndex].id == userID)
                                     {
+                                        if(streaks[streakIndex].streak == null || streaks[streakIndex].streak == undefined)
+                                            streaks[streakIndex].streak = 0                                        
+
                                         if(resetStreaks)
                                             streaks[streakIndex].streak = 0
                                         else
-                                            streaks[streakIndex].streak = parseInt(streaks[streakIndex].streak) + 1
+                                            streaks[streakIndex].streak = streaks[streakIndex].streak + 1
 
-                                        amountToGive = giveawayToken + (streakToken * parseInt(streaks[streakIndex].streak))
-                                        currentStreaks = parseInt(streaks[streakIndex].streak)
+                                        amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
+                                        currentStreaks = streaks[streakIndex].streak
 
                                         if(currentStreaks == null || currentStreaks == undefined)
                                             currentStreaks = 0
 
-                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(JSON.stringify(currentStreaks))
+                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(currentStreaks)
                                     }
                                 }
 
