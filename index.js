@@ -4272,7 +4272,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
 
                                 for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
                                 {
-                                    if(votes[voteIndex].key == userCommandUsage[i].key)
+                                    if(votes[voteIndex].key == userID)
                                     {
                                         if(timestamp.getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 86400000)
                                         {
