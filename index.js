@@ -604,7 +604,7 @@ var DatabaseFunctions = {
                                 
                                 bot.fetchUser(userID)
                                 .then(user => {
-                                    var tokenText = numberWithCommas(giveawayToken) + " War Tokens"
+                                    var tokenText = numberWithCommas(giveawayToken) + " War Tokens (Your voting streak is 0 out of 30, voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
                                     for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
                                     {
                                         if(streaks[streakIndex].id == user.id)
@@ -1413,11 +1413,11 @@ async function initData() {
             {
                 if(childSnap.child("votestreak").val() != null)
                 {
-                    streaks.push({id: childSnap.key, streaks: parseInt(childSnap.child("votestreak").val())})
+                    streaks.push({id: childSnap.key, streak: childSnap.child("votestreak").val()})
                 }
                 else
                 {
-                    streaks.push({id: childSnap.key, streaks: 0})
+                    streaks.push({id: childSnap.key, streak: 0})
                 }
             }
         }
