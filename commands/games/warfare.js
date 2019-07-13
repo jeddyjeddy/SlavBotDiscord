@@ -157,7 +157,7 @@ class WarfareCommand extends command.Command
 
                         for(var copyIndex = 0; copyIndex < battle.players.length; copyIndex++)
                         {
-                            if(battle.players[index].id == battle.players[copyIndex].id)
+                            if(battle.players[index].id == battle.players[copyIndex].id && index != copyIndex)
                             {
                                 if(battle.players[copyIndex].level > battle.players[index].level)
                                     battle.players.splice(index, 1)
