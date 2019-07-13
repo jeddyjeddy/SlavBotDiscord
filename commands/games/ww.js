@@ -371,7 +371,7 @@ class WWCommand extends command.Command
                                         {
                                             if(members[index].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push(members[iindex].user.username);
+                                                names.push(members[index].user.username);
                                             }
                                         }
                                     }

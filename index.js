@@ -609,12 +609,10 @@ var DatabaseFunctions = {
                                     {
                                         if(streaks[streakIndex].id == user.id)
                                         {
-                                            var currentStreaks = streaks[streakIndex].streak
+                                            if(streaks[streakIndex].streak == null || streaks[streakIndex].streak == undefined)
+                                                streaks[streakIndex].streak = 0
 
-                                            if(currentStreaks == null || currentStreaks == undefined)
-                                                currentStreaks = 0
-
-                                            tokenText = numberWithCommas(giveawayToken + (streakToken * currentStreaks)) + " War Tokens (Your voting streak is " + currentStreaks + " out of 30, voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
+                                            tokenText = numberWithCommas(giveawayToken + (streakToken * streaks[streakIndex].streak)) + " War Tokens (Your voting streak is " + streaks[streakIndex].streak + " out of 30, voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
                                         }
                                     }
 
@@ -4279,7 +4277,6 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 }
 
                                 var currentStreaks = 0
-
                                 for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
                                 {
                                     if(streaks[streakIndex].id == userID)
@@ -4294,10 +4291,6 @@ bot.login(process.env.BOT_TOKEN).then(function()
 
                                         amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
                                         currentStreaks = streaks[streakIndex].streak
-
-                                        if(currentStreaks == null || currentStreaks == undefined)
-                                            currentStreaks = 0
-
                                         firebase.database().ref("usersettings/" + userID + "/votestreak").set(currentStreaks)
                                     }
                                 }
