@@ -154,6 +154,19 @@ class WarfareCommand extends command.Command
                             battle.players[index].hp = 1000 * battle.players[index].level
                             changed = true
                         }
+
+                        for(var copyIndex = 0; copyIndex < battle.players.length; copyIndex++)
+                        {
+                            if(battle.players[index].id == battle.players[copyIndex].id)
+                            {
+                                if(battle.players[copyIndex].level > battle.players[index].level)
+                                    battle.players.splice(index, 1)
+                                else
+                                    battle.players.splice(copyIndex, 1)
+                                
+                                changed = true;
+                            }
+                        }
                     }
 
                     if(changed)
