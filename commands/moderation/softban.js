@@ -89,7 +89,7 @@ class SoftBanCommand extends command.Command
             {
                 const userToBan = users[i];
                 message.guild.ban(users[i], 7).then(() => {
-                    message.guild.unban(users[i]).then(() => {
+                    message.guild.unban(userToBan).then(() => {
                         message.channel.send("<@" + message.author.id + "> Soft Banned <@" + userToBan + ">").catch(error => console.log("Send Error - " + error))
                     }).catch(function(error){
                         console.log(error);
