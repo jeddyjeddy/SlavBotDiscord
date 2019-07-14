@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         })]).then(() => {
             signedIntoFirebase = true;
 
-            firebase.database().ref("blacklist").on("child_changed", function(snapshot) {
+            firebase.database().ref("blacklist").on("value", function(snapshot) {
                 if(snapshot.val() != null)
                     blackList = JSON.parse(snapshot.val());  
                 else
