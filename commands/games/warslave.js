@@ -16,6 +16,15 @@ function rankAscending(a, b)
     return 0;
 }
 
+function priceAscending(a, b)
+{
+    if (a.price < b.price)
+        return 1;
+    if (a.price > b.price)
+        return -1;
+    return 0;
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         signedIntoFirebase = true;
@@ -1585,6 +1594,7 @@ class WarSlaveCommand extends command.Command
                         else if(args.toLowerCase().startsWith("ranks"))
                             {
                                 var ranks = []
+                                var priceRanks = []
 
                                 for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
                                 {
@@ -1596,6 +1606,7 @@ class WarSlaveCommand extends command.Command
                                     }
 
                                     ranks.push({id: slaves[i].users[slaveIndex].id, slaveCount: slaveCount})
+                                    priceRanks.push({id: slaves[i].users[slaveIndex].id, price: slaves[i].users[slaveIndex].price})
                                 }
 
                                 if(ranks.length == 0)
@@ -1645,6 +1656,60 @@ class WarSlaveCommand extends command.Command
                                     message.channel.send("", {embed: {title: "**Local War Slave Leaderboard for _" + message.guild.name + "_ - Top 10 players :trophy:**",
                                     description: "**Rank** - Number of Slaves Owned - Name\n" + descriptionList,
                                     color: 16757505,
+                                    timestamp: timestamp,
+                                    footer: {
+                                      icon_url: message.client.user.avatarURL,
+                                      text: "Sent on"
+                                    }}}).catch(error => console.log("Send Error - " + error));
+                                }
+
+                                if(priceRanks.length == 0)
+                                {
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    message.channel.send("", {embed: {title: "**Local War Slave Leaderboard for _" + message.guild.name + "_ - Top 10 slaves :trophy:**",
+                                    description: "No slaves to rank.",
+                                    color: 16745182,
+                                    timestamp: timestamp,
+                                    footer: {
+                                      icon_url: message.client.user.avatarURL,
+                                      text: "Sent on"
+                                    }}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    priceRanks.sort(priceAscending)
+                                    var members = message.guild.members.array();
+                                    var names = [];
+                        
+                                    for(var userIndex = 0; userIndex < priceRanks.length; userIndex++)
+                                    {
+                                        for(var index = 0; index < members.length; index++)
+                                        {
+                                            if(members[index].id == priceRanks[userIndex].id)
+                                            {
+                                                names.push(members[index].user.username);
+                                            }
+                                        }
+                                    }
+                                    
+                                    var descriptionList = "";
+                        
+                                    var length = priceRanks.length;
+    
+                                    if(length > 10)
+                                    {
+                                        length = 10;
+                                    }
+    
+                                    for(var rankIndex = 0; rankIndex < length; rankIndex++)
+                                    {
+                                        descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(priceRanks[rankIndex].price) + "`` - **" + names[rankIndex] + "**\n");
+                                    }
+                        
+                                    var timestamp = (new Date(Date.now()).toJSON());
+                                    message.channel.send("", {embed: {title: "**Local War Slave Leaderboard for _" + message.guild.name + "_ - Top 10 slaves :trophy:**",
+                                    description: "**Rank** - Price - Slave Name\n" + descriptionList,
+                                    color: 16745182,
                                     timestamp: timestamp,
                                     footer: {
                                       icon_url: message.client.user.avatarURL,
