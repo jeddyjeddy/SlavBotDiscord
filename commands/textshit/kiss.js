@@ -146,24 +146,35 @@ class KissCommand extends command.Command
         
         if(otherUser && userID != message.author.id)
         {
-            if(gifs != null)
+            if(message.author.id != "281876391535050762" && userID == "291327351348920321")
             {
-                var randomGif = Math.floor(Math.random() * gifs.length)
-                var url = gifs[randomGif]["media"][0]["gif"]["url"]
-                message.channel.send("<@" + message.author.id + "> ***kissed*** <@" + userID + ">", {
-                    files: [url]
-                }).catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                    console.log(err.message);
-                });
+                message.channel.send("<@" + message.author.id + "> This action is exclusive to the owner.").catch(error => console.log("Send Error - " + error));
+            }
+            else if(message.author.id != "291327351348920321" && userID == "281876391535050762")
+            {
+                message.channel.send("<@" + message.author.id + "> This action is exclusive to the owner's wife.").catch(error => console.log("Send Error - " + error));
             }
             else
             {
-                message.channel.send("<@" + message.author.id + "> ***gave*** <@" + userID + "> ***a kiss.***").catch(function (err) {
-                    message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
-                    console.log(err.message);
-                });
-                httpGetAsync(url,tenorCallback_anonid); 
+                if(gifs != null)
+                {
+                    var randomGif = Math.floor(Math.random() * gifs.length)
+                    var url = gifs[randomGif]["media"][0]["gif"]["url"]
+                    message.channel.send("<@" + message.author.id + "> ***kissed*** <@" + userID + ">", {
+                        files: [url]
+                    }).catch(function (err) {
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        console.log(err.message);
+                    });
+                }
+                else
+                {
+                    message.channel.send("<@" + message.author.id + "> ***gave*** <@" + userID + "> ***a kiss.***").catch(function (err) {
+                        message.channel.send("Error - " + err.message).catch(error => console.log("Send Error - " + error));
+                        console.log(err.message);
+                    });
+                    httpGetAsync(url,tenorCallback_anonid); 
+                }
             }
         }
         else
