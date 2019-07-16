@@ -16,6 +16,11 @@ class RespondCommand extends command.Command
 
     async run(message, args)
     {
+        if(message.guild == null)
+        {
+            return;
+        } 
+        
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR") && (!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS") || !message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")) && message.author.id != message.guild.owner.id){
             message.channel.send("<@" + message.author.id + "> This command is only available to the owner, admins and those with both manage channels and manage messages permissions.").catch(error => console.log("Send Error - " + error))
             return;

@@ -19,8 +19,11 @@ class HackCommand extends command.Command
 
     async run(message, args)
     {
+        if(message.guild == null)
+        {
+            return;
+        } 
         CommandCounter.addCommandCounter(message.author.id)
-        var otherUser = false;
         var userID = "";
 
         if(args.length > 0)
@@ -33,7 +36,6 @@ class HackCommand extends command.Command
                     if(args[i].toString() == ">")
                     {
                         i = args.length;
-                        otherUser = true;
                     }
                     else
                     {

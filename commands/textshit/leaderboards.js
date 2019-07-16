@@ -26,12 +26,8 @@ class LeaderboardsCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
-        if(args.toLowerCase() == "local")
+        if(args.toLowerCase() == "local" && message.guild != null)
         {
-            if(message.guild == null)
-            {
-                return;
-            }
             var members = message.guild.members.array();
             var IDs = [];
             for(var i = 0; i < members.length; i++)

@@ -71,6 +71,11 @@ class TictacCommand extends command.Command
 
     async run(message, args)
     {
+        if(message.guild == null)
+        {
+            return;
+        } 
+
         CommandCounter.addCommandCounter(message.author.id)
         var commandPrefix= "!"
         if(message.guild != null)
