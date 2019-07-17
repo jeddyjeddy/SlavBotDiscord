@@ -107,7 +107,7 @@ class TweetCommand extends command.Command
                                                 Jimp.loadFont("twittertext.fnt" ).then(function (tweetfont) {
 
                                                     const file = "TempStorage/" + shortid.generate() + ".png";
-                                                    var addedHeight = Jimp.measureTextHeight(tweetfont, content, 655)
+                                                    var addedHeight = Jimp.measureTextHeight(tweetfont, content, 655) + 40
 
                                                     if(addedHeight < 80)
                                                         addedHeight = 80
