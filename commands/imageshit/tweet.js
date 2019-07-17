@@ -155,7 +155,7 @@ class TweetCommand extends command.Command
                     }
                     else
                     {
-                        message.channel.send("Could Not Find Twitter User `@" + twitterUsername + "`. Use `" + commandPrefix + "help tweet` for help.").catch(error => {console.log("Send Error - " + error); });
+                        message.channel.send("Could Not Find Twitter User `" + twitterUsername + "`. Use `" + commandPrefix + "help tweet` for help.").catch(error => {console.log("Send Error - " + error); });
                     }
                 })
             }
