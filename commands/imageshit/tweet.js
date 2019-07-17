@@ -119,7 +119,7 @@ class TweetCommand extends command.Command
                                                     blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 123, 42, twitterName).print(usernamefont, 137, 74, twitterUsername).print(tweetfont, 48, 122, content, 655)
                                                     
                                                     if(verifiedUser)
-                                                        blankImage.composite(verifiedImage, 125 + (12 * twitterName.length), 49)
+                                                        blankImage.composite(verifiedImage, 125 + (12 * twitterName.length), 43)
 
                                                     blankImage.write(file, function(error){ 
                                                         if(error) { console.log(error); return;};
