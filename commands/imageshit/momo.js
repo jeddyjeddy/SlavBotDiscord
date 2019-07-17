@@ -33,9 +33,9 @@ class MomoCommand extends command.Command
         {
             const file = "TempStorage/" + shortid.generate() + ".png";
             var editText = args.toString()
-                Jimp.read("momo.jpg").then(function (spidermanImage) {
+                Jimp.read("momo.jpg").then(function (momoImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK   ).then(function (font) {
-                        spidermanImage.print(font, 520, 90, editText, 450).write(file, function(error){ 
+                        momoImage.print(font, 520, 90, editText, 450).write(file, function(error){ 
                             if(error) { console.log(error); return;};
                         message.channel.send("***Momo says...***", {
                                     files: [file]
