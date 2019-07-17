@@ -111,7 +111,7 @@ class TweetCommand extends command.Command
 
                                                     if(content.length > 88)
                                                     {
-                                                        addedHeight =  40 * Math.floor(content.length/44)
+                                                        addedHeight =  40 + (40 * Math.floor(content.length/44))
                                                     }
 
                                                     blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + addedHeight)
