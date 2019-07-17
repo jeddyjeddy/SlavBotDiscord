@@ -126,7 +126,8 @@ class RotateCommand extends command.Command
                 Jimp.read(url).then(function (userImage) {
                     console.log("got last image to rotate");
         
-                    userImage.rotate(parseInt(option))
+                    const degrees = parseInt(option)
+                    userImage.rotate(-degrees)
     
                     const file = "TempStorage/" + shortid.generate() + ".png";
                     userImage.write(file, function(error){
