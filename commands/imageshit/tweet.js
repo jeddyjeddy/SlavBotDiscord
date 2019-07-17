@@ -116,7 +116,7 @@ class TweetCommand extends command.Command
 
                                                     blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + addedHeight)
                                                     userImage.cover(60, 60)
-                                                    blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 123, 42, twitterName).print(usernamefont, 137, 74, twitterUsername).print(tweetfont, 48, 122, 655)
+                                                    blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 123, 42, twitterName).print(usernamefont, 137, 74, twitterUsername).print(tweetfont, 48, 122, content, 655)
                                                     
                                                     if(verifiedUser)
                                                         blankImage.composite(verifiedImage, 125 + (12 * twitterName.length), 49)
