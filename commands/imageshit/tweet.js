@@ -50,6 +50,7 @@ class TweetCommand extends command.Command
             var imageURL = ""
             var verified = false
             var tweetContent = ""
+            var nouser = false;
 
             if(args.toString().indexOf("|") > -1)
             {
@@ -86,7 +87,7 @@ class TweetCommand extends command.Command
                         console.log("Fake Tweet For " + user.screen_name)
                     }).catch((error) => {
                         console.log("Twitter Error - " + error.message)
-                        username = null;
+                        nouser = true;
                     }))
                 }
 
@@ -96,7 +97,7 @@ class TweetCommand extends command.Command
 
                     const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified, content = tweetContent
 
-                    if(twitterUsername != "" && twitterUsername != null && twitterUsername != undefined)
+                    if(!nouser)
                     {
                         message.channel.send("***generating tweet***").catch(error => {console.log("Send Error - " + error); });
                         Jimp.read("tweet.png").then(function (twitterImage) {
