@@ -109,7 +109,7 @@ class TweetCommand extends command.Command
 
                                             //TESTING PHASE
 
-                                            twitterImage.print(font, 125, 47, twitterName).write(file, function(error){ 
+                                            blankImage.print(font, 125, 47, twitterName).write(file, function(error){ 
                                                 if(error) { console.log(error); return;};
                                                 message.channel.send("***" + name + " Has Tweeted***", {
                                                             files: [file]
