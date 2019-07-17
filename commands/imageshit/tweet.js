@@ -93,7 +93,7 @@ class TweetCommand extends command.Command
                     if(imageURL == "" || imageURL == null || imageURL == undefined)
                         imageURL = "twitteravatar.jpg"
 
-                    const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified
+                    const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified, content = tweetContent
 
                     if(twitterUsername != "")
                     {
@@ -103,25 +103,38 @@ class TweetCommand extends command.Command
                                 Jimp.read(url).then(function (userImage) {
                                     Jimp.read("verified.png").then(function (verifiedImage) {
                                         Jimp.loadFont("twittername.fnt" ).then(function (font) {
-                                            const file = "TempStorage/" + shortid.generate() + ".png";
+                                            Jimp.loadFont("twitterusername.fnt" ).then(function (usernamefont) {
+                                                Jimp.loadFont("twittertext.fnt" ).then(function (tweetfont) {
 
-                                            blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + 300)
-                                            userImage.cover(60, 60)
-                                            blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 125, 47, twitterName)
-                                            //TESTING PHASE
+                                                    const file = "TempStorage/" + shortid.generate() + ".png";
+                                                    var addedHeight = 80
 
-                                            blankImage.write(file, function(error){ 
-                                                if(error) { console.log(error); return;};
-                                                message.channel.send("***" + twitterName + " Has Tweeted***", {
-                                                            files: [file]
-                                                }).then(function(){
+                                                    if(content.length > 88)
+                                                    {
+                                                        addedHeight =  40 * Math.floor(content.length/44)
+                                                    }
+
+                                                    blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + addedHeight)
+                                                    userImage.cover(60, 60)
+                                                    blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 123, 42, twitterName).print(usernamefont, 137, 74, twitterUsername).print(tweetfont, 48, 122, 655)
                                                     
-                                                    fs.remove(file, resultHandler);
-                                                }).catch(function (err) {
-                                                    message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                                                    console.log(err.message);
-                                                    
-                                                    fs.remove(file, resultHandler);
+                                                    if(verifiedUser)
+                                                        blankImage.composite(verifiedImage, 125 + (12 * twitterName.length), 49)
+
+                                                    blankImage.write(file, function(error){ 
+                                                        if(error) { console.log(error); return;};
+                                                        message.channel.send("***" + twitterName + " Has Tweeted***", {
+                                                                    files: [file]
+                                                        }).then(function(){
+                                                            
+                                                            fs.remove(file, resultHandler);
+                                                        }).catch(function (err) {
+                                                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                                            console.log(err.message);
+                                                            
+                                                            fs.remove(file, resultHandler);
+                                                        });
+                                                    });
                                                 });
                                             });
                                         });
