@@ -86,6 +86,7 @@ class TweetCommand extends command.Command
                         console.log("Fake Tweet For " + user.screen_name)
                     }).catch((error) => {
                         console.log("Twitter Error - " + error.message)
+                        username = null;
                     }))
                 }
 
