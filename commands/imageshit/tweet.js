@@ -55,7 +55,7 @@ class TweetCommand extends command.Command
             {
                 var params = args.split("|")
                 username = params[0]
-                tweetContent = paramse[1]
+                tweetContent = params[1]
             }
             else
             {
@@ -104,10 +104,9 @@ class TweetCommand extends command.Command
                                         Jimp.loadFont("twittername.fnt" ).then(function (font) {
                                             const file = "TempStorage/" + shortid.generate() + ".png";
 
-                                            blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + 500)
+                                            blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + 300)
                                             userImage.cover(60, 60)
-                                            blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0)
-                                            blankImage.print(font, 125, 47, twitterName)
+                                            blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 125, 47, twitterName)
                                             //TESTING PHASE
 
                                             blankImage.write(file, function(error){ 
