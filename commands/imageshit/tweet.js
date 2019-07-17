@@ -10,8 +10,7 @@ var resultHandler = function(err) {
     }
 }
 var CommandCounter = require("../../index.js")
-
-import { Twitter } from "ts-twitter";
+const Twitter = require("ts-twitter");
  
 let twitter = new Twitter(
   process.env.TWITTER_CONSUMER_KEY,
