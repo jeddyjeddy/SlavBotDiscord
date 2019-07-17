@@ -103,7 +103,7 @@ class TweetCommand extends command.Command
                                         Jimp.loadFont("twittername.fnt" ).then(function (font) {
                                             const file = "TempStorage/" + shortid.generate() + ".png";
 
-                                            blankImage.resize(twitterImage.bitmap.width. twitterImage.bitmap.height + 500)
+                                            blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + 500)
                                             userImage.cover(60, 60)
                                             blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0)
 
