@@ -109,6 +109,9 @@ class TweetCommand extends command.Command
                                                     const file = "TempStorage/" + shortid.generate() + ".png";
                                                     var addedHeight = Jimp.measureTextHeight(tweetfont, content, 655)
 
+                                                    if(addedHeight < 80)
+                                                        addedHeight = 80
+
                                                     blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + addedHeight)
                                                     userImage.cover(60, 60)
                                                     blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0).print(font, 123, 42, twitterName).print(usernamefont, 137, 74, twitterUsername).print(tweetfont, 48, 122, content, 655)
