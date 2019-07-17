@@ -87,14 +87,15 @@ class TweetCommand extends command.Command
                         console.log("Twitter Error - " + error.message)
                     }))
                 }
-                
-                Promise.all(promises).then(() => {
-                    if(username != "")
-                    {
-                        if(imageURL == "" || imageURL == null || imageURL == undefined)
-                            imageURL = "twitteravatar.jpg"
 
-                        const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified
+                if(imageURL == "" || imageURL == null || imageURL == undefined)
+                    imageURL = "twitteravatar.jpg"
+
+                const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified
+
+                Promise.all(promises).then(() => {
+                    if(twitterUsername != "")
+                    {
                         message.channel.send("***generating tweet***").catch(error => {console.log("Send Error - " + error); });
                         Jimp.read("tweet.png").then(function (twitterImage) {
                             Jimp.read("blank.png").then(function (blankImage) {
@@ -106,12 +107,12 @@ class TweetCommand extends command.Command
                                             blankImage.resize(twitterImage.bitmap.width, twitterImage.bitmap.height + 500)
                                             userImage.cover(60, 60)
                                             blankImage.composite(userImage, 51, 40).composite(twitterImage, 0, 0)
-
+                                            blankImage.print(font, 125, 47, twitterName)
                                             //TESTING PHASE
 
-                                            blankImage.print(font, 125, 47, twitterName).write(file, function(error){ 
+                                            blankImage.write(file, function(error){ 
                                                 if(error) { console.log(error); return;};
-                                                message.channel.send("***" + name + " Has Tweeted***", {
+                                                message.channel.send("***" + twitterName + " Has Tweeted***", {
                                                             files: [file]
                                                 }).then(function(){
                                                     
@@ -141,7 +142,7 @@ class TweetCommand extends command.Command
                     }
                     else
                     {
-                        message.channel.send("Could Not Find Twitter User `@" + username + "`. Use `" + commandPrefix + "help tweet` for help.").catch(error => {console.log("Send Error - " + error); });
+                        message.channel.send("Could Not Find Twitter User `@" + twitterUsername + "`. Use `" + commandPrefix + "help tweet` for help.").catch(error => {console.log("Send Error - " + error); });
                     }
                 })
             }
