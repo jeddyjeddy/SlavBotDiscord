@@ -83,17 +83,18 @@ class TweetCommand extends command.Command
                         imageURL = user.profile_image_url
                         verified = user.verified
                         username = user.screen_name
+                        console.log("Fake Tweet For " + user.screen_name)
                     }).catch((error) => {
                         console.log("Twitter Error - " + error.message)
                     }))
                 }
 
-                if(imageURL == "" || imageURL == null || imageURL == undefined)
-                    imageURL = "twitteravatar.jpg"
-
-                const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified
-
                 Promise.all(promises).then(() => {
+                    if(imageURL == "" || imageURL == null || imageURL == undefined)
+                        imageURL = "twitteravatar.jpg"
+
+                    const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified
+
                     if(twitterUsername != "")
                     {
                         message.channel.send("***generating tweet***").catch(error => {console.log("Send Error - " + error); });
