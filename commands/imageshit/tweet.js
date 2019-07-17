@@ -95,7 +95,7 @@ class TweetCommand extends command.Command
 
                     const twitterName = name, twitterUsername = username, url = imageURL, verifiedUser = verified, content = tweetContent
 
-                    if(twitterUsername != "")
+                    if(twitterUsername != "" && twitterUsername != null && twitterUsername != undefined)
                     {
                         message.channel.send("***generating tweet***").catch(error => {console.log("Send Error - " + error); });
                         Jimp.read("tweet.png").then(function (twitterImage) {
