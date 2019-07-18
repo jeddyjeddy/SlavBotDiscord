@@ -1356,7 +1356,7 @@ bot.on("channelDelete", (channel) => {
 
 var userCommandUsage = [{key: "Key", data: {uses: 0, requestsSent: 0, usesCheck: 250}}] 
 var tokens = [{key: "Key", tokens: 0, collectDate: ""}], votes = [{key: "Key", lastvote: null}],
-streaks = [{id: "", streak: 0}]
+streaks = [{id: "", streak: 0}], autoroles = [{key: "", role: ""}]
 
 function commandUsageAscending(a, b)
 {
@@ -1729,6 +1729,34 @@ function customSettingsInit(guild)
         }
     })
 
+    firebase.database().ref("serversettings/" + guild.id + "/autorole").on('value', (snap) => {
+        if(snap.val() != null)
+        {
+            var changed = false
+            for(var i = 0; i < autoroles.length; i++)
+            {
+                if(autoroles[i].key == guild.id)
+                {
+                    autoroles[i].role = snap.val()
+                    changed = true
+                }
+            }
+
+            if(!changed)
+                autoroles.push({key: guild.id, role: snap.val()})
+        }
+        else
+        {
+            for(var i = 0; i < autoroles.length; i++)
+            {
+                if(autoroles[i].key == guild.id)
+                {
+                    autoroles[i].role = null
+                }
+            }
+        }
+    })
+
     firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
         if(snap.val() != null)
         {
@@ -1812,6 +1840,17 @@ bot.on("guildMemberAdd", (member) => {
         else if(hasSlavRole)
         {
             member.removeRole(slavRole).then(() => {member.addRole(slavRole).catch(error => console.log("Role Error - " + error))}).catch(error => console.log("Role Error - " + error))
+        }
+    }
+
+    for(var i = 0; i < autoroles.length; i++)
+    {
+        if(autoroles[i].key == member.guild.id)
+        {
+            if(autoroles[i].role != null)
+            {
+                member.addRole(autoroles[i].role).catch(error => console.log("Role Error - " + error))
+            }
         }
     }
 
