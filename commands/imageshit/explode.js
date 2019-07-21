@@ -113,7 +113,7 @@ class ExplodeCommand extends command.Command
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log(file);
-                            message.channel.send("***Explodered***", {
+                            message.channel.send("***Explode***", {
                                 files: [file]
                             }).then(function(){
                                 
@@ -179,7 +179,7 @@ class ExplodeCommand extends command.Command
                     userImage.write(file, function(error){
                         if(error) { console.log(error); return;};
                         console.log(file);
-                        message.channel.send("***Explodered***", {
+                        message.channel.send("***Explode***", {
                             files: [file]
                         }).then(function(){
                             
