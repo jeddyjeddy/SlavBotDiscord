@@ -10,6 +10,7 @@ var resultHandler = function(err) {
     }
 }
 var CommandCounter = require("../../index.js")
+const dispStrength = 100000
 
 class ExplodeCommand extends command.Command
  {
@@ -108,7 +109,7 @@ class ExplodeCommand extends command.Command
                         console.log("got last image to explode");
             
                         map.cover(userImage.bitmap.width, userImage.bitmap.height)
-                        userImage.displace(map, 100);
+                        userImage.displace(map, dispStrength);
         
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
@@ -176,7 +177,7 @@ class ExplodeCommand extends command.Command
                         console.log("got avatar");
                         
                         map.cover(userImage.bitmap.width, userImage.bitmap.height)
-                        userImage.displace(map, 100);
+                        userImage.displace(map, dispStrength);
         
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
