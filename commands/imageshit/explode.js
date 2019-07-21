@@ -107,7 +107,8 @@ class ExplodeCommand extends command.Command
                     Jimp.read("displacement.png").then(function (map) {
                         console.log("got last image to explode");
             
-                        userImage.displace(map, 1);
+                        map.cover(userImage.bitmap.width, userImage.bitmap.height)
+                        userImage.displace(map, 100);
         
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
@@ -171,27 +172,33 @@ class ExplodeCommand extends command.Command
             Promise.all(promises).then(() => {
                 
                 Jimp.read(url).then(function (userImage) {
-                    console.log("got avatar");
-                    
-                    userImage.explode(10);
-    
-                    const file = "TempStorage/" + shortid.generate() + ".png"
-                    userImage.write(file, function(error){
-                        if(error) { console.log(error); return;};
-                        console.log(file);
-                        message.channel.send("***Explode***", {
-                            files: [file]
-                        }).then(function(){
-                            
-                            fs.remove(file, resultHandler);
-                        }).catch(function (err) {
-                            message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
-                            console.log(err.message);
-                            
-                            fs.remove(file, resultHandler);
+                    Jimp.read("displacement.png").then(function (map) {
+                        console.log("got avatar");
+                        
+                        map.cover(userImage.bitmap.width, userImage.bitmap.height)
+                        userImage.displace(map, 100);
+        
+                        const file = "TempStorage/" + shortid.generate() + ".png"
+                        userImage.write(file, function(error){
+                            if(error) { console.log(error); return;};
+                            console.log(file);
+                            message.channel.send("***Explode***", {
+                                files: [file]
+                            }).then(function(){
+                                
+                                fs.remove(file, resultHandler);
+                            }).catch(function (err) {
+                                message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                                console.log(err.message);
+                                
+                                fs.remove(file, resultHandler);
+                            });
+                            console.log("Message Sent");
                         });
-                        console.log("Message Sent");
-                    });
+                    }).catch(function (err) {
+                        message.channel.send("Error - " + err.message).catch(error => {console.log("Send Error - " + error); });
+                        console.log(err.message);
+                    }); 
                 }).catch(function (err) {
                     if(url == "no user")
                     {
