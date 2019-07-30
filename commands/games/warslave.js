@@ -752,7 +752,7 @@ class WarSlaveCommand extends command.Command
 
                                             if((new Date()).getTime() >= time.getTime())
                                             {
-                                                const protectionValue = slaves[i].users[slaveIndex].price * 10;
+                                                const protectionValue = slaves[i].users[slaveIndex].price * 100;
 
                                                 if(!IndexRef.subtractTokens(message.author.id, protectionValue))
                                                 {
@@ -761,7 +761,7 @@ class WarSlaveCommand extends command.Command
                                                 else
                                                 {                                                
                                                     message.channel.send("Slave Protected for " + numberWithCommas(protectionValue) + " tokens! Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! Your slave has a 2 hour protection period in which no one can purchase or steal them.", {embed: {title: "***Protection Bought***", description: "<@" + message.author.id + "> You have bought protection for your slave. Your slave is now worth " + numberWithCommas(protectionValue) + " tokens! You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nYour slave has a 2 hour protection period in which no one can purchase or steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                    slaves[i].users[slaveIndex].price = protectionValue;
+                                                    slaves[i].users[slaveIndex].price = protectionValue/10;
                                                     slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
                                                 }   
                                             }
