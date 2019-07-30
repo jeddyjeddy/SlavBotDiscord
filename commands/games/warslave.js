@@ -1052,7 +1052,7 @@ class WarSlaveCommand extends command.Command
     
                                 if(selfSlave == "" || otherSlave == "" || selfSlave == otherSlaveOwner)
                                 {
-                                    message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must tag a slave you own, then another slaved owned by another user in order to send a trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must tag a slave you own, then another slaved owned by another user in order to send a trade request. Use `" + commandPrefix + "warslave trade list` to see all trade requests that have been sent to you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {
@@ -1379,7 +1379,7 @@ class WarSlaveCommand extends command.Command
                                                     
                                                     slaves[i].users[slaveIndex].owner = message.author.id;
                                                     slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
-                                                    slaves[i].users[slaveIndex].price = value
+                                                    slaves[i].users[slaveIndex].price = value/10
                                                 }
                                             }
                                             else
@@ -1570,7 +1570,7 @@ class WarSlaveCommand extends command.Command
                                             message.channel.send("", {embed: {title: "***Successfully Sold Slave***", description: "<@" + message.author.id + "> You have sold <@" + userID + "> for " + numberWithCommas(slaves[i].users[slaveIndex].price) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\nSelling your slaves removes all their cooldown effects.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
 
                                             slaves[i].users[slaveIndex].owner = ""
-                                            slaves[i].users[slaveIndex].price = slaves[i].users[slaveIndex].price + 500;
+                                            slaves[i].users[slaveIndex].price = slaves[i].users[slaveIndex].price;
                                             slaves[i].users[slaveIndex].cooldown = (new Date()).toJSON()
                                         }
                                         else
@@ -1588,7 +1588,7 @@ class WarSlaveCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to buy them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to sell them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if(args.toLowerCase().startsWith("ranks"))
