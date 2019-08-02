@@ -2983,7 +2983,7 @@ bot.on("message", (message) => {
 
             for(var i = 0; i < responses.length; i++)
             {
-                var trigger = responses[i].key
+                var trigger = responses[i].key.toLowerCase()
                 var response = responses[i].message
                 var matching = responses[i].matching
 
@@ -3056,7 +3056,7 @@ bot.on("message", (message) => {
                                             else
                                             {
                                                 var reg = new RegExp(trigger, "g")
-                                                var add = (message.content.match(reg) || []).length
+                                                var add = (message.content.toLowerCase().match(reg) || []).length
                                                 customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + add;
                                             }
                                             if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
@@ -3098,7 +3098,7 @@ bot.on("message", (message) => {
                                         else
                                         {
                                             var reg = new RegExp(trigger, "g")
-                                            var add = (message.content.match(reg) || []).length
+                                            var add = (message.content.toLowerCase().match(reg) || []).length
                                             counterDataToAdd.channels[channelIndex].counter = counterDataToAdd.channels[channelIndex].counter + add;
                                         }
                                         if(counterDataToAdd.channels[channelIndex].counter >= counterDataToAdd.channels[channelIndex].lastCounter + limit)
