@@ -3012,7 +3012,7 @@ bot.on("message", (message) => {
 
             for(var i = 0; i < counters.length; i++)
             {
-                var trigger = counters[i].key
+                var trigger = counters[i].key.toLowerCase()
                 var response = counters[i].message
                 var matching = counters[i].matching
                 var limit = parseInt(counters[i].limit)
