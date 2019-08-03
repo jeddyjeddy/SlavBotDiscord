@@ -2315,7 +2315,7 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        if((item + "\n").length < 2048)
+                        if((item + "\n").length < 2048 && characters[i].bronze.length > 0)
                             item = item + "\n"
 
                         for(var index = 0; index < characters[i].silver.length; index++)
@@ -2342,7 +2342,7 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        if((item + "\n").length < 2048)
+                        if((item + "\n").length < 2048 && characters[i].silver.length > 0)
                             item = item + "\n"
 
                         for(var index = 0; index < characters[i].gold.length; index++)
@@ -2369,7 +2369,7 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        if((item + "\n").length < 2048)
+                        if((item + "\n").length < 2048 && characters[i].gold.length > 0)
                             item = item + "\n"
 
                         for(var index = 0; index < characters[i].platinum.length; index++)
