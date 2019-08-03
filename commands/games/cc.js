@@ -926,21 +926,21 @@ class CCCommand extends command.Command
                             if(parameters.length > 1)
                             {
                                 var sendParam = parameters[1]
-                                var takeParam = parameters[0].replace(/trade/g, "")
+                                var takeParam = parameters[0]
 
-                                if(sendParam.startsWith("bronze"))
+                                if(sendParam.indexOf("bronze") > -1)
                                 {
                                     sendRank = "Bronze"
                                 }
-                                else if(sendParam.startsWith("silver"))
+                                else if(sendParam.indexOf("silver") > -1)
                                 {
                                     sendRank = "Silver"
                                 }
-                                else if(sendParam.startsWith("gold"))
+                                else if(sendParam.indexOf("gold") > -1)
                                 {
                                     sendRank = "Gold"
                                 }
-                                else if(sendParam.startsWith("platinum"))
+                                else if(sendParam.indexOf("platinum") > -1)
                                 {
                                     sendRank = "Platinum"
                                 }
@@ -973,19 +973,19 @@ class CCCommand extends command.Command
                                 }
 
                                 
-                                if(takeParam.startsWith("bronze"))
+                                if(takeParam.indexOf("bronze") > -1)
                                 {
                                     takeRank = "Bronze"
                                 }
-                                else if(takeParam.startsWith("silver"))
+                                else if(takeParam.indexOf("silver") > -1)
                                 {
                                     takeRank = "Silver"
                                 }
-                                else if(takeParam.startsWith("gold"))
+                                else if(takeParam.indexOf("gold") > -1)
                                 {
                                     takeRank = "Gold"
                                 }
-                                else if(takeParam.startsWith("platinum"))
+                                else if(takeParam.indexOf("platinum") > -1)
                                 {
                                     takeRank = "Platinum"
                                 }
