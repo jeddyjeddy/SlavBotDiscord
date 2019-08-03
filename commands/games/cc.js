@@ -533,127 +533,23 @@ class CCCommand extends command.Command
                                 user = mentions[0];
 
                             var requestCheck = false;
-                            for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
+                            var invalidTag = false;
+
+                            if(user == null || user == undefined)
+                                invalidTag = true;
+                            else if(user.bot)
+                                invalidTag = true;
+                            
+                            if(!invalidTag)
                             {
-                                if(characters[i].trades[tradeIndex].user == user.id)
+                                for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
                                 {
-                                    requestCheck = true;
-                                    var sendRank = characters[i].trades[tradeIndex].send.rank, sendID = characters[i].trades[tradeIndex].send.id, takeRank = characters[i].trades[tradeIndex].take.rank, takeID = characters[i].trades[tradeIndex].take.id
+                                    if(characters[i].trades[tradeIndex].user == user.id)
+                                    {
+                                        requestCheck = true;
+                                        var sendRank = characters[i].trades[tradeIndex].send.rank, sendID = characters[i].trades[tradeIndex].send.id, takeRank = characters[i].trades[tradeIndex].take.rank, takeID = characters[i].trades[tradeIndex].take.id
 
-                                    var takeCheck = false, sendCheck = false, requestCheck = true;;
-
-                                    if(sendRank == "Bronze")
-                                    {
-                                        for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
-                                        {
-                                            if(characters[i].bronze[cIndex].id == sendID)
-                                            {
-                                                if(characters[i].bronze[cIndex].amount > 0)
-                                                    takeCheck = true;
-                                            }
-                                        }
-                                    }
-                                    else if(sendRank == "Silver")
-                                    {
-                                        for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
-                                        {
-                                            if(characters[i].silver[cIndex].id == sendID)
-                                            {
-                                                if(characters[i].silver[cIndex].amount > 0)
-                                                    takeCheck = true;
-                                            }
-                                        }
-                                    }
-                                    else if(sendRank == "Gold")
-                                    {
-                                        for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
-                                        {
-                                            if(characters[i].gold[cIndex].id == sendID)
-                                            {
-                                                if(characters[i].gold[cIndex].amount > 0)
-                                                    takeCheck = true;
-                                            }
-                                        }
-                                    }
-                                    else if(sendRank == "Platinum")
-                                    {
-                                        for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
-                                        {
-                                            if(characters[i].platinum[cIndex].id == sendID)
-                                            {
-                                                if(characters[i].platinum[cIndex].amount > 0)
-                                                    takeCheck = true;
-                                            }
-                                        }
-                                    }
-    
-                                    for(var index = 0; index < characters.length; index++)
-                                    {
-                                        if(characters[index].id == user.id)
-                                        {
-                                            if(takeRank == "Bronze")
-                                            {   
-                                                for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
-                                                {
-                                                    if(characters[index].bronze[cIndex].id == takeID)
-                                                    {
-                                                        if(characters[index].bronze[cIndex].amount > 0)
-                                                            sendCheck = true;
-                                                    }
-                                                }
-                                            }
-                                            else if(takeRank == "Silver")
-                                            {
-                                                for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
-                                                {
-                                                    if(characters[index].silver[cIndex].id == takeID)
-                                                    {
-                                                        if(characters[index].silver[cIndex].amount > 0)
-                                                            sendCheck = true;
-                                                    }
-                                                }
-                                            }
-                                            else if(takeRank == "Gold")
-                                            {
-                                                for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
-                                                {
-                                                    if(characters[index].gold[cIndex].id == takeID)
-                                                    {
-                                                        if(characters[index].gold[cIndex].amount > 0)
-                                                            sendCheck = true;
-                                                    }
-                                                }
-                                            }
-                                            else if(takeRank == "Platinum")
-                                            {
-                                                for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
-                                                {
-                                                    if(characters[index].platinum[cIndex].id == takeID)
-                                                    {
-                                                        if(characters[index].platinum[cIndex].amount > 0)
-                                                            sendCheck = true;
-                                                    }
-                                                }
-                                            } 
-                                        }
-                                    }
-    
-                                    if(takeCheck && sendCheck)
-                                    {
-                                        var sendName = "ID - " + sendID,
-                                        takeName = "ID - " + takeID
-                                        for(var index = 0; index < database.length; index++)
-                                        {
-                                            if(database[index].id == sendID)
-                                            {
-                                                sendName = database[index].name
-                                            }
-        
-                                            if(database[index].id == takeID)
-                                            {
-                                                takeName = database[index].name
-                                            }
-                                        }
+                                        var takeCheck = false, sendCheck = false, requestCheck = true;;
 
                                         if(sendRank == "Bronze")
                                         {
@@ -661,15 +557,8 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].bronze[cIndex].id == sendID)
                                                 {
-                                                    if(characters[i].bronze[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount + 1;
-                                                    }
-
-                                                    if(characters[i].bronze[cIndex].id == sendID)
-                                                    {
-                                                        characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1;
-                                                    }
+                                                    if(characters[i].bronze[cIndex].amount > 0)
+                                                        takeCheck = true;
                                                 }
                                             }
                                         }
@@ -679,15 +568,8 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].silver[cIndex].id == sendID)
                                                 {
-                                                    if(characters[i].silver[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount + 1;
-                                                    }
-
-                                                    if(characters[i].silver[cIndex].id == sendID)
-                                                    {
-                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
-                                                    };
+                                                    if(characters[i].silver[cIndex].amount > 0)
+                                                        takeCheck = true;
                                                 }
                                             }
                                         }
@@ -697,15 +579,8 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].gold[cIndex].id == sendID)
                                                 {
-                                                    if(characters[i].gold[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount + 1;
-                                                    }
-
-                                                    if(characters[i].gold[cIndex].id == sendID)
-                                                    {
-                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
-                                                    }
+                                                    if(characters[i].gold[cIndex].amount > 0)
+                                                        takeCheck = true;
                                                 }
                                             }
                                         }
@@ -715,15 +590,8 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].platinum[cIndex].id == sendID)
                                                 {
-                                                    if(characters[i].platinum[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount + 1;
-                                                    }
-
-                                                    if(characters[i].platinum[cIndex].id == sendID)
-                                                    {
-                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
-                                                    }
+                                                    if(characters[i].platinum[cIndex].amount > 0)
+                                                        takeCheck = true;
                                                 }
                                             }
                                         }
@@ -738,15 +606,8 @@ class CCCommand extends command.Command
                                                     {
                                                         if(characters[index].bronze[cIndex].id == takeID)
                                                         {
-                                                            if(characters[index].bronze[cIndex].id == takeID)
-                                                            {
-                                                                characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].bronze[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount + 1;
-                                                            }
+                                                            if(characters[index].bronze[cIndex].amount > 0)
+                                                                sendCheck = true;
                                                         }
                                                     }
                                                 }
@@ -756,15 +617,8 @@ class CCCommand extends command.Command
                                                     {
                                                         if(characters[index].silver[cIndex].id == takeID)
                                                         {
-                                                            if(characters[index].silver[cIndex].id == takeID)
-                                                            {
-                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].silver[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount + 1;
-                                                            }
+                                                            if(characters[index].silver[cIndex].amount > 0)
+                                                                sendCheck = true;
                                                         }
                                                     }
                                                 }
@@ -774,15 +628,8 @@ class CCCommand extends command.Command
                                                     {
                                                         if(characters[index].gold[cIndex].id == takeID)
                                                         {
-                                                            if(characters[index].gold[cIndex].id == takeID)
-                                                            {
-                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].gold[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount + 1;
-                                                            }
+                                                            if(characters[index].gold[cIndex].amount > 0)
+                                                                sendCheck = true;
                                                         }
                                                     }
                                                 }
@@ -792,24 +639,187 @@ class CCCommand extends command.Command
                                                     {
                                                         if(characters[index].platinum[cIndex].id == takeID)
                                                         {
-                                                            characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount - 1;
-                                                        }
-
-                                                        if(characters[index].platinum[cIndex].id == sendID)
-                                                        {
-                                                            characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount + 1;
+                                                            if(characters[index].platinum[cIndex].amount > 0)
+                                                                sendCheck = true;
                                                         }
                                                     }
                                                 } 
                                             }
                                         }
+        
+                                        if(takeCheck && sendCheck)
+                                        {
+                                            var sendName = "ID - " + sendID,
+                                            takeName = "ID - " + takeID
+                                            for(var index = 0; index < database.length; index++)
+                                            {
+                                                if(database[index].id == sendID)
+                                                {
+                                                    sendName = database[index].name
+                                                }
+            
+                                                if(database[index].id == takeID)
+                                                {
+                                                    takeName = database[index].name
+                                                }
+                                            }
 
-                                        message.channel.send(`<@${message.author.id}> has accepted the trade request of <@${user.id}>\n<@${message.author.id}> has been given a ${takeRank} Ranked ${takeName}\n<@${user.id}> has been given a ${sendRank} Ranked ${sendName}`, {embed: {title: "***Trade Request Sent***", description: "<@" + user.id + "> Your trade request has been accepted by <@" + message.author.id + ">\n\n<@" + user.id + "> has been given a " + sendRank + " Ranked " + sendName + "\n<@" + message.author.id + "> has been given a " + takeRank + "Ranked " + takeName + ".", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            if(sendRank == "Bronze")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                                                {
+                                                    if(characters[i].bronze[cIndex].id == sendID)
+                                                    {
+                                                        if(characters[i].bronze[cIndex].id == takeID)
+                                                        {
+                                                            characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount + 1;
+                                                        }
+
+                                                        if(characters[i].bronze[cIndex].id == sendID)
+                                                        {
+                                                            characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if(sendRank == "Silver")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                                {
+                                                    if(characters[i].silver[cIndex].id == sendID)
+                                                    {
+                                                        if(characters[i].silver[cIndex].id == takeID)
+                                                        {
+                                                            characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount + 1;
+                                                        }
+
+                                                        if(characters[i].silver[cIndex].id == sendID)
+                                                        {
+                                                            characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
+                                                        };
+                                                    }
+                                                }
+                                            }
+                                            else if(sendRank == "Gold")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                                {
+                                                    if(characters[i].gold[cIndex].id == sendID)
+                                                    {
+                                                        if(characters[i].gold[cIndex].id == takeID)
+                                                        {
+                                                            characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount + 1;
+                                                        }
+
+                                                        if(characters[i].gold[cIndex].id == sendID)
+                                                        {
+                                                            characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if(sendRank == "Platinum")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
+                                                {
+                                                    if(characters[i].platinum[cIndex].id == sendID)
+                                                    {
+                                                        if(characters[i].platinum[cIndex].id == takeID)
+                                                        {
+                                                            characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount + 1;
+                                                        }
+
+                                                        if(characters[i].platinum[cIndex].id == sendID)
+                                                        {
+                                                            characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+            
+                                            for(var index = 0; index < characters.length; index++)
+                                            {
+                                                if(characters[index].id == user.id)
+                                                {
+                                                    if(takeRank == "Bronze")
+                                                    {   
+                                                        for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
+                                                        {
+                                                            if(characters[index].bronze[cIndex].id == takeID)
+                                                            {
+                                                                if(characters[index].bronze[cIndex].id == takeID)
+                                                                {
+                                                                    characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount - 1;
+                                                                }
+
+                                                                if(characters[index].bronze[cIndex].id == sendID)
+                                                                {
+                                                                    characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount + 1;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Silver")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
+                                                        {
+                                                            if(characters[index].silver[cIndex].id == takeID)
+                                                            {
+                                                                if(characters[index].silver[cIndex].id == takeID)
+                                                                {
+                                                                    characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount - 1;
+                                                                }
+
+                                                                if(characters[index].silver[cIndex].id == sendID)
+                                                                {
+                                                                    characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount + 1;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Gold")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
+                                                        {
+                                                            if(characters[index].gold[cIndex].id == takeID)
+                                                            {
+                                                                if(characters[index].gold[cIndex].id == takeID)
+                                                                {
+                                                                    characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount - 1;
+                                                                }
+
+                                                                if(characters[index].gold[cIndex].id == sendID)
+                                                                {
+                                                                    characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount + 1;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Platinum")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
+                                                        {
+                                                            if(characters[index].platinum[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount - 1;
+                                                            }
+
+                                                            if(characters[index].platinum[cIndex].id == sendID)
+                                                            {
+                                                                characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount + 1;
+                                                            }
+                                                        }
+                                                    } 
+                                                }
+                                            }
+
+                                            message.channel.send(`<@${message.author.id}> has accepted the trade request of <@${user.id}>\n<@${message.author.id}> has been given a ${takeRank} Ranked ${takeName}\n<@${user.id}> has been given a ${sendRank} Ranked ${sendName}`, {embed: {title: "***Trade Request Sent***", description: "<@" + user.id + "> Your trade request has been accepted by <@" + message.author.id + ">\n\n<@" + user.id + "> has been given a " + sendRank + " Ranked " + sendName + "\n<@" + message.author.id + "> has been given a " + takeRank + "Ranked " + takeName + ".", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                            message.channel.send(`<@${message.author.id}> Failed to accept trade request of <@${user.id}>`, {embed: {title: "***Failed To Accept Trade Request***", description: "<@" + othercharacterOwner + "> You must make sure that the cards being requested for the trade are owned by each respective user. This trade request is now invalid and will be deleted.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            
+                                        characters[i].trades.splice(tradeIndex, 1);
                                     }
-                                    else
-                                        message.channel.send(`<@${message.author.id}> Failed to accept trade request of <@${user.id}>`, {embed: {title: "***Failed To Accept Trade Request***", description: "<@" + othercharacterOwner + "> You must make sure that the cards being requested for the trade are owned by each respective user. This trade request is now invalid and will be deleted.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        
-                                    characters[i].trades.splice(tradeIndex, 1);
                                 }
                             }
 
@@ -824,14 +834,25 @@ class CCCommand extends command.Command
                             if(mentions.length > 0)
                                 user = mentions[0];
 
+                            var invalidTag = false;
+
+                            if(user == null || user == undefined)
+                                invalidTag = true;
+                            else if(user.bot)
+                                invalidTag = true;
+
                             var requestCheck = false;
-                            for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
+
+                            if(!invalidTag)
                             {
-                                if(characters[i].trades[tradeIndex].user == user.id)
+                                for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
                                 {
-                                    requestCheck = true;
-                                    characters[i].trades.splice(tradeIndex, 1);
-                                    message.channel.send("<@" + message.author.id + "> has declined the trade request of <@" + user.id + ">", {embed: {title: "***Trade Request Declined***", description: "<@" + user.id + "> Your trade request has been declined by <@" + message.author.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    if(characters[i].trades[tradeIndex].user == user.id)
+                                    {
+                                        requestCheck = true;
+                                        characters[i].trades.splice(tradeIndex, 1);
+                                        message.channel.send("<@" + message.author.id + "> has declined the trade request of <@" + user.id + ">", {embed: {title: "***Trade Request Declined***", description: "<@" + user.id + "> Your trade request has been declined by <@" + message.author.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }
                                 }
                             }
 
@@ -1018,7 +1039,14 @@ class CCCommand extends command.Command
                                 }
                             }
 
-                            if(sendRank == "" || sendID == "" || takeRank == "" || takeID == "" || user.bot)
+                            var invalidTag = false;
+
+                            if(user == null || user == undefined)
+                                invalidTag = true;
+                            else if(user.bot)
+                                invalidTag = true;
+
+                            if(sendRank == "" || sendID == "" || takeRank == "" || takeID == "" || invalidTag)
                             {
                                 message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must specify the characters you want to trade and tag a user to send a trade request. E.g: `" + commandPrefix + "cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`, `" + commandPrefix + "cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
@@ -1637,7 +1665,14 @@ class CCCommand extends command.Command
                                 if(mentions.length > 0)
                                     user = mentions[0];
 
-                                if(user != null && user != undefined && user.id != message.author.id && !user.bot)
+                                var invalidTag = false;
+
+                                if(user == null || user == undefined)
+                                    invalidTag = true;
+                                else if(user.bot)
+                                    invalidTag = true;
+
+                                if(user != null && user != undefined && user.id != message.author.id && !invalidTag)
                                 {
                                     var name = "Character With The ID " + ID
                                     for(var index = 0; index < database.length; index++)
