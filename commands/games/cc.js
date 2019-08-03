@@ -2174,16 +2174,20 @@ class CCCommand extends command.Command
                                 if(user.avatarURL != undefined && user.avatarURL != null)
                                     thumbnail = user.avatarURL
 
+                                var uniqueBronzeChars = 0, totalBronzeChars = 0;
+                                var uniqueSilverChars = 0, totalSilverChars = 0;
+                                var uniqueGoldChars = 0, totalGoldChars = 0;
+                                var uniquePlatinumChars = 0, totalPlatinumChars = 0;
+
+                                var totalUniqueChars = 0
+                                var totalChars = 0
+
                                 for(var characterIndex = 0; characterIndex < characters.length; characterIndex++)
                                 {
                                     if(characters[characterIndex].id == userID)
                                     {
                                         characterFound = true
-                                        var uniqueBronzeChars = 0, totalBronzeChars = 0;
-                                        var uniqueSilverChars = 0, totalSilverChars = 0;
-                                        var uniqueGoldChars = 0, totalGoldChars = 0;
-                                        var uniquePlatinumChars = 0, totalPlatinumChars = 0;
-
+                                        
                                         for(var index = 0; index < characters[characterIndex].bronze.length; index++)
                                         {
                                             totalBronzeChars = totalBronzeChars + characters[characterIndex].bronze[index].amount
@@ -2212,8 +2216,8 @@ class CCCommand extends command.Command
                                                 uniquePlatinumChars = uniquePlatinumChars + 1
                                         }
 
-                                        var totalUniqueChars = uniqueBronzeChars + uniqueSilverChars + uniqueGoldChars + uniquePlatinumChars
-                                        var totalChars = totalBronzeChars + totalSilverChars + totalGoldChars + totalPlatinumChars
+                                        totalUniqueChars = uniqueBronzeChars + uniqueSilverChars + uniqueGoldChars + uniquePlatinumChars
+                                        totalChars = totalBronzeChars + totalSilverChars + totalGoldChars + totalPlatinumChars
 
                                         message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + " (Shown in leaderboards - use `" + commandPrefix + "cc ranks`)\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
@@ -2221,7 +2225,7 @@ class CCCommand extends command.Command
 
                                 if(!characterFound)
                                 {
-                                        message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
