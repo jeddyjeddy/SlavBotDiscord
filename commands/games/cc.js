@@ -1484,7 +1484,7 @@ class CCCommand extends command.Command
                                                         {
                                                             userFound = true;
                                                             var characterFound = false;
-                                                            for(var sIndex = 0; sIndex < characterFound[sendIndex].bronze.length; sIndex++)
+                                                            for(var sIndex = 0; sIndex < characters[sendIndex].bronze.length; sIndex++)
                                                             {
                                                                 if(characters[sendIndex].bronze[sIndex].id == ID)
                                                                 {
@@ -1531,7 +1531,7 @@ class CCCommand extends command.Command
                                                         {
                                                             userFound = true;
                                                             var characterFound = false;
-                                                            for(var sIndex = 0; sIndex < characterFound[sendIndex].silver.length; sIndex++)
+                                                            for(var sIndex = 0; sIndex < characters[sendIndex].silver.length; sIndex++)
                                                             {
                                                                 if(characters[sendIndex].silver[sIndex].id == ID)
                                                                 {
@@ -1578,7 +1578,7 @@ class CCCommand extends command.Command
                                                         {
                                                             userFound = true;
                                                             var characterFound = false;
-                                                            for(var sIndex = 0; sIndex < characterFound[sendIndex].gold.length; sIndex++)
+                                                            for(var sIndex = 0; sIndex < characters[sendIndex].gold.length; sIndex++)
                                                             {
                                                                 if(characters[sendIndex].gold[sIndex].id == ID)
                                                                 {
@@ -1625,7 +1625,7 @@ class CCCommand extends command.Command
                                                         {
                                                             userFound = true;
                                                             var characterFound = false;
-                                                            for(var sIndex = 0; sIndex < characterFound[sendIndex].platinum.length; sIndex++)
+                                                            for(var sIndex = 0; sIndex < characters[sendIndex].platinum.length; sIndex++)
                                                             {
                                                                 if(characters[sendIndex].platinum[sIndex].id == ID)
                                                                 {
