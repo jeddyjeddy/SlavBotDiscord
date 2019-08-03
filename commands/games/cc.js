@@ -811,7 +811,7 @@ class CCCommand extends command.Command
                                                         }
                                                     } 
 
-                                                    if(sendID == "Bronze")
+                                                    if(sendRank == "Bronze")
                                                     {   
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
@@ -826,7 +826,7 @@ class CCCommand extends command.Command
                                                         if(notFound)
                                                             characters[index].bronze.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(sendID == "Silver")
+                                                    else if(sendRank == "Silver")
                                                     {
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
@@ -841,7 +841,7 @@ class CCCommand extends command.Command
                                                         if(notFound)
                                                             characters[index].silver.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(sendID == "Gold")
+                                                    else if(sendRank == "Gold")
                                                     {
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
@@ -856,7 +856,7 @@ class CCCommand extends command.Command
                                                         if(notFound)
                                                             characters[index].gold.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(sendID == "Platinum")
+                                                    else if(sendRank == "Platinum")
                                                     {
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
@@ -871,6 +871,8 @@ class CCCommand extends command.Command
                                                         if(notFound)
                                                             characters[index].platinum.push({id: sendID, amount: 1})
                                                     } 
+
+                                                    firebase.database().ref("characters/" + user.id).set(JSON.stringify(characters[index]))
                                                 }
                                             }
 
