@@ -136,7 +136,7 @@ class CCCommand extends command.Command
             name: "cc",
             group: "games",
             memberName: "cc",
-            description: "Play Calmaity Cards, where you purchase various characters of different ranks, including heroes and villains from the Marvel and DC universes. Buy character packs to collect all the unique characters. Try your best to get as many platinum characters as you can to increase your rank. Sell your characters to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
+            description: "Play Calmaity Cards, where you purchase various characters of different ranks, including heroes and villains from various universes such as the Marvel and DC universes. Buy character packs to collect all the unique characters. Try your best to get as many platinum characters as you can to increase your rank. Sell your characters to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
             examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
         });
     }
@@ -936,11 +936,11 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
@@ -1067,11 +1067,11 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
@@ -1198,11 +1198,11 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
@@ -1276,7 +1276,7 @@ class CCCommand extends command.Command
                             {
                                 if(!IndexRef.subtractTokens(message.author.id, platinumAmount))
                                 {
-                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Platinum Character. You need " + numberWithCommas(platinumAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Platinum Ranked Character. You need " + numberWithCommas(platinumAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {                                                
@@ -1380,11 +1380,11 @@ class CCCommand extends command.Command
 
                                             if(extraDetails == "")
                                             {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                             else
                                             {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
@@ -1403,7 +1403,7 @@ class CCCommand extends command.Command
                     }
                     else if(args.toLowerCase().startsWith("buy"))
                     {
-                        message.channel.send("", {embed: {title: "***Buying Characters***", description: "<@" + message.author.id + "> You can buy character packs using the following commands:\n\n`" + commandPrefix + "cc buy bronze` - Buy a Bronze Character Pack for " + numberWithCommas(bronzePrice) + " tokens.\n`" + commandPrefix + "cc buy silver` - Buy a Silver Character Pack for " + numberWithCommas(silverPrice) + " tokens.\n`" + commandPrefix + "cc buy gold` - Buy a Gold Character Pack for " + numberWithCommas(goldPrice) + " tokens.\n`" + commandPrefix + "cc buy platinum <character-id>` - Buy a Platinum Character for " + numberWithCommas(platinumPrice) + " tokens. Purchasing a platinum character requires you to have the bronze, gold and silver verions of the character. All 3 will be taken along with the required tokens for the purchase to be complete. You must specify the ID of the character you want for this rank.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("", {embed: {title: "***Buying Characters***", description: "<@" + message.author.id + "> You can buy character packs using the following commands:\n\n`" + commandPrefix + "cc buy bronze` - Buy a Bronze Character Pack for " + numberWithCommas(bronzePrice) + " tokens.\n`" + commandPrefix + "cc buy silver` - Buy a Silver Character Pack for " + numberWithCommas(silverPrice) + " tokens.\n`" + commandPrefix + "cc buy gold` - Buy a Gold Character Pack for " + numberWithCommas(goldPrice) + " tokens.\n`" + commandPrefix + "cc buy platinum <character-id>` - Buy a Platinum Ranked Character for " + numberWithCommas(platinumPrice) + " tokens. Purchasing a platinum ranked character requires you to have the bronze, gold and silver verions of the character. All 3 will be taken along with the required tokens for the purchase to be complete. You must specify the ID of the character you want for this rank.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                     }
                     else if(args.toLowerCase().startsWith("send"))
                     {
@@ -1511,7 +1511,7 @@ class CCCommand extends command.Command
                                                 }
                                                 else
                                                 {
-                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Bronze " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Bronze Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                         }
@@ -1554,11 +1554,11 @@ class CCCommand extends command.Command
                                                         firebase.database().ref("characters/" + user.id).set(JSON.stringify({id: user.id, bronze: [], silver: [{id: ID, amount: 1}], gold: [], platinum: [], trades: []}))
                                                     }
 
-                                                    message.channel.send("<@" + message.author.id + "> has sent a Silver " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Silver " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> has sent a Silver Ranked " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Silver " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                                 else
                                                 {
-                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Silver " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Silver Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                         }
@@ -1601,11 +1601,11 @@ class CCCommand extends command.Command
                                                         firebase.database().ref("characters/" + user.id).set(JSON.stringify({id: user.id, bronze: [], silver: [], gold: [{id: ID, amount: 1}], platinum: [], trades: []}))
                                                     }
 
-                                                    message.channel.send("<@" + message.author.id + "> has sent a Gold " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Gold " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> has sent a Gold Ranked " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Gold " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                                 else
                                                 {
-                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Gold " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Gold Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                         }
@@ -1648,11 +1648,11 @@ class CCCommand extends command.Command
                                                         firebase.database().ref("characters/" + user.id).set(JSON.stringify({id: user.id, bronze: [], silver: [], gold: [], platinum: [{id: ID, amount: 1}], trades: []}))
                                                     }
 
-                                                    message.channel.send("<@" + message.author.id + "> has sent a Platinum " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Platinum " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("<@" + message.author.id + "> has sent a Platinum Ranked " + name + " to <@" + user.id + ">", {embed: {title: "***Successfully Sent Character***", description: "<@" + message.author.id + "> You have sent a Platinum Ranked " + name + " to <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                                 else
                                                 {
-                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Platinum " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    message.channel.send("", {embed: {title: "***Character Send Failed**", description: "<@" + message.author.id + "> You do not own a Platinum Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                         }
@@ -1841,7 +1841,7 @@ class CCCommand extends command.Command
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, bronzePrice/10)
                                         
-                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Bronze " + name + " for " + numberWithCommas(bronzePrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Bronze Ranked " + name + " for " + numberWithCommas(bronzePrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                         characters[i].bronze[characterIndex].amount = characters[i].bronze[characterIndex].amount - 1
                                     }
@@ -1850,7 +1850,7 @@ class CCCommand extends command.Command
 
                             if(!characterFound)
                             {
-                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Bronze " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Bronze Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
@@ -1903,7 +1903,7 @@ class CCCommand extends command.Command
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, silverPrice/10)
                                         
-                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Silver " + name + " for " + numberWithCommas(silverPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Silver Ranked " + name + " for " + numberWithCommas(silverPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                         characters[i].silver[characterIndex].amount = characters[i].silver[characterIndex].amount - 1
                                     }
@@ -1912,7 +1912,7 @@ class CCCommand extends command.Command
 
                             if(!characterFound)
                             {
-                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Silver " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Silver Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
@@ -1965,7 +1965,7 @@ class CCCommand extends command.Command
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, goldPrice/10)
                                         
-                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Gold " + name + " for " + numberWithCommas(goldPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Gold Ranked " + name + " for " + numberWithCommas(goldPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                         characters[i].gold[characterIndex].amount = characters[i].gold[characterIndex].amount - 1
                                     }
@@ -1974,7 +1974,7 @@ class CCCommand extends command.Command
 
                             if(!characterFound)
                             {
-                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Gold " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Gold Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
@@ -2027,7 +2027,7 @@ class CCCommand extends command.Command
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, platinumPrice/10)
                                         
-                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Platinum " + name + " for " + numberWithCommas(platinumPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Successfully Sold Character***", description: "<@" + message.author.id + "> You have sold a Platinum Ranked " + name + " for " + numberWithCommas(platinumPrice/10) + " tokens. You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
     
                                         characters[i].platinum[characterIndex].amount = characters[i].platinum[characterIndex].amount - 1
                                     }
@@ -2036,7 +2036,7 @@ class CCCommand extends command.Command
 
                             if(!characterFound)
                             {
-                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Platinum " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Character Not Owned***", description: "<@" + message.author.id + "> You do not own a Platinum Ranked " + name + ".", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
@@ -2046,7 +2046,7 @@ class CCCommand extends command.Command
                     }
                     else if(args.toLowerCase().startsWith("sell"))
                     {
-                        message.channel.send("", {embed: {title: "***Selling Characters***", description: "<@" + message.author.id + "> You can sell characters you own using the following commands:\n\n`" + commandPrefix + "cc sell bronze <character-id>` - Sell a Bronze Character you own and receive " + numberWithCommas(bronzePrice/10) + " tokens.\n`" + commandPrefix + "cc sell silver <character-id>` - Sell a Silver Character you own and receive " + numberWithCommas(silverPrice/10) + " tokens.\n`" + commandPrefix + "cc sell gold <character-id>` - Sell a Gold Character you own and receive " + numberWithCommas(goldPrice/10) + " tokens.\n`" + commandPrefix + "cc sell platinum <character-id>` - Sell a Platinum Character you own and receive " + numberWithCommas(platinumPrice/10) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                        message.channel.send("", {embed: {title: "***Selling Characters***", description: "<@" + message.author.id + "> You can sell characters you own using the following commands:\n\n`" + commandPrefix + "cc sell bronze <character-id>` - Sell a Bronze Ranked Character you own and receive " + numberWithCommas(bronzePrice/10) + " tokens.\n`" + commandPrefix + "cc sell silver <character-id>` - Sell a Silver Ranked Character you own and receive " + numberWithCommas(silverPrice/10) + " tokens.\n`" + commandPrefix + "cc sell gold <character-id>` - Sell a Gold Ranked Character you own and receive " + numberWithCommas(goldPrice/10) + " tokens.\n`" + commandPrefix + "cc sell platinum <character-id>` - Sell a Platinum Ranked Character you own and receive " + numberWithCommas(platinumPrice/10) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                     }
                     else if(args.toLowerCase().startsWith("ranks"))
                     {
