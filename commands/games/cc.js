@@ -137,7 +137,7 @@ class CCCommand extends command.Command
             name: "cc",
             group: "games",
             memberName: "cc",
-            description: "Play Calamity Cards, a trading card game where you can purchase various comic book Heroes and Villains from Marvel, DC and more. Buy character packs to collect all of the unique characters. Try your best to get as many platinum characters as you can to increase your rank and sell your unwanted cards to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org, Daily Spins after voting (one spin per day) and by participating in token giveaways on the Slav Support server. Tokens can also be earned by buying Supporter Roles on the Slav Support server, or by becoming a Patreon Supporter where you will be entitled to receive tokens on a weekly basis.",
+            description: "Play Calamity Cards, a trading card game where you can purchase various Heroes and Villains from comic books, movies, TV shows and more. Buy character packs to collect all of the unique characters. Try your best to get as many platinum characters as you can to increase your rank and sell your unwanted cards to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org, Daily Spins after voting (one spin per day) and by participating in token giveaways on the Slav Support server. Tokens can also be earned by buying Supporter Roles on the Slav Support server, or by becoming a Patreon Supporter where you will be entitled to receive tokens on a weekly basis.",
             examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
         });
     }
@@ -520,183 +520,323 @@ class CCCommand extends command.Command
                             message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                         }
                     }
-                   /* else if (args.toLowerCase().startsWith("trade"))
+                    else if (args.toLowerCase().startsWith("trade"))
                     {
-                        var timestamp = (new Date(Date.now()).toJSON());
+                        const timestamp = (new Date(Date.now()).toJSON());
 
                         if(args.toLowerCase().startsWith("trade accept"))
                         {
+                            var user;
                             var mentions = message.mentions.users.array()
-                            var requestUser = ""
-                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+
+                            if(mentions.length > 0)
+                                user = mentions[0];
+
+                            var requestCheck = false;
+                            for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
                             {
-                                if(!mentions[mentionIndex].isBot && mentions[mentionIndex].id != message.author.id)
+                                if(characters[i].trades[tradeIndex].user == user.id)
                                 {
-                                    for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
+                                    requestCheck = true;
+                                    var sendRank = characters[i].trades[tradeIndex].send.rank, sendID = characters[i].trades[tradeIndex].send.id, takeRank = characters[i].trades[tradeIndex].take.rank, takeID = characters[i].trades[tradeIndex].take.id
+
+                                    var takeCheck = false, sendCheck = false, requestCheck = true;;
+
+                                    if(sendRank == "Bronze")
                                     {
-                                        if(characters[i].users[characterIndex].id == mentions[mentionIndex].id)
+                                        for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
                                         {
-                                            if(requestUser == "")
+                                            if(characters[i].bronze[cIndex].id == sendID)
                                             {
-                                                requestUser = characters[i].users[characterIndex].id
+                                                if(characters[i].bronze[cIndex].amount > 0)
+                                                    takeCheck = true;
                                             }
                                         }
                                     }
+                                    else if(sendRank == "Silver")
+                                    {
+                                        for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                        {
+                                            if(characters[i].silver[cIndex].id == sendID)
+                                            {
+                                                if(characters[i].silver[cIndex].amount > 0)
+                                                    takeCheck = true;
+                                            }
+                                        }
+                                    }
+                                    else if(sendRank == "Gold")
+                                    {
+                                        for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                        {
+                                            if(characters[i].gold[cIndex].id == sendID)
+                                            {
+                                                if(characters[i].gold[cIndex].amount > 0)
+                                                    takeCheck = true;
+                                            }
+                                        }
+                                    }
+                                    else if(sendRank == "Platinum")
+                                    {
+                                        for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
+                                        {
+                                            if(characters[i].platinum[cIndex].id == sendID)
+                                            {
+                                                if(characters[i].platinum[cIndex].amount > 0)
+                                                    takeCheck = true;
+                                            }
+                                        }
+                                    }
+    
+                                    for(var index = 0; index < characters.length; index++)
+                                    {
+                                        if(characters[index].id == user.id)
+                                        {
+                                            if(takeRank == "Bronze")
+                                            {   
+                                                for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
+                                                {
+                                                    if(characters[index].bronze[cIndex].id == takeID)
+                                                    {
+                                                        if(characters[index].bronze[cIndex].amount > 0)
+                                                            sendCheck = true;
+                                                    }
+                                                }
+                                            }
+                                            else if(takeRank == "Silver")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
+                                                {
+                                                    if(characters[index].silver[cIndex].id == takeID)
+                                                    {
+                                                        if(characters[index].silver[cIndex].amount > 0)
+                                                            sendCheck = true;
+                                                    }
+                                                }
+                                            }
+                                            else if(takeRank == "Gold")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
+                                                {
+                                                    if(characters[index].gold[cIndex].id == takeID)
+                                                    {
+                                                        if(characters[index].gold[cIndex].amount > 0)
+                                                            sendCheck = true;
+                                                    }
+                                                }
+                                            }
+                                            else if(takeRank == "Platinum")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
+                                                {
+                                                    if(characters[index].platinum[cIndex].id == takeID)
+                                                    {
+                                                        if(characters[index].platinum[cIndex].amount > 0)
+                                                            sendCheck = true;
+                                                    }
+                                                }
+                                            } 
+                                        }
+                                    }
+    
+                                    if(takeCheck && sendCheck)
+                                    {
+                                        var sendName = "ID - " + sendID,
+                                        takeName = "ID - " + takeID
+                                        for(var index = 0; index < database.length; index++)
+                                        {
+                                            if(database[index].id == sendID)
+                                            {
+                                                sendName = database[index].name
+                                            }
+        
+                                            if(database[index].id == takeID)
+                                            {
+                                                takeName = database[index].name
+                                            }
+                                        }
+
+                                        if(sendRank == "Bronze")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                                            {
+                                                if(characters[i].bronze[cIndex].id == sendID)
+                                                {
+                                                    if(characters[i].bronze[cIndex].id == takeID)
+                                                    {
+                                                        characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount + 1;
+                                                    }
+
+                                                    if(characters[i].bronze[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Silver")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                            {
+                                                if(characters[i].silver[cIndex].id == sendID)
+                                                {
+                                                    if(characters[i].silver[cIndex].id == takeID)
+                                                    {
+                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount + 1;
+                                                    }
+
+                                                    if(characters[i].silver[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
+                                                    };
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Gold")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                            {
+                                                if(characters[i].gold[cIndex].id == sendID)
+                                                {
+                                                    if(characters[i].gold[cIndex].id == takeID)
+                                                    {
+                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount + 1;
+                                                    }
+
+                                                    if(characters[i].gold[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Platinum")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
+                                            {
+                                                if(characters[i].platinum[cIndex].id == sendID)
+                                                {
+                                                    if(characters[i].platinum[cIndex].id == takeID)
+                                                    {
+                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount + 1;
+                                                    }
+
+                                                    if(characters[i].platinum[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+        
+                                        for(var index = 0; index < characters.length; index++)
+                                        {
+                                            if(characters[index].id == user.id)
+                                            {
+                                                if(takeRank == "Bronze")
+                                                {   
+                                                    for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
+                                                    {
+                                                        if(characters[index].bronze[cIndex].id == takeID)
+                                                        {
+                                                            if(characters[index].bronze[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount - 1;
+                                                            }
+
+                                                            if(characters[index].bronze[cIndex].id == sendID)
+                                                            {
+                                                                characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount + 1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if(takeRank == "Silver")
+                                                {
+                                                    for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
+                                                    {
+                                                        if(characters[index].silver[cIndex].id == takeID)
+                                                        {
+                                                            if(characters[index].silver[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount - 1;
+                                                            }
+
+                                                            if(characters[index].silver[cIndex].id == sendID)
+                                                            {
+                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount + 1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if(takeRank == "Gold")
+                                                {
+                                                    for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
+                                                    {
+                                                        if(characters[index].gold[cIndex].id == takeID)
+                                                        {
+                                                            if(characters[index].gold[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount - 1;
+                                                            }
+
+                                                            if(characters[index].gold[cIndex].id == sendID)
+                                                            {
+                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount + 1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if(takeRank == "Platinum")
+                                                {
+                                                    for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
+                                                    {
+                                                        if(characters[index].platinum[cIndex].id == takeID)
+                                                        {
+                                                            characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount - 1;
+                                                        }
+
+                                                        if(characters[index].platinum[cIndex].id == sendID)
+                                                        {
+                                                            characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount + 1;
+                                                        }
+                                                    }
+                                                } 
+                                            }
+                                        }
+
+                                        message.channel.send(`<@${message.author.id}> has accepted the trade request of <@${user.id}>\n<@${message.author.id}> has been given a ${takeRank} Ranked ${takeName}\n<@${user.id}> has been given a ${sendRank} Ranked ${sendName}`, {embed: {title: "***Trade Request Sent***", description: "<@" + user.id + "> Your trade request has been accepted by <@" + message.author.id + ">\n\n<@" + user.id + "> has been given a " + sendRank + " Ranked " + sendName + "\n<@" + message.author.id + "> has been given a " + takeRank + "Ranked " + takeName + ".", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }
+                                    else
+                                        message.channel.send(`<@${message.author.id}> Failed to accept trade request of <@${user.id}>`, {embed: {title: "***Failed To Accept Trade Request***", description: "<@" + othercharacterOwner + "> You must make sure that the cards being requested for the trade are owned by each respective user. This trade request is now invalid and will be deleted.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        
+                                    characters[i].trades.splice(tradeIndex, 1);
                                 }
                             }
 
-                            if(requestUser == "")
-                            {
-                                message.channel.send("", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> Please tag a user who has sent a request to you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                            }
-                            else
-                            {
-                                for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
-                                {
-                                    if(characters[i].users[characterIndex].id == message.author.id)
-                                    {
-                                        if(characters[i].users[characterIndex].requests == null || characters[i].users[characterIndex].requests == undefined)
-                                        {
-                                            message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }
-                                        else
-                                        {
-                                            var requestFound = false;
-                                            var notValid = false;
-                                            var indexToRemove = -1;
-                                            for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
-                                            {
-                                                if(characters[i].users[characterIndex].requests[requestIndex].user == requestUser)
-                                                {
-                                                    requestFound = true;
-
-                                                    for(var characterIndex2 = 0; characterIndex2 < characters[i].users.length; characterIndex2++)
-                                                    {
-                                                        if(characters[i].users[characterIndex2].id == characters[i].users[characterIndex].requests[requestIndex].characterGiven)
-                                                        {
-                                                            if(characters[i].users[characterIndex2].owner != requestUser)
-                                                                notValid = true;
-                                                        }
-                                                        else if(characters[i].users[characterIndex2].id == characters[i].users[characterIndex].requests[requestIndex].characterTaken)
-                                                        {
-                                                            if(characters[i].users[characterIndex2].owner != message.author.id)
-                                                                notValid = true;
-                                                        }
-                                                    }
-
-                                                    if(notValid)
-                                                    {
-                                                        message.channel.send("<@" + message.author.id + "> The trade request is no longer valid.", {embed: {title: "***Trade Request Invalid***", description: "The trade request of <@" + requestUser + "> is invalid as the owners of one or more of the characters have changed.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                    }
-                                                    else
-                                                    {
-                                                        for(var characterIndex2 = 0; characterIndex2 < characters[i].users.length; characterIndex2++)
-                                                        {
-                                                            if(characters[i].users[characterIndex2].id == characters[i].users[characterIndex].requests[requestIndex].characterGiven)
-                                                            {
-                                                                characters[i].users[characterIndex2].owner = message.author.id
-                                                            }
-                                                            else if(characters[i].users[characterIndex2].id == characters[i].users[characterIndex].requests[requestIndex].characterTaken)
-                                                            {
-                                                                characters[i].users[characterIndex2].owner = requestUser
-                                                            }
-                                                        }
-                                                        message.channel.send("<@" + requestUser + "> now owns <@" + characters[i].users[characterIndex].requests[requestIndex].characterTaken + ">\n<@" + message.author.id + "> now owns <@" + characters[i].users[characterIndex].requests[requestIndex].characterGiven + ">", {embed: {title: "***Trade Request Accepted***", description: "<@" + message.author.id + "> has accepted the trade request of <@" + requestUser + ">", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                    }
-                                                    
-                                                    indexToRemove = requestIndex
-                                                }
-                                            }
-
-                                            if(!requestFound)
-                                                message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            else
-                                            {
-                                                var newRequests = []
-                                                for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
-                                                {
-                                                    if(requestIndex != indexToRemove)
-                                                    {
-                                                        newRequests.push(characters[i].users[characterIndex].requests[requestIndex])
-                                                    }
-                                                }
-
-                                                characters[i].users[characterIndex].requests = newRequests
-                                            }
-                                        }
-                                    }
-                                } 
-                            }
+                            if(!requestCheck)
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else if(args.toLowerCase().startsWith("trade decline"))
                         {
+                            var user;
                             var mentions = message.mentions.users.array()
-                            var requestUser = ""
-                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+
+                            if(mentions.length > 0)
+                                user = mentions[0];
+
+                            var requestCheck = false;
+                            for(var tradeIndex = 0; tradeIndex < characters[i].trades.length; tradeIndex++)
                             {
-                                if(!mentions[mentionIndex].isBot && mentions[mentionIndex].id != message.author.id)
+                                if(characters[i].trades[tradeIndex].user == user.id)
                                 {
-                                    for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
-                                    {
-                                        if(characters[i].users[characterIndex].id == mentions[mentionIndex].id)
-                                        {
-                                            if(requestUser == "")
-                                            {
-                                                requestUser = characters[i].users[characterIndex].id
-                                            }
-                                        }
-                                    }
+                                    requestCheck = true;
+                                    characters[i].trades.splice(tradeIndex, 1);
+                                    message.channel.send("<@" + message.author.id + "> has declined the trade request of <@" + user.id + ">", {embed: {title: "***Trade Request Declined***", description: "<@" + user.id + "> Your trade request has been declined by <@" + message.author.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
 
-                            if(requestUser == "")
-                            {
-                                message.channel.send("", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> Please tag a user who has sent a request to you.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                            }
-                            else
-                            {
-                                for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
-                                {
-                                    if(characters[i].users[characterIndex].id == message.author.id)
-                                    {
-                                        if(characters[i].users[characterIndex].requests == null || characters[i].users[characterIndex].requests == undefined)
-                                        {
-                                            message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }
-                                        else
-                                        {
-                                            var requestFound = false;
-                                            var indexToRemove = -1;
-
-                                            for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
-                                            {
-                                                if(characters[i].users[characterIndex].requests[requestIndex].user == requestUser)
-                                                {
-                                                    requestFound = true;
-                                                    message.channel.send("<@" + requestUser + ">", {embed: {title: "***Trade Request Denied***", description: "<@" + message.author.id + "> has denied the trade request of <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                    indexToRemove = requestIndex
-                                                }
-                                            }
-
-                                            if(!requestFound)
-                                                message.channel.send("", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + requestUser + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            else
-                                            {
-                                                var newRequests = []
-                                                for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
-                                                {
-                                                    if(requestIndex != indexToRemove)
-                                                    {
-                                                        newRequests.push(characters[i].users[characterIndex].requests[requestIndex])
-                                                    }
-                                                }
-
-                                                characters[i].users[characterIndex].requests = newRequests
-                                            }
-                                        }
-                                    }
-                                } 
-                            }
+                            if(!requestCheck)
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else if(args.toLowerCase().startsWith("trade list"))
                         {
@@ -726,7 +866,7 @@ class CCCommand extends command.Command
 
                                 for(var requestIndex = 0; requestIndex < characters[i].trades.length; requestIndex++)
                                 {
-                                    var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].trades[requestIndex].user + "> has requested to trade a " + characters[i].trades[requestIndex].send.rank + " " + sendName + " (ID - " + characters[i].trades[requestIndex].send.id + ") for a " + characters[i].trades[requestIndex].take.rank + " " + takeName + " (ID - " + characters[i].trades[requestIndex].take.id + ")"
+                                    var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].trades[requestIndex].user + "> has requested to trade your " + characters[i].trades[requestIndex].send.rank + " " + sendName + " (ID - " + characters[i].trades[requestIndex].send.id + ") for a " + characters[i].trades[requestIndex].take.rank + " " + takeName + " (ID - " + characters[i].trades[requestIndex].take.id + ")"
                                     if((item + text + "\n\n").length < 2048)
                                     {
                                         item = item + text + "\n\n";
@@ -785,8 +925,8 @@ class CCCommand extends command.Command
 
                             if(parameters.length > 1)
                             {
-                                var sendParam = parameters[0]
-                                var takeParam = parameters[1]
+                                var sendParam = parameters[1]
+                                var takeParam = parameters[0]
 
                                 if(sendParam.startsWith("bronze"))
                                 {
@@ -880,21 +1020,151 @@ class CCCommand extends command.Command
 
                             if(sendRank == "" || sendID == "" || takeRank == "" || takeID == "" || user.bot)
                             {
-                                message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must specify the characters you want to trade and tag a user to send a trade request. E.g: `" + commandPrefix + "cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`, `" + commandPrefix + "cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must specify the characters you want to trade and tag a user to send a trade request. E.g: `" + commandPrefix + "cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`, `" + commandPrefix + "cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
-                                var canSend = false;
+                                var takeCheck = false, sendCheck = false, requestCheck = true;;
 
-                                
+                                if(takeRank == "Bronze")
+                                {
+                                    for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                                    {
+                                        if(characters[i].bronze[cIndex].id == takeID)
+                                        {
+                                            if(characters[i].bronze[cIndex].amount > 0)
+                                                takeCheck = true;
+                                        }
+                                    }
+                                }
+                                else if(takeRank == "Silver")
+                                {
+                                    for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                    {
+                                        if(characters[i].silver[cIndex].id == takeID)
+                                        {
+                                            if(characters[i].silver[cIndex].amount > 0)
+                                                takeCheck = true;
+                                        }
+                                    }
+                                }
+                                else if(takeRank == "Gold")
+                                {
+                                    for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                    {
+                                        if(characters[i].gold[cIndex].id == takeID)
+                                        {
+                                            if(characters[i].gold[cIndex].amount > 0)
+                                                takeCheck = true;
+                                        }
+                                    }
+                                }
+                                else if(takeRank == "Platinum")
+                                {
+                                    for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
+                                    {
+                                        if(characters[i].platinum[cIndex].id == takeID)
+                                        {
+                                            if(characters[i].platinum[cIndex].amount > 0)
+                                                takeCheck = true;
+                                        }
+                                    }
+                                }
 
-                                if(canSend)
-                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                var userExists = false;
+                                for(var index = 0; index < characters.length; index++)
+                                {
+                                    if(characters[index].id == user.id)
+                                    {
+                                        userExists = true;
+                                        if(sendRank == "Bronze")
+                                        {   
+                                            for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
+                                            {
+                                                if(characters[index].bronze[cIndex].id == sendID)
+                                                {
+                                                    if(characters[index].bronze[cIndex].amount > 0)
+                                                        sendCheck = true;
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Silver")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
+                                            {
+                                                if(characters[index].silver[cIndex].id == sendID)
+                                                {
+                                                    if(characters[index].silver[cIndex].amount > 0)
+                                                        sendCheck = true;
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Gold")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
+                                            {
+                                                if(characters[index].gold[cIndex].id == sendID)
+                                                {
+                                                    if(characters[index].gold[cIndex].amount > 0)
+                                                        sendCheck = true;
+                                                }
+                                            }
+                                        }
+                                        else if(sendRank == "Platinum")
+                                        {
+                                            for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
+                                            {
+                                                if(characters[index].platinum[cIndex].id == sendID)
+                                                {
+                                                    if(characters[index].platinum[cIndex].amount > 0)
+                                                        sendCheck = true;
+                                                }
+                                            }
+                                        } 
+
+                                        for(var tradeIndex = 0; tradeIndex < characters[index].trades.length; tradeIndex++)
+                                        {
+                                            if(characters[index].trades[tradeIndex].user == message.author.id)
+                                            {
+                                                requestCheck = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(takeCheck && sendCheck && requestCheck && userExists)
+                                {
+                                    for(var index = 0; index < characters.length; index++)
+                                    {
+                                        if(characters[index].id == user.id)
+                                        {
+                                            characters[index].trades.push({user: message.author.id, send: {rank: sendRank, id: sendID}, take: {rank: takeRank, id: takeID}})
+                                            firebase.database().ref("characters/" + user.id).set(JSON.stringify(characters[index]))
+                                        }
+                                    }
+
+                                    var sendName = "ID - " + sendID,
+                                    takeName = "ID - " + takeID
+                                    for(var index = 0; index < database.length; index++)
+                                    {
+                                        if(database[index].id == sendID)
+                                        {
+                                            sendName = database[index].name
+                                        }
+    
+                                        if(database[index].id == takeID)
+                                        {
+                                            takeName = database[index].name
+                                        }
+                                    }
+
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${user.id}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + user.id + "> You have been sent a trade request from <@" + message.author.id + "> to trade your " + sendRank + " Ranked " + sendName + " for their " + takeRank + "Ranked " + takeName + ".\n\nTo accept this trade, use the command `" + commandPrefix + "cc trade accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc trade decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
                                 else
-                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send(`<@${message.author.id}> Failed to send trade request.`, {embed: {title: "***Failed To Send Trade Request***", description: "<@" + othercharacterOwner + "> You must make sure that the cards being requested for the trade are owned by each respective user. If the user already has a trade request from you that they have not responded to, you must wait until they respond.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
-                    }*/
+                    }
                     else if (args.toLowerCase().startsWith("buy bronze"))
                     {
                         const timestamp = (new Date(Date.now()).toJSON());
