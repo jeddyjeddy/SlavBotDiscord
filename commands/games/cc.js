@@ -178,7 +178,7 @@ class CCCommand extends command.Command
         setImmediate(() => {
             for(var i = 0; i < characters.length; i++)
             {
-                if(characters[i].key == message.author.id)
+                if(characters[i].id == message.author.id)
                 {
                     if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("generate"))
                     {
