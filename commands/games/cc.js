@@ -821,10 +821,14 @@ class CCCommand extends command.Command
                                         characters[i].trades.splice(tradeIndex, 1);
                                     }
                                 }
-                            }
 
-                            if(!requestCheck)
-                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                if(!requestCheck)
+                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> You must tag another user to accept their trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                         else if(args.toLowerCase().startsWith("trade decline"))
                         {
@@ -854,10 +858,14 @@ class CCCommand extends command.Command
                                         message.channel.send("<@" + message.author.id + "> has declined the trade request of <@" + user.id + ">", {embed: {title: "***Trade Request Declined***", description: "<@" + user.id + "> Your trade request has been declined by <@" + message.author.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
-                            }
 
-                            if(!requestCheck)
-                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                if(!requestCheck)
+                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No Trade Request Found***", description: "<@" + message.author.id + "> You do not have any trade requests from <@" + user.id + ">", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***No User Tagged***", description: "<@" + message.author.id + "> You must tag another user to decline their trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
                         }
                         else if(args.toLowerCase().startsWith("trade list"))
                         {
