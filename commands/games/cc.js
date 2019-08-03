@@ -2109,7 +2109,7 @@ class CCCommand extends command.Command
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
                                 message.channel.send("", {embed: {title: "**Global Calamity Characters Leaderboard - Top 10 players :trophy:**",
-                                description: "**Rank** - Number of Platinum Characters Owned - Name\n" + descriptionList + "\n\nFiltered from a total of " + numberWithCommas(characters.length) + " players.",
+                                description: "**Rank** - Number of Platinum Characters Owned - Name\n" + descriptionList + "\nFiltered from a total of " + numberWithCommas(characters.length) + " players.",
                                 color: 16757505,
                                 timestamp: timestamp,
                                 footer: {
@@ -2315,6 +2315,8 @@ class CCCommand extends command.Command
                             }
                         }
 
+                        item = item + "\n"
+
                         for(var index = 0; index < characters[i].silver.length; index++)
                         {
                             var ID = characters[i].silver[index].id
@@ -2339,6 +2341,8 @@ class CCCommand extends command.Command
                             }
                         }
 
+                        item = item + "\n"
+
                         for(var index = 0; index < characters[i].gold.length; index++)
                         {
                             var ID = characters[i].gold[index].id
@@ -2362,6 +2366,8 @@ class CCCommand extends command.Command
                                 item = "Rank - Character Name - ID - Copies Owned\n"
                             }
                         }
+
+                        item = item + "\n"
 
                         for(var index = 0; index < characters[i].platinum.length; index++)
                         {
