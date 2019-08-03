@@ -936,12 +936,12 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             }
@@ -1067,12 +1067,12 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 7566195, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             }
@@ -1198,12 +1198,12 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             }
@@ -1380,12 +1380,12 @@ class CCCommand extends command.Command
 
                                             if(extraDetails == "")
                                             {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                             else
                                             {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                         }
                                     }
@@ -1781,12 +1781,12 @@ class CCCommand extends command.Command
 
                                     if(extraDetails == "")
                                     {
-                                        message.channel.send("***" + database[index].name + " - " + database[index].id + "***", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: details, color: 8388863, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***" + database[index].name + " - " + database[index].id + "***", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: details, color: 8388863, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                     else
                                     {
-                                        message.channel.send("***" + database[index].name + " - " + database[index].id + "***", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: details, color: 8388863, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 8388863, timestamp: timestamp, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("***" + database[index].name + " - " + database[index].id + "***", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: details, color: 8388863, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 8388863, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             }
