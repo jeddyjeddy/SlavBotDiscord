@@ -10,7 +10,7 @@ var dataInit = false;
 
 var database = []
 const fs = require('fs')
-database = JSON.parse(fs.readFileSync("../../characters.json"))
+database = JSON.parse(fs.readFileSync("characters.json"))
 
 const bronzePrice = 10000, silverPrice = 100000, goldPrice = 1000000, platinumPrice = 10000000;
 
