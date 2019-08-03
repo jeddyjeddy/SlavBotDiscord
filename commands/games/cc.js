@@ -2283,9 +2283,8 @@ class CCCommand extends command.Command
                     }
                     else if(args.toLowerCase().startsWith("list"))
                     {
-
                         var lists = []
-                        var item = "Rank - Character Name - ID - Copies Owned\n"
+                        var item = "***Rank - Character Name - ID - Copies Owned***\n"
 
                         characters[i].bronze.sort(rankAscendingIDs)
                         characters[i].silver.sort(rankAscendingIDs)
@@ -2294,6 +2293,7 @@ class CCCommand extends command.Command
 
                         for(var index = 0; index < characters[i].bronze.length; index++)
                         {
+                            var ID = characters[i].bronze[index].id
                             var name = "character with the ID " + ID
                             for(var nameIndex = 0; nameIndex < database.length; nameIndex++)
                             {
@@ -2317,6 +2317,7 @@ class CCCommand extends command.Command
 
                         for(var index = 0; index < characters[i].silver.length; index++)
                         {
+                            var ID = characters[i].silver[index].id
                             var name = "character with the ID " + ID
                             for(var nameIndex = 0; nameIndex < database.length; nameIndex++)
                             {
@@ -2340,6 +2341,7 @@ class CCCommand extends command.Command
 
                         for(var index = 0; index < characters[i].gold.length; index++)
                         {
+                            var ID = characters[i].gold[index].id
                             var name = "character with the ID " + ID
                             for(var nameIndex = 0; nameIndex < database.length; nameIndex++)
                             {
@@ -2363,6 +2365,7 @@ class CCCommand extends command.Command
 
                         for(var index = 0; index < characters[i].platinum.length; index++)
                         {
+                            var ID = characters[i].platinum[index].id
                             var name = "character with the ID " + ID
                             for(var nameIndex = 0; nameIndex < database.length; nameIndex++)
                             {
