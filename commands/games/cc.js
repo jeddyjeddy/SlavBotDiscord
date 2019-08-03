@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var IndexRef = require("../../index.js")
-var characters = [{id: "", bronze: [{id: "", amount: 0}], silver: [], gold: [], platinum: [], trades: []}];
+var characters = [{id: "", bronze: [{id: "", amount: 0}], silver: [], gold: [], platinum: [], trades: [{user: "", send: {rank: "", id: ""}, take: {rank: "", id: ""}}]}];
 var firebase = require("firebase");
 var signedIntoFirebase = false;
 var listening = false;
@@ -700,57 +700,60 @@ class CCCommand extends command.Command
                         }
                         else if(args.toLowerCase().startsWith("trade list"))
                         {
-                            for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
+                            if(characters[i].trades == null || characters[i].trades == undefined || characters[i].trades.length == 0)
                             {
-                                if(characters[i].users[characterIndex].id == message.author.id)
+                                message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                            else
+                            {
+                                var lists = []
+                                var item = ""
+
+                                var name = "ID - " + ID
+                                for(var index = 0; index < database.length; index++)
                                 {
-                                    if(characters[i].users[characterIndex].requests == null || characters[i].users[characterIndex].requests == undefined)
+                                    if(database[index].id == ID)
                                     {
-                                        message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        name = database[index].name
+                                    }
+                                }
+
+                                for(var requestIndex = 0; requestIndex < characters[i].trades.length; requestIndex++)
+                                {
+                                    var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].trades[requestIndex].user + "> has requested to trade a " + characters[i].trades[requestIndex].send.rank + " " + characters[i].trades[requestIndex].send.id + " for <@" + characters[i].users[characterIndex].requests[requestIndex].characterGiven + ">"
+                                    if((item + text + "\n\n").length < 2048)
+                                    {
+                                        item = item + text + "\n\n";
                                     }
                                     else
                                     {
-                                        var lists = []
-                                        var item = ""
+                                        lists.push(item);
+                                    }
+                                }
 
-                                        for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
+                                if(item != "")
+                                {
+                                    lists.push(item)
+                                }
+                                
+                                if(lists.length == 0)
+                                {
+                                    message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                                else
+                                {
+                                    var members = message.guild.members.array()
+                                    for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                    {
+                                        for(var index = 0; index < lists.length; index++)
                                         {
-                                            var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].users[characterIndex].requests[requestIndex].user + "> has requested to trade <@" + characters[i].users[characterIndex].requests[requestIndex].characterTaken + "> for <@" + characters[i].users[characterIndex].requests[requestIndex].characterGiven + ">"
-                                            if((item + text + "\n\n").length < 2048)
-                                            {
-                                                item = item + text + "\n\n";
-                                            }
-                                            else
-                                            {
-                                                lists.push(item);
-                                            }
+                                            lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
                                         }
+                                    }
 
-                                        if(item != "")
-                                        {
-                                            lists.push(item)
-                                        }
-                                        
-                                        if(lists.length == 0)
-                                        {
-                                            message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }
-                                        else
-                                        {
-                                            var members = message.guild.members.array()
-                                            for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
-                                            {
-                                                for(var index = 0; index < lists.length; index++)
-                                                {
-                                                    lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
-                                                }
-                                            }
-
-                                            for(var index = 0; index < lists.length; index++)
-                                            {
-                                                message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            }
-                                        }
+                                    for(var index = 0; index < lists.length; index++)
+                                    {
+                                        message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
                             }
@@ -854,7 +857,7 @@ class CCCommand extends command.Command
                             {
                                 if(database[index].id == ID)
                                 {
-                                    var details = "", extraDetails = "";
+                                    var details = "";
                                     var bronzeAmount = 0, silverAmount = 0, goldAmount = 0, platinumAmount = 0;
 
                                     for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
@@ -892,58 +895,9 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
+                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
-                                    Object.keys(database[index]).forEach(function(key) {
-                                        var val = database[index][key];
-                                        if(typeof val == "object" && key != "image")
-                                        {
-                                            var heading = toTitleCase(key.replace(/-/g, " "))
-                                            details = details + "**__" + heading + "__**\n"
-                                            Object.keys(val).forEach(function(childKey){
-                                                var subHeading = toTitleCase(childKey.replace(/-/g, " "))
-                                                var tempDetails = "__" + subHeading + "__\n"
-                                                if(Array.isArray(val[childKey]))
-                                                {
-                                                    for(var childIndex = 0; childIndex < val[childKey].length; childIndex++)
-                                                    {
-                                                        if(val[childKey][childIndex] == "null")
-                                                            tempDetails = tempDetails + "Unknown\n"
-                                                        else
-                                                            tempDetails = tempDetails + val[childKey][childIndex] + "\n"
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if(val[childKey] == "null")
-                                                        tempDetails = tempDetails + "Unknown\n"
-                                                    else
-                                                        tempDetails = tempDetails + val[childKey] + "\n"
-                                                }
-
-                                                tempDetails = tempDetails + "\n"
-
-                                                if((details + tempDetails).length > 2048)
-                                                {
-                                                    extraDetails = extraDetails + tempDetails
-                                                }
-                                                else
-                                                {
-                                                    details = details + tempDetails
-                                                }
-                                            })
-                                        }
-                                    });
-
-                                    if(extraDetails == "")
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
-                                    else
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
+                                    message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
@@ -985,7 +939,7 @@ class CCCommand extends command.Command
                             {
                                 if(database[index].id == ID)
                                 {
-                                    var details = "", extraDetails = "";
+                                    var details = "";
                                     var bronzeAmount = 0, silverAmount = 0, goldAmount = 0, platinumAmount = 0;
 
                                     for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
@@ -1023,58 +977,9 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
+                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
-                                    Object.keys(database[index]).forEach(function(key) {
-                                        var val = database[index][key];
-                                        if(typeof val == "object" && key != "image")
-                                        {
-                                            var heading = toTitleCase(key.replace(/-/g, " "))
-                                            details = details + "**__" + heading + "__**\n"
-                                            Object.keys(val).forEach(function(childKey){
-                                                var subHeading = toTitleCase(childKey.replace(/-/g, " "))
-                                                var tempDetails = "__" + subHeading + "__\n"
-                                                if(Array.isArray(val[childKey]))
-                                                {
-                                                    for(var childIndex = 0; childIndex < val[childKey].length; childIndex++)
-                                                    {
-                                                        if(val[childKey][childIndex] == "null")
-                                                            tempDetails = tempDetails + "Unknown\n"
-                                                        else
-                                                            tempDetails = tempDetails + val[childKey][childIndex] + "\n"
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if(val[childKey] == "null")
-                                                        tempDetails = tempDetails + "Unknown\n"
-                                                    else
-                                                        tempDetails = tempDetails + val[childKey] + "\n"
-                                                }
-
-                                                tempDetails = tempDetails + "\n"
-
-                                                if((details + tempDetails).length > 2048)
-                                                {
-                                                    extraDetails = extraDetails + tempDetails
-                                                }
-                                                else
-                                                {
-                                                    details = details + tempDetails
-                                                }
-                                            })
-                                        }
-                                    });
-
-                                    if(extraDetails == "")
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
-                                    else
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
+                                    message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
@@ -1116,7 +1021,7 @@ class CCCommand extends command.Command
                             {
                                 if(database[index].id == ID)
                                 {
-                                    var details = "", extraDetails = "";
+                                    var details = "";
                                     var bronzeAmount = 0, silverAmount = 0, goldAmount = 0, platinumAmount = 0;
 
                                     for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
@@ -1154,58 +1059,9 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
+                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
-                                    Object.keys(database[index]).forEach(function(key) {
-                                        var val = database[index][key];
-                                        if(typeof val == "object" && key != "image")
-                                        {
-                                            var heading = toTitleCase(key.replace(/-/g, " "))
-                                            details = details + "**__" + heading + "__**\n"
-                                            Object.keys(val).forEach(function(childKey){
-                                                var subHeading = toTitleCase(childKey.replace(/-/g, " "))
-                                                var tempDetails = "__" + subHeading + "__\n"
-                                                if(Array.isArray(val[childKey]))
-                                                {
-                                                    for(var childIndex = 0; childIndex < val[childKey].length; childIndex++)
-                                                    {
-                                                        if(val[childKey][childIndex] == "null")
-                                                            tempDetails = tempDetails + "Unknown\n"
-                                                        else
-                                                            tempDetails = tempDetails + val[childKey][childIndex] + "\n"
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if(val[childKey] == "null")
-                                                        tempDetails = tempDetails + "Unknown\n"
-                                                    else
-                                                        tempDetails = tempDetails + val[childKey] + "\n"
-                                                }
-
-                                                tempDetails = tempDetails + "\n"
-
-                                                if((details + tempDetails).length > 2048)
-                                                {
-                                                    extraDetails = extraDetails + tempDetails
-                                                }
-                                                else
-                                                {
-                                                    details = details + tempDetails
-                                                }
-                                            })
-                                        }
-                                    });
-
-                                    if(extraDetails == "")
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
-                                    else
-                                    {
-                                        message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
+                                    message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                         }
@@ -1298,7 +1154,7 @@ class CCCommand extends command.Command
                                     {
                                         if(database[index].id == ID)
                                         {
-                                            var details = "", extraDetails = "";
+                                            var details = "";
                                             var bronzeAmount = 0, silverAmount = 0, goldAmount = 0, platinumAmount = 0;
 
                                             for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
@@ -1336,58 +1192,9 @@ class CCCommand extends command.Command
                                             details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                             + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                             + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                            + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
+                                            + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
-                                            Object.keys(database[index]).forEach(function(key) {
-                                                var val = database[index][key];
-                                                if(typeof val == "object" && key != "image")
-                                                {
-                                                    var heading = toTitleCase(key.replace(/-/g, " "))
-                                                    details = details + "**__" + heading + "__**\n"
-                                                    Object.keys(val).forEach(function(childKey){
-                                                        var subHeading = toTitleCase(childKey.replace(/-/g, " "))
-                                                        var tempDetails = "__" + subHeading + "__\n"
-                                                        if(Array.isArray(val[childKey]))
-                                                        {
-                                                            for(var childIndex = 0; childIndex < val[childKey].length; childIndex++)
-                                                            {
-                                                                if(val[childKey][childIndex] == "null")
-                                                                    tempDetails = tempDetails + "Unknown\n"
-                                                                else
-                                                                    tempDetails = tempDetails + val[childKey][childIndex] + "\n"
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            if(val[childKey] == "null")
-                                                                tempDetails = tempDetails + "Unknown\n"
-                                                            else
-                                                                tempDetails = tempDetails + val[childKey] + "\n"
-                                                        }
-
-                                                        tempDetails = tempDetails + "\n"
-
-                                                        if((details + tempDetails).length > 2048)
-                                                        {
-                                                            extraDetails = extraDetails + tempDetails
-                                                        }
-                                                        else
-                                                        {
-                                                            details = details + tempDetails
-                                                        }
-                                                    })
-                                                }
-                                            });
-
-                                            if(extraDetails == "")
-                                            {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            }
-                                            else
-                                            {
-                                                message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                message.channel.send("", {embed: {title: "***" + database[index].name + " - " + database[index].id + "***", description: extraDetails, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                            }
+                                            message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }
                                 }
