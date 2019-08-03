@@ -2311,7 +2311,7 @@ class CCCommand extends command.Command
                             else
                             {
                                 lists.push(item);
-                                item = "Rank - Character Name - ID - Copies Owned\n"
+                                item = "***Rank - Character Name - ID - Copies Owned***\n"
                             }
                         }
 
@@ -2338,7 +2338,7 @@ class CCCommand extends command.Command
                             else
                             {
                                 lists.push(item);
-                                item = "Rank - Character Name - ID - Copies Owned\n"
+                                item = "***Rank - Character Name - ID - Copies Owned***\n"
                             }
                         }
 
@@ -2365,7 +2365,7 @@ class CCCommand extends command.Command
                             else
                             {
                                 lists.push(item);
-                                item = "Rank - Character Name - ID - Copies Owned\n"
+                                item = "***Rank - Character Name - ID - Copies Owned***\n"
                             }
                         }
 
@@ -2392,11 +2392,11 @@ class CCCommand extends command.Command
                             else
                             {
                                 lists.push(item);
-                                item = "Rank - Character Name - ID - Copies Owned\n"
+                                item = "***Rank - Character Name - ID - Copies Owned***\n"
                             }
                         }
 
-                        if(item != "Rank - Character Name - ID - Copies Owned\n")
+                        if(item != "***Rank - Character Name - ID - Copies Owned***\n")
                         {
                             lists.push(item)
                         }
