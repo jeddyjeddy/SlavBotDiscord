@@ -138,7 +138,7 @@ class CCCommand extends command.Command
             group: "games",
             memberName: "cc",
             description: "Play Calamity Cards, a trading card game where you can purchase various Heroes and Villains from comic books, movies, TV shows and more. Buy character packs to collect all of the unique characters. Try your best to get as many platinum characters as you can to increase your rank and sell your unwanted cards to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org, Daily Spins after voting (one spin per day) and by participating in token giveaways on the Slav Support server. Tokens can also be earned by buying Supporter Roles on the Slav Support server, or by becoming a Patreon Supporter where you will be entitled to receive tokens on a weekly basis.",
-            examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
+            examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`", "`!cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
         });
     }
 
@@ -926,7 +926,7 @@ class CCCommand extends command.Command
                             if(parameters.length > 1)
                             {
                                 var sendParam = parameters[1]
-                                var takeParam = parameters[0]
+                                var takeParam = parameters[0].replace(/trade/g, "")
 
                                 if(sendParam.startsWith("bronze"))
                                 {
