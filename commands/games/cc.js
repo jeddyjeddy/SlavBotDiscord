@@ -44,6 +44,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         if(!listening)
         {
+            characters = []
             firebase.database().ref("patrons").on("child_added", function(snapshot){
                 var added = false;
                 for(var i = 0; i < patrons.length; i++)
@@ -1840,7 +1841,7 @@ class CCCommand extends command.Command
                             {
                                 if(characters[i].bronze[characterIndex].id == ID)
                                 {
-                                    if(characters[i].bronze[characterIndex] > 0)
+                                    if(characters[i].bronze[characterIndex].amount > 0)
                                     {
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, bronzePrice/10)
@@ -1902,7 +1903,7 @@ class CCCommand extends command.Command
                             {
                                 if(characters[i].silver[characterIndex].id == ID)
                                 {
-                                    if(characters[i].silver[characterIndex] > 0)
+                                    if(characters[i].silver[characterIndex].amount > 0)
                                     {
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, silverPrice/10)
@@ -1964,7 +1965,7 @@ class CCCommand extends command.Command
                             {
                                 if(characters[i].gold[characterIndex].id == ID)
                                 {
-                                    if(characters[i].gold[characterIndex] > 0)
+                                    if(characters[i].gold[characterIndex].amount > 0)
                                     {
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, goldPrice/10)
@@ -2026,7 +2027,7 @@ class CCCommand extends command.Command
                             {
                                 if(characters[i].platinum[characterIndex].id == ID)
                                 {
-                                    if(characters[i].platinum[characterIndex] > 0)
+                                    if(characters[i].platinum[characterIndex].amount > 0)
                                     {
                                         characterFound = true;
                                         IndexRef.addTokens(message.author.id, platinumPrice/10)
