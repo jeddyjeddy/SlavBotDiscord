@@ -1477,6 +1477,7 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].bronze[cIndex].amount > 0)
                                                 {
+                                                    characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1;
                                                     var userFound = false;
                                                     for(var sendIndex = 0; sendIndex < characters.length; sendIndex++)
                                                     {
@@ -1524,6 +1525,7 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].silver[cIndex].amount > 0)
                                                 {
+                                                    characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
                                                     var userFound = false;
                                                     for(var sendIndex = 0; sendIndex < characters.length; sendIndex++)
                                                     {
@@ -1571,6 +1573,7 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].gold[cIndex].amount > 0)
                                                 {
+                                                    characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
                                                     var userFound = false;
                                                     for(var sendIndex = 0; sendIndex < characters.length; sendIndex++)
                                                     {
@@ -1618,6 +1621,7 @@ class CCCommand extends command.Command
                                             {
                                                 if(characters[i].platinum[cIndex].amount > 0)
                                                 {
+                                                    characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
                                                     var userFound = false;
                                                     for(var sendIndex = 0; sendIndex < characters.length; sendIndex++)
                                                     {
