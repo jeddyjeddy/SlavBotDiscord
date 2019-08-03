@@ -2375,7 +2375,7 @@ class CCCommand extends command.Command
                             {
                                 userPromises.push(message.client.fetchUser(ranks[index].id)
                                 .then(user => {
-                                    names.push(user.username);
+                                    names.push(user.tag);
                                 }, rejection => {
                                         console.log(rejection.message);
                                 }));
