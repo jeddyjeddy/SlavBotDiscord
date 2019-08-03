@@ -520,7 +520,7 @@ class CCCommand extends command.Command
                             message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                         }
                     }
-                    /*else if (args.toLowerCase().startsWith("trade"))
+                   /* else if (args.toLowerCase().startsWith("trade"))
                     {
                         var timestamp = (new Date(Date.now()).toJSON());
 
@@ -886,7 +886,7 @@ class CCCommand extends command.Command
                             {
                                 var canSend = false;
 
-
+                                
 
                                 if(canSend)
                                     message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
@@ -1219,6 +1219,30 @@ class CCCommand extends command.Command
                                         {
                                             added = true;
                                             characters[i].platinum[characterIndex].amount = characters[i].platinum[characterIndex].amount + 1;
+                                        }
+                                    }
+
+                                    for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                                    {
+                                        if(characters[i].bronze[cIndex].id == ID)
+                                        {
+                                            characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1
+                                        }
+                                    }
+
+                                    for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                    {
+                                        if(characters[i].silver[cIndex].id == ID)
+                                        {
+                                            characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1
+                                        }
+                                    }
+
+                                    for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                    {
+                                        if(characters[i].gold[cIndex].id == ID)
+                                        {
+                                            characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1
                                         }
                                     }
 
