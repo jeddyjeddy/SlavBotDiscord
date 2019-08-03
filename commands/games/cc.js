@@ -666,16 +666,51 @@ class CCCommand extends command.Command
 
                                             if(sendRank == "Bronze")
                                             {
-                                                var notFound = true;
-
                                                 for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
                                                 {
-                                                    if(characters[i].bronze[cIndex].id == takeID)
+                                                    if(characters[i].bronze[cIndex].id == sendID)
                                                     {
                                                         characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount - 1;
                                                     }
+                                                }
+                                            }
+                                            else if(sendRank == "Silver")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                                                {
+                                                    if(characters[i].silver[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
+                                            else if(sendRank == "Gold")
+                                            {
+                                                for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                                                {
+                                                    if(characters[i].gold[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
+                                            else if(sendRank == "Platinum")
+                                            {                                                
+                                                for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
+                                                {
+                                                    if(characters[i].platinum[cIndex].id == sendID)
+                                                    {
+                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
+                                                    }
+                                                }
+                                            }
 
-                                                    if(characters[i].bronze[cIndex].id == sendID)
+                                            if(takeRank == "Bronze")
+                                            {
+                                                var notFound = true;
+                                                for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                                                {
+                                                    if(characters[i].bronze[cIndex].id == takeID)
                                                     {
                                                         notFound = false;
                                                         characters[i].bronze[cIndex].amount = characters[i].bronze[cIndex].amount + 1;
@@ -683,20 +718,14 @@ class CCCommand extends command.Command
                                                 }
 
                                                 if(notFound)
-                                                    characters[i].bronze.push({id: sendID, amount: 1})
+                                                    characters[i].bronze.push({id: takeID, amount: 1})
                                             }
-                                            else if(sendRank == "Silver")
+                                            else if(takeRank == "Silver")
                                             {
                                                 var notFound = true;
-
                                                 for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
                                                 {
                                                     if(characters[i].silver[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount - 1;
-                                                    }
-
-                                                    if(characters[i].silver[cIndex].id == sendID)
                                                     {
                                                         notFound = false;
                                                         characters[i].silver[cIndex].amount = characters[i].silver[cIndex].amount + 1;
@@ -704,20 +733,14 @@ class CCCommand extends command.Command
                                                 }
 
                                                 if(notFound)
-                                                    characters[i].silver.push({id: sendID, amount: 1})
+                                                    characters[i].silver.push({id: takeID, amount: 1})
                                             }
-                                            else if(sendRank == "Gold")
+                                            else if(takeRank == "Gold")
                                             {
                                                 var notFound = true;
-
                                                 for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
                                                 {
                                                     if(characters[i].gold[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount - 1;
-                                                    }
-
-                                                    if(characters[i].gold[cIndex].id == sendID)
                                                     {
                                                         notFound = false;
                                                         characters[i].gold[cIndex].amount = characters[i].gold[cIndex].amount + 1;
@@ -725,20 +748,14 @@ class CCCommand extends command.Command
                                                 }
 
                                                 if(notFound)
-                                                    characters[i].gold.push({id: sendID, amount: 1})
+                                                    characters[i].gold.push({id: takeID, amount: 1})
                                             }
-                                            else if(sendRank == "Platinum")
+                                            else if(takeRank == "Platinum")
                                             {
                                                 var notFound = true;
-                                                
                                                 for(var cIndex = 0; cIndex < characters[i].platinum.length; cIndex++)
                                                 {
                                                     if(characters[i].platinum[cIndex].id == takeID)
-                                                    {
-                                                        characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount - 1;
-                                                    }
-
-                                                    if(characters[i].platinum[cIndex].id == sendID)
                                                     {
                                                         notFound = false;
                                                         characters[i].platinum[cIndex].amount = characters[i].platinum[cIndex].amount + 1;
@@ -746,7 +763,7 @@ class CCCommand extends command.Command
                                                 }
                                                 
                                                 if(notFound)
-                                                    characters[i].platinum.push({id: sendID, amount: 1})
+                                                    characters[i].platinum.push({id: takeID, amount: 1})
                                             }
             
                                             for(var index = 0; index < characters.length; index++)
@@ -755,16 +772,51 @@ class CCCommand extends command.Command
                                                 {
                                                     if(takeRank == "Bronze")
                                                     {   
-                                                        var notFound = true;
-
                                                         for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
                                                         {
-                                                            if(characters[index].bronze[cIndex].id == sendID)
+                                                            if(characters[index].bronze[cIndex].id == takeID)
                                                             {
                                                                 characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount - 1;
                                                             }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Silver")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
+                                                        {
+                                                            if(characters[index].silver[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount - 1;
+                                                            }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Gold")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
+                                                        {
+                                                            if(characters[index].gold[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount - 1;
+                                                            }
+                                                        }
+                                                    }
+                                                    else if(takeRank == "Platinum")
+                                                    {
+                                                        for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
+                                                        {
+                                                            if(characters[index].platinum[cIndex].id == takeID)
+                                                            {
+                                                                characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount - 1;
+                                                            }
+                                                        }
+                                                    } 
 
-                                                            if(characters[index].bronze[cIndex].id == takeRank)
+                                                    if(sendID == "Bronze")
+                                                    {   
+                                                        var notFound = true;
+                                                        for(var cIndex = 0; cIndex < characters[index].bronze.length; cIndex++)
+                                                        {
+                                                            if(characters[index].bronze[cIndex].id == sendID)
                                                             {
                                                                 notFound = false;
                                                                 characters[index].bronze[cIndex].amount = characters[index].bronze[cIndex].amount + 1;
@@ -772,20 +824,14 @@ class CCCommand extends command.Command
                                                         }
 
                                                         if(notFound)
-                                                            characters[index].bronze.push({id: takeRank, amount: 1})
+                                                            characters[index].bronze.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(takeRank == "Silver")
+                                                    else if(sendID == "Silver")
                                                     {
                                                         var notFound = true;
-
                                                         for(var cIndex = 0; cIndex < characters[index].silver.length; cIndex++)
                                                         {
                                                             if(characters[index].silver[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].silver[cIndex].id == takeRank)
                                                             {
                                                                 notFound = false;
                                                                 characters[index].silver[cIndex].amount = characters[index].silver[cIndex].amount + 1;
@@ -793,19 +839,14 @@ class CCCommand extends command.Command
                                                         }
 
                                                         if(notFound)
-                                                            characters[index].silver.push({id: takeRank, amount: 1})
+                                                            characters[index].silver.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(takeRank == "Gold")
+                                                    else if(sendID == "Gold")
                                                     {
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].gold.length; cIndex++)
                                                         {
                                                             if(characters[index].gold[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].gold[cIndex].id == takeRank)
                                                             {
                                                                 notFound = false;
                                                                 characters[index].gold[cIndex].amount = characters[index].gold[cIndex].amount + 1;
@@ -813,19 +854,14 @@ class CCCommand extends command.Command
                                                         }
 
                                                         if(notFound)
-                                                            characters[index].gold.push({id: takeRank, amount: 1})
+                                                            characters[index].gold.push({id: sendID, amount: 1})
                                                     }
-                                                    else if(takeRank == "Platinum")
+                                                    else if(sendID == "Platinum")
                                                     {
                                                         var notFound = true;
                                                         for(var cIndex = 0; cIndex < characters[index].platinum.length; cIndex++)
                                                         {
                                                             if(characters[index].platinum[cIndex].id == sendID)
-                                                            {
-                                                                characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount - 1;
-                                                            }
-
-                                                            if(characters[index].platinum[cIndex].id == takeRank)
                                                             {
                                                                 notFound = false;
                                                                 characters[index].platinum[cIndex].amount = characters[index].platinum[cIndex].amount + 1;
@@ -833,7 +869,7 @@ class CCCommand extends command.Command
                                                         }
 
                                                         if(notFound)
-                                                            characters[index].platinum.push({id: takeRank, amount: 1})
+                                                            characters[index].platinum.push({id: sendID, amount: 1})
                                                     } 
                                                 }
                                             }
