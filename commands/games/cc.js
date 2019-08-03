@@ -2304,7 +2304,7 @@ class CCCommand extends command.Command
                             }
 
                             var text = "Bronze - " + name + " - " + characters[i].bronze[index].id + " - " + characters[i].bronze[index].amount
-                            if((item + text + "\n").length < 2048)
+                            if((item + text + "\n").length      )
                             {
                                 item = item + text + "\n";
                             }
@@ -2315,7 +2315,8 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        item = item + "\n"
+                        if((item + "\n").length < 2048)
+                            item = item + "\n"
 
                         for(var index = 0; index < characters[i].silver.length; index++)
                         {
@@ -2341,7 +2342,8 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        item = item + "\n"
+                        if((item + "\n").length < 2048)
+                            item = item + "\n"
 
                         for(var index = 0; index < characters[i].gold.length; index++)
                         {
@@ -2367,7 +2369,8 @@ class CCCommand extends command.Command
                             }
                         }
 
-                        item = item + "\n"
+                        if((item + "\n").length < 2048)
+                            item = item + "\n"
 
                         for(var index = 0; index < characters[i].platinum.length; index++)
                         {
