@@ -1339,7 +1339,7 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
+                                    + "\nPlatinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
                                     message.channel.send("<@" + message.author.id + "> ***Bronze Character Pack Purchased***", {embed: {title: "***You Have Found A Bronze Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13070337, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
@@ -1421,7 +1421,7 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
+                                    + "\nPlatinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
                                     message.channel.send("<@" + message.author.id + "> ***Silver Character Pack Purchased***", {embed: {title: "***You Have Found A Silver Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 7566195, timestamp: timestamp, image: {url: database[index].image.url}, thumbnail:{url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
@@ -1503,7 +1503,7 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
+                                    + "\nPlatinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
                                     message.channel.send("<@" + message.author.id + "> ***Gold Character Pack Purchased***", {embed: {title: "***You Have Found A Gold Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 16436562, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
@@ -2397,7 +2397,7 @@ class CCCommand extends command.Command
                                 }
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
-                                message.channel.send("", {embed: {title: "**Global Calamity Characters Leaderboard - Top 10 players :trophy:**",
+                                message.channel.send("", {embed: {title: "**Global Calamity Cards Leaderboard - Top 10 players :trophy:**",
                                 description: "**Rank** - Number of Platinum Characters Owned - Name\n" + descriptionList + "\nFiltered from a total of " + numberWithCommas(characters.length) + " players.",
                                 color: 16757505,
                                 timestamp: timestamp,
