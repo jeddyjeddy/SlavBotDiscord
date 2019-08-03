@@ -84,7 +84,7 @@ class MuteCommand extends command.Command
             var time = 0;
             var parameter = args.slice(0, firstIndex);
             
-            if(!isNaN(parameter))
+            if(parameter.toLowerCase().replace(/[^.\w+-]+/g, '').match(/[-+]?[0-9.]+[a-z]+/g) === null)
             {
                 message.channel.send("<@" + message.author.id + "> No length parameter given.").catch(error => console.log("Send Error - " + error));
                 return;

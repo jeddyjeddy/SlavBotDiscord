@@ -127,7 +127,7 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const maxID = 731;
+const maxID = database.length;
 
 class CCCommand extends command.Command
  {
@@ -137,7 +137,7 @@ class CCCommand extends command.Command
             name: "cc",
             group: "games",
             memberName: "cc",
-            description: "Play Calmaity Cards, where you purchase various characters of different ranks, including heroes and villains from various universes such as the Marvel and DC universes. Buy character packs to collect all the unique characters. Try your best to get as many platinum characters as you can to increase your rank. Sell your characters to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
+            description: "Play Calamity Cards, a trading card game where you can purchase various comic book Heroes and Villains from Marvel, DC and more. Buy character packs to collect all of the unique characters. Try your best to get as many platinum characters as you can to increase your rank and sell your unwanted cards to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org, Daily Spins after voting (one spin per day) and by participating in token giveaways on the Slav Support server. Tokens can also be earned by buying Supporter Roles on the Slav Support server, or by becoming a Patreon Supporter where you will be entitled to receive tokens on a weekly basis.",
             examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
         });
     }
@@ -520,7 +520,7 @@ class CCCommand extends command.Command
                             message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
                         }
                     }
-                   /* else if (args.toLowerCase().startsWith("trade"))
+                    /*else if (args.toLowerCase().startsWith("trade"))
                     {
                         var timestamp = (new Date(Date.now()).toJSON());
 
@@ -702,25 +702,31 @@ class CCCommand extends command.Command
                         {
                             if(characters[i].trades == null || characters[i].trades == undefined || characters[i].trades.length == 0)
                             {
-                                message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***No Character Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
                                 var lists = []
                                 var item = ""
 
-                                var name = "ID - " + ID
+                                var sendName = "ID - " + characters[i].trades[requestIndex].send.id,
+                                takeName = "ID - " + characters[i].trades[requestIndex].take.id
                                 for(var index = 0; index < database.length; index++)
                                 {
-                                    if(database[index].id == ID)
+                                    if(database[index].id == characters[i].trades[requestIndex].send.id)
                                     {
-                                        name = database[index].name
+                                        sendName = database[index].name
+                                    }
+
+                                    if(database[index].id == characters[i].trades[requestIndex].take.id)
+                                    {
+                                        takeName = database[index].name
                                     }
                                 }
 
                                 for(var requestIndex = 0; requestIndex < characters[i].trades.length; requestIndex++)
                                 {
-                                    var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].trades[requestIndex].user + "> has requested to trade a " + characters[i].trades[requestIndex].send.rank + " " + characters[i].trades[requestIndex].send.id + " for <@" + characters[i].users[characterIndex].requests[requestIndex].characterGiven + ">"
+                                    var text = "***Trade Request No." + (requestIndex + 1) + "***\n<@" + characters[i].trades[requestIndex].user + "> has requested to trade a " + characters[i].trades[requestIndex].send.rank + " " + sendName + " (ID - " + characters[i].trades[requestIndex].send.id + ") for a " + characters[i].trades[requestIndex].take.rank + " " + takeName + " (ID - " + characters[i].trades[requestIndex].take.id + ")"
                                     if((item + text + "\n\n").length < 2048)
                                     {
                                         item = item + text + "\n\n";
@@ -738,85 +744,154 @@ class CCCommand extends command.Command
                                 
                                 if(lists.length == 0)
                                 {
-                                    message.channel.send("", {embed: {title: "***No Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***No Character Trade Requests Given***", description: "<@" + message.author.id + "> You do not have any trade requests from other users.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {
-                                    var members = message.guild.members.array()
-                                    for(var memberIndex = 0; memberIndex < members.length; memberIndex++)
+                                    var userPromises = []
+                                    for(var requestIndex = 0; requestIndex < characters[i].trades.length; requestIndex++)
                                     {
-                                        for(var index = 0; index < lists.length; index++)
-                                        {
-                                            lists[index] = lists[index].replace(RegExp("<@" + members[memberIndex].id + ">", "g"), members[memberIndex].user.tag)
-                                        }
+                                        userPromises.push(message.client.fetchUser(characters[i].trades[requestIndex].user)
+                                        .then(user => {
+                                            for(var index = 0; index < lists.length; index++)
+                                            {
+                                                lists[index] = lists[index].replace(RegExp("<@" + user.id + ">", "g"), user.tag)
+                                            }
+                                        }, rejection => {
+                                                console.log(rejection.message);
+                                        }));
                                     }
 
-                                    for(var index = 0; index < lists.length; index++)
-                                    {
-                                        message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                    }
+                                    Promise.all(userPromises).then(() => {
+                                        for(var index = 0; index < lists.length; index++)
+                                        {
+                                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Character Trade Requests (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                    })   
                                 }
                             }
                         }
                         else
                         {
+                            var user;
                             var mentions = message.mentions.users.array()
-                            var selfcharacter = "", othercharacter = "", othercharacterOwner = ""
 
-                            for(var mentionIndex = 0; mentionIndex < mentions.length; mentionIndex++)
+                            if(mentions.length > 0)
+                                user = mentions[0];
+                           
+                            var sendRank = "", sendID = "", takeRank = "", takeID = ""
+
+                            var parameters = args.toLowerCase().split("|")
+
+                            if(parameters.length > 1)
                             {
-                                if(!mentions[mentionIndex].isBot)
-                                {
-                                    for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
-                                    {
-                                        if(characters[i].users[characterIndex].id == mentions[mentionIndex].id)
-                                        {
-                                            if(characters[i].users[characterIndex].owner == message.author.id && selfcharacter == "")
-                                                selfcharacter = characters[i].users[characterIndex].id
+                                var sendParam = parameters[0]
+                                var takeParam = parameters[1]
 
-                                            if(characters[i].users[characterIndex].owner != message.author.id 
-                                                && characters[i].users[characterIndex].owner != "" && othercharacter == "")
-                                            {
-                                                othercharacter = characters[i].users[characterIndex].id; 
-                                                othercharacterOwner = characters[i].users[characterIndex].owner;
-                                            }  
-                                        }
+                                if(sendParam.startsWith("bronze"))
+                                {
+                                    sendRank = "Bronze"
+                                }
+                                else if(sendParam.startsWith("silver"))
+                                {
+                                    sendRank = "Silver"
+                                }
+                                else if(sendParam.startsWith("gold"))
+                                {
+                                    sendRank = "Gold"
+                                }
+                                else if(sendParam.startsWith("platinum"))
+                                {
+                                    sendRank = "Platinum"
+                                }
+
+                                if(sendRank != "")
+                                {
+                                    var options = sendParam.replace(/,/g, "")
+                                    var amountText = options.match(/\d+/g);
+                                    var amount = []
+                                    var ID = "";
+                                    if(amountText != null)
+                                    {
+                                        amount = amountText.map(Number);
+                                    }
+
+                                    var validID = false;
+
+                                    if(amount.length > 0)
+                                    {
+                                        ID = amount[0].toString()
+
+                                        if(ID >= 1 && ID <= maxID)
+                                            validID = true;
+                                    }
+
+                                    if(validID)
+                                    {
+                                        sendID = ID
+                                    }
+                                }
+
+                                
+                                if(takeParam.startsWith("bronze"))
+                                {
+                                    takeRank = "Bronze"
+                                }
+                                else if(takeParam.startsWith("silver"))
+                                {
+                                    takeRank = "Silver"
+                                }
+                                else if(takeParam.startsWith("gold"))
+                                {
+                                    takeRank = "Gold"
+                                }
+                                else if(takeParam.startsWith("platinum"))
+                                {
+                                    takeRank = "Platinum"
+                                }
+
+                                if(takeRank != "")
+                                {
+                                    var options = takeParam.replace(/,/g, "")
+                                    var amountText = options.match(/\d+/g);
+                                    var amount = []
+                                    var ID = "";
+                                    if(amountText != null)
+                                    {
+                                        amount = amountText.map(Number);
+                                    }
+
+                                    var validID = false;
+
+                                    if(amount.length > 0)
+                                    {
+                                        ID = amount[0].toString()
+
+                                        if(ID >= 1 && ID <= maxID)
+                                            validID = true;
+                                    }
+
+                                    if(validID)
+                                    {
+                                        takeID = ID
                                     }
                                 }
                             }
 
-                            if(selfcharacter == "" || othercharacter == "" || selfcharacter == othercharacterOwner)
+                            if(sendRank == "" || sendID == "" || takeRank == "" || takeID == "" || user.bot)
                             {
-                                message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must tag a character you own, then another characterd owned by another user in order to send a trade request.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Trade Details Not Given***", description: "<@" + message.author.id + "> You must specify the characters you want to trade and tag a user to send a trade request. E.g: `" + commandPrefix + "cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`, `" + commandPrefix + "cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
                             {
-                                for(var characterIndex = 0; characterIndex < characters[i].users.length; characterIndex++)
-                                {
-                                    if(characters[i].users[characterIndex].id == othercharacterOwner)
-                                    {
-                                        if(characters[i].users[characterIndex].requests == null || characters[i].users[characterIndex].requests == undefined)
-                                        {
-                                            characters[i].users[characterIndex].requests = [{user: message.author.id, characterGiven: selfcharacter, characterTaken: othercharacter}]
-                                        }
-                                        else
-                                        {
-                                            var notReplaced = true;
-                                            for(var requestIndex = 0; requestIndex < characters[i].users[characterIndex].requests.length; requestIndex++)
-                                            {
-                                                if(characters[i].users[characterIndex].requests[requestIndex].user == message.author.id)
-                                                {
-                                                    notReplaced = false;
-                                                    characters[i].users[characterIndex].requests[requestIndex] = {user: message.author.id, characterGiven: selfcharacter, characterTaken: othercharacter}
-                                                }
-                                            }
+                                var canSend = false;
 
-                                            if(notReplaced)
-                                                characters[i].users[characterIndex].requests.push({user: message.author.id, characterGiven: selfcharacter, characterTaken: othercharacter})
-                                        }
-                                    }
-                                }
-                                message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+
+
+                                if(canSend)
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                else
+                                    message.channel.send(`<@${message.author.id}> has sent a trade request to <@${othercharacterOwner}>`, {embed: {title: "***Trade Request Sent***", description: "<@" + othercharacterOwner + "> You have been sent a trade request from <@" + message.author.id + "> to trade your character <@" + othercharacter + "> for <@" + selfcharacter + ">\n\nTo accept this trade, use the command `" + commandPrefix + "cc accept @" + message.author.tag + "` and to decline, use the command `" + commandPrefix + "cc decline @" + message.author.tag + "`\n\nThis trade request is undoable and can be accepted/denied by the receiver at any moment.", color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                     }*/
@@ -826,7 +901,7 @@ class CCCommand extends command.Command
                         
                         if(!IndexRef.subtractTokens(message.author.id, bronzeAmount))
                         {
-                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Bronze Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Bronze Character Pack. You need " + numberWithCommas(bronzeAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Bronze Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Bronze Character Pack. You need " + numberWithCommas(bronzePrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {                                                
@@ -908,7 +983,7 @@ class CCCommand extends command.Command
                         
                         if(!IndexRef.subtractTokens(message.author.id, silverAmount))
                         {
-                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Silver Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Silver Character Pack. You need " + numberWithCommas(silverAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Silver Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Silver Character Pack. You need " + numberWithCommas(silverPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {                                                
@@ -990,7 +1065,7 @@ class CCCommand extends command.Command
                         
                         if(!IndexRef.subtractTokens(message.author.id, goldAmount))
                         {
-                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Gold Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Gold Character Pack. You need " + numberWithCommas(goldAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Gold Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Gold Character Pack. You need " + numberWithCommas(goldPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                         else
                         {                                                
@@ -1133,7 +1208,7 @@ class CCCommand extends command.Command
                             {
                                 if(!IndexRef.subtractTokens(message.author.id, platinumAmount))
                                 {
-                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Platinum Ranked Character. You need " + numberWithCommas(platinumAmount) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Platinum Ranked Character. You need " + numberWithCommas(platinumPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                                 else
                                 {                                                
@@ -1192,7 +1267,7 @@ class CCCommand extends command.Command
                                             details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                             + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                             + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                            + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
+                                            + "\nPlatinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\nFor more detailed info on this character, use `" + commandPrefix + "cc info " + ID + "`."
 
                                             message.channel.send("<@" + message.author.id + "> ***Platinum Character Purchased***", {embed: {title: "***You Purchased A Platinum Ranked " + database[index].name + " - " + database[index].id + "***", description: details, color: 13487565, timestamp: timestamp, thumbnail:{url: database[index].image.url}, image: {url: database[index].image.url}, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
@@ -1201,7 +1276,7 @@ class CCCommand extends command.Command
                             }
                             else
                             {
-                                message.channel.send("", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You must own at least one Bronze, Silver and Gold version of " + name + " to get the Platinum Rank. They will be taken along with " + numberWithCommas(platinumAmount) + " tokens to complete the purchase.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                message.channel.send("", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You must own at least one Bronze, Silver and Gold version of " + name + " to get the Platinum Rank. They will be taken along with " + numberWithCommas(platinumPrice) + " tokens to complete the purchase.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else
@@ -1264,7 +1339,9 @@ class CCCommand extends command.Command
                             {
                                 var user;
                                 var mentions = message.mentions.users.array()
-                                user = mentions[0];
+
+                                if(mentions.length > 0)
+                                    user = mentions[0];
 
                                 if(user != null && user != undefined && user.id != message.author.id && !user.bot)
                                 {
@@ -1548,7 +1625,7 @@ class CCCommand extends command.Command
                                     details = "Bronze Versions Owned: " + numberWithCommas(bronzeAmount) 
                                     + "\nSilver Versions Owned: " + numberWithCommas(silverAmount)
                                     + "\nGold Versions Owned: " + numberWithCommas(goldAmount) 
-                                    + "\n Platinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
+                                    + "\nPlatinum Versions Owned: " + numberWithCommas(platinumAmount) + "\n\n"
 
                                     Object.keys(database[index]).forEach(function(key) {
                                         var val = database[index][key];
@@ -2031,13 +2108,13 @@ class CCCommand extends command.Command
                                         totalUniqueChars = uniqueBronzeChars + uniqueSilverChars + uniqueGoldChars + uniquePlatinumChars
                                         totalChars = totalBronzeChars + totalSilverChars + totalGoldChars + totalPlatinumChars
 
-                                        message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + " (Shown in leaderboards - use `" + commandPrefix + "cc ranks`)\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Cards Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Cards Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Cards Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Cards Owned: " + numberWithCommas(totalPlatinumChars) + " (Shown in leaderboards - use `" + commandPrefix + "cc ranks`)\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Cards Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }
                                 }
 
                                 if(!characterFound)
                                 {
-                                    message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + user.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Cards Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Cards Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Cards Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Cards Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Cards Owned: " + numberWithCommas(totalChars) + "\n\n" + user.username + " currently has " + numberWithCommas(IndexRef.getTokens(user.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
@@ -2090,7 +2167,7 @@ class CCCommand extends command.Command
                             if(message.author.avatarURL != undefined && message.author.avatarURL != null)
                                 thumbnail = message.author.avatarURL
 
-                            message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + message.author.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Characters Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Characters Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Characters Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Characters Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Characters Owned: " + numberWithCommas(totalChars) + "\n\nYou currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            message.channel.send("", {embed: {title: "***Calamity Cards Profile for " + message.author.username + "***", description: "***__Bronze Characters__***\nUnique Bronze Characters Owned: " + numberWithCommas(uniqueBronzeChars) + "/" + numberWithCommas(maxID) + "\nTotal Bronze Cards Owned: " + numberWithCommas(totalBronzeChars) + "\n\n***__Silver Characters__***\nUnique Silver Characters Owned: " + numberWithCommas(uniqueSilverChars) + "/" + numberWithCommas(maxID) + "\nTotal Silver Cards Owned: " + numberWithCommas(totalSilverChars) + "\n\n***__Gold Characters__***\nUnique Gold Characters Owned: " + numberWithCommas(uniqueGoldChars) + "/" + numberWithCommas(maxID) + "\nTotal Gold Cards Owned: " + numberWithCommas(totalGoldChars) + "\n\n***__Platinum Characters__***\nUnique Platinum Characters Owned: " + numberWithCommas(uniquePlatinumChars) + "/" + numberWithCommas(maxID) + "\nTotal Platinum Cards Owned: " + numberWithCommas(totalPlatinumChars) + "\n\n***__Overall Characters__***\nOverall Unique Characters Owned: " + numberWithCommas(totalUniqueChars) + "/" + numberWithCommas(maxID*4) + "\nOverall Total Cards Owned: " + numberWithCommas(totalChars) + "\n\nYou currently have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
                     else if(args.toLowerCase().startsWith("list"))
