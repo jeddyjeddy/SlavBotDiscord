@@ -1268,7 +1268,7 @@ class CCCommand extends command.Command
                     {
                         const timestamp = (new Date(Date.now()).toJSON());
                         
-                        if(!IndexRef.subtractTokens(message.author.id, bronzeAmount))
+                        if(!IndexRef.subtractTokens(message.author.id, bronzePrice))
                         {
                             message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Bronze Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Bronze Character Pack. You need " + numberWithCommas(bronzePrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
@@ -1350,7 +1350,7 @@ class CCCommand extends command.Command
                     {
                         const timestamp = (new Date(Date.now()).toJSON());
                         
-                        if(!IndexRef.subtractTokens(message.author.id, silverAmount))
+                        if(!IndexRef.subtractTokens(message.author.id, silverPrice))
                         {
                             message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Silver Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Silver Character Pack. You need " + numberWithCommas(silverPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
@@ -1432,7 +1432,7 @@ class CCCommand extends command.Command
                     {
                         const timestamp = (new Date(Date.now()).toJSON());
                         
-                        if(!IndexRef.subtractTokens(message.author.id, goldAmount))
+                        if(!IndexRef.subtractTokens(message.author.id, goldPrice))
                         {
                             message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Gold Pack***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Gold Character Pack. You need " + numberWithCommas(goldPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
@@ -1575,7 +1575,7 @@ class CCCommand extends command.Command
 
                             if(bronzeFound && silverFound && goldFound)
                             {
-                                if(!IndexRef.subtractTokens(message.author.id, platinumAmount))
+                                if(!IndexRef.subtractTokens(message.author.id, platinumPrice))
                                 {
                                     message.channel.send("<@" + message.author.id + ">", {embed: {title: "***Failed To Buy Platinum Character***", description: "<@" + message.author.id + "> You do not have enough tokens to purchase a Platinum Ranked Character. You need " + numberWithCommas(platinumPrice) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                 }
