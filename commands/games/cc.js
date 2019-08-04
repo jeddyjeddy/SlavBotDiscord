@@ -2593,7 +2593,7 @@ class CCCommand extends command.Command
                             }
 
                             var text = "Bronze - " + name + " - " + characters[i].bronze[index].id + " - " + characters[i].bronze[index].amount
-                            if((item + text + "\n").length      )
+                            if((item + text + "\n").length < 2048)
                             {
                                 item = item + text + "\n";
                             }
