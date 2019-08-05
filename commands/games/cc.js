@@ -2749,7 +2749,7 @@ class CCCommand extends command.Command
                                     }
                                 }
 
-                                var text = name + " - " + ID
+                                var text = ID + " - " + name
                                 if((item + text + "\n").length < 2048)
                                 {
                                     item = item + text + "\n";
