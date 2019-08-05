@@ -138,7 +138,7 @@ class CCCommand extends command.Command
             group: "games",
             memberName: "cc",
             description: "Play Calamity Cards, a trading card game where you can purchase various Heroes and Villains from comic books, movies, TV shows and more. Buy character packs to collect all of the unique characters. Try your best to get as many platinum characters as you can to increase your rank and sell your unwanted cards to earn tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org, Daily Spins after voting (one spin per day) and by participating in token giveaways on the Slav Support server. Tokens can also be earned by buying Supporter Roles on the Slav Support server, or by becoming a Patreon Supporter where you will be entitled to receive tokens on a weekly basis.",
-            examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`", "`!cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", "`!cc trade list` (View a list of all trade requests you have received)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)"]
+            examples: ["`!cc profile` (Check your profile and various stats)", "`!cc collect` (Gather Card Trading Resources)", "`!cc profile @User` (Check another user's profile and various stats)", "`!cc buy <package-rank>` (Buy character packs for various card ranks - Bronze, Silver, Gold and Platinum)", "`!cc buy platinum <character-id>` (Buy a Platinum character, for more info use `!cc buy`)", "`!cc sell <character-rank> <character-id>` (Sell a character from your inventory)", "`!cc send <character-rank> <character-id> @User` (Send a character from your inventory to another user)", "`!cc trade <your-character-rank> <your-character-id>|<other-character-rank> <other-character-id> @User`", "`!cc trade bronze 20|gold 20 @User` (In this example, you are placing a trade where you will trade your bronze character for another user's gold character)", "`!cc trade list` (View a list of all trade requests you have received)", "`!cc info <character-id>` (View details on a character)", "`!cc ranks` (Check Global Leaderboards)", "`!cc give <amount> @User1 @User2` (Give your tokens to another user)", "`!cc list` (Gives a list of characters you own)", "`!cc platinum list` (Gives a list of platinum characters you can buy)"]
         });
     }
 
@@ -2699,6 +2699,84 @@ class CCCommand extends command.Command
                         for(var index = 0; index < lists.length; index++)
                         {
                             message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Characters You Own (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                    else if(args.toLowerCase().startsWith("platinum list"))
+                    {
+                        var lists = []
+                        var item = "***ID - Character Name***\n"
+
+                        for(var ID = 1; ID <= maxID; ID++)
+                        {
+                            var bronzeFound = false, silverFound = false, goldFound = false;
+
+                            for(var cIndex = 0; cIndex < characters[i].bronze.length; cIndex++)
+                            {
+                                if(characters[i].bronze[cIndex].id == ID)
+                                {
+                                    if(characters[i].bronze[cIndex].amount > 0)
+                                        bronzeFound = true;
+                                }
+                            }
+
+                            for(var cIndex = 0; cIndex < characters[i].silver.length; cIndex++)
+                            {
+                                if(characters[i].silver[cIndex].id == ID)
+                                {
+                                    if(characters[i].silver[cIndex].amount > 0)
+                                        silverFound = true;
+                                }
+                            }
+
+                            for(var cIndex = 0; cIndex < characters[i].gold.length; cIndex++)
+                            {
+                                if(characters[i].gold[cIndex].id == ID)
+                                {
+                                    if(characters[i].gold[cIndex].amount > 0)
+                                        goldFound = true;
+                                }
+                            }
+
+
+                            if(bronzeFound && silverFound && goldFound)
+                            {
+                                var name = "Character No." + ID
+                                for(var index = 0; index < database.length; index++)
+                                {
+                                    if(database[index].id == ID)
+                                    {
+                                        name = database[index].name
+                                    }
+                                }
+
+                                var text = name + " - " + ID
+                                if((item + text + "\n").length < 2048)
+                                {
+                                    item = item + text + "\n";
+                                }
+                                else
+                                {
+                                    lists.push(item);
+                                    item = "***ID - Character Name***\n"
+                                }
+                            }
+                            
+                        }
+                        
+                        if(item != "***ID - Character Name***\n")
+                        {
+                            lists.push(item)
+                        }
+                        else if(lists.length == 0)
+                        {
+                            lists.push("No Platinum Characters Purchasable. You must own at least one Bronze, Silver and Gold version of a character to get the Platinum Rank.")
+                        }
+
+                        var timestamp = (new Date(Date.now()).toJSON());
+
+                        for(var index = 0; index < lists.length; index++)
+                        {
+                            message.channel.send("<@" + message.author.id + ">", {embed: {title: "***List of Platinum Characters You Can Buy (" + (index + 1) + "/" + lists.length + ")***", description: lists[index], color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                         }
                     }
                     else
