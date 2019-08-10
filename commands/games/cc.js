@@ -2354,8 +2354,6 @@ class CCCommand extends command.Command
 
                             ranks.push({id: characters[characterIndex].id, characterCount: totalPlatCount})
                         }
-
-                        console.log("CC Ranks Length - " + ranks.length)
                         
                         if(ranks.length == 0)
                         {
@@ -2372,11 +2370,17 @@ class CCCommand extends command.Command
                         else
                         {
                             ranks.sort(rankAscending);
-                            console.log("Sorted Ranks")
                             var names = [];
                             var userPromises = []
+                            
+                            var length = ranks.length;
+
+                            if(length > 10)
+                            {
+                                length = 10;
+                            }
                 
-                            for(var index = 0; index < ranks.length; index++)
+                            for(var index = 0; index < length; index++)
                             {
                                 userPromises.push(message.client.fetchUser(ranks[index].id)
                                 .then(user => {
@@ -2389,21 +2393,12 @@ class CCCommand extends command.Command
                             
                             Promise.all(userPromises).then(() => {
                                 var descriptionList = "";
-                
-                                var length = ranks.length;
-    
-                                if(length > 10)
-                                {
-                                    length = 10;
-                                }
     
                                 for(var rankIndex = 0; rankIndex < length; rankIndex++)
                                 {
                                     descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(ranks[rankIndex].characterCount) + "`` - **" + names[rankIndex] + "**\n");
                                 }
-                                
-                                console.log("CC Ranks Text Length - " + descriptionList.length)
-                    
+                                                    
                                 var timestamp = (new Date(Date.now()).toJSON());
                                 message.channel.send("", {embed: {title: "**Global Calamity Cards Leaderboard - Top 10 players :trophy:**",
                                 description: "**Rank** - Number of Platinum Characters Owned - Name\n" + descriptionList + "\nFiltered from a total of " + numberWithCommas(characters.length) + " players.",
