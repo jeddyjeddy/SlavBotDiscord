@@ -1018,7 +1018,7 @@ const supportServerID = "465522025440739328", gopnikRole = "495558203740913674",
 slavRole = "495514096200974359", supportChannelID = "495564950383886336", supportChannelID2 = "507858087856701450",
 blyComrades = "506062109478617089", bandits = "506066960199450624", babushkaFavs = "506067875673538560", 
 semechkiSquad = "595609926764593154", shashlikSupplier = "595610676479787008", vodkaBrigade = "595610746898087936",
-premiumRole = "564441309557817344", suggestionChannelID = "565108835258335232", voteChannelID = "565108535625515018";
+premiumRole = "564441309557817344", suggestionChannelID = "565108835258335232", voteChannelID = "565108535625515018", nitroRole = "586209897201401868";
 
 bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
     if(newMemberData.guild.id == supportServerID)
@@ -1033,6 +1033,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
         var newVodkaSupporter = true;
         var premiumSupporter = false;
         var newPremiumSupporter = true;
+        var newNitroRole = true;
         var oldRoles = oldMemberData.roles.array();
         for(var i = 0; i < oldRoles.length; i++)
         {
@@ -1078,6 +1079,11 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             if(oldRoles[i].id == vodkaBrigade)
             {
                 newVodkaSupporter = false;
+            }
+            
+            if(oldRoles[i].id == nitroRole)
+            {
+                newNitroRole = false;
             }
         }
 
@@ -1243,7 +1249,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
             }
         }
 
-        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter || newSemechkiSupporter || newShashlikSupporter || newVodkaSupporter)
+        if(newBlyComradesSupporter || newBanditSupporter || newBabushkaSupporter || newSemechkiSupporter || newShashlikSupporter || newVodkaSupporter || newNitroRole)
         {
             var newRoles = newMemberData.roles.array();
             
@@ -1254,7 +1260,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 1000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 1 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 1 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
@@ -1263,7 +1269,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 2500000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 2.5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 2.5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
@@ -1272,7 +1278,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 5000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 5 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
@@ -1281,7 +1287,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 50 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 50 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
@@ -1290,7 +1296,7 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 250000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 250 Million War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 250 Million War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
 
@@ -1299,7 +1305,16 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                     DatabaseFunctions.addUserTokens(newMemberData.user.id, 1000000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have been given 1 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for donation! You have been given the ***" + roleName + "*** role. You have also been given 1 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
+                    }, 500)
+                }
+                
+                if(newNitroRole && newRoles[i].id == nitroRole)
+                {
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 1000000000)
+                    const roleName = newRoles[i].name
+                    setTimeout(() => {
+                        newMemberData.user.send("Thank you for boosting the server! You have been given the ***" + roleName + "*** role. You have also been given 1 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
             }
