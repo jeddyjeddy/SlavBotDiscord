@@ -2341,6 +2341,8 @@ class CCCommand extends command.Command
                     {
                         var ranks = []
 
+                        console.log("Generating CC Ranks")
+                        
                         for(var characterIndex = 0; characterIndex < characters.length; characterIndex++)
                         {
                             var totalPlatCount = 0
@@ -2353,6 +2355,8 @@ class CCCommand extends command.Command
                             ranks.push({id: characters[characterIndex].id, characterCount: totalPlatCount})
                         }
 
+                        console.log("CC Ranks Length - " + ranks.length)
+                        
                         if(ranks.length == 0)
                         {
                             var timestamp = (new Date(Date.now()).toJSON());
@@ -2368,6 +2372,7 @@ class CCCommand extends command.Command
                         else
                         {
                             ranks.sort(rankAscending);
+                            console.log("Sorted Ranks")
                             var names = [];
                             var userPromises = []
                 
@@ -2378,6 +2383,7 @@ class CCCommand extends command.Command
                                     names.push(user.tag);
                                 }, rejection => {
                                         console.log(rejection.message);
+                                    names.push("<@" + ranks[index].id + ">")
                                 }));
                             }
                             
@@ -2395,6 +2401,8 @@ class CCCommand extends command.Command
                                 {
                                     descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(ranks[rankIndex].characterCount) + "`` - **" + names[rankIndex] + "**\n");
                                 }
+                                
+                                console.log("CC Ranks Text Length - " + descriptionList.length)
                     
                                 var timestamp = (new Date(Date.now()).toJSON());
                                 message.channel.send("", {embed: {title: "**Global Calamity Cards Leaderboard - Top 10 players :trophy:**",
