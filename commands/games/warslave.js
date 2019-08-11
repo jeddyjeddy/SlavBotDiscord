@@ -1471,16 +1471,35 @@ class WarSlaveCommand extends command.Command
                                             }
                                             else
                                             {
-                                                if(!IndexRef.subtractTokens(message.author.id, value))
+                                                var validTurncoat = true;
+                                                for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
                                                 {
-                                                    message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You do not have enough tokens to change your owner. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\Changing your owner requires you to spend x10 your original price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    if(slaves[i].users[slaveIndex2].id == userID)
+                                                    {
+                                                        if(slaves[i].users[slaveIndex2].owner == message.author.id)
+                                                        {
+                                                            validTurncoat = false;
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                if(validTurncoat)
+                                                {
+                                                    if(!IndexRef.subtractTokens(message.author.id, value))
+                                                    {
+                                                        message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You do not have enough tokens to change your owner. You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.\n\Changing your owner requires you to spend x10 your original price.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                    }
+                                                    else
+                                                    {                                                
+                                                        message.channel.send("<@" + message.author.id + "> has become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Changed Owner***", description: "<@" + message.author.id + "> You have become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + "> for " + numberWithCommas(value) + " tokens (x10 your price). You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. <@" + message.author.id + "> You now have a 2 hour cooldown until someone can steal or purchase you." , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+
+                                                        slaves[i].users[slaveIndex].owner = userID;
+                                                        slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
+                                                    }
                                                 }
                                                 else
-                                                {                                                
-                                                    message.channel.send("<@" + message.author.id + "> has become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + ">", {embed: {title: "***Successfully Changed Owner***", description: "<@" + message.author.id + "> You have become a slave of <@" + userID + "> instead of <@" + slaves[i].users[slaveIndex].owner + "> for " + numberWithCommas(value) + " tokens (x10 your price). You now have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens. <@" + message.author.id + "> You now have a 2 hour cooldown until someone can steal or purchase you." , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                    
-                                                    slaves[i].users[slaveIndex].owner = userID;
-                                                    slaves[i].users[slaveIndex].cooldown = (new Date((new Date()).getTime() + 7200000)).toJSON()
+                                                {
+                                                    message.channel.send("", {embed: {title: "***Failed To Change Owner***", description: "<@" + message.author.id + "> You cannot be the slave of <@" + userID + "> as you own them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                         }
