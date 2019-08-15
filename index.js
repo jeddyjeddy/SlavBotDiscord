@@ -4162,9 +4162,10 @@ function paySupporters()
                 });
     
                 var paymentDate = (new Date());
+                paymentDate.setHours(0, 0, 0, 0)
                 firebase.database().ref("patreondate").set(paymentDate.toJSON())
                 var scheduleDate = new Date();
-                scheduleDate.setDate(paymentDate.getTime() + 604800000);
+                scheduleDate = new Date(paymentDate.getTime() + 604800000);
                 scheduleDate.setHours(0, 0, 0, 0)
     
                 schedule.scheduleJob(scheduleDate, function(){
@@ -4259,9 +4260,9 @@ bot.login(process.env.BOT_TOKEN).then(function()
                         var today = (new Date());
                         if(snapshot.val() == null)
                         {
-                            var date = new Date();
-                            paymentDate = date;
-                            firebase.database().ref("patreondate").set(date.toJSON())
+                            paymentDate = new Date();
+                            paymentDate.setHours(0, 0, 0, 0)
+                            firebase.database().ref("patreondate").set(paymentDate.toJSON())
                             paySupporters();
                         }
                         else
@@ -4275,7 +4276,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                             else
                             {
                                 var scheduleDate = new Date();
-                                scheduleDate.setDate(paymentDate.getTime() + 604800000);
+                                scheduleDate = new Date(paymentDate.getTime() + 604800000);
                                 scheduleDate.setHours(0, 0, 0, 0)
         
                                 schedule.scheduleJob(scheduleDate, function(){
