@@ -799,7 +799,7 @@ var DatabaseFunctions = {
         {
             if(signedIntoDiscord && signedIntoFirebase)
             {
-                var timestamp = (new Date(Date.now()).toJSON());
+                var timestamp = (new Date()).toJSON();
                 var token = {key: userID, tokens: amount, collectDate: timestamp}
                 tokens.push(token);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
@@ -844,7 +844,7 @@ var DatabaseFunctions = {
             }
         }
 
-        return (new Date(Date.now()).toJSON());
+        return (new Date().toJSON());
     },
 
     setTokenCooldown: function(userID, cooldown)
@@ -2953,7 +2953,7 @@ bot.on("message", (message) => {
                         {
                             console.log("Creating Suggestion")
                             const title = params[0], description = params[1], author = message.author.id, 
-                            avatar = message.client.user.avatarURL, timestamp = (new Date(Date.now()).toJSON()),
+                            avatar = message.client.user.avatarURL, timestamp = (new Date().toJSON()),
                             authorAvatar = message.author.avatarURL;
                             listenToReactions();
                             message.delete(500).then(() => {
@@ -4161,10 +4161,10 @@ function paySupporters()
                     });
                 });
     
-                var paymentDate = (new Date(Date.now()));
+                var paymentDate = (new Date());
                 firebase.database().ref("patreondate").set(paymentDate.toJSON())
                 var scheduleDate = new Date();
-                scheduleDate.setDate(paymentDate.getDate() + 7);
+                scheduleDate.setDate(paymentDate.getTime() + 604800000);
                 scheduleDate.setHours(0, 0, 0, 0)
     
                 schedule.scheduleJob(scheduleDate, function(){
@@ -4256,10 +4256,10 @@ bot.login(process.env.BOT_TOKEN).then(function()
 
                     firebase.database().ref("patreondate").once('value').then(function(snapshot) {
                         var paymentDate;
-                        var today = (new Date(Date.now()));
+                        var today = (new Date());
                         if(snapshot.val() == null)
                         {
-                            var date = (new Date(Date.now()));
+                            var date = new Date();
                             paymentDate = date;
                             firebase.database().ref("patreondate").set(date.toJSON())
                             paySupporters();
@@ -4268,14 +4268,14 @@ bot.login(process.env.BOT_TOKEN).then(function()
                         {
                             paymentDate = new Date(snapshot.val());
 
-                            if(today.getDate() >= paymentDate.getDate() + 7)
+                            if(today.getTime() >= paymentDate.getTime() + 604800000)
                             {
                                 paySupporters();
                             }
                             else
                             {
                                 var scheduleDate = new Date();
-                                scheduleDate.setDate(paymentDate.getDate() + 7);
+                                scheduleDate.setDate(paymentDate.getTime() + 604800000);
                                 scheduleDate.setHours(0, 0, 0, 0)
         
                                 schedule.scheduleJob(scheduleDate, function(){
