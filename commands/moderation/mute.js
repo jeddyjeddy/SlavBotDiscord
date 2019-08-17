@@ -95,6 +95,12 @@ class MuteCommand extends command.Command
                 time = timestring(parameter, "ms")
             }
 
+            if(time > 46656000000)   
+            {
+                message.channel.send("<@" + message.author.id + "> Maximum length value is 18 months.").catch(error => console.log("Send Error - " + error));
+                return;
+            }
+         
             var muteRole = message.guild.roles.find("name", IndexRef.getRoleName(message.guild.id));
             var promises = []
 
