@@ -158,7 +158,7 @@ dbl.on('posted', () => {
             })
         })
          
-        bot.user.setActivity('Screaming !help while smacking people with a ' + (bot.shard.id + 1) + " inch ding dong.", { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
+        bot.user.setActivity('people screaming !help while smacking them with a ' + (bot.shard.id + 1) + " inch ding dong", { type: 'LISTENING' }).catch((error) => console.log("Status Fail: " + error));    
     }, 5000)
 });
     
@@ -967,7 +967,7 @@ var config = {
 
 firebase.initializeApp(config);
 
-bot.registry.registerGroup("audioshit", "Audio Shit");
+bot.registry.registerGroup("audioshit", "Audio Shit (Experimental)");
 bot.registry.registerGroup("textshit", "Text Shit");
 bot.registry.registerGroup("imageshit", "Image Shit");
 bot.registry.registerGroup("games", "Games");
