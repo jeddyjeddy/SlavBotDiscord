@@ -371,7 +371,7 @@ class WWCommand extends command.Command
                                         {
                                             if(members[index].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push(members[index].user.username);
+                                                names.push(members[index].user.tag);
                                             }
                                         }
                                     }
@@ -911,7 +911,7 @@ class WWCommand extends command.Command
                                         {
                                             if(members[i].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push(members[i].user.username);
+                                                names.push(members[i].user.tag);
                                             }
                                         }
                                     }
@@ -1096,7 +1096,7 @@ class WWCommand extends command.Command
                                             thumbnail = user.avatarURL
             
                                         var timestamp = (new Date(Date.now()).toJSON());
-                                        message.channel.send("", {embed: {title: "***Game Over***", description: user.username + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        message.channel.send("", {embed: {title: "***Game Over***", description: user.tag + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                     }, rejection => {
                                             console.log(rejection.message);
                                             var timestamp = (new Date(Date.now()).toJSON());

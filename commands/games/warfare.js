@@ -1305,7 +1305,7 @@ class WarfareCommand extends command.Command
                                     {
                                         if(members[index].id == ranks[userIndex].id)
                                         {
-                                            names.push(members[index].user.username);
+                                            names.push(members[index].user.tag);
                                         }
                                     }
                                 }

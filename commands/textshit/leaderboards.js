@@ -45,7 +45,7 @@ class LeaderboardsCommand extends command.Command
                 {
                     if(members[i].id == localLeaderboards[userIndex].key)
                     {
-                        names.push(members[i].user.username);
+                        names.push(members[i].user.tag);
                     }
                 }
             }
@@ -95,7 +95,7 @@ class LeaderboardsCommand extends command.Command
                     {
                         if(users[userIndex].id == leaderboards[i].key)
                         {
-                            names.push(users[userIndex].username)
+                            names.push(users[userIndex].tag)
                         }
                     }
                 }
