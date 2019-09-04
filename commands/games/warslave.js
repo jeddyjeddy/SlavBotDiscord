@@ -1422,12 +1422,8 @@ class WarSlaveCommand extends command.Command
                                     if(slaves[i].users[slaveIndex].id == slave.id)
                                     {
                                         slaveFound = true;
-                                        if(slaves[i].users[slaveIndex].owner != message.author.id)
+                                        if(slaves[i].users[slaveIndex].owner == message.author.id)
                                         {
-                                            message.channel.send("", {embed: {title: "***Sending Slave Failed***", description: "<@" + message.author.id + "> you do not own <@" + slave.id + ">. You must own the slave you want to send.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }
-                                        else
-                                        {    
                                             var validSend = true;
                                             for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
                                             {
@@ -1449,6 +1445,10 @@ class WarSlaveCommand extends command.Command
                                             {
                                                 message.channel.send("", {embed: {title: "***Failed To Send Slave***", description: "<@" + message.author.id + "> You cannot send <@" + slave.id + "> as they own <@" + userToSend.id + ">.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
+                                        }
+                                        else
+                                        {    
+                                            message.channel.send("", {embed: {title: "***Sending Slave Failed***", description: "<@" + message.author.id + "> you do not own <@" + slave.id + ">. You must own the slave you want to send.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }
                                 }
