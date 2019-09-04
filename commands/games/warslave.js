@@ -1439,7 +1439,7 @@ class WarSlaveCommand extends command.Command
                                             if(validSend)
                                             {
                                                 message.channel.send("<@" + message.author.id + "> has sent their slave " + "<@" + slave.id + "> to <@" + userToSend.id + ">", {embed: {title: "***Successfully Sent Slave***", description: "<@" + message.author.id + "> You have sent your slave <@" + slave.id + "> to <@" + userToSend.id + ">" , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                                slaves[i].users[slaveIndex].owner = userID;
+                                                slaves[i].users[slaveIndex].owner = userToSend.id;
                                             }
                                             else
                                             {
