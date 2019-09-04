@@ -87,7 +87,7 @@ class WarSlaveCommand extends command.Command
             group: "games",
             memberName: "warslave",
             description: "Play the War Slave Game where you purchase other users on your server as slaves. Buy other users as slaves, gift them war tokens to increase their value so that no one else can buy them. Sell your slaves to earn back your tokens. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
-            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave steal @User` (Steal a slave for x100 their original price)", "`!warslave turncoat @User` (Change your owner for x10 your price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave protect @User` (Add a 2 hour cooldown period to protect your slave for x100 their price)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)", "`!warslave reset` (Reset the game. Can only be used by server owners.)"]
+            examples: ["`!warslave profile [@User (optional)]` (Check how many tokens/slaves you or another user have and other info)", "`!warslave collect` (Gather Slave Trading Resources)", "`!warslave ranks` (Check Local Leaderboards)", "`!warslave buy @User` (Buy a slave)", "`!warslave buy freedom` (Buy your freedom if you are owned by someone, freedom cost is x10 your slave price)", "`!warslave steal @User` (Steal a slave for x100 their original price)", "`!warslave send @Slave @NewMaster` (Send your slave to another user)", "`!warslave turncoat @User` (Change your owner for x10 your price)", "`!warslave sell @User` (Sell a slave)", "`!warslave gift <amount> @User1 @User2` (Gift tokens to your slaves to increase their value)", "`!warslave protect @User` (Add a 2 hour cooldown period to protect your slave for x100 their price)", "`!warslave give <amount> @User1 @User2` (Give your tokens to another user)", "`!warslave list` (Gives a list of slaves you own)", "`!warslave trade @YourSlave @OtherSlave` (Request a trade for slaves)", "`!warslave trade decline @User` (Decline a trade request by a user)", "`!warslave trade accept @User` (Accept a trade request by a user)", "`!warslave trade list` (Gives a list of trade requests you have been sent)", "`!warslave reset` (Reset the game. Can only be used by server owners.)"]
         });
     }
 
@@ -1397,6 +1397,70 @@ class WarSlaveCommand extends command.Command
                             else
                             {
                                 message.channel.send("", {embed: {title: "***No Slaves Tagged***", description: "<@" + message.author.id + "> You must mention a slave to steal them.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                            }
+                        }
+                        else if (args.toLowerCase().startsWith("send"))
+                        {
+                            var timestamp = (new Date(Date.now()).toJSON());
+                            var mentions = message.mentions.users.array()
+                            var slave, userToSend;
+
+                            if(mentions.length > 1)
+                            {
+                                slave = mentions[0]
+                                userToSend = mentions[1]
+                            }
+
+                            if(slave != undefined && slave != null && userToSend != undefined && userToSend != null
+                                && slave.id != message.author.id && userToSend.id != message.author.id && !slave.bot
+                                && !userToSend.bot && slave.id != userToSend.id)
+                            {
+                                var slaveFound = false;
+
+                                for(var slaveIndex = 0; slaveIndex < slaves[i].users.length; slaveIndex++)
+                                {
+                                    if(slaves[i].users[slaveIndex].id == slave.id)
+                                    {
+                                        slaveFound = true;
+                                        if(slaves[i].users[slaveIndex].owner != message.author.id)
+                                        {
+                                            message.channel.send("", {embed: {title: "***Sending Slave Failed***", description: "<@" + message.author.id + "> you do not own <@" + slave.id + ">. You must own the slave you want to send.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                        }
+                                        else
+                                        {    
+                                            var validSend = true;
+                                            for(var slaveIndex2 = 0; slaveIndex2 < slaves[i].users.length; slaveIndex2++)
+                                            {
+                                                if(slaves[i].users[slaveIndex2].id == userToSend.id)
+                                                {
+                                                    if(slaves[i].users[slaveIndex2].owner == slave.id)
+                                                    {
+                                                        validSend = false;
+                                                    }
+                                                }
+                                            }
+                                            
+                                            if(validSend)
+                                            {
+                                                message.channel.send("<@" + message.author.id + "> has sent their slave " + "<@" + slave.id + "> to <@" + userToSend.id + ">", {embed: {title: "***Successfully Sent Slave***", description: "<@" + message.author.id + "> You have sent your slave <@" + slave.id + "> to <@" + userToSend.id + ">" , color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                slaves[i].users[slaveIndex].owner = userID;
+                                            }
+                                            else
+                                            {
+                                                message.channel.send("", {embed: {title: "***Failed To Send Slave***", description: "<@" + message.author.id + "> You cannot send <@" + slave.id + "> as they own <@" + userToSend.id + ">.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(!slaveFound)
+                                {
+                                    message.channel.send("", {embed: {title: "***Failed To Send Slave***", description: "<@" + message.author.id + "> You must mention a slave you own.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                }
+                            }
+                            else
+                            {
+                                message.channel.send("", {embed: {title: "***No Users Tagged***", description: "<@" + message.author.id + "> You must mention a slave you own and the person you want to send them to.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if (args.toLowerCase().startsWith("turncoat"))
