@@ -1407,8 +1407,8 @@ class WarSlaveCommand extends command.Command
 
                             if(mentions.length > 1)
                             {
-                                slave = mentions[0]
-                                userToSend = mentions[1]
+                                slave = mentions[1]
+                                userToSend = mentions[0]
                             }
 
                             if(slave != undefined && slave != null && userToSend != undefined && userToSend != null
@@ -1448,7 +1448,7 @@ class WarSlaveCommand extends command.Command
                                         }
                                         else
                                         {    
-                                            message.channel.send("", {embed: {title: "***Sending Slave Failed***", description: "<@" + message.author.id + "> you do not own <@" + slave.id + ">. You must own the slave you want to send.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                            message.channel.send("", {embed: {title: "***Sending Slave Failed***", description: "<@" + message.author.id + "> you do not own <@" + slave.id + ">. You must own the slave you want to send to <@" + userToSend.id + ">.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                     }
                                 }
