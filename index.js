@@ -183,7 +183,32 @@ bot.on('guildDelete', guild => {
         }
         firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").off()
         firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounters").off()
+        firebase.database().ref("serversettings/" + guild.id + "/autorole").off()
         firebase.database().ref("serversettings/" + guild.id).remove();
+
+        for(var i = 0; i < customResponses.length; i++)
+        {
+            if(customResponses[i].guild == guild.id)
+            {
+                customResponses.splice(i, 1)
+            }
+        }
+
+        for(var i = 0; i < customCounters.length; i++)
+        {
+            if(customCounters[i].guild == server)
+            {
+                customCounters.splice(i, 1)
+            }
+        }
+
+        for(var i = 0; i < autoroles.length; i++)
+        {
+            if(autoroles[i].key == guild.id)
+            {
+                autoroles.splice(i, 1)
+            }
+        }
     }
 });
 
