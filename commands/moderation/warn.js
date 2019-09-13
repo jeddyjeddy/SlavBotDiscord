@@ -162,7 +162,7 @@ class WarnCommand extends command.Command
                                             }
                                             else if(args.toString().toLowerCase().startsWith("view"))
                                             {
-                                                message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                                message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
                                             }
                                             else
                                             {
@@ -188,6 +188,10 @@ class WarnCommand extends command.Command
                                         if(args.toString().toLowerCase().startsWith("remove"))
                                         {
                                             message.channel.send("<@" + member.id + "> has never been warned. <@" + message.author.id + "> please mention a user with at least one warning.")
+                                        }
+                                        else if(args.toString().toLowerCase().startsWith("view"))
+                                        {
+                                            message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of 0 warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
                                         }
                                         else
                                         {
