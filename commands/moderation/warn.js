@@ -23,7 +23,7 @@ class WarnCommand extends command.Command
             group: "moderation",
             memberName: "warn",
             description: "Warns a member or members. User is banned after the third warning.",
-            examples: ["`!warn @User`", "`!warn @User1 @User2`", "`!warn remove @User1 @User2`"]
+            examples: ["`!warn @User`", "`!warn @User1 @User2`", "`!warn remove @User1 @User2`", "`!warn view @User1 @User2`"]
         });
     }
 
