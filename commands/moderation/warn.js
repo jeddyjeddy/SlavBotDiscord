@@ -160,6 +160,10 @@ class WarnCommand extends command.Command
                                                     message.channel.send("<@" + member.id + "> Your warning count has been reduced by <@" + message.author.id + ">", {embed: {title: `***Reduced Warning Count For ${member.user.tag}***`, description: "<@" + member.id + "> You now have " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
                                                 }
                                             }
+                                            else if(args.toString().toLowerCase().startsWith("view"))
+                                            {
+                                                message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                            }
                                             else
                                             {
                                                 warnings[index].users[userIndex].warnings = warnings[index].users[userIndex].warnings + 1;
