@@ -142,6 +142,32 @@ class WWCommand extends command.Command
                         }
                     }
 
+                    if(war.ranks.length > 0)
+                    {
+                        var changesMade = false;
+                        for(var i = 0; i < war.ranks.length; i++)
+                        {
+                            for(var copyIndex = 0; copyIndex < war.ranks.length; copyIndex++)
+                            {
+                                if(war.ranks[copyIndex].key == war.ranks[i].key && i != copyIndex)
+                                {
+                                    changesMade = true;
+                                    if(war.ranks[copyIndex].wins < war.ranks[i].wins)
+                                    {
+                                        war.ranks.splice(copyIndex, 1)
+                                    }
+                                    else
+                                    {
+                                        war.ranks.splice(i, 1)
+                                    }
+                                }
+                            }
+                        }
+
+                        if(changesMade)
+                            firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(war))
+                    }
+
                     if(war.listTimestamp == undefined || war.listTimestamp == null || war.listTimestamp == "")
                     {
                         console.log("TIMESTAMP ERROR FOUND")
