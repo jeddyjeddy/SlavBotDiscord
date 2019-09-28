@@ -196,7 +196,7 @@ bot.on('guildDelete', guild => {
 
         for(var i = 0; i < customCounters.length; i++)
         {
-            if(customCounters[i].guild == server)
+            if(customCounters[i].guild == guild.id)
             {
                 customCounters.splice(i, 1)
             }
