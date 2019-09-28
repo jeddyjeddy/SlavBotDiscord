@@ -401,8 +401,6 @@ class WWCommand extends command.Command
                                             }
                                         }
                                     }
-
-                                    names.sort(rankAscending)
                                     
                                     var descriptionList = "";
                         
@@ -943,8 +941,6 @@ class WWCommand extends command.Command
                                             }
                                         }
                                     }
-
-                                    names.sort(rankAscending)
                                     
                                     var descriptionList = "";
                         
@@ -1087,55 +1083,52 @@ class WWCommand extends command.Command
                                 message.channel.send("<@" + message.author.id + "> No parameter given. Use `" + commandPrefix + "help ww` for help.").catch(error => {console.log("Send Error - " + error); });
                             }
     
-                            if(wars[i].countries != undefined && wars[i].countries != null)
+                            if(wars[i].countries.length >= allCountries.length)
                             {
-                                if(wars[i].countries.length >= allCountries.length)
+                                var userID = wars[i].countries[0].ruler;
+                                var hasEnded = true;
+                                for(var index = 0; index < wars[i].countries.length; index++)
                                 {
-                                    var userID = wars[i].countries[0].ruler;
-                                    var hasEnded = true;
-                                    for(var index = 0; index < wars[i].countries.length; index++)
+                                    if(userID != wars[i].countries[index].ruler)
                                     {
-                                        if(userID != wars[i].countries[index].ruler)
+                                        hasEnded = false;
+                                    }
+                                }
+    
+                                if(hasEnded)
+                                {
+                                    wars[i].ended = true;
+                                    wars[i].countries = [];
+                                    var noData = true;
+                                    for(var index = 0; index < wars[i].ranks.length; index++)
+                                    {
+                                        if(userID == wars[i].ranks[index].key)
                                         {
-                                            hasEnded = false;
+                                            noData = false;
+                                            wars[i].ranks[index].wins = wars[i].ranks[index].wins + 1;
                                         }
                                     }
-        
-                                    if(hasEnded)
+    
+                                    if(noData)
                                     {
-                                        wars[i].ended = true;
-                                        wars[i].countries = [];
-                                        var noData = true;
-                                        for(var index = 0; index < wars[i].ranks.length; index++)
-                                        {
-                                            if(userID == wars[i].ranks[index].key)
-                                            {
-                                                noData = false;
-                                                wars[i].ranks[index].wins = wars[i].ranks[index].wins + 1;
-                                            }
-                                        }
-        
-                                        if(noData)
-                                        {
-                                            wars[i].ranks.push({key: userID, wins: 1})
-                                        }
-        
-                                        message.client.fetchUser(userID)
-                                        .then(user => {
-                                            var thumbnail = "";
-        
-                                            if(user.avatarURL != undefined && user.avatarURL != null)
-                                                thumbnail = user.avatarURL
-                
+                                        wars[i].ranks.push({key: userID, wins: 1})
+                                    }
+    
+                                    message.client.fetchUser(userID)
+                                    .then(user => {
+                                        var thumbnail = "";
+    
+                                        if(user.avatarURL != undefined && user.avatarURL != null)
+                                            thumbnail = user.avatarURL
+            
+                                        var timestamp = (new Date(Date.now()).toJSON());
+                                        message.channel.send("", {embed: {title: "***Game Over***", description: user.tag + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                            console.log(rejection.message);
                                             var timestamp = (new Date(Date.now()).toJSON());
-                                            message.channel.send("", {embed: {title: "***Game Over***", description: user.tag + " has won the game.", color: 16711680, thumbnail: {"url": thumbnail}, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        }, rejection => {
-                                                console.log(rejection.message);
-                                                var timestamp = (new Date(Date.now()).toJSON());
-                                                message.channel.send("", {embed: {title: "***Game Over***", description: "<@" + userID + "> has won the game.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
-                                        });
-                                    }  
-                                }   
+                                            message.channel.send("", {embed: {title: "***Game Over***", description: "<@" + userID + "> has won the game.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                    });
+                                }  
                             }
                         }
                         firebase.database().ref("serversettings/" + message.guild.id + "/wars").set(JSON.stringify(wars[i]))
