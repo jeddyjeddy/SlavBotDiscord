@@ -933,11 +933,11 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
-                                        for(var i = 0; i < members.length; i++)
+                                        for(var index = 0; index < members.length; index++)
                                         {
-                                            if(members[i].id == localLeaderboards[userIndex].key)
+                                            if(members[index].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push({name: members[i].user.tag, wins: localLeaderboards[userIndex].wins});
+                                                names.push({name: members[index].user.tag, wins: localLeaderboards[userIndex].wins});
                                             }
                                         }
                                     }
