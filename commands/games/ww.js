@@ -393,25 +393,18 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
-                                        var nameFound = false;
                                         for(var index = 0; index < members.length; index++)
                                         {
                                             if(members[index].id == localLeaderboards[userIndex].key)
                                             {
-                                                nameFound = true;
-                                                names.push(members[index].user.tag);
+                                                names.push({name: members[index].user.tag, wins: localLeaderboards[userIndex].wins});
                                             }
-                                        }
-
-                                        if(!nameFound)
-                                        {
-                                            localLeaderboards.splice(userIndex, 1)
                                         }
                                     }
                                     
                                     var descriptionList = "";
                         
-                                    var length = localLeaderboards.length;
+                                    var length = names.length;
     
                                     if(length > 10)
                                     {
@@ -420,7 +413,7 @@ class WWCommand extends command.Command
     
                                     for(var rankIndex = 0; rankIndex < length; rankIndex++)
                                     {
-                                        descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(localLeaderboards[rankIndex].wins) + "`` - **" + names[rankIndex] + "**\n");
+                                        descriptionList = descriptionList + (rankEmojis[rankIndex] + "``" + numberWithCommas(names[rankIndex].wins) + "`` - **" + names[rankIndex].name + "**\n");
                                     }
                         
                                     var timestamp = (new Date(Date.now()).toJSON());
@@ -940,26 +933,18 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
-                                        var nameFound = false;
-
                                         for(var i = 0; i < members.length; i++)
                                         {
                                             if(members[i].id == localLeaderboards[userIndex].key)
                                             {
-                                                nameFound = true;
-                                                names.push(members[i].user.tag);
+                                                names.push({name: members[index].user.tag, wins: localLeaderboards[userIndex].wins});
                                             }
-                                        }
-
-                                        if(!nameFound)
-                                        {
-                                            localLeaderboards.splice(userIndex, 1)
                                         }
                                     }
                                     
                                     var descriptionList = "";
                         
-                                    var length = localLeaderboards.length;
+                                    var length = names.length;
     
                                     if(length > 10)
                                     {
@@ -968,7 +953,7 @@ class WWCommand extends command.Command
     
                                     for(var i = 0; i < length; i++)
                                     {
-                                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].wins) + "`` - **" + names[i] + "**\n");
+                                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(names[i].wins) + "`` - **" + names[i].name + "**\n");
                                     }
                         
                                     var timestamp = (new Date(Date.now()).toJSON());
