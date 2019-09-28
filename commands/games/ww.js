@@ -939,7 +939,7 @@ class WWCommand extends command.Command
                                         {
                                             if(members[i].id == localLeaderboards[userIndex].key)
                                             {
-                                                names.push({name: members[index].user.tag, wins: localLeaderboards[userIndex].wins});
+                                                names.push({name: members[i].user.tag, wins: localLeaderboards[userIndex].wins});
                                             }
                                         }
                                     }
