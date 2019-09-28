@@ -401,6 +401,8 @@ class WWCommand extends command.Command
                                             }
                                         }
                                     }
+
+                                    names.sort(rankAscending)
                                     
                                     var descriptionList = "";
                         
@@ -941,6 +943,8 @@ class WWCommand extends command.Command
                                             }
                                         }
                                     }
+
+                                    names.sort(rankAscending)
                                     
                                     var descriptionList = "";
                         
