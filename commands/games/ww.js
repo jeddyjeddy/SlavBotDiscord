@@ -951,9 +951,9 @@ class WWCommand extends command.Command
                                         length = 10;
                                     }
     
-                                    for(var i = 0; i < length; i++)
+                                    for(var index = 0; index < length; index++)
                                     {
-                                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(names[i].wins) + "`` - **" + names[i].name + "**\n");
+                                        descriptionList = descriptionList + (rankEmojis[index] + "``" + numberWithCommas(names[index].wins) + "`` - **" + names[index].name + "**\n");
                                     }
                         
                                     var timestamp = (new Date(Date.now()).toJSON());
