@@ -1728,14 +1728,13 @@ async function initData() {
 
 function customSettingsInit(guild)
 {
-    const server = guild.id
     firebase.database().ref("serversettings/" + guild.id + "/customsettings/customresponses").on('value', (snap) => {
         if(snap.val() != null)
         {
             var found = false;
             for(var i = 0; i < customResponses.length; i++)
             {
-                if(customResponses[i].guild == server)
+                if(customResponses[i].guild == guild.id)
                 {
                     customResponses[i].responses = JSON.parse(snap.val())
                     found = true;
@@ -1743,7 +1742,7 @@ function customSettingsInit(guild)
             }
 
             if(!found)
-                customResponses.push({guild: server, responses: JSON.parse(snap.val())})
+                customResponses.push({guild: guild.id, responses: JSON.parse(snap.val())})
         }
     })
 
@@ -1753,7 +1752,7 @@ function customSettingsInit(guild)
             var found = false;
             for(var i = 0; i < customCounters.length; i++)
             {
-                if(customCounters[i].guild == server)
+                if(customCounters[i].guild == guild.id)
                 {
                     customCounters[i].counters = JSON.parse(snap.val())
                     found = true;
@@ -1761,7 +1760,7 @@ function customSettingsInit(guild)
             }
 
             if(!found)
-                customCounters.push({guild: server, counters: JSON.parse(snap.val())})
+                customCounters.push({guild: guild.id, counters: JSON.parse(snap.val())})
         }
     })
 
@@ -1796,11 +1795,11 @@ function customSettingsInit(guild)
     firebase.database().ref("serversettings/" + guild.id + "/customsettings/customcounterdata").once('value').then((snap) => {
         if(snap.val() != null)
         {
-            customCounterData.push({guild: server, counters: JSON.parse(snap.val())})
+            customCounterData.push({guild: guild.id, counters: JSON.parse(snap.val())})
         }
         else
         {
-            customCounterData.push({guild: server, counters: []})
+            customCounterData.push({guild: guild.id, counters: []})
         }
     })
 }
