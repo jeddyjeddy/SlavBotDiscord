@@ -16,7 +16,7 @@ fs.readdir(directory, (err, files) => {
   }
 });
 
-const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN, totalShards: 10, respawn: true });
+const Manager = new ShardingManager('./index.js', { token: process.env.BOT_TOKEN, totalShards: 11, respawn: true });
 Manager.spawn();
 Manager.on('launch', shard => console.log(`Successfully launched shard ${shard.id}`));
 
