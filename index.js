@@ -492,7 +492,6 @@ var migrateServerID = (guild) =>
     //If server ID in serversettings returns null
     var channels = guild.channels.array();
     var alreadyFoundData = false;
-    console.log("Migrating " + guild.id)
     for(var i = 0; i < channels.length; i++)
     {
         const checkIndex = i;
@@ -501,7 +500,6 @@ var migrateServerID = (guild) =>
             {
                 if(!alreadyFoundData)
                 {
-                    console.log("Previous data found for " + guild.id)
                     firebase.database().ref("serversettings/" + guild.id).set(snapshot.val());
                     alreadyFoundData = true;
                 }
@@ -513,7 +511,6 @@ var migrateServerID = (guild) =>
 
             if(checkIndex == channels.length - 1)
             { 
-                console.log("Migrating over " + guild.id)
                 var responseCheck = false;
                 for(var index = 0; index < responseSettings.length; index++)
                 {
@@ -538,7 +535,6 @@ var migrateServerID = (guild) =>
                 firebase.database().ref("serversettings/" + guild.id).once('value').then(function(snapshot) {
                     if(snapshot.val() == null)
                     {
-                        console.log("Adding new data for " + guild.id)
                         firebase.database().ref("serversettings/" + guild.id + "/respond").set(false)
                     }
                 })
