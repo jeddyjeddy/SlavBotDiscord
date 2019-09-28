@@ -393,12 +393,19 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
+                                        var nameFound = false;
                                         for(var index = 0; index < members.length; index++)
                                         {
                                             if(members[index].id == localLeaderboards[userIndex].key)
                                             {
+                                                nameFound = true;
                                                 names.push(members[index].user.tag);
                                             }
+                                        }
+
+                                        if(!nameFound)
+                                        {
+                                            localLeaderboards.splice(userIndex, 1)
                                         }
                                     }
                                     
@@ -933,12 +940,20 @@ class WWCommand extends command.Command
                         
                                     for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
                                     {
+                                        var nameFound = false;
+
                                         for(var i = 0; i < members.length; i++)
                                         {
                                             if(members[i].id == localLeaderboards[userIndex].key)
                                             {
+                                                nameFound = true;
                                                 names.push(members[i].user.tag);
                                             }
+                                        }
+
+                                        if(!nameFound)
+                                        {
+                                            localLeaderboards.splice(userIndex, 1)
                                         }
                                     }
                                     
