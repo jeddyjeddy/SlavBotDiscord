@@ -810,7 +810,7 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
-                tokens[index].tokens = parseInt(tokens[index].tokens) + parseInt(amount);
+                tokens[index].tokens = (tokens[index].tokens) + (amount);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
                 added = true;
             }
@@ -842,7 +842,7 @@ var DatabaseFunctions = {
             {
                 if(tokens[index].tokens >= amount)
                 {
-                    tokens[index].tokens = parseInt(tokens[index].tokens) - parseInt(amount);
+                    tokens[index].tokens = (tokens[index].tokens) - (amount);
                     firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
                     return true;
                 }
@@ -1478,7 +1478,7 @@ async function initData() {
                 {
                     if(tokens[i].key == childSnap.key)
                     {
-                        tokens[i] = JSON.parse(childSnap.child("tokens").val())
+                        tokens[i] = parseInt(JSON.parse(childSnap.child("tokens").val()))
                     }
                 }
             }

@@ -156,7 +156,7 @@ class WarSlaveCommand extends command.Command
                                     slave.users.splice(slaveIndex, 1)
                                     copies = true;
                                 }
-                                else if(isNaN(parseInt(slave.users[slaveIndex].id)))
+                                else if(isNaN((slave.users[slaveIndex].id)))
                                 {
                                     slave.users.splice(slaveIndex, 1)
                                     copies = true;
