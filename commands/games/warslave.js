@@ -1405,10 +1405,45 @@ class WarSlaveCommand extends command.Command
                             var mentions = message.mentions.users.array()
                             var slave, userToSend;
 
+                            var userID = "";
+                            var getUser = false;
+                            for(var index = 0; index < args.length; index++)
+                            {
+                                if(getUser)
+                                {
+                                    if(args[index].toString() == ">")
+                                    {
+                                        index = args.length;
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() != "@" && (!isNaN(args[index].toString()) || args[index] == "&"))
+                                        {
+                                            userID = userID + args[index].toString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                    } 
+                                }
+                            }
+
                             if(mentions.length > 1)
                             {
-                                slave = mentions[1]
-                                userToSend = mentions[0]
+                                if(userID == mentions[0].id)
+                                {
+                                    slave = mentions[0]
+                                    userToSend = mentions[1]
+                                }
+                                else
+                                {
+                                    slave = mentions[1]
+                                    userToSend = mentions[0]
+                                }
                             }
 
                             if(slave != undefined && slave != null && userToSend != undefined && userToSend != null
