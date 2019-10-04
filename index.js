@@ -1540,12 +1540,12 @@ async function initData() {
 
                 if(notAdded)
                 {
-                    console.log("TOKEN ID NOT ADDED - " + childSnap.key)
+                    console.log("TOKEN ID NOT ADDED (Shard " + bot.shard.id + ") - " + childSnap.key)
                     var token = JSON.parse(childSnap.child("tokens").val())
 
                     if(childSnap.key != token.key)
                     {
-                        console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                        console.log("SECOND INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
                         token.key = childSnap.key
                     }
 
