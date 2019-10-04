@@ -85,7 +85,7 @@ class WWCommand extends command.Command
 
     async run(message, args)
     {
-        if(!signedIntoFirebase || IndexRef.isInit || message.guild == null)
+        if(!signedIntoFirebase || !IndexRef.isInit || message.guild == null)
             return;
             
         IndexRef.addCommandCounter(message.author.id);

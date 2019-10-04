@@ -144,7 +144,7 @@ class CCCommand extends command.Command
 
     async run(message, args)
     {
-        if(!signedIntoFirebase || IndexRef.isInit)
+        if(!signedIntoFirebase || !IndexRef.isInit)
             return;
 
         if(!dataInit)

@@ -57,7 +57,7 @@ class DailySpinCommand extends command.Command
 
     async run(message, args)
     {
-        if(!signedIntoFirebase || IndexRef.isInit)
+        if(!signedIntoFirebase || !IndexRef.isInit)
             return;
             
         IndexRef.addCommandCounter(message.author.id);
