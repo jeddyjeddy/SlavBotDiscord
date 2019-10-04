@@ -823,12 +823,12 @@ var DatabaseFunctions = {
                 firebase.database().ref("usersettings/" + userID + "/tokens").once("value", (snapshot) => {
                     if(snapshot.val() != null)
                     {
-                        var token = JSON.parse(snapshot.child("tokens").val())
+                        var token = JSON.parse(snapshot.val())
 
                         var notAdded = true;
                         for(var i = 0; i < tokens.length; i++)
                         {
-                            if(tokens[i].key = token.key)
+                            if(tokens[i].key == token.key)
                             {
                                 notAdded = false;
                                 tokens[i].tokens = tokens[i].tokens + amount;
