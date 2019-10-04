@@ -829,6 +829,7 @@ var DatabaseFunctions = {
                             if(tokens[i].key = snapshot.key)
                             {
                                 notAdded = false;
+                                tokens[i].tokens = tokens[i].tokens + amount;
                             }
                         }
 
@@ -841,7 +842,8 @@ var DatabaseFunctions = {
                                 console.log("INIT TOKEN KEY ERROR - " + snapshot.key + " vs " + token.key)
                                 token.key = snapshot.key
                             }
-            
+
+                            token.tokens = token.tokens + amount;
                             tokens.push(token)
                         }
                     }
