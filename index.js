@@ -1436,6 +1436,12 @@ async function initData() {
             if(childSnap.child("tokens").val() != null)
             {
                 var token = JSON.parse(childSnap.child("tokens").val())
+
+                if(childSnap.key != token.key)
+                {
+                    console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                }
+
                 tokens.push(token)
             }
 
