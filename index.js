@@ -830,6 +830,7 @@ var DatabaseFunctions = {
                             {
                                 notAdded = false;
                                 tokens[i].tokens = tokens[i].tokens + amount;
+                                console.log(tokens[i].key + " " + tokens[i].tokens)
                             }
                         }
 
@@ -844,6 +845,7 @@ var DatabaseFunctions = {
                             }
 
                             token.tokens = token.tokens + amount;
+                            console.log(token.key + " " + token.tokens)
                             tokens.push(token)
                         }
                     }
