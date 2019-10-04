@@ -820,10 +820,39 @@ var DatabaseFunctions = {
         {
             if(signedIntoDiscord && signedIntoFirebase)
             {
-                var timestamp = (new Date()).toJSON();
-                var token = {key: userID, tokens: amount, collectDate: timestamp}
-                tokens.push(token);
-                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+                firebase.database().ref("usersettings/" + userID + "/tokens").once("value", (snapshot) => {
+                    if(snapshot.val() != null)
+                    {
+                        var notAdded = true;
+                        for(var i = 0; i < tokens.length; i++)
+                        {
+                            if(tokens[i].key = childSnap.key)
+                            {
+                                notAdded = false;
+                            }
+                        }
+
+                        if(notAdded)
+                        {
+                            var token = JSON.parse(childSnap.child("tokens").val())
+
+                            if(childSnap.key != token.key)
+                            {
+                                console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                                token.key = childSnap.key
+                            }
+            
+                            tokens.push(token)
+                        }
+                    }
+                    else
+                    {
+                        var timestamp = (new Date()).toJSON();
+                        var token = {key: userID, tokens: amount, collectDate: timestamp}
+                        tokens.push(token);
+                        firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
+                    }
+                })
             }
             else
             {
