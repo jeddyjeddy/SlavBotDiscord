@@ -1440,6 +1440,7 @@ async function initData() {
                 if(childSnap.key != token.key)
                 {
                     console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                    token.key = childSnap.key
                 }
 
                 tokens.push(token)
@@ -1488,6 +1489,7 @@ async function initData() {
                     if(childSnap.key != tokenData.key)
                     {
                         console.log("TOKEN KEY ERROR - " + childSnap.key + " vs " + tokenData.key)
+                        tokenData.key = childSnap.key
                     }
 
                     if(tokens[i].key == childSnap.key)
@@ -1500,6 +1502,17 @@ async function initData() {
                 if(notAdded)
                 {
                     console.log("TOKEN ID NOT ADDED - " + childSnap.key)
+                    firebase.database().ref("usersettings/" + childSnap.key + "/tokens").once("value").then((tokenSnap) => {
+                        var token = JSON.parse(tokenSnap.val())
+
+                        if(childSnap.key != token.key)
+                        {
+                            console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                            token.key = childSnap.key
+                        }
+
+                        tokens.push(token)
+                    })
                 }
             }
 
