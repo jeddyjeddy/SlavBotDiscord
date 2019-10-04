@@ -1431,24 +1431,58 @@ async function initData() {
         if(childSnap.val() != null)
         {
             if(childSnap.child("commandusage").val() != null)
-                userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+            {
+                var notAdded = true;
+                for(var i = 0; i < userCommandUsage.length; i++)
+                {
+                    if(userCommandUsage[i].key = childSnap.key)
+                    {
+                        notAdded = false;
+                    }
+                }
+
+                if(notAdded)
+                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+            }
 
             if(childSnap.child("tokens").val() != null)
             {
-                var token = JSON.parse(childSnap.child("tokens").val())
-
-                if(childSnap.key != token.key)
+                var notAdded = true;
+                for(var i = 0; i < tokens.length; i++)
                 {
-                    console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
-                    token.key = childSnap.key
+                    if(tokens[i].key = childSnap.key)
+                    {
+                        notAdded = false;
+                    }
                 }
 
-                tokens.push(token)
+                if(notAdded)
+                {
+                    var token = JSON.parse(childSnap.child("tokens").val())
+
+                    if(childSnap.key != token.key)
+                    {
+                        console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                        token.key = childSnap.key
+                    }
+    
+                    tokens.push(token)
+                }
             }
 
             if(childSnap.child("lastvote").val() != null)
             {
-                votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                var notAdded = true;
+                for(var i = 0; i < votes.length; i++)
+                {
+                    if(votes[i].key = childSnap.key)
+                    {
+                        notAdded = false;
+                    }
+                }
+
+                if(notAdded)
+                    votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
             }
 
             if(bot.shard.id == 0)
@@ -1470,13 +1504,18 @@ async function initData() {
         {
             if(childSnap.child("commandusage").val() != null)
             {
+                var notAdded = true;
                 for(var i = 0; i < userCommandUsage.length; i++)
                 {
                     if(userCommandUsage[i].key == childSnap.key)
                     {
                         userCommandUsage[i] = {key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())};
+                        notAdded = false;
                     }
                 }
+
+                if(notAdded)
+                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
             }
 
             if(childSnap.child("tokens").val() != null)
@@ -1502,28 +1541,33 @@ async function initData() {
                 if(notAdded)
                 {
                     console.log("TOKEN ID NOT ADDED - " + childSnap.key)
-                    firebase.database().ref("usersettings/" + childSnap.key + "/tokens").once("value").then((tokenSnap) => {
-                        var token = JSON.parse(tokenSnap.val())
+                    var token = JSON.parse(childSnap.child("tokens").val())
 
-                        if(childSnap.key != token.key)
-                        {
-                            console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
-                            token.key = childSnap.key
-                        }
+                    if(childSnap.key != token.key)
+                    {
+                        console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                        token.key = childSnap.key
+                    }
 
-                        tokens.push(token)
-                    })
+                    tokens.push(token)
                 }
             }
 
             if(childSnap.child("lastvote").val() != null)
             {
+                var notAdded = true;
                 for(var i = 0; i < votes.length; i++)
                 {
                     if(votes[i].key == childSnap.key)
                     {
                         votes[i].lastvote = childSnap.child("lastvote").val()
+                        notAdded = false;
                     }
+                }
+
+                if(notAdded)
+                {
+                    votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
                 }
             }
         }
