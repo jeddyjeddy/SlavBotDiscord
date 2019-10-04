@@ -826,7 +826,7 @@ var DatabaseFunctions = {
                         var notAdded = true;
                         for(var i = 0; i < tokens.length; i++)
                         {
-                            if(tokens[i].key = childSnap.key)
+                            if(tokens[i].key = snapshot.key)
                             {
                                 notAdded = false;
                             }
@@ -834,12 +834,12 @@ var DatabaseFunctions = {
 
                         if(notAdded)
                         {
-                            var token = JSON.parse(childSnap.child("tokens").val())
+                            var token = JSON.parse(snapshot.child("tokens").val())
 
-                            if(childSnap.key != token.key)
+                            if(snapshot.key != token.key)
                             {
-                                console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
-                                token.key = childSnap.key
+                                console.log("INIT TOKEN KEY ERROR - " + snapshot.key + " vs " + token.key)
+                                token.key = snapshot.key
                             }
             
                             tokens.push(token)
