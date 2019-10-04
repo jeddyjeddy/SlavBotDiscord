@@ -10,6 +10,8 @@ const bot = new commando.Client({
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_TOKEN, bot);
 
+var settingsInit = false;
+
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -786,6 +788,7 @@ var DatabaseFunctions = {
             }
         }
 
+
         return 0;
     },
     
@@ -978,8 +981,25 @@ disableWelcome: function(guildID)
 {
     return disableWelcomeChannel(guildID);
 },
+isInit: function()
+{
+    return settingsInit;
+},
 getTokens: function(userID)
 {
+    var notAdded = true;
+
+    for(var i = 0; i < tokens.length; i++)
+    {
+        if(tokens[i].key == userID)
+        {
+            notAdded = false;
+        }
+    }
+
+    if(notAdded)
+        DatabaseFunctions.addUserTokens(userID, 0)
+
     return DatabaseFunctions.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
@@ -992,6 +1012,19 @@ resetTokens: function(maxAmount)
 },
 subtractTokens: function(userID, amount)
 {
+    var notAdded = true;
+
+    for(var i = 0; i < tokens.length; i++)
+    {
+        if(tokens[i].key == userID)
+        {
+            notAdded = false;
+        }
+    }
+
+    if(notAdded)
+        DatabaseFunctions.addUserTokens(userID, 0)
+
     return DatabaseFunctions.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
@@ -1598,6 +1631,10 @@ async function initData() {
                 }
             }
         }
+    })
+
+    firebase.database().ref("usersettings/").once('value', function(snapshot) {
+        settingsInit = true;
     })
 
     var guilds = bot.guilds.array()
