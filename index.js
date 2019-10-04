@@ -2886,24 +2886,31 @@ bot.on("messageReactionAdd", (reaction, user) => {
                         
                         if(hasRole)
                         {
-                            member.send("", {embed: {title: `***${name} Already Purchased***`, description: "You have alread purchased ***" + name + ".***", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                            member.send("", {embed: {title: `***${name} Already Purchased***`, description: "You have already purchased ***" + name + ".***", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                             console.log("Already has role")
                         }
                         else
                         {
-                            if(!DatabaseFunctions.subtractUserTokens(member.id, finalPrice))
+                            if(!settingsInit)
                             {
-                                member.send("", {embed: {title: `***Failed To Buy ${name}***`, description: "You do not have enough tokens to purchase ***" + name + ".*** You need " + numberWithCommas(finalPrice) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
-                                console.log("Already has role")
+                                member.send("", {embed: {title: `***Slav Bot Initializing***`, description: "Slav Bot has recently restarted, please try purchasing the role again after a minute.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
                             }
                             else
-                            {                                 
-                                console.log("Got Role")               
-                                member.addRole(role).then(() => {
-                                    console.log("Role Added")
-                                    member.send("You have successfully purchased the ***" + name + "*** role for " + numberWithCommas(finalPrice) + " war tokens!", {embed: {title: `***${name} Bought***`, description: "You have successfully purchased the ***" + name + "*** role. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
-                                }).catch(error => console.log("Role Error - " + error))
-                            }  
+                            {
+                                if(!DatabaseFunctions.subtractUserTokens(member.id, finalPrice))
+                                {
+                                    member.send("", {embed: {title: `***Failed To Buy ${name}***`, description: "You do not have enough tokens to purchase ***" + name + ".*** You need " + numberWithCommas(finalPrice) + " tokens, while you only have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                                    console.log("Already has role")
+                                }
+                                else
+                                {                                 
+                                    console.log("Got Role")               
+                                    member.addRole(role).then(() => {
+                                        console.log("Role Added")
+                                        member.send("You have successfully purchased the ***" + name + "*** role for " + numberWithCommas(finalPrice) + " war tokens!", {embed: {title: `***${name} Bought***`, description: "You have successfully purchased the ***" + name + "*** role. You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(member.id)) + " tokens.", thumbnail: {url: bot.user.avatarURL}, color: 16711680, footer: {icon_url: bot.user.avatarURL}}}).catch(error => console.log("Send Error - " + error));
+                                    }).catch(error => console.log("Role Error - " + error))
+                                }  
+                            }
                         }  
                     })
                 }
