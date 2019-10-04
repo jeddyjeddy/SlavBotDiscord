@@ -823,27 +823,21 @@ var DatabaseFunctions = {
                 firebase.database().ref("usersettings/" + userID + "/tokens").once("value", (snapshot) => {
                     if(snapshot.val() != null)
                     {
+                        var token = JSON.parse(snapshot.child("tokens").val())
+
                         var notAdded = true;
                         for(var i = 0; i < tokens.length; i++)
                         {
-                            if(tokens[i].key = snapshot.key)
+                            if(tokens[i].key = token.key)
                             {
                                 notAdded = false;
                                 tokens[i].tokens = tokens[i].tokens + amount;
-                                console.log(tokens[i].key + "  - Add Init - " + tokens[i].tokens)
+                                console.log(tokens[i].key + "  - Already Added Init - " + tokens[i].tokens)
                             }
                         }
 
                         if(notAdded)
                         {
-                            var token = JSON.parse(snapshot.child("tokens").val())
-
-                            if(snapshot.key != token.key)
-                            {
-                                console.log("INIT TOKEN KEY ERROR - " + snapshot.key + " vs " + token.key)
-                                token.key = snapshot.key
-                            }
-
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
                             tokens.push(token)
