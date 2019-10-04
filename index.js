@@ -1497,7 +1497,7 @@ async function initData() {
                     }
                 }
 
-                if(!notAdded)
+                if(notAdded)
                 {
                     console.log("TOKEN ID NOT ADDED - " + childSnap.key)
                 }
