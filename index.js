@@ -835,6 +835,7 @@ var DatabaseFunctions = {
                             {
                                 notAdded = false;
                                 tokens[i].tokens = tokens[i].tokens + amount;
+                                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i].tokens))
                                 console.log(tokens[i].key + "  - Already Added Init - " + tokens[i].tokens)
                             }
                         }
@@ -844,6 +845,7 @@ var DatabaseFunctions = {
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
                             tokens.push(token)
+                            firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
                         }
                     }
                     else
