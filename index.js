@@ -1474,12 +1474,26 @@ async function initData() {
 
             if(childSnap.child("tokens").val() != null)
             {
+                var notAdded = true;
                 for(var i = 0; i < tokens.length; i++)
                 {
+                    var tokenData = JSON.parse(childSnap.child("tokens").val())
+
+                    if(childSnap.key != tokenData.key)
+                    {
+                        console.log("TOKEN KEY ERROR - " + childSnap.key + " vs " + tokenData.key)
+                    }
+
                     if(tokens[i].key == childSnap.key)
                     {
-                        tokens[i] = (JSON.parse(childSnap.child("tokens").val()))
+                        tokens[i] = tokenData
+                        notAdded = false;
                     }
+                }
+
+                if(!notAdded)
+                {
+                    console.log("TOKEN ID NOT ADDED - " + childSnap.key)
                 }
             }
 
