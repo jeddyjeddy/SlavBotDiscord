@@ -105,7 +105,7 @@ class YouDied extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         YouDiedImage.scaleToFit(userImage.bitmap.width, userImage.bitmap.height);
-                        userImage.composite(YouDiedImage, 0, 0)        
+                        userImage.composite(YouDiedImage, 0, (userImage.bitmap.height/2) - (YouDied.bitmap.height/2))        
         
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
@@ -173,7 +173,7 @@ class YouDied extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");    
                         YouDiedImage.scaleToFit(userImage.bitmap.width, userImage.bitmap.height);
-                        userImage.composite(YouDiedImage, 0, 0)        
+                        userImage.composite(YouDiedImage, 0, (userImage.bitmap.height/2) - (YouDied.bitmap.height/2))        
         
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
