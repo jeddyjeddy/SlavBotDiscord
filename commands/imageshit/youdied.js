@@ -106,7 +106,7 @@ class YouDied extends command.Command
                         console.log("got avatar");
                         userImage.cover(YouDiedImage.bitmap.width, YouDiedImage.bitmap.height);
                         var blank = new Jimp(YouDiedImage.bitmap.width, YouDiedImage.bitmap.height);
-                        blank.composite(userImage, x, y)        
+                        blank.composite(userImage, 0, 0)        
         
                         var mergedImage = blank.composite(YouDiedImage, 0, 0);
                         const file = "TempStorage/" + shortid.generate() + ".png"
@@ -176,7 +176,7 @@ class YouDied extends command.Command
                         console.log("got avatar");    
                         userImage.cover(YouDiedImage.bitmap.width, YouDiedImage.bitmap.height);
                         var blank = new Jimp(YouDiedImage.bitmap.width, YouDiedImage.bitmap.height);
-                        blank.composite(userImage, x, y)        
+                        blank.composite(userImage, 0, 0)        
         
                         var mergedImage = blank.composite(YouDiedImage, 0, 0);
                         const file = "TempStorage/" + shortid.generate() + ".png"
