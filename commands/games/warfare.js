@@ -89,6 +89,7 @@ class WarfareCommand extends command.Command
             name: "warfare",
             group: "games",
             memberName: "warfare",
+            aliases: ['wf'],
             description: "Warfare is a PvP Game where you find weapons and use them to kill other players in order to gain XP. XP allows you to level up your character and increase your stats. These tokens can also be earned by voting for Slav Bot on discordbots.org or by participating in token giveaways on the support server. You can also earn tokens by buying roles on the support server or becoming a patreon supporter and get tokens weekly.",
             examples: ["`!warfare profile [@User (optional)]` (Check your stats, or another user's stats)", "`!warfare collect` (Gather Warfare Resources)", "`!warfare ranks` (Check Local Leaderboards)", "`!warfare buy` (Check all available weapon packs)", "`!warfare buy <package>` (Buy a weapon pack)", "`!warfare drop` (Drop your current weapon)", "`!warfare attack @User` (Attack a user with your weapon)", "`!warfare defend` (Purchase a 2 hour Defense Cooldown for 1 Million War Tokens, protects you from all attacks for 2 hours)", "`!warfare heal <amount-to-heal>` (Restore your HP, 1 HP costs 1 War Token)", "`!warfare give <amount> @User1 @User2` (Give your tokens to another user)", "`!warfare reset` (Reset the game. Can only be used by server owners.)"]
         });
