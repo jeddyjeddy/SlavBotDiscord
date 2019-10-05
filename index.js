@@ -989,7 +989,7 @@ isInit: function()
 },
 getTokens: function(userID)
 {
-    initTokens(userID)
+    ResponseFunctions.initTokens(userID)
     return DatabaseFunctions.getUserTokens(userID)
 },
 addTokens: function(userID, amount)
@@ -1017,7 +1017,7 @@ resetTokens: function(maxAmount)
 },
 subtractTokens: function(userID, amount)
 {
-    initTokens(userID)
+    ResponseFunctions.initTokens(userID)
     return DatabaseFunctions.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
