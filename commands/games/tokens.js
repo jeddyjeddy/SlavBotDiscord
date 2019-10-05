@@ -62,7 +62,7 @@ class TokensCommand extends command.Command
                 }
             }
 
-            if(otherUser)
+            if(otherUser && message.guild != null)
             {
                 var user;
                 var mentions = message.mentions.users.array()
