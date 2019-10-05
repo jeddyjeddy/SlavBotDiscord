@@ -107,9 +107,8 @@ class YouDied extends command.Command
                         YouDiedImage.cover(userImage.bitmap.width, userImage.bitmap.height);
                         userImage.composite(YouDiedImage, 0, 0)        
         
-                        var mergedImage = blank.composite(YouDiedImage, 0, 0);
                         const file = "TempStorage/" + shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
+                        userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
@@ -176,9 +175,8 @@ class YouDied extends command.Command
                         YouDiedImage.cover(userImage.bitmap.width, userImage.bitmap.height);
                         userImage.composite(YouDiedImage, 0, 0)        
         
-                        var mergedImage = blank.composite(YouDiedImage, 0, 0);
                         const file = "TempStorage/" + shortid.generate() + ".png"
-                        mergedImage.write(file, function(error){
+                        userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
                             console.log("got merged image");
                             console.log(file);
