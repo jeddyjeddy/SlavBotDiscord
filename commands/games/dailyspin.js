@@ -61,6 +61,7 @@ class DailySpinCommand extends command.Command
             return;
             
         IndexRef.addCommandCounter(message.author.id);
+        IndexRef.initTokens(message.author.id)
         
         var existingData = false;
         for(var i = 0; i < userSpins.length; i++)

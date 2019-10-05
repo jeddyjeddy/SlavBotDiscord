@@ -24,6 +24,7 @@ class TokensCommand extends command.Command
             return;
             
         IndexRef.addCommandCounter(message.author.id);
+        IndexRef.initTokens(message.author.id)
 
         var commandPrefix= "!"
         if(message.guild != null)

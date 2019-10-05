@@ -989,6 +989,15 @@ isInit: function()
 },
 getTokens: function(userID)
 {
+    initTokens(userID)
+    return DatabaseFunctions.getUserTokens(userID)
+},
+addTokens: function(userID, amount)
+{
+    DatabaseFunctions.addUserTokens(userID, amount)
+},
+initTokens(userID)
+{
     var notAdded = true;
 
     for(var i = 0; i < tokens.length; i++)
@@ -1001,12 +1010,6 @@ getTokens: function(userID)
 
     if(notAdded)
         DatabaseFunctions.addUserTokens(userID, 0)
-
-    return DatabaseFunctions.getUserTokens(userID)
-},
-addTokens: function(userID, amount)
-{
-    DatabaseFunctions.addUserTokens(userID, amount)
 },
 resetTokens: function(maxAmount)
 {
@@ -1014,19 +1017,7 @@ resetTokens: function(maxAmount)
 },
 subtractTokens: function(userID, amount)
 {
-    var notAdded = true;
-
-    for(var i = 0; i < tokens.length; i++)
-    {
-        if(tokens[i].key == userID)
-        {
-            notAdded = false;
-        }
-    }
-
-    if(notAdded)
-        DatabaseFunctions.addUserTokens(userID, 0)
-
+    initTokens(userID)
     return DatabaseFunctions.subtractUserTokens(userID, amount)
 },
 getCooldown: function(userID)
@@ -2872,8 +2863,8 @@ bot.on("messageReactionAdd", (reaction, user) => {
 
                     const finalPrice = price
                     const name = roleName
-
                     reaction.message.guild.fetchMember(user).then(function(member){
+                        ResponseFunctions.initTokens(member.id)
 
                         var hasRole = false;
                         var userRoles = member.roles.array()
