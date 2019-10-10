@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 
-class ShareCommand extends command.Command
+class SupportCommand extends command.Command
  {
     constructor(client)
     {
@@ -19,4 +19,4 @@ class ShareCommand extends command.Command
     }
 }
 
-module.exports = ShareCommand;
+module.exports = SupportCommand;
