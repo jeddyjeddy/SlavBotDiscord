@@ -110,7 +110,7 @@ class DailySpinCommand extends command.Command
                 {
                     if(userSpins[i].userID == message.author.id)
                     {
-                        const date = new Date(JSON.parse(userSpins[i].dailyspin))
+                        const date = new Date(JSON.parse(userSpins[i].dailyspin.replace(/"/g, "")))
                         var todayDate = (new Date())
                         todayDate.setHours(0, 0, 0, 0)
                         const today = todayDate
