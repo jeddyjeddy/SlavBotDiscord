@@ -214,6 +214,13 @@ class DailySpinCommand extends command.Command
                                 else
                                 {
                                     var lastVotedTime = snapshot.val()
+
+                                    if(lastVotedTime.indexOf("\"") > -1)
+                                    {
+                                        lastVotedTime = lastVotedTime.replace(/"/g, "")
+                                        firebase.database().ref("usersettings/" + message.author.id + "/lastvote").set(lastVotedTime)
+                                    }
+                                    
                                     var lastVotedDate = new Date(lastVotedTime)
     
                                     if(today.getTime() < (lastVotedDate.getTime() + 43200000) || hasVoted)
