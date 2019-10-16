@@ -93,6 +93,7 @@ class DailySpinCommand extends command.Command
         var hasVoted = false;
         promises.push(dbl.hasVoted(message.author.id).then(voted => {
             hasVoted = voted;
+            console.log(message.author.id + " - VOTE CHECK = " + voted)
         }).catch(error => console.log("DBL Error - " + error)))
 
         var isPatron = false;
@@ -220,7 +221,7 @@ class DailySpinCommand extends command.Command
 
                                     var lastVotedDate = new Date(lastVotedTime)
     
-                                    if(today.getTime() < (lastVotedDate.getTime() + (43200000 * 2)) || hasVoted)
+                                    if(today.getTime() < (lastVotedDate.getTime() + 43200000) || hasVoted)
                                     {
                                         message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
                                         var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
