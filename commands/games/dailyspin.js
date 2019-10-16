@@ -185,7 +185,7 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
+                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay).replace(/"/g, ""))
             
                                             var prizeMessage = ""
             
@@ -285,7 +285,7 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
+                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay).replace(/"/g, ""))
             
                                             var prizeMessage = ""
             
