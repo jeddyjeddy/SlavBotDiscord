@@ -611,7 +611,7 @@ var DatabaseFunctions = {
                     {
                         if(votes[voteIndex].key == userCommandUsage[i].key)
                         {
-                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 43200000)
+                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + (43200000 * 2))
                             {
                                 voted = true;
                             }

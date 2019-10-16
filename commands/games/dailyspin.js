@@ -221,7 +221,7 @@ class DailySpinCommand extends command.Command
 
                                     var lastVotedDate = new Date(lastVotedTime)
     
-                                    if(today.getTime() < (lastVotedDate.getTime() + 43200000) || hasVoted)
+                                    if(today.getTime() < (lastVotedDate.getTime() + (43200000 * 2)) || hasVoted)
                                     {
                                         message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
                                         var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
