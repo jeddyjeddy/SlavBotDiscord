@@ -110,7 +110,7 @@ class DailySpinCommand extends command.Command
                 {
                     if(userSpins[i].userID == message.author.id)
                     {
-                        const date = new Date(JSON.parse(userSpins[i].dailyspin.replace(/"/g, "")))
+                        const date = new Date(JSON.parse(userSpins[i].dailyspin))
                         var todayDate = (new Date())
                         todayDate.setHours(0, 0, 0, 0)
                         const today = todayDate
@@ -185,7 +185,7 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay).replace(/"/g, ""))
+                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
             
                                             var prizeMessage = ""
             
@@ -213,14 +213,7 @@ class DailySpinCommand extends command.Command
                                 }
                                 else
                                 {
-                                    var lastVotedTime = snapshot.val()
-
-                                    if(lastVotedTime.indexOf("\"") > -1)
-                                    {
-                                        lastVotedTime = lastVotedTime.replace(/"/g, "")
-                                        firebase.database().ref("usersettings/" + message.author.id + "/lastvote").set(lastVotedTime)
-                                    }
-                                    
+                                    var lastVotedTime = JSON.parse(snapshot.val())
                                     var lastVotedDate = new Date(lastVotedTime)
     
                                     if(today.getTime() < (lastVotedDate.getTime() + 43200000) || hasVoted)
@@ -285,7 +278,7 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay).replace(/"/g, ""))
+                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
             
                                             var prizeMessage = ""
             

@@ -4513,7 +4513,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 }
 
                                 DatabaseFunctions.addUserTokens(userID, amountToGive);
-                                firebase.database().ref("usersettings/" + userID + "/lastvote").set(timestamp.toJSON().replace(/"/g, ""))
+                                firebase.database().ref("usersettings/" + userID + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
                                 
                                 bot.fetchUser(userID).then(user => {
                                     user.send("Thank you for voting, you have received " + numberWithCommas(amountToGive) + " tokens, you will receive " + numberWithCommas(amountToGive + streakToken) + " with your next voting streak (Your voting streak is now " + currentStreaks + " out of 30, voting within the next 24 hours will increase your voting streak, each voting streak adds more tokens). You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help tokens\`, \`help ww\`, \`help warslave\`, \`help warfare\` or \`help cc\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
