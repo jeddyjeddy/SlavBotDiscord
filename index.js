@@ -4498,7 +4498,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                 
                                 if(!dataFound)
                                 {
-                                    promises.push(firebase.database().ref("usersettings/" + userID).once('value', function(snapshot) {
+                                    promises.push(firebase.database().ref("usersettings/" + userID).once('value', function(childSnap) {
                                         if(childSnap.child("lastvote").val() != null)
                                         {
                                             var notAdded = true;
