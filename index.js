@@ -4511,7 +4511,13 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                             }
 
                                             if(notAdded)
+                                            {
                                                 votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                                                if(timestamp.getTime() <= ((new Date(childSnap.child("lastvote").val())).getTime() + 86400000))
+                                                {
+                                                    resetStreaks = false;
+                                                }
+                                            }
                                         }
                                     }))
                                 }
