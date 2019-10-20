@@ -611,7 +611,7 @@ var DatabaseFunctions = {
                     {
                         if(votes[voteIndex].key == userCommandUsage[i].key)
                         {
-                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 43200000)
+                            if((new Date()).getTime() < (new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 43200000)
                             {
                                 voted = true;
                             }
@@ -4487,7 +4487,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                     if(votes[voteIndex].key == userID)
                                     {
                                         dataFound = true;
-                                        if(timestamp.getTime() <= ((new Date(votes[voteIndex].lastvote)).getTime() + 86400000))
+                                        if(timestamp.getTime() <= ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
                                         {
                                             resetStreaks = false;
                                         }
@@ -4513,7 +4513,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                             if(notAdded)
                                             {
                                                 votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
-                                                if(timestamp.getTime() <= ((new Date(childSnap.child("lastvote").val())).getTime() + 86400000))
+                                                if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                                 {
                                                     resetStreaks = false;
                                                 }
