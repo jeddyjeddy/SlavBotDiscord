@@ -4527,9 +4527,17 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                                 streaks[streakIndex].streak = 0                                        
 
                                             if(resetStreaks)
+                                            {
+                                                console.log("END STREAK FOR - " + userID)
                                                 streaks[streakIndex].streak = 0
+                                            }
                                             else if(streaks[streakIndex].streak < 30)
+                                            {
+                                                console.log("ADDITIONAL STREAK FOR - " + userID)
                                                 streaks[streakIndex].streak = streaks[streakIndex].streak + 1
+                                            }
+
+                                            
 
                                             newAmountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
                                             currentStreaks = streaks[streakIndex].streak
