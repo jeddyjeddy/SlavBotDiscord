@@ -611,7 +611,7 @@ var DatabaseFunctions = {
                     {
                         if(votes[voteIndex].key == userCommandUsage[i].key)
                         {
-                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + (43200000 * 2))
+                            if((new Date()).getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 43200000)
                             {
                                 voted = true;
                             }
@@ -4478,49 +4478,74 @@ bot.login(process.env.BOT_TOKEN).then(function()
                             setImmediate(() => {
                                 const userID = data["user"].toString()
                                 console.log(userID + " HAS VOTED")
-                                var timestamp = (new Date());
-                                var amountToGive = giveawayToken
-                                var resetStreaks = true;
+                                const timestamp = (new Date());
+                                const amountToGive = giveawayToken
+                                var resetStreaks = true, dataFound = false;
 
                                 for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
                                 {
                                     if(votes[voteIndex].key == userID)
                                     {
-                                        if(timestamp.getTime() < (new Date(votes[voteIndex].lastvote)).getTime() + 86400000)
+                                        dataFound = true;
+                                        if(timestamp.getTime() <= ((new Date(votes[voteIndex].lastvote)).getTime() + 86400000))
                                         {
                                             resetStreaks = false;
                                         }
                                     }
                                 }
 
-                                var currentStreaks = 0
-                                for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
+                                var promises = []
+                                
+                                if(!dataFound)
                                 {
-                                    if(streaks[streakIndex].id == userID)
-                                    {
-                                        if(streaks[streakIndex].streak == null || streaks[streakIndex].streak == undefined)
-                                            streaks[streakIndex].streak = 0                                        
+                                    promises.push(firebase.database().ref("usersettings/" + userID).once('value', function(snapshot) {
+                                        if(childSnap.child("lastvote").val() != null)
+                                        {
+                                            var notAdded = true;
+                                            for(var i = 0; i < votes.length; i++)
+                                            {
+                                                if(votes[i].key = childSnap.key)
+                                                {
+                                                    notAdded = false;
+                                                }
+                                            }
 
-                                        if(resetStreaks)
-                                            streaks[streakIndex].streak = 0
-                                        else if(streaks[streakIndex].streak < 30)
-                                            streaks[streakIndex].streak = streaks[streakIndex].streak + 1
-
-                                        amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
-                                        currentStreaks = streaks[streakIndex].streak
-                                        firebase.database().ref("usersettings/" + userID + "/votestreak").set(currentStreaks)
-                                    }
+                                            if(notAdded)
+                                                votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                                        }
+                                    }))
                                 }
 
-                                DatabaseFunctions.addUserTokens(userID, amountToGive);
-                                firebase.database().ref("usersettings/" + userID + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
-                                
-                                bot.fetchUser(userID).then(user => {
-                                    user.send("Thank you for voting, you have received " + numberWithCommas(amountToGive) + " tokens, you will receive " + numberWithCommas(amountToGive + streakToken) + " with your next voting streak (Your voting streak is now " + currentStreaks + " out of 30, voting within the next 24 hours will increase your voting streak, each voting streak adds more tokens). You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help tokens\`, \`help ww\`, \`help warslave\`, \`help warfare\` or \`help cc\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
-                                }, rejection => {
-                                    var messageData = JSON.stringify({"user": user.id, "streaks": currentStreaks, "nextToken" : numberWithCommas(amountToGive + streakToken), "token1": numberWithCommas(amountToGive), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(user.id))})
-                                    bot.shard.send(messageData)
-                                });
+                                Promise.all(promises).then(() => {
+                                    var currentStreaks = 0
+                                    for(var streakIndex = 0; streakIndex < streaks.length; streakIndex++)
+                                    {
+                                        if(streaks[streakIndex].id == userID)
+                                        {
+                                            if(streaks[streakIndex].streak == null || streaks[streakIndex].streak == undefined)
+                                                streaks[streakIndex].streak = 0                                        
+
+                                            if(resetStreaks)
+                                                streaks[streakIndex].streak = 0
+                                            else if(streaks[streakIndex].streak < 30)
+                                                streaks[streakIndex].streak = streaks[streakIndex].streak + 1
+
+                                            amountToGive = giveawayToken + (streakToken * streaks[streakIndex].streak)
+                                            currentStreaks = streaks[streakIndex].streak
+                                            firebase.database().ref("usersettings/" + userID + "/votestreak").set(currentStreaks)
+                                        }
+                                    }
+
+                                    DatabaseFunctions.addUserTokens(userID, amountToGive);
+                                    firebase.database().ref("usersettings/" + userID + "/lastvote").set(JSON.stringify(timestamp.toJSON()))
+                                    
+                                    bot.fetchUser(userID).then(user => {
+                                        user.send("Thank you for voting, you have received " + numberWithCommas(amountToGive) + " tokens, you will receive " + numberWithCommas(amountToGive + streakToken) + " with your next voting streak (Your voting streak is now " + currentStreaks + " out of 30, voting within the next 24 hours will increase your voting streak, each voting streak adds more tokens). You now have " + numberWithCommas(DatabaseFunctions.getUserTokens(user.id)) + " tokens. You can now use the `dailyspin` command. Use \`help tokens\`, \`help ww\`, \`help warslave\`, \`help warfare\` or \`help cc\` for more info on these tokens and `help dailyspin` for info on Daily Spins.\n\nYou can also purchase tokens on our website. Special weekend sales on every Friday, Saturday and Sunday.\nhttps://slavbot.com/shop").catch(error => console.log("Send Error - " + error));
+                                    }, rejection => {
+                                        var messageData = JSON.stringify({"user": user.id, "streaks": currentStreaks, "nextToken" : numberWithCommas(amountToGive + streakToken), "token1": numberWithCommas(amountToGive), "token2" : numberWithCommas(DatabaseFunctions.getUserTokens(user.id))})
+                                        bot.shard.send(messageData)
+                                    });
+                                })
                             })
                         }
                 });
