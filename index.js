@@ -828,6 +828,11 @@ var DatabaseFunctions = {
                     {
                         var token = JSON.parse(snapshot.val())
 
+                        if(!isNaN(token))
+                        {
+                            token = {key: childSnap.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
+                        }
+
                         var notAdded = true;
                         for(var i = 0; i < tokens.length; i++)
                         {
@@ -835,7 +840,7 @@ var DatabaseFunctions = {
                             {
                                 notAdded = false;
                                 tokens[i].tokens = tokens[i].tokens + amount;
-                                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i].tokens))
+                                firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
                                 console.log(tokens[i].key + "  - Already Added Init - " + tokens[i].tokens)
                             }
                         }
@@ -1513,6 +1518,11 @@ async function initData() {
                 {
                     var token = JSON.parse(childSnap.child("tokens").val())
 
+                    if(!isNaN(token))
+                    {
+                        token = {key: childSnap.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
+                    }
+
                     if(childSnap.key != token.key)
                     {
                         console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
@@ -1595,6 +1605,11 @@ async function initData() {
                 {
                     console.log("TOKEN ID NOT ADDED (Shard " + bot.shard.id + ") - " + childSnap.key)
                     var token = JSON.parse(childSnap.child("tokens").val())
+
+                    if(!isNaN(token))
+                    {
+                        token = {key: childSnap.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
+                    }
 
                     if(childSnap.key != token.key)
                     {
