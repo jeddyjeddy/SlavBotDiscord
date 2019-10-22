@@ -830,7 +830,7 @@ var DatabaseFunctions = {
 
                         if(!isNaN(token))
                         {
-                            token = {key: userID.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
+                            token = {key: userID, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
                         }
 
                         var notAdded = true;
