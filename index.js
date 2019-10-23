@@ -4517,37 +4517,11 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                     promises.push(firebase.database().ref("usersettings/" + userID).once('value', function(childSnap) {
                                         if(childSnap.child("lastvote").val() != null)
                                         {
-                                            var notAdded = true;
-                                            for(var i = 0; i < votes.length; i++)
+                                            votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                                            console.log("DATA FOUND FROM SNAP - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
+                                            if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                             {
-                                                if(votes[i].key = childSnap.key)
-                                                {
-                                                    notAdded = false;
-                                                }
-                                            }
-
-                                            if(notAdded)
-                                            {
-                                                votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
-                                                console.log("DATA FOUND FROM SNAP - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
-                                                if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
-                                                {
-                                                    resetStreaks = false;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
-                                                {
-                                                    if(votes[voteIndex].key == userID)
-                                                    {
-                                                        console.log("DATA  (EXISTS) - " + userID + " - " + votes[voteIndex].lastvote)
-                                                        if(timestamp.getTime() <= ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
-                                                        {
-                                                            resetStreaks = false;
-                                                        }
-                                                    }
-                                                }
+                                                resetStreaks = false;
                                             }
                                         }
                                     }))
