@@ -4535,6 +4535,20 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                                     resetStreaks = false;
                                                 }
                                             }
+                                            else
+                                            {
+                                                for(var voteIndex = 0; voteIndex < votes.length; voteIndex++)
+                                                {
+                                                    if(votes[voteIndex].key == userID)
+                                                    {
+                                                        console.log("DATA  (EXISTS) - " + userID + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
+                                                        if(timestamp.getTime() <= ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
+                                                        {
+                                                            resetStreaks = false;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }))
                                 }
