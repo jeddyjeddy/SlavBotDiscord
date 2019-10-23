@@ -4502,6 +4502,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                     if(votes[voteIndex].key == userID)
                                     {
                                         dataFound = true;
+                                        console.log("DATA FOUND - " + userID + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
                                         if(timestamp.getTime() <= ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
                                         {
                                             resetStreaks = false;
@@ -4528,6 +4529,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                             if(notAdded)
                                             {
                                                 votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                                                console.log("DATA FOUND - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                                 if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                                 {
                                                     resetStreaks = false;
