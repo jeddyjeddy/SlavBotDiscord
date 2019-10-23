@@ -1544,8 +1544,14 @@ async function initData() {
                     }
                 }
 
+                var lastvote = childSnap.child("lastvote").val()
+                if(lastvote.indexOf("\"") == -1)
+                {
+                    lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                }
+
                 if(notAdded)
-                    votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                    votes.push({key: childSnap.key, lastvote: lastvote})
             }
 
             if(bot.shard.id == 0)
@@ -1633,9 +1639,15 @@ async function initData() {
                     }
                 }
 
+                var lastvote = childSnap.child("lastvote").val()
+                if(lastvote.indexOf("\"") == -1)
+                {
+                    lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                }
+
                 if(notAdded)
                 {
-                    votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                    votes.push({key: childSnap.key, lastvote: lastvote})
                 }
             }
         }
@@ -4517,7 +4529,13 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                     promises.push(firebase.database().ref("usersettings/" + userID).once('value', function(childSnap) {
                                         if(childSnap.child("lastvote").val() != null)
                                         {
-                                            votes.push({key: childSnap.key, lastvote: childSnap.child("lastvote").val()})
+                                            var lastvote = childSnap.child("lastvote").val()
+                                            if(lastvote.indexOf("\"") == -1)
+                                            {
+                                                lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                                            }
+
+                                            votes.push({key: childSnap.key, lastvote: lastvote})
                                             console.log("DATA FOUND FROM SNAP - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                             if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
                                             {
