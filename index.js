@@ -4541,7 +4541,7 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                                 {
                                                     if(votes[voteIndex].key == userID)
                                                     {
-                                                        console.log("DATA  (EXISTS) - " + userID + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
+                                                        console.log("DATA  (EXISTS) - " + userID + " - " + votes[voteIndex].lastvote)
                                                         if(timestamp.getTime() <= ((new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000))
                                                         {
                                                             resetStreaks = false;
