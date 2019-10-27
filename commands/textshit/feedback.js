@@ -153,9 +153,9 @@ class FeedbackCommand extends command.Command
                             }
                         }
                     }
-                    else if(args.toLowerCase().startsWith("send "))
+                    else if(args.toLowerCase().startsWith("send ") && args.length > 5)
                     {
-                        var feedbackMessage = args.toString().splice(0, 5)
+                        var feedbackMessage = (args.toString()).slice(5, args.length)
                         message.client.owners[0].send("***Feedback (from <@" + message.author.id + ">):*** " + feedbackMessage).catch(error => console.log("Send Error - " + error));
                         message.channel.send("<@" + message.author.id + "> Thank you for your feedback!").catch(error => console.log("Send Error - " + error));
                     }
