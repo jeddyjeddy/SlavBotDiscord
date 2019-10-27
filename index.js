@@ -611,7 +611,13 @@ var DatabaseFunctions = {
                     {
                         if(votes[voteIndex].key == userCommandUsage[i].key)
                         {
-                            if((new Date()).getTime() < (new Date(JSON.parse(votes[voteIndex].lastvote))).getTime() + 86400000)
+                            var lastVote = votes[voteIndex].lastvote
+                            if(lastvote.indexOf("\"") == -1)
+                            {
+                                lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                            }
+
+                            if((new Date()).getTime() < (new Date(JSON.parse(lastVote))).getTime() + 86400000)
                             {
                                 voted = true;
                             }
@@ -1652,7 +1658,7 @@ async function initData() {
                     {
                         lastvote = JSON.stringify(childSnap.child("lastvote").val())
                     }
-                    
+
                     votes.push({key: childSnap.key, lastvote: lastvote})
                 }
             }
