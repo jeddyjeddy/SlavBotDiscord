@@ -270,7 +270,7 @@ class WWCommand extends command.Command
                         else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("reset tokens"))
                         {
                             IndexRef.resetTokens(10000000000000)
-                            message.channel.send("<@" + message.author.id + "> Tokens have been globally reset.")
+                            message.channel.send("<@" + message.author.id + "> Tokens have been globally reset.").catch(error => console.log("Send Error - " + error));
                             return;
                         }
                         else if((message.author.id == message.guild.ownerID || message.author.id == message.client.owners[0].id) && args.toLowerCase().startsWith("end"))

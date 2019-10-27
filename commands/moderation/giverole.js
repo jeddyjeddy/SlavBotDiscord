@@ -121,7 +121,7 @@ class GiveroleCommand extends command.Command
                             }
                             else
                             {
-                                member.addRole(userRole).then(message.channel.send("<@" + user + "> has been given the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => message.channel.send("Error - " + error).catch(error => console.log("Send Error - " + error)));
+                                member.addRole(userRole).then(message.channel.send("<@" + user + "> has been given the role of " + userRole.name).catch(error => console.log("Send Error - " + error))).catch(error => console.log("Send Error - " + error));
                             }
                         }
                     }

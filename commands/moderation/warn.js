@@ -23,7 +23,7 @@ class WarnCommand extends command.Command
             group: "moderation",
             memberName: "warn",
             description: "Warns a member or members. User is banned after the third warning.",
-            examples: ["`!warn @User`", "`!warn @User1 @User2`", "`!warn remove @User1 @User2`", "`!warn view @User1 @User2`"]
+            examples: ["`!warn @User`", "`!warn @User1 @User2`", "`!warn remove @User1 @User2` (Remove warning)", "`!warn view @User1 @User2` (View number of warnings)", "`!warn view limit` (View current max warn limit)", "`!warn set limit <max-limit>` (Set max warn limit)"]
         });
     }
 
@@ -44,6 +44,12 @@ class WarnCommand extends command.Command
             return;
         }
 
+        var commandPrefix= "!"
+        if(message.guild != null)
+        {
+            commandPrefix = message.guild.commandPrefix
+        }
+
         var promises = []
         var foundGuild = false;
         for(var i = 0; i < warnings.length; i++)
@@ -60,11 +66,15 @@ class WarnCommand extends command.Command
                 if(snap.val() != null)
                 {
                     var data = JSON.parse(snap.val())
+
+                    if(warnings.limit == undefined || warnings.limit == null)
+                        warnings.limit = 3
+
                     warnings.push(data)
                 }
                 else
                 {
-                    warnings.push({guild: message.guild.id, users: []})
+                    warnings.push({guild: message.guild.id, users: [], limit: 3})
                 }
             }))
         }
@@ -151,26 +161,58 @@ class WarnCommand extends command.Command
                                             {
                                                 if(warnings[index].users[userIndex].warnings <= 0)
                                                 {
-                                                    message.channel.send("<@" + member.id + "> has 0 warnings. <@" + message.author.id + "> please mention a user with at least one warning.")
+                                                    message.channel.send("<@" + member.id + "> has 0 warnings. <@" + message.author.id + "> please mention a user with at least one warning.").catch(error => console.log("Send Error - " + error));
                                                     warnings[index].users[userIndex].warnings = 0;
                                                 }
                                                 else
                                                 {
                                                     warnings[index].users[userIndex].warnings = warnings[index].users[userIndex].warnings - 1;
-                                                    message.channel.send("<@" + member.id + "> Your warning count has been reduced by <@" + message.author.id + ">", {embed: {title: `***Reduced Warning Count For ${member.user.tag}***`, description: "<@" + member.id + "> You now have " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                                    message.channel.send("<@" + member.id + "> Your warning count has been reduced by <@" + message.author.id + ">", {embed: {title: `***Reduced Warning Count For ${member.user.tag}***`, description: "<@" + member.id + "> You now have " + warnings[index].users[userIndex].warnings + " warning(s). Having " + warnings[index].limit + " or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error));
+                                                }
+                                            }
+                                            else if(args.toString().toLowerCase().startsWith("view limit"))
+                                            {
+                                                message.channel.send("<@" + message.author.id + "> The limit for max warnings is currently set at " + warnings[index].limit + ". This number can be set to a value from 2-10 using `" + commandPrefix + "warn set limit <max-limit>`. For more info, use `" + commandPrefix + "help warn`.")
+                                            }
+                                            else if(args.toString().toLowerCase().startsWith("set limit"))
+                                            {
+                                                var options = args.toString().replace(/,/g, "")
+                                                var amountText = options.match(/\d+/g);
+                                                var amount = []
+                                                if(amountText != null)
+                                                {
+                                                    amount = amountText.map(Number);
+                                                }
+                                              
+                                                if(amount.length > 0)
+                                                {
+                                                    var maxLimit = amount[0]
+                                                    if(maxLimit >= 2 && maxLimit <= 10)
+                                                    {
+                                                        warnings[index].limit = maxLimit
+                                                        message.channel.send("<@" + message.author.id + "> The max warning limit has been set to " + maxLimit + ".").catch(error => console.log("Send Error - " + error));
+                                                    }
+                                                    else
+                                                    {
+                                                        message.channel.send("<@" + message.author.id + "> A value from 2-10 is required to set the max limit.").catch(error => console.log("Send Error - " + error));
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    message.channel.send("<@" + message.author.id + "> To set the limit for max warnings, a number with a value from 2-10 is required (`" + commandPrefix + "warn set limit <max-limit>`). For more info, use `" + commandPrefix + "help warn`.").catch(error => console.log("Send Error - " + error));
                                                 }
                                             }
                                             else if(args.toString().toLowerCase().startsWith("view"))
                                             {
-                                                message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                                message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having " + warnings[index].limit + " or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                             else
                                             {
                                                 warnings[index].users[userIndex].warnings = warnings[index].users[userIndex].warnings + 1;
 
-                                                message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                                message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of " + warnings[index].users[userIndex].warnings + " warning(s). Having " + warnings[index].limit + " or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error));
     
-                                                if(warnings[index].users[userIndex].warnings >= 3)
+                                                if(warnings[index].users[userIndex].warnings >= warnings[index].limit)
                                                 {
                                                     message.guild.ban(member.id, 7).then(() => {
                                                         message.channel.send("<@" + member.id + "> has been banned for exceeding the warning limit.", {embed: {title: `***${member.user.tag} Has Been Banned***`, description: "<@" + member.id + "> has been banned for exceeding the warning limit.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error))
@@ -187,16 +229,16 @@ class WarnCommand extends command.Command
                                     {
                                         if(args.toString().toLowerCase().startsWith("remove"))
                                         {
-                                            message.channel.send("<@" + member.id + "> has never been warned. <@" + message.author.id + "> please mention a user with at least one warning.")
+                                            message.channel.send("<@" + member.id + "> has never been warned. <@" + message.author.id + "> please mention a user with at least one warning.").catch(error => console.log("Send Error - " + error));
                                         }
                                         else if(args.toString().toLowerCase().startsWith("view"))
                                         {
-                                            message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of 0 warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                            message.channel.send("", {embed: {title: `***Warning Profile For ${member.user.tag}***`, description: "<@" + member.id + "> You have received a total of 0 warning(s). Having " + warnings[index].limit + " or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error));
                                         }
                                         else
                                         {
                                             warnings[index].users.push({id: member.id, warnings: 1})
-                                            message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of 1 warning(s). Having 3 or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}})
+                                            message.channel.send("<@" + member.id + "> You have been warned by <@" + message.author.id + ">", {embed: {title: `***${member.user.tag} Has Been Warned***`, description: "<@" + member.id + "> You have received a total of 1 warning(s). Having " + warnings[index].limit + " or more warnings will result in a ban.", thumbnail: {"url": thumbnail}, color: 8388863, timestamp: (new Date()).toJSON(), footer: {icon_url: message.client.user.avatarURL,text: "Warned on"}}}).catch(error => console.log("Send Error - " + error));
                                         }    
                                     }
                             
