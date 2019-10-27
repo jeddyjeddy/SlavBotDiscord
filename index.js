@@ -612,9 +612,9 @@ var DatabaseFunctions = {
                         if(votes[voteIndex].key == userCommandUsage[i].key)
                         {
                             var lastVote = votes[voteIndex].lastvote
-                            if(lastvote.indexOf("\"") == -1)
+                            if(lastVote.indexOf("\"") == -1)
                             {
-                                lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                                lastVote = JSON.stringify(childSnap.child("lastvote").val())
                             }
 
                             if((new Date()).getTime() < (new Date(JSON.parse(lastVote))).getTime() + 86400000)
