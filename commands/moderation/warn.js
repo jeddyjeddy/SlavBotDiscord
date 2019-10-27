@@ -123,7 +123,7 @@ class WarnCommand extends command.Command
             Promise.all(promises).then(() => {
                 for(var index = 0; index < warnings.length; index++)
                 {
-                    if(warnings[index].guild == member.id)
+                    if(warnings[index].guild == message.guild.id)
                     {
                         if(args.toString().toLowerCase().startsWith("view limit"))
                         {
