@@ -131,31 +131,38 @@ class WarnCommand extends command.Command
                         }
                         else if(args.toString().toLowerCase().startsWith("set limit"))
                         {
-                            var options = args.toString().replace(/,/g, "")
-                            var amountText = options.match(/\d+/g);
-                            var amount = []
-                            if(amountText != null)
+                            if(message.author.id == message.guild.owner.id)
                             {
-                                amount = amountText.map(Number);
-                            }
-                            
-                            if(amount.length > 0)
-                            {
-                                var maxLimit = amount[0]
-                                if(maxLimit >= 2 && maxLimit <= 10)
+                                var options = args.toString().replace(/,/g, "")
+                                var amountText = options.match(/\d+/g);
+                                var amount = []
+                                if(amountText != null)
                                 {
-                                    warnings[index].limit = maxLimit
-                                    firebase.database().ref("serversettings/" + message.guild.id + "/warnings").set(JSON.stringify(warnings[index]))
-                                    message.channel.send("<@" + message.author.id + "> The max warning limit has been set to " + maxLimit + ".").catch(error => console.log("Send Error - " + error));
+                                    amount = amountText.map(Number);
+                                }
+                                
+                                if(amount.length > 0)
+                                {
+                                    var maxLimit = amount[0]
+                                    if(maxLimit >= 2 && maxLimit <= 10)
+                                    {
+                                        warnings[index].limit = maxLimit
+                                        firebase.database().ref("serversettings/" + message.guild.id + "/warnings").set(JSON.stringify(warnings[index]))
+                                        message.channel.send("<@" + message.author.id + "> The max warning limit has been set to " + maxLimit + ".").catch(error => console.log("Send Error - " + error));
+                                    }
+                                    else
+                                    {
+                                        message.channel.send("<@" + message.author.id + "> A value from 2-10 is required to set the max limit.").catch(error => console.log("Send Error - " + error));
+                                    }
                                 }
                                 else
                                 {
-                                    message.channel.send("<@" + message.author.id + "> A value from 2-10 is required to set the max limit.").catch(error => console.log("Send Error - " + error));
+                                    message.channel.send("<@" + message.author.id + "> To set the limit for max warnings, a number with a value from 2-10 is required (`" + commandPrefix + "warn set limit <max-limit>`). For more info, use `" + commandPrefix + "help warn`.").catch(error => console.log("Send Error - " + error));
                                 }
                             }
                             else
                             {
-                                message.channel.send("<@" + message.author.id + "> To set the limit for max warnings, a number with a value from 2-10 is required (`" + commandPrefix + "warn set limit <max-limit>`). For more info, use `" + commandPrefix + "help warn`.").catch(error => console.log("Send Error - " + error));
+                                message.channel.send("<@" + message.author.id + "> The max warn limit can only be set by the owner of the server.").catch(error => console.log("Send Error - " + error));
                             }
                         }
                         else if(users.length == 0)
