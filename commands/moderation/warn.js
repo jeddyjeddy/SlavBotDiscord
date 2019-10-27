@@ -67,8 +67,8 @@ class WarnCommand extends command.Command
                 {
                     var data = JSON.parse(snap.val())
 
-                    if(warnings.limit == undefined || warnings.limit == null)
-                        warnings.limit = 3
+                    if(data.limit == undefined || data.limit == null)
+                        data.limit = 3
 
                     warnings.push(data)
                 }
