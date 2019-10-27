@@ -1634,19 +1634,25 @@ async function initData() {
                 {
                     if(votes[i].key == childSnap.key)
                     {
-                        votes[i].lastvote = childSnap.child("lastvote").val()
+                        var lastvote = childSnap.child("lastvote").val()
+                        if(lastvote.indexOf("\"") == -1)
+                        {
+                            lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                        }
+
+                        votes[i].lastvote = lastvote
                         notAdded = false;
                     }
                 }
 
-                var lastvote = childSnap.child("lastvote").val()
-                if(lastvote.indexOf("\"") == -1)
-                {
-                    lastvote = JSON.stringify(childSnap.child("lastvote").val())
-                }
-
                 if(notAdded)
                 {
+                    var lastvote = childSnap.child("lastvote").val()
+                    if(lastvote.indexOf("\"") == -1)
+                    {
+                        lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                    }
+                    
                     votes.push({key: childSnap.key, lastvote: lastvote})
                 }
             }
