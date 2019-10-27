@@ -105,10 +105,9 @@ class Wasted extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");
                         WastedImage.scaleToFit(userImage.bitmap.width, userImage.bitmap.height);
+                        userImage.greyscale()
                         userImage.composite(WastedImage, 0, (userImage.bitmap.height/2) - (WastedImage.bitmap.height/2))        
         
-                        userImage.greyscale()
-
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
                             if(error) { console.log(error); return;};
@@ -175,9 +174,8 @@ class Wasted extends command.Command
                     Jimp.read(url).then(function (userImage) {
                         console.log("got avatar");    
                         WastedImage.scaleToFit(userImage.bitmap.width, userImage.bitmap.height);
-                        userImage.composite(WastedImage, 0, (userImage.bitmap.height/2) - (WastedImage.bitmap.height/2))        
-        
                         userImage.greyscale()
+                        userImage.composite(WastedImage, 0, (userImage.bitmap.height/2) - (WastedImage.bitmap.height/2))        
 
                         const file = "TempStorage/" + shortid.generate() + ".png"
                         userImage.write(file, function(error){
