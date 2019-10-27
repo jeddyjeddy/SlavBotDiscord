@@ -148,7 +148,7 @@ class SlapCommand extends command.Command
         {
             if(message.author.id != "281876391535050762" && userID == "291327351348920321")
             {
-                message.channel.send("<@" + message.author.id + "> This action is exclusive to the owner.").catch(error => console.log("Send Error - " + error));
+                message.channel.send("<@" + message.author.id + "> You cannot slap the owner's wife.").catch(error => console.log("Send Error - " + error));
             }
             else if(message.author.id != "291327351348920321" && userID == "281876391535050762")
             {
