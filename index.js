@@ -4548,8 +4548,8 @@ bot.login(process.env.BOT_TOKEN).then(function()
                                             }
 
                                             votes.push({key: childSnap.key, lastvote: lastvote})
-                                            console.log("DATA FOUND FROM SNAP - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
-                                            if(timestamp.getTime() <= ((new Date(JSON.parse(childSnap.child("lastvote").val()))).getTime() + 86400000))
+                                            console.log("DATA FOUND FROM SNAP - " + childSnap.key + " - " + timestamp.getTime() + " vs " +  ((new Date(JSON.parse(lastvote))).getTime() + 86400000))
+                                            if(timestamp.getTime() <= ((new Date(JSON.parse(lastvote))).getTime() + 86400000))
                                             {
                                                 resetStreaks = false;
                                             }
