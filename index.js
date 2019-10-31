@@ -214,14 +214,6 @@ bot.on('guildDelete', guild => {
     }
 });
 
-bot.shard.on('message', message => {
-    if(message.toString().indexOf("resetTokens") > -1)
-    {
-        var data = JSON.parse(message)
-        DatabaseFunctions.resetUserTokens(data.resetTokens)
-    }
-})
-
 var allSwearCounters = [{key: "Key", counter: null}] 
 var allThotCounters = [{key: "Key", counter: null}]
 var allOofCounters = [{key: "Key", counter: null}]
@@ -2999,6 +2991,11 @@ function monthDiff(d1, d2) {
 }
 
 bot.on("message", (message) => {
+    if(message.toString().indexOf("resetTokens") > -1)
+    {
+        console.log(message.toString())
+    }
+
     if(!signedIntoFirebase)
     {
         return;
