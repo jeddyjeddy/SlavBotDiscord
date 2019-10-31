@@ -129,7 +129,7 @@ class LeaderboardsCommand extends command.Command
 
                 var descriptionList = "";
                 var checkList = []
-                var length = localLeaderboards.length;
+                var length = leaderboards.length;
 
                 if(length > 10)
                     length = 10
