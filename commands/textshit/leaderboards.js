@@ -41,9 +41,18 @@ class LeaderboardsCommand extends command.Command
 
             for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
             {
+                var added = false;
+                for(var i = 0; i < names.length; i++)
+                {
+                    if(names[i].id == localLeaderboards[userIndex].key)
+                    {
+                        added = true;
+                    }
+                }
+
                 for(var i = 0; i < members.length; i++)
                 {
-                    if(members[i].id == localLeaderboards[userIndex].key)
+                    if(members[i].id == localLeaderboards[userIndex].key && !added)
                     {
                         names.push(members[i].user.tag);
                     }
