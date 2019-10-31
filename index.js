@@ -814,7 +814,7 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
-        if(amount > 10000000000000)
+        if(amount >= 10000000000000)
         {
             bot.owners[0].send("<@" + userID + "> unexpected amount - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
             return;
@@ -825,7 +825,7 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
-                if(tokens[index].tokens > 10000000000000)
+                if(tokens[index].tokens >= 10000000000000)
                 {
                     bot.owners[0].send("<@" + userID + "> unexpected amount stored - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                 }
@@ -856,7 +856,7 @@ var DatabaseFunctions = {
                             if(tokens[i].key == token.key)
                             {
                                 notAdded = false;
-                                if(tokens[i].tokens > 10000000000000)
+                                if(tokens[i].tokens >= 10000000000000)
                                 {
                                     bot.owners[0].send("<@" + userID + "> unexpected amount downloaded - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                                 }
@@ -868,7 +868,7 @@ var DatabaseFunctions = {
 
                         if(notAdded)
                         {
-                            if(token.tokens > 10000000000000)
+                            if(token.tokens >= 10000000000000)
                             {
                                 bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                             }
