@@ -12,6 +12,8 @@ const dbl = new DBL(process.env.DBL_TOKEN, bot);
 
 var settingsInit = false;
 
+const globalLimit = 1000000000000
+
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -795,6 +797,11 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
+                if(tokens[index].tokens > globalLimit)
+                {
+                    DatabaseFunctions.addUserTokens(userID, 0)
+                }
+
                 return tokens[index].tokens;
             }
         }
@@ -822,7 +829,7 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
-        if(amount > 1000000000000)
+        if(amount > globalLimit)
         {
             bot.owners[0].send("<@" + userID + "> unexpected amount TRANSACTION BLOCKED (SHARD " + bot.shard.id + ") - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
             return;
@@ -833,10 +840,10 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
-                if(tokens[index].tokens >= 1000000000000)
+                if(tokens[index].tokens > globalLimit)
                 {
                     bot.owners[0].send("<@" + userID + "> unexpected amount stored PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[index].tokens)).catch(error => console.log("Send Error - " + error));
-                    DatabaseFunctions.resetUserTokens(1000000000000)
+                    DatabaseFunctions.resetUserTokens(globalLimit)
                 }
 
                 tokens[index].tokens = (tokens[index].tokens) + (amount);
@@ -865,10 +872,10 @@ var DatabaseFunctions = {
                             if(tokens[i].key == token.key)
                             {
                                 notAdded = false;
-                                if(tokens[i].tokens >= 1000000000000)
+                                if(tokens[i].tokens > globalLimit)
                                 {
                                     bot.owners[0].send("<@" + userID + "> unexpected amount downloaded PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[i].tokens)).catch(error => console.log("Send Error - " + error));
-                                    DatabaseFunctions.resetUserTokens(1000000000000)
+                                    DatabaseFunctions.resetUserTokens(globalLimit)
                                 }
                                 tokens[i].tokens = tokens[i].tokens + amount;
                                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
@@ -878,10 +885,10 @@ var DatabaseFunctions = {
 
                         if(notAdded)
                         {
-                            if(token.tokens >= 1000000000000)
+                            if(token.tokens > globalLimit)
                             {
                                 bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(token.tokens)).catch(error => console.log("Send Error - " + error));
-                                DatabaseFunctions.resetUserTokens(1000000000000)
+                                DatabaseFunctions.resetUserTokens(globalLimit)
                             }
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
