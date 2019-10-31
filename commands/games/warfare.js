@@ -269,7 +269,7 @@ class WarfareCommand extends command.Command
                         {
                             var options = ""
 
-                            for(var index = 0; index < endIndex; index++)
+                            for(var index = 0; index < args.length; index++)
                             {
                                 options = options + args[index];
                             }
