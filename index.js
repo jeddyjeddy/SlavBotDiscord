@@ -649,7 +649,7 @@ var DatabaseFunctions = {
                                     user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + tokenText + " by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
                                         user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
                                             user.send("Check out our Slav Bot Merchandise!\nhttps://shop.spreadshirt.com/slavbot/").then(() => {
-                                                user.send("Check out our official subreddit!\nhttps://www.reddit.com/r/slavbot/\n\nJoin our support server: " + message.client.options.invite).catch(error => console.log("Send Error - " + error))
+                                                user.send("Check out our official subreddit!\nhttps://www.reddit.com/r/slavbot/\n\nJoin our support server: " + bot.options.invite).catch(error => console.log("Send Error - " + error))
                                             }).catch(error => console.log("Send Error - " + error))
                                         }).catch(error => console.log("Send Error - " + error))
                                     }).catch(error => console.log("Send Error - " + error));
@@ -3180,8 +3180,7 @@ bot.on("message", (message) => {
                         {
                             console.log("Creating Suggestion")
                             const title = params[0], description = params[1], author = message.author.id, 
-                            avatar = message.client.user.avatarURL, timestamp = (new Date().toJSON()),
-                            authorAvatar = message.author.avatarURL;
+                            timestamp = (new Date().toJSON()), authorAvatar = message.author.avatarURL;
                             listenToReactions();
                             message.delete(500).then(() => {
                                 message.channel.send("Suggestion from <@" + author + ">", {embed: {title: "***" + title + "***", description: description, thumbnail: {url: authorAvatar}, color: 14717196, timestamp: timestamp, footer: {icon_url: bot.user.avatarURL, text: "Submitted on"}}})
