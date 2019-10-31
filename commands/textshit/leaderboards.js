@@ -20,6 +20,9 @@ class LeaderboardsCommand extends command.Command
 
     async run(message, args)
     {
+        if(!Leaderboards.isInit)
+            return
+
         var commandPrefix= "!"
         if(message.guild != null)
         {
