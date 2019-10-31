@@ -1763,13 +1763,25 @@ async function initData() {
 
             if(bot.shard.id == 0)
             {
-                if(childSnap.child("votestreak").val() != null)
+                var added = false;
+                for(var i = 0; i < streaks.length; i++)
                 {
-                    streaks.push({id: childSnap.key, streak: childSnap.child("votestreak").val()})
+                    if(streaks[i].id == childSnap.key)
+                    {
+                        added = true;
+                    }
                 }
-                else
+
+                if(!added)
                 {
-                    streaks.push({id: childSnap.key, streak: 0})
+                    if(childSnap.child("votestreak").val() != null)
+                    {
+                        streaks.push({id: childSnap.key, streak: childSnap.child("votestreak").val()})
+                    }
+                    else
+                    {
+                        streaks.push({id: childSnap.key, streak: 0})
+                    }
                 }
             }
         }
