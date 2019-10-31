@@ -3208,6 +3208,7 @@ bot.on("message", (message) => {
                 options = options + args[index];
             }
 
+            options = options.replace(/,/g, "")
             var amountText = options.match(/\d+/g);
             var amount = []
             if(amountText != null)
