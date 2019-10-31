@@ -690,6 +690,10 @@ var DatabaseFunctions = {
                         userCommandUsage.push(data);
                         firebase.database().ref("usersettings/" + userID + "/commandusage").set(JSON.stringify(data.data));
                     }
+                    else
+                    {
+                        userCommandUsage.push({key: snapshot.key, data: JSON.parse(snapshot.child("commandusage").val())});
+                    }
                   })
             }
         })
