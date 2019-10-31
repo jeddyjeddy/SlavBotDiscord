@@ -805,19 +805,19 @@ var DatabaseFunctions = {
     resetUserTokens: function(maxAmount)
     {
         console.log("RESET TOKENS SHARD " + bot.shard.id)
+        var resetDone = false;
         for(var index = 0; index < tokens.length; index++)
         {
             //Code for global token resets
             if(tokens[index].tokens > maxAmount)
             {
+                resetDone = true;
                 tokens[index].tokens = maxAmount
                 console.log("RESET TOKENS FOR " + tokens[index].key + "(SHARD " + bot.shard.id + ")")
                 bot.owners[0].send("RESET TOKENS FOR <@" + tokens[index].key + "> (SHARD " + bot.shard.id + ")").catch(error => console.log("Send Error - " + error));
                 firebase.database().ref("usersettings/" + tokens[index].key + "/tokens").set(JSON.stringify(tokens[index]))
             }
         }
-
-        bot.shard.send(JSON.stringify({resetTokens: maxAmount}))
     },
 
     addUserTokens: function(userID, amount)
@@ -1051,6 +1051,7 @@ initTokens(userID)
 },
 resetTokens: function(maxAmount)
 {
+    DatabaseFunctions.addUserTokens(userID, 0)
     DatabaseFunctions.resetUserTokens(maxAmount)
 },
 subtractTokens: function(userID, amount)
@@ -2991,11 +2992,6 @@ function monthDiff(d1, d2) {
 }
 
 bot.on("message", (message) => {
-    if(message.toString().indexOf("resetTokens") > -1)
-    {
-        console.log(message.toString())
-    }
-
     if(!signedIntoFirebase)
     {
         return;

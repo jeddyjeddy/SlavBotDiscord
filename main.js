@@ -64,9 +64,4 @@ Manager.on("message", (shard, message) => {
             }    
         }
     })
-
-    if(message.toString().indexOf("resetTokens") > -1)
-    {
-        Manager.broadcast(message)
-    }
 })
