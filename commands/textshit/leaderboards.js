@@ -64,8 +64,12 @@ class LeaderboardsCommand extends command.Command
             
             var descriptionList = "";
             var checkList = []
+            var length = localLeaderboards.length;
 
-            for(var i = 0; i < localLeaderboards.length; i++)
+            if(length > 10)
+                length = 10
+
+            for(var i = 0; i < length; i++)
             {
                 var added = false;
                 for(var index = 0; index < checkList.length; index++)
@@ -125,8 +129,12 @@ class LeaderboardsCommand extends command.Command
 
                 var descriptionList = "";
                 var checkList = []
+                var length = localLeaderboards.length;
 
-                for(var i = 0; i < leaderboards.length; i++)
+                if(length > 10)
+                    length = 10
+    
+                for(var i = 0; i < length; i++)
                 {
                     var added = false;
                     for(var index = 0; index < checkList.length; index++)
