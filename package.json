@@ -23,7 +23,7 @@
     "git": "^0.1.5",
     "googleapis": "^44.0.0",
     "humanize-duration": "^3.21.0",
-    "jimp": "^0.8.4",
+    "jimp": "^0.8.5",
     "node-gyp": "^6.0.0",
     "node-image-filter": "^1.0.0",
     "node-opus": "^0.3.3",
