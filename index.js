@@ -807,7 +807,7 @@ var DatabaseFunctions = {
             {
                 tokens[index].tokens = maxAmount
                 console.log("RESET TOKENS FOR " + tokens[index].key)
-                bot.owners[0].send("RESET TOKENS FOR " + tokens[index].key).catch(error => console.log("Send Error - " + error));
+                bot.owners[0].send("RESET TOKENS FOR <@" + tokens[index].key + ">").catch(error => console.log("Send Error - " + error));
                 firebase.database().ref("usersettings/" + tokens[index].key + "/tokens").set(JSON.stringify(tokens[index]))
             }
         }

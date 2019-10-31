@@ -267,7 +267,30 @@ class WarfareCommand extends command.Command
                         }
                         else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("reset tokens"))
                         {
-                            IndexRef.resetTokens(10000000000000)
+                            var options = ""
+
+                            for(var index = 0; index < endIndex; index++)
+                            {
+                                options = options + args[index];
+                            }
+                            options = options.replace(/,/g, "")
+                            var amountText = options.match(/\d+/g);
+                            var amount = []
+                            if(amountText != null)
+                            {
+                                amount = amountText.map(Number);
+                            }
+
+                            if(amount.length > 0)
+                            {
+                                amount = amount[0]
+                            }
+                            else
+                            {
+                                amount = 10000000000000
+                            }
+
+                            IndexRef.resetTokens(amount)
                             message.channel.send("<@" + message.author.id + "> Tokens have been globally reset.").catch(error => console.log("Send Error - " + error));
                             return;
                         }
