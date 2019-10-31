@@ -60,10 +60,21 @@ class LeaderboardsCommand extends command.Command
             }
             
             var descriptionList = "";
+            var checkList = []
 
             for(var i = 0; i < localLeaderboards.length; i++)
             {
-                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
+                var added = false;
+                for(var index = 0; index < checkList.length; index++)
+                {
+                    if(checkList[index] == leaderboards[i].key)
+                    {
+                        added = true;
+                    }
+                }
+
+                if(!added)
+                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
@@ -110,10 +121,21 @@ class LeaderboardsCommand extends command.Command
                 }
 
                 var descriptionList = "";
+                var checkList = []
 
                 for(var i = 0; i < leaderboards.length; i++)
                 {
-                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
+                    var added = false;
+                    for(var index = 0; index < checkList.length; index++)
+                    {
+                        if(checkList[index] == leaderboards[i].key)
+                        {
+                            added = true;
+                        }
+                    }
+
+                    if(!added)
+                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
