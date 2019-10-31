@@ -732,6 +732,7 @@ var DatabaseFunctions = {
     getLeaderboardRankings: function()
     {
         var leaderboardRankings = userCommandUsage;
+        console.log(leaderboardRankings.length)
         leaderboardRankings.sort(commandUsageAscending);
 
         if(leaderboardRankings.length > 10)
