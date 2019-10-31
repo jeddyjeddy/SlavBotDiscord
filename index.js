@@ -1691,100 +1691,103 @@ async function initData() {
         }
     })
 
-    firebase.database().ref("usersettings/").once('value', function(childSnap) {
+    firebase.database().ref("usersettings/").once('value', function(snapshot) {
         settingsInit = true;
-        if(childSnap.val() != null)
-        {
-            if(childSnap.child("commandusage").val() != null)
+
+        snapshot.forEach(function(childSnap){
+            if(childSnap.val() != null)
             {
-                var notAdded = true;
-                for(var i = 0; i < userCommandUsage.length; i++)
+                if(childSnap.child("commandusage").val() != null)
                 {
-                    if(userCommandUsage[i].key = childSnap.key)
+                    var notAdded = true;
+                    for(var i = 0; i < userCommandUsage.length; i++)
                     {
-                        notAdded = false;
+                        if(userCommandUsage[i].key = childSnap.key)
+                        {
+                            notAdded = false;
+                        }
+                    }
+
+                    if(notAdded)
+                        userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+                }
+
+                if(childSnap.child("tokens").val() != null)
+                {
+                    var notAdded = true;
+                    for(var i = 0; i < tokens.length; i++)
+                    {
+                        if(tokens[i].key = childSnap.key)
+                        {
+                            notAdded = false;
+                        }
+                    }
+
+                    if(notAdded)
+                    {
+                        var token = JSON.parse(childSnap.child("tokens").val())
+
+                        if(!isNaN(token))
+                        {
+                            token = {key: childSnap.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
+                        }
+
+                        if(childSnap.key != token.key)
+                        {
+                            console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
+                            token.key = childSnap.key
+                        }
+        
+                        tokens.push(token)
                     }
                 }
 
-                if(notAdded)
-                    userCommandUsage.push({key: childSnap.key, data: JSON.parse(childSnap.child("commandusage").val())});
+                if(childSnap.child("lastvote").val() != null)
+                {
+                    var notAdded = true;
+                    for(var i = 0; i < votes.length; i++)
+                    {
+                        if(votes[i].key = childSnap.key)
+                        {
+                            notAdded = false;
+                        }
+                    }
+
+                    var lastvote = childSnap.child("lastvote").val()
+                    if(lastvote.indexOf("\"") == -1)
+                    {
+                        lastvote = JSON.stringify(childSnap.child("lastvote").val())
+                    }
+
+                    if(notAdded)
+                        votes.push({key: childSnap.key, lastvote: lastvote})
+                }
+
+                if(bot.shard.id == 0)
+                {
+                    var added = false;
+                    for(var i = 0; i < streaks.length; i++)
+                    {
+                        if(streaks[i].id == childSnap.key)
+                        {
+                            added = true;
+                        }
+                    }
+
+                    if(!added)
+                    {
+                        if(childSnap.child("votestreak").val() != null)
+                        {
+                            streaks.push({id: childSnap.key, streak: childSnap.child("votestreak").val()})
+                        }
+                        else
+                        {
+                            streaks.push({id: childSnap.key, streak: 0})
+                        }
+                    }
+                }
             }
-
-            if(childSnap.child("tokens").val() != null)
-            {
-                var notAdded = true;
-                for(var i = 0; i < tokens.length; i++)
-                {
-                    if(tokens[i].key = childSnap.key)
-                    {
-                        notAdded = false;
-                    }
-                }
-
-                if(notAdded)
-                {
-                    var token = JSON.parse(childSnap.child("tokens").val())
-
-                    if(!isNaN(token))
-                    {
-                        token = {key: childSnap.key, tokens: parseInt(token), collectDate: (new Date()).toJSON()}
-                    }
-
-                    if(childSnap.key != token.key)
-                    {
-                        console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
-                        token.key = childSnap.key
-                    }
-    
-                    tokens.push(token)
-                }
-            }
-
-            if(childSnap.child("lastvote").val() != null)
-            {
-                var notAdded = true;
-                for(var i = 0; i < votes.length; i++)
-                {
-                    if(votes[i].key = childSnap.key)
-                    {
-                        notAdded = false;
-                    }
-                }
-
-                var lastvote = childSnap.child("lastvote").val()
-                if(lastvote.indexOf("\"") == -1)
-                {
-                    lastvote = JSON.stringify(childSnap.child("lastvote").val())
-                }
-
-                if(notAdded)
-                    votes.push({key: childSnap.key, lastvote: lastvote})
-            }
-
-            if(bot.shard.id == 0)
-            {
-                var added = false;
-                for(var i = 0; i < streaks.length; i++)
-                {
-                    if(streaks[i].id == childSnap.key)
-                    {
-                        added = true;
-                    }
-                }
-
-                if(!added)
-                {
-                    if(childSnap.child("votestreak").val() != null)
-                    {
-                        streaks.push({id: childSnap.key, streak: childSnap.child("votestreak").val()})
-                    }
-                    else
-                    {
-                        streaks.push({id: childSnap.key, streak: 0})
-                    }
-                }
-            }
-        }
+        })
     })
 
     var guilds = bot.guilds.array()
