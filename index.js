@@ -816,7 +816,7 @@ var DatabaseFunctions = {
     {
         if(amount > 10000000000000)
         {
-            bot.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+            bot.owners[0].send("<@" + userID + "> unexpected amount - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
             return;
         }
 
@@ -827,7 +827,7 @@ var DatabaseFunctions = {
             {
                 if(tokens[index].tokens > 10000000000000)
                 {
-                    bot.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                    bot.owners[0].send("<@" + userID + "> unexpected amount stored - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                 }
 
                 tokens[index].tokens = (tokens[index].tokens) + (amount);
@@ -858,7 +858,7 @@ var DatabaseFunctions = {
                                 notAdded = false;
                                 if(tokens[i].tokens > 10000000000000)
                                 {
-                                    bot.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                                    bot.owners[0].send("<@" + userID + "> unexpected amount downloaded - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                                 }
                                 tokens[i].tokens = tokens[i].tokens + amount;
                                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
@@ -870,7 +870,7 @@ var DatabaseFunctions = {
                         {
                             if(token.tokens > 10000000000000)
                             {
-                                bot.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                                bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
                             }
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
