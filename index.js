@@ -870,7 +870,7 @@ var DatabaseFunctions = {
                         {
                             if(token.tokens >= 10000000000000)
                             {
-                                bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));
+                                bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) - " + numberWithCommas(token.tokens)).catch(error => console.log("Send Error - " + error));
                             }
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
