@@ -800,17 +800,20 @@ var DatabaseFunctions = {
     
     resetUserTokens: function(maxAmount)
     {
+        console.log("RESET TOKENS SHARD " + bot.shard.id)
         for(var index = 0; index < tokens.length; index++)
         {
             //Code for global token resets
             if(tokens[index].tokens > maxAmount)
             {
                 tokens[index].tokens = maxAmount
-                console.log("RESET TOKENS FOR " + tokens[index].key)
-                bot.owners[0].send("RESET TOKENS FOR <@" + tokens[index].key + ">").catch(error => console.log("Send Error - " + error));
+                console.log("RESET TOKENS FOR " + tokens[index].key + "(SHARD " + bot.shard.id + ")")
+                bot.owners[0].send("RESET TOKENS FOR <@" + tokens[index].key + "> (SHARD " + bot.shard.id + ")").catch(error => console.log("Send Error - " + error));
                 firebase.database().ref("usersettings/" + tokens[index].key + "/tokens").set(JSON.stringify(tokens[index]))
             }
         }
+
+        bot.shard.send(JSON.stringify({resetTokens: maxAmount}))
     },
 
     addUserTokens: function(userID, amount)

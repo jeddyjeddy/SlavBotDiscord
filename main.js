@@ -63,5 +63,10 @@ Manager.on("message", (shard, message) => {
                 }
             }    
         }
+        else if(message.toString().indexOf("resetTokens") > -1)
+        {
+            var data = JSON.parse(message)
+            shardToUse.eval(`this.DatabaseFunctions.resetUserTokens(${data.maxAmount})`)
+        }
     })
 })
