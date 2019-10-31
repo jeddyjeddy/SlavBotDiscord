@@ -868,7 +868,7 @@ class WWCommand extends command.Command
                                         {
                                             if(wars[i].countries[index].key == countryIndex)
                                             {
-                                                value = wars[i].countries[index].value;
+                                                value = wars[i].countries[index].value + 500;
                                                 if(wars[i].countries[index].ruler == message.author.id)
                                                 {
                                                     canBuy = false;
@@ -888,7 +888,7 @@ class WWCommand extends command.Command
                                         {
                                             if(!IndexRef.subtractTokens(message.author.id, value))
                                             {
-                                                message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + numberWithCommas(value) + " tokens, while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
+                                                message.channel.send("", {embed: {title: "***Failed to Conquer " + allCountries[countryIndex] + "*** :flag_" + countries.getCode(allCountries[countryIndex]).toLowerCase() + ":", description: "<@" + message.author.id + "> You do not have enough tokens to conquer " + allCountries[countryIndex] + ". You need " + numberWithCommas(value) + " tokens (500 more tokens than the current value), while you only have " + numberWithCommas(IndexRef.getTokens(message.author.id)) + " tokens.", color: 16711680, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));
                                             }
                                             else
                                             {
