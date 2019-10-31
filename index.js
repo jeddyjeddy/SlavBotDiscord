@@ -814,11 +814,22 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
+        if(amount > 10000000000000)
+        {
+            message.client.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+            return;
+        }
+
         var added = false;
         for(var index = 0; index < tokens.length; index++)
         {
             if(tokens[index].key == userID)
             {
+                if(tokens[index].tokens > 10000000000000)
+                {
+                    message.client.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                }
+
                 tokens[index].tokens = (tokens[index].tokens) + (amount);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
                 added = true;
@@ -845,6 +856,10 @@ var DatabaseFunctions = {
                             if(tokens[i].key == token.key)
                             {
                                 notAdded = false;
+                                if(tokens[i].tokens > 10000000000000)
+                                {
+                                    message.client.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                                }
                                 tokens[i].tokens = tokens[i].tokens + amount;
                                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
                                 console.log(tokens[i].key + "  - Already Added Init - " + tokens[i].tokens)
@@ -853,6 +868,10 @@ var DatabaseFunctions = {
 
                         if(notAdded)
                         {
+                            if(token.tokens > 10000000000000)
+                            {
+                                message.client.owners[0].send("<@" + userID + "> unexpected amount - " + amount).catch(error => console.log("Send Error - " + error));
+                            }
                             token.tokens = token.tokens + amount;
                             console.log(token.key + " - Add Init - " + token.tokens)
                             tokens.push(token)
