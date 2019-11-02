@@ -35,15 +35,15 @@ class MomijiSaysCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 60)
+        if(args.length > 0 && args.length <= 50)
         {
             const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("momijisays.jpg").then(function (trumpImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-                        var textWidth = 224;
+                        var textWidth = 210;
                         var textHeight = 305;
-                        var textX = 133;
+                        var textX = 150;
                         var textY = 310;
 
                         var textImage = new Jimp(textWidth, textHeight);
@@ -72,7 +72,7 @@ class MomijiSaysCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 60 characters, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 50 characters, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
             else
              message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
             
