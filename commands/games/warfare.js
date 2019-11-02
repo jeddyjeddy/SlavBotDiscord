@@ -374,7 +374,49 @@ class WarfareCommand extends command.Command
                             
                             return;
                         }
-                        
+                        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("view"))
+                        {
+                            var endIndex = -1;
+                            var users = []
+                            var getUser = false;
+                            var userID = "";
+                            for(var index = 0; index < args.length; index++)
+                            {
+                                if(getUser)
+                                {
+                                    if(args[index].toString() == ">")
+                                    {
+                                        users.push(userID);
+                                        userID = "";
+                                        getUser = false;
+                                    }
+                                    else
+                                    {
+                                        if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                                        {
+                                            userID = userID + args[index].toString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if(args[index].toString() == "<")
+                                    {
+                                        getUser = true;
+                                        if(endIndex == -1)
+                                            endIndex = index 
+                                    } 
+                                }
+                            }
+
+                            for(var userIndex = 0; userIndex < users.length; userIndex++)
+                            {
+                                message.channel.send("<@" + users[userIndex] + "> has " + numberWithCommas(IndexRef.getTokens(users[userIndex])) + " tokens.").catch(error => {console.log("Send Error - " + error); });   
+                            }
+                            
+                            return;
+                        }
+
                         if(args.toLowerCase().startsWith("collect"))
                         {  
                             var cooldown = IndexRef.getCooldown(message.author.id)

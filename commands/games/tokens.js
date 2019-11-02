@@ -32,6 +32,232 @@ class TokensCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }
 
+        if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("generate"))
+        {
+            var endIndex = -1;
+            var users = []
+            var getUser = false;
+            var userID = "";
+            for(var index = 0; index < args.length; index++)
+            {
+                if(getUser)
+                {
+                    if(args[index].toString() == ">")
+                    {
+                        users.push(userID);
+                        userID = "";
+                        getUser = false;
+                    }
+                    else
+                    {
+                        if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                        {
+                            userID = userID + args[index].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[index].toString() == "<")
+                    {
+                        getUser = true;
+                        if(endIndex == -1)
+                            endIndex = index 
+                    } 
+                }
+            }
+
+            var options = ""
+
+            for(var index = 0; index < endIndex; index++)
+            {
+                options = options + args[index];
+            }
+
+            options = options.replace(/,/g, "")
+            var amountText = options.match(/\d+/g);
+            var amount = []
+            if(amountText != null)
+            {
+                amount = amountText.map(Number);
+            }
+            
+            if(amount.length > 0)
+            {
+                amount = amount[0]
+                if(users.length > 0)
+                {
+                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                    {
+                        IndexRef.addTokens(users[userIndex], amount)
+                        message.channel.send("<@" + users[userIndex] + "> has been given " + numberWithCommas(amount) + " tokens").catch(error => {console.log("Send Error - " + error); });   
+                    }
+                }
+                else
+                {
+                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                }
+            }
+            else
+            {
+                message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
+            }
+
+            
+            return;
+        }
+        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("reset"))
+        {
+            var options = ""
+
+            for(var index = 0; index < args.length; index++)
+            {
+                options = options + args[index];
+            }
+            options = options.replace(/,/g, "")
+            var amountText = options.match(/\d+/g);
+            var amount = []
+            if(amountText != null)
+            {
+                amount = amountText.map(Number);
+            }
+
+            if(amount.length > 0)
+            {
+                amount = amount[0]
+            }
+            else
+            {
+                amount = 10000000000000
+            }
+
+            IndexRef.resetTokens(amount)
+            message.channel.send("<@" + message.author.id + "> Tokens have been globally reset.").catch(error => console.log("Send Error - " + error));
+            return;
+        }
+        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("remove"))
+        {
+            var endIndex = -1;
+            var users = []
+            var getUser = false;
+            var userID = "";
+            for(var index = 0; index < args.length; index++)
+            {
+                if(getUser)
+                {
+                    if(args[index].toString() == ">")
+                    {
+                        users.push(userID);
+                        userID = "";
+                        getUser = false;
+                    }
+                    else
+                    {
+                        if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                        {
+                            userID = userID + args[index].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[index].toString() == "<")
+                    {
+                        getUser = true;
+                        if(endIndex == -1)
+                            endIndex = index 
+                    } 
+                }
+            }
+
+            var options = ""
+
+            for(var index = 0; index < endIndex; index++)
+            {
+                options = options + args[index];
+            }
+            options = options.replace(/,/g, "")
+            var amountText = options.match(/\d+/g);
+            var amount = []
+            if(amountText != null)
+            {
+                amount = amountText.map(Number);
+            }
+
+            if(amount.length > 0)
+            {
+                amount = amount[0]
+                if(users.length > 0)
+                {
+                    for(var userIndex = 0; userIndex < users.length; userIndex++)
+                    {
+                        if(IndexRef.getTokens(users[userIndex]) < amount)
+                        {
+                            IndexRef.subtractTokens(users[userIndex], IndexRef.getTokens(users[userIndex]))
+                        }
+                        else
+                        {
+                            IndexRef.subtractTokens(users[userIndex], amount)
+                        }
+
+                        message.channel.send(numberWithCommas(amount) + " tokens have been removed from " + "<@" + users[userIndex] + ">").catch(error => {console.log("Send Error - " + error); });   
+                    }
+                }
+                else
+                {
+                    message.channel.send("<@" + message.author.id + "> No users mentioned.").catch(error => {console.log("Send Error - " + error); });   
+                }
+            }
+            else
+            {
+                message.channel.send("<@" + message.author.id + "> No amount given.").catch(error => {console.log("Send Error - " + error); });   
+            }
+            
+            return;
+        }
+        else if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("view"))
+        {
+            var endIndex = -1;
+            var users = []
+            var getUser = false;
+            var userID = "";
+            for(var index = 0; index < args.length; index++)
+            {
+                if(getUser)
+                {
+                    if(args[index].toString() == ">")
+                    {
+                        users.push(userID);
+                        userID = "";
+                        getUser = false;
+                    }
+                    else
+                    {
+                        if(args[index].toString() != "@" && !isNaN(args[index].toString()))
+                        {
+                            userID = userID + args[index].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[index].toString() == "<")
+                    {
+                        getUser = true;
+                        if(endIndex == -1)
+                            endIndex = index 
+                    } 
+                }
+            }
+
+            for(var userIndex = 0; userIndex < users.length; userIndex++)
+            {
+                message.channel.send("<@" + users[userIndex] + "> has " + numberWithCommas(IndexRef.getTokens(users[userIndex])) + " tokens.").catch(error => {console.log("Send Error - " + error); });   
+            }
+            
+            return;
+        }
+
         setImmediate(() => {
             var otherUser = false;
             var userID = "";
