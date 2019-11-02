@@ -40,7 +40,7 @@ class MomijiSaysCommand extends command.Command
             const file = "TempStorage/" + shortid.generate() + ".png";
             
                 Jimp.read("momijisays.jpg").then(function (trumpImage) {
-                    Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function (font) {
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
                         var textWidth = 224;
                         var textHeight = 305;
                         var textX = 133;
