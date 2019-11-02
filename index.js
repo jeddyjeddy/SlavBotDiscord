@@ -797,6 +797,11 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
+                if(tokens[index].tokens > globalLimit)
+                {
+                    DatabaseFunctions.addUserTokens(userID, 0)
+                }
+
                 return tokens[index].tokens;
             }
         }
@@ -829,12 +834,13 @@ var DatabaseFunctions = {
         {
             if(tokens[index].key == userID)
             {
+                tokens[index].tokens = (tokens[index].tokens) + (amount);
+
                 if(tokens[index].tokens > globalLimit)
                 {
-                    bot.owners[0].send("<@" + userID + "> unexpected amount stored PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[index].tokens)).catch(error => console.log("Send Error - " + error));
+                    bot.owners[0].send("<@" + userID + "> unexpected amount stored PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[index].tokens)).catch(error => console.log("Send Error - " + error));                    
                 }
 
-                tokens[index].tokens = (tokens[index].tokens) + (amount);
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
                 added = true;
             }
@@ -860,11 +866,13 @@ var DatabaseFunctions = {
                             if(tokens[i].key == token.key)
                             {
                                 notAdded = false;
+                                tokens[i].tokens = tokens[i].tokens + amount;
+
                                 if(tokens[i].tokens > globalLimit)
                                 {
                                     bot.owners[0].send("<@" + userID + "> unexpected amount downloaded PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[i].tokens)).catch(error => console.log("Send Error - " + error));
                                 }
-                                tokens[i].tokens = tokens[i].tokens + amount;
+
                                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
                                 console.log(tokens[i].key + "  - Already Added Init - " + tokens[i].tokens)
                             }
@@ -872,11 +880,13 @@ var DatabaseFunctions = {
 
                         if(notAdded)
                         {
+                            token.tokens = token.tokens + amount;
+                            
                             if(token.tokens > globalLimit)
                             {
                                 bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(token.tokens)).catch(error => console.log("Send Error - " + error));
                             }
-                            token.tokens = token.tokens + amount;
+
                             console.log(token.key + " - Add Init - " + token.tokens)
                             tokens.push(token)
                             firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
