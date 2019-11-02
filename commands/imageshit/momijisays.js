@@ -41,7 +41,7 @@ class MomijiSaysCommand extends command.Command
             
                 Jimp.read("momijisays.jpg").then(function (trumpImage) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-                        var textWidth = 210;
+                        var textWidth = 200;
                         var textHeight = 330;
                         var textX = 150;
                         var textY = 310;
