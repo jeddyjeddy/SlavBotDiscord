@@ -35,7 +35,7 @@ class MomijiSaysCommand extends command.Command
             commandPrefix = message.guild.commandPrefix
         }        
 
-        if(args.length > 0 && args.length <= 50)
+        if(args.length > 0 && args.length <= 60)
         {
             const file = "TempStorage/" + shortid.generate() + ".png";
             
@@ -72,7 +72,7 @@ class MomijiSaysCommand extends command.Command
         else
         {
             if(args.length > 0)
-             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 50 characters, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
+             message.channel.send("<@" + message.author.id + "> Character limit for the text parameter is 60 characters, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
             else
              message.channel.send("<@" + message.author.id + "> Text not given, use `" + commandPrefix + "help momijisays` for help.").catch(error => {console.log("Send Error - " + error); });
             
