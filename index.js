@@ -1429,10 +1429,10 @@ bot.on("guildMemberUpdate", (oldMemberData, newMemberData) => {
                 
                 if(newNitroRole && newRoles[i].id == nitroRole)
                 {
-                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 10000000000)
+                    DatabaseFunctions.addUserTokens(newMemberData.user.id, 50000000000)
                     const roleName = newRoles[i].name
                     setTimeout(() => {
-                        newMemberData.user.send("Thank you for boosting the server! You have been given the ***" + roleName + "*** role. You have also been given 10 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
+                        newMemberData.user.send("Thank you for boosting the server! You have been given the ***" + roleName + "*** role. You have also been given 50 Billion War Tokens.").catch(error => console.log("Send Error - " + error));
                     }, 500)
                 }
             }
