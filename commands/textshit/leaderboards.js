@@ -43,19 +43,19 @@ class LeaderboardsCommand extends command.Command
             var names = [];
             for(var i = 0; i < localLeaderboards.length; i++)
             {
-                for(var userIndex = 0; userIndex < users.length; userIndex++)
+                for(var userIndex = 0; userIndex < members.length; userIndex++)
                 {
-                    if(users[userIndex].id == localLeaderboards[i].key)
+                    if(members[userIndex].id == localLeaderboards[i].key)
                     {
                         var added = false;
                         for(var nameIndex = 0; nameIndex < names.length; nameIndex++)
                         {
-                            if(names[nameIndex] == users[userIndex].tag)
+                            if(names[nameIndex] == members[userIndex].tag)
                                 added = true;
                         }
                         
                         if(!added)
-                            names.push(users[userIndex].tag)
+                            names.push(members[userIndex].tag)
                     }
                 }
             }
@@ -72,7 +72,7 @@ class LeaderboardsCommand extends command.Command
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
-            message.channel.send("", {embed: {title: "**Local Leaderboard for _" + message.guild.name + "_ - Top 10 users :trophy:**",
+            message.channel.send("", {embed: {title: "**Local Leaderboard for _" + message.guild.name + "_ - Top 10 Users :trophy:**",
             description: "**Rank** - CRS* - Name\n" + descriptionList + "\n*CRS = Command Requests Sent",
             color: 16757505,
             timestamp: timestamp,
@@ -134,7 +134,7 @@ class LeaderboardsCommand extends command.Command
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
-                message.channel.send("", {embed: {title: "**Global Leaderboard - Top 10 users :trophy:**",
+                message.channel.send("", {embed: {title: "**Global Leaderboard - Top 10 Users :trophy:**",
                 description: "**Rank** - CRS* - Name\n" + descriptionList + "\n*CRS = Command Requests Sent\n\nFiltered from a total of " + userCount + " users\n\nTo check the local leaderboard for your server, use `" + commandPrefix + "leaderboards local`",
                 color: 16757505,
                 timestamp: timestamp,
