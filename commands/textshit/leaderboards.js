@@ -146,7 +146,10 @@ class LeaderboardsCommand extends command.Command
                     }
 
                     if(!added)
+                    {
                         descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
+                        checkList.push(leaderboards[i].key)
+                    }
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());

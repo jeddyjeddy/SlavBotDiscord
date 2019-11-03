@@ -634,6 +634,10 @@ var DatabaseFunctions = {
                             {
                                 console.log("Sending Regular Request")
                                 
+                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
+                                userCommandUsage[i].data.requestsSent += 1;
+                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
+
                                 bot.fetchUser(userID)
                                 .then(user => {
                                     var tokenText = numberWithCommas(giveawayToken) + " War Tokens (Your voting streak is 0 out of 30, voting within the next 24 hours increases your vote streak, which increase the number of tokens you receive)"
@@ -658,10 +662,6 @@ var DatabaseFunctions = {
                                 }, rejection => {
                                         console.log(rejection.message);
                                 });
-                            
-                                userCommandUsage[i].data.usesCheck = userCommandUsage[i].data.uses + 250;
-                                userCommandUsage[i].data.requestsSent += 1;
-                                firebase.database().ref("usersettings/" + userCommandUsage[i].key + "/commandusage").set(JSON.stringify(userCommandUsage[i].data));
                             }
                         }
                         else
