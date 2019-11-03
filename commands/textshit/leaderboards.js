@@ -50,12 +50,12 @@ class LeaderboardsCommand extends command.Command
                         var added = false;
                         for(var nameIndex = 0; nameIndex < names.length; nameIndex++)
                         {
-                            if(names[nameIndex] == members[userIndex].tag)
+                            if(names[nameIndex] == members[userIndex].user.tag)
                                 added = true;
                         }
                         
                         if(!added)
-                            names.push(members[userIndex].tag)
+                            names.push(members[userIndex].user.tag)
                     }
                 }
             }
