@@ -41,47 +41,34 @@ class LeaderboardsCommand extends command.Command
             var localLeaderboards = Leaderboards.getLocalLeaderboards(IDs);
 
             var names = [];
-
-            for(var userIndex = 0; userIndex < localLeaderboards.length; userIndex++)
+            for(var i = 0; i < localLeaderboards.length; i++)
             {
-                var added = false;
-                for(var i = 0; i < names.length; i++)
+                for(var userIndex = 0; userIndex < users.length; userIndex++)
                 {
-                    if(names[i].id == localLeaderboards[userIndex].key)
+                    if(users[userIndex].id == localLeaderboards[i].key)
                     {
-                        added = true;
-                    }
-                }
-
-                for(var i = 0; i < members.length; i++)
-                {
-                    if(members[i].id == localLeaderboards[userIndex].key && !added)
-                    {
-                        names.push(members[i].user.tag);
+                        var added = false;
+                        for(var nameIndex = 0; nameIndex < names.length; nameIndex++)
+                        {
+                            if(names[nameIndex] == users[userIndex].tag)
+                                added = true;
+                        }
+                        
+                        if(!added)
+                            names.push(users[userIndex].tag)
                     }
                 }
             }
-            
+
             var descriptionList = "";
-            var checkList = []
-            var length = localLeaderboards.length;
+            var length = names.length;
 
             if(length > 10)
                 length = 10
 
             for(var i = 0; i < length; i++)
             {
-                var added = false;
-                for(var index = 0; index < checkList.length; index++)
-                {
-                    if(checkList[index] == leaderboards[i].key)
-                    {
-                        added = true;
-                    }
-                }
-
-                if(!added)
-                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
+                descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(localLeaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
             }
 
             var timestamp = (new Date(Date.now()).toJSON());
@@ -122,34 +109,28 @@ class LeaderboardsCommand extends command.Command
                     {
                         if(users[userIndex].id == leaderboards[i].key)
                         {
-                            names.push(users[userIndex].tag)
+                            var added = false;
+                            for(var nameIndex = 0; nameIndex < names.length; nameIndex++)
+                            {
+                                if(names[nameIndex] == users[userIndex].tag)
+                                    added = true;
+                            }
+                            
+                            if(!added)
+                                names.push(users[userIndex].tag)
                         }
                     }
                 }
 
                 var descriptionList = "";
-                var checkList = []
-                var length = leaderboards.length;
+                var length = names.length;
 
                 if(length > 10)
                     length = 10
     
                 for(var i = 0; i < length; i++)
                 {
-                    var added = false;
-                    for(var index = 0; index < checkList.length; index++)
-                    {
-                        if(checkList[index] == leaderboards[i].key)
-                        {
-                            added = true;
-                        }
-                    }
-
-                    if(!added)
-                    {
-                        descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
-                        checkList.push(leaderboards[i].key)
-                    }
+                    descriptionList = descriptionList + (rankEmojis[i] + "``" + numberWithCommas(leaderboards[i].data.uses) + "`` - **" + names[i] + "**\n");
                 }
 
                 var timestamp = (new Date(Date.now()).toJSON());
