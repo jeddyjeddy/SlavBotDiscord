@@ -152,8 +152,9 @@ class DailySpinCommand extends command.Command
                                     if(hasVoted)
                                     {
                                         message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
-                                        var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
+                                        var nextDayDate = new Date(today.getTime());
                                         nextDayDate.setHours(0, 0, 0, 0)
+                                        nextDayDate = new Date(nextDayDate.getTime() + (24*60*60*1000))
                                         const nextDay = nextDayDate.toJSON()
                                         console.log("NEXT DAY SET TO - " + nextDay)
                                         firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
@@ -250,8 +251,9 @@ class DailySpinCommand extends command.Command
                                     if(today.getTime() < (lastVotedDate.getTime() + 86400000) || hasVoted)
                                     {
                                         message.channel.send("<@" + message.author.id + "> ***Spinning The Wheel...***", {files: ["wheel.png"]})
-                                        var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
+                                        var nextDayDate = new Date(today.getTime());
                                         nextDayDate.setHours(0, 0, 0, 0)
+                                        nextDayDate = new Date(nextDayDate.getTime() + (24*60*60*1000))
                                         const nextDay = nextDayDate.toJSON()
                                         console.log("NEXT DAY SET TO - " + nextDay)
                                         firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
