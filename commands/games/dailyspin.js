@@ -155,6 +155,8 @@ class DailySpinCommand extends command.Command
                                         var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                         nextDayDate.setHours(0, 0, 0, 0)
                                         const nextDay = nextDayDate.toJSON()
+                                        console.log("NEXT DAY SET TO - " + nextDay)
+                                        firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                         userSpins[userSpinsIndex].dailyspin = JSON.stringify(nextDay)
                                         setTimeout(() => {
                                             var chance = Math.random()
@@ -211,7 +213,6 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
             
                                             var prizeMessage = ""
             
@@ -252,6 +253,8 @@ class DailySpinCommand extends command.Command
                                         var nextDayDate = (new Date(today.getTime() + (24*60*60*1000)));
                                         nextDayDate.setHours(0, 0, 0, 0)
                                         const nextDay = nextDayDate.toJSON()
+                                        console.log("NEXT DAY SET TO - " + nextDay)
+                                        firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
                                         userSpins[userSpinsIndex].dailyspin = JSON.stringify(nextDay)
                                         setTimeout(() => {
                                             var chance = Math.random()
@@ -308,7 +311,6 @@ class DailySpinCommand extends command.Command
                                             }
             
                                             IndexRef.addTokens(message.author.id, prize)
-                                            firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").set(JSON.stringify(nextDay))
             
                                             var prizeMessage = ""
             
