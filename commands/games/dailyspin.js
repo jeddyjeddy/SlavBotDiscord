@@ -74,9 +74,34 @@ class DailySpinCommand extends command.Command
 
         var promises = []
 
-        if(!existingData)
-        {
-            promises.push(firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").once('value').then(function(snapshot){
+        promises.push(firebase.database().ref("usersettings/" + message.author.id + "/dailyspin").once('value').then(function(snapshot){
+            if(existingData)
+            {
+                if(snapshot.val() == null)
+                {
+                    var timestamp = (new Date());
+                    timestamp.setHours(0, 0, 0, 0)
+                    for(var i = 0; i < userSpins.length; i++)
+                    {
+                        if(userSpins[i].userID == message.author.id)
+                        {
+                            userSpins[i].dailyspin = JSON.stringify((timestamp.toJSON()))
+                        }
+                    }
+                }
+                else
+                {
+                    for(var i = 0; i < userSpins.length; i++)
+                    {
+                        if(userSpins[i].userID == message.author.id)
+                        {
+                            userSpins[i].dailyspin = snapshot.val()
+                        }
+                    }
+                }
+            }
+            else
+            {
                 if(snapshot.val() == null)
                 {
                     var timestamp = (new Date());
@@ -87,8 +112,8 @@ class DailySpinCommand extends command.Command
                 {
                     userSpins.push({userID: message.author.id, dailyspin: snapshot.val()})
                 }
-            }))
-        }
+            }
+        }))
 
         var hasVoted = false;
         promises.push(dbl.hasVoted(message.author.id).then(voted => {
