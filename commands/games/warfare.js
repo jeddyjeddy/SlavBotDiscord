@@ -637,7 +637,7 @@ class WarfareCommand extends command.Command
                                                     emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
                                                     accuracy = Math.floor(Math.random() * 100)
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                                 warfare[i].players[index].weapon = weapon
                                                 message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -686,7 +686,7 @@ class WarfareCommand extends command.Command
                                         emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
                                         accuracy = Math.floor(Math.random() * 100)
                                     }
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 0, damage: Math.floor(Math.random() * 500) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 5) + 1}
                                     playerData.weapon = weapon
                                     message.channel.send("", {embed: {title: "***Purchased Common Weapon Pack***", description: "<@" + message.author.id + "> has purchased a common weapon pack.\n\n***Weapon Name:*** " + weapon.name + "\n***Weapon Type:*** " + weaponType + "\n***Weapon Rank:*** Common\n***Max Raw Damage:*** " + numberWithCommas(weapon.damage) + "\n***Weapon Accuracy:*** " + numberWithCommas(weapon.accuracy) + "% (Changes The Value of Max Damage)\n***Uses:*** " + weapon.uses, color: 65339, timestamp: timestamp, footer: {icon_url: message.client.user.avatarURL,text: "Sent on"}}}).catch(error => console.log("Send Error - " + error));                               
@@ -755,7 +755,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 25)
                                                         accuracy = 25
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji, rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                                 if(weapon.damage < 500)
                                                     weapon.damage = 500
@@ -810,7 +810,7 @@ class WarfareCommand extends command.Command
                                         if(accuracy < 25)
                                             accuracy = 25
                                     }
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 1, damage: Math.floor(Math.random() * 5000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 10) + 1}
                                     if(weapon.damage < 500)
                                         weapon.damage = 500
@@ -879,7 +879,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 50)
                                                         accuracy = 50
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                                 if(weapon.damage < 5000)
                                                     weapon.damage = 5000
@@ -932,7 +932,7 @@ class WarfareCommand extends command.Command
                                             accuracy = 50
                                     }
 
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 2, damage: Math.floor(Math.random() * 50000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 15) + 1}
                                     if(weapon.damage < 5000)
                                         weapon.damage = 5000
@@ -1000,7 +1000,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 75)
                                                         accuracy = 75
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 3, damage: Math.floor(Math.random() * 500000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 20) + 1}
                                                 if(weapon.damage < 50000)
                                                     weapon.damage = 50000
@@ -1053,7 +1053,7 @@ class WarfareCommand extends command.Command
                                             accuracy = 75
                                     }
 
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 3, damage: Math.floor(Math.random() * 500000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 20) + 1}
                                     if(weapon.damage < 50000)
                                         weapon.damage = 50000
@@ -1121,7 +1121,7 @@ class WarfareCommand extends command.Command
                                                     if(accuracy < 100)
                                                         accuracy = 100
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 4, damage: Math.floor(Math.random() * 5000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 25) + 1}
                                                 if(weapon.damage < 500000)
                                                     weapon.damage = 500000
@@ -1174,7 +1174,7 @@ class WarfareCommand extends command.Command
                                             accuracy = 100
                                     }
 
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 4, damage: Math.floor(Math.random() * 5000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 25) + 1}
                                     if(weapon.damage < 500000)
                                         weapon.damage = 500000
@@ -1239,7 +1239,7 @@ class WarfareCommand extends command.Command
                                                     emoji = rangedWeapons[Math.floor(Math.random() * rangedWeapons.length)]
                                                     accuracy = 200
                                                 }
-                                                var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                                var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                                 var weapon = {name: weaponName + " " + emoji,  rank: 5, damage: Math.floor(Math.random() * 50000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 30) + 1}
                                                 if(weapon.damage < 5000000)
                                                     weapon.damage = 5000000
@@ -1289,7 +1289,7 @@ class WarfareCommand extends command.Command
                                         accuracy = 200
                                     }
 
-                                    var weaponName = toTitleCase(uniqueNamesGenerator({length: 2, separator: " "}))
+                                    var weaponName = toTitleCase(uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 2, separator: " "}))
                                     var weapon = {name: weaponName + " " + emoji,  rank: 4, damage: Math.floor(Math.random() * 50000000) + 1, accuracy: accuracy, melee: melee, uses: Math.floor(Math.random() * 25) + 1}
                                     if(weapon.damage < 5000000)
                                         weapon.damage = 5000000

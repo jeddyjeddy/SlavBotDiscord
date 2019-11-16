@@ -156,8 +156,8 @@ class StandGeneratorCommand extends command.Command
                 result = "***The battle has resulted in a tie!!!***"
             }
 
-            const standName = uniqueNamesGenerator({length: 3, separator: " "})
-            const enemyStandName = uniqueNamesGenerator({length: 3, separator: " "})
+            const standName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 3, separator: " "})
+            const enemyStandName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 3, separator: " "})
             var standTextSelf = "***『Stand User』<@" + message.author.id + ">***\n\n***『Stand Name』" + toTitleCase(standName) 
             + "***\n\n*Power - " + selfAbilities[0]
             + "*\n\n*Speed - " + selfAbilities[1] + "*\n\n*Range - " + selfAbilities[2] + "*\n\n"
@@ -183,7 +183,7 @@ class StandGeneratorCommand extends command.Command
         }
         else
         {
-            const standName = uniqueNamesGenerator({length: 3, separator: " "})
+            const standName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals], length: 3, separator: " "})
             var standText = "***『Stand User』<@" + userID + ">***\n\n***『Stand Name』" + toTitleCase(standName) + "***\n\n*Power - " + ranks[Math.floor(Math.random() * ranks.length)]
             + "*\n\n*Speed - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Range - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n"
             + "*Durability - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Precision - " + ranks[Math.floor(Math.random() * ranks.length)] + "*\n\n*Potential - " + ranks[Math.floor(Math.random() * ranks.length)] + "*"
