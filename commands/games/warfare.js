@@ -8,7 +8,7 @@ var patrons = [{userID: "", type: 0}];
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 const meleeWeapons = [":hammer:", ":pick:", ":dagger:"], rangedWeapons = [":gun:", ":bow_and_arrow:", ":bomb:"]
 const commonPrice = 1000, rarePrice = 10000, legendaryPrice = 100000, mythicalPrice = 1000000, divinePrice = 10000000, slavicPrice = 100000000;
-const {uniqueNamesGenerator} = require('unique-names-generator');
+const {uniqueNamesGenerator, adjectives, colors, animals} = require('unique-names-generator');
 
 function rankAscending(a, b)
 {

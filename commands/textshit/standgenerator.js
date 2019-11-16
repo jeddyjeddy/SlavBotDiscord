@@ -1,6 +1,6 @@
 const command = require("discord.js-commando");
 var CommandCounter = require("../../index.js")
-const {uniqueNamesGenerator} = require('unique-names-generator');
+const {uniqueNamesGenerator, adjectives, colors, animals} = require('unique-names-generator');
 const ranks = ["A", "B", "C", "D", "E"]
 const responses = ["NANI?!", "STANDO POWA", "MUDA MUDA MUDA MUDA", "OH MY GOD", "OOOOH SHEEEET", "Yare Yare Daze...", "WHAT DID YOU SAY ABOUT MY HAIR?", "THIS, THIS IS THE TASTE OF A LIAR !", "ARRIVEDERCI", "GERMAN MEDICINE IS THE GREATEST IN THE WORLD!"]
 
