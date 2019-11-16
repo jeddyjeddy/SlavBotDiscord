@@ -139,7 +139,7 @@ export default () => ({
       return throwError.call(this, 'mode must be a boolean or a string', cb);
     }
 
-    advancedRotate.call(this, deg, mode, cb);
+    advancedRotate.call(this, -deg, mode, cb);
 
     if (isNodePattern(cb)) {
       cb.call(this, null, this);
