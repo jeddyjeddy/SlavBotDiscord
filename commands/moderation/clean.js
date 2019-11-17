@@ -41,7 +41,7 @@ class CleanCommand extends command.Command
 
         if(args.length > 0)
         {
-            if(isNaN(args))
+            if(isNaN(args.toString()))
             {
                 message.channel.send("<@" + message.author.id + "> Invalid parameters. Use `" + commandPrefix + "help clean` for help.".catch(error => console.log("Send Error - " + error)));
                 return; 
