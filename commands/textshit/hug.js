@@ -58,7 +58,7 @@ function grab_data(anon_id)
     var search_term = "anime-hug";
 
     // using default locale of en_US
-    var search_url = "https://api.tenor.com/v1/search?contentfilter=low&tag=" + search_term + "&key=" +
+    var search_url = "https://api.tenor.com/v1/search?contentfilter=medium&tag=" + search_term + "&key=" +
             apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
             
 
@@ -67,7 +67,7 @@ function grab_data(anon_id)
     var search_term2 = "lonely-anime-hug";
 
     // using default locale of en_US
-    var search_url2 = "https://api.tenor.com/v1/search?contentfilter=low&tag=" + search_term2 + "&key=" +
+    var search_url2 = "https://api.tenor.com/v1/search?contentfilter=medium&tag=" + search_term2 + "&key=" +
             apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
 
     httpGetAsync(search_url2,tenorCallback_search2);    
