@@ -69,7 +69,7 @@ class GIFCommand extends command.Command
                 var lmt = 50;
             
                 // using default locale of en_US
-                var search_url = "https://api.tenor.com/v1/search?tag=" + search + "&key=" +
+                var search_url = "https://api.tenor.com/v1/search?contentfilter=low&tag=" + search + "&key=" +
                         apikey + "&limit=" + lmt + "&anon_id=" + anon_id;
             
                 https.get(search_url, (resp) => {
