@@ -4362,37 +4362,49 @@ function paySupporters()
                 var members = guild.members.array()
                 members.forEach(member => {
                     var roles = member.roles.array()
-                    var payed = false;
-                    roles.forEach(role => {
-                        if(!payed)
+                    var tier = -1;
+                    
+                    for(var roleIndex = 0; roleIndex < roles.length; roleIndex++)
+                    {
+                        if(roles[roleIndex].id == premiumRole)
                         {
-                            const today = new Date()
-                            if(role.id == premiumRole)
-                            {
-                                DatabaseFunctions.addUserTokens(member.id, 5000000000)
-                                setTimeout(() => {
-                                    member.send("You have been given your weekly payment of 5 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                                }, 500)
-                                payed = true;
-                            }
-                            else if(role.id == gopnikRole)
-                            {
-                                DatabaseFunctions.addUserTokens(member.id, 2500000000)
-                                setTimeout(() => {
-                                    member.send("You have been given your weekly payment of 2.5 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                                }, 500)
-                                payed = true;
-                            }
-                            else if(role.id == slavRole)
-                            {
-                                DatabaseFunctions.addUserTokens(member.id, 1000000000)
-                                setTimeout(() => {
-                                    member.send("You have been given your weekly payment of 1 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
-                                }, 500)
-                                payed = true;
-                            }
+                            if(tier < 2)
+                                tier = 2
                         }
-                    });
+                        else if(roles[roleIndex].id == gopnikRole)
+                        {
+                            if(tier < 1)
+                                tier = 1
+                        }
+                        else if(roles[roleIndex].id == slavRole)
+                        {
+                            if(tier < 0)
+                                tier = 0
+                        }
+                    }
+
+                    const today = new Date()
+                    if(tier == 2)
+                    {
+                        DatabaseFunctions.addUserTokens(member.id, 5000000000)
+                        setTimeout(() => {
+                            member.send("You have been given your weekly payment of 5 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                        }, 500)
+                    }
+                    else if(tier == 1)
+                    {
+                        DatabaseFunctions.addUserTokens(member.id, 2500000000)
+                        setTimeout(() => {
+                            member.send("You have been given your weekly payment of 2.5 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                        }, 500)
+                    }
+                    else if(tier == 0)
+                    {
+                        DatabaseFunctions.addUserTokens(member.id, 1000000000)
+                        setTimeout(() => {
+                            member.send("You have been given your weekly payment of 1 Billion War Tokens for the " + ordinalSuffix(today.getDate()) + " of " + monthNames[today.getMonth()] + " " + today.getFullYear() + ". Your next payment will be 7 days later. Thank you for supporting Slav Bot.").catch(error => console.log("Send Error - " + error));
+                        }, 500)
+                    }
                 });
     
                 var paymentDate = (new Date());
