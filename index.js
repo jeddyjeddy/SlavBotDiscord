@@ -628,7 +628,7 @@ var DatabaseFunctions = {
 
                     if (!voted)
                     {
-                        if(userCommandUsage[i].data.requestsSent < 3)
+                        if(userCommandUsage[i].data.requestsSent == 0)
                         {
                             if(userCommandUsage[i].data.uses >= userCommandUsage[i].data.usesCheck)
                             {
@@ -652,13 +652,7 @@ var DatabaseFunctions = {
                                         }
                                     }
 
-                                    user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + tokenText + " by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").then(() => {
-                                        user.send("You can also Support Slav Bot on Patreon: https://www.patreon.com/merriemweebster").then(() => {
-                                            user.send("Check out our Slav Bot Merchandise!\nhttps://teespring.com/stores/slavbot").then(() => {
-                                                user.send("Check out our official subreddit!\nhttps://www.reddit.com/r/slavbot/\n\nJoin our support server: " + bot.options.invite).catch(error => console.log("Send Error - " + error))
-                                            }).catch(error => console.log("Send Error - " + error))
-                                        }).catch(error => console.log("Send Error - " + error))
-                                    }).catch(error => console.log("Send Error - " + error));
+                                    user.send("You have sent " + numberWithCommas(userCommandUsage[i].data.uses) + " command requests to Slav Bot! Thank you for your support! You can help Slav Bot grow even further by voting for it on DBL.\n\nYou will also recieve " + tokenText + " by voting.\n\nhttps://discordbots.org/bot/319533843482673152/vote").catch(error => console.log("Send Error - " + error));
                                 }, rejection => {
                                         console.log(rejection.message);
                                 });
@@ -672,7 +666,7 @@ var DatabaseFunctions = {
                                 userCommandUsage[i].data.requestsSent += 1;
                             }
 
-                            if(userCommandUsage[i].data.requestsSent > 5)
+                            if(userCommandUsage[i].data.requestsSent > 3)
                             {
                                 userCommandUsage[i].data.requestsSent = 0;
                             }
