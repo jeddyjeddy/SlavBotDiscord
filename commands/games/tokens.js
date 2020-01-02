@@ -128,7 +128,7 @@ class TokensCommand extends command.Command
             }
             else
             {
-                amount = 10000000000000
+                amount = 100000000000000
             }
 
             IndexRef.resetTokens(amount)
