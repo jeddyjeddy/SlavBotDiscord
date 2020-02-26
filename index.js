@@ -3329,8 +3329,10 @@ bot.on("message", (message) => {
                                                 var add = (message.content.toLowerCase().match(reg) || []).length
                                                 customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + add;
                                             }
-                                            console.log("ADDING " + customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + " AND " + limit)
-                                            if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
+                                            var newLimit = customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit
+                                            console.log("ADDING " + customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + " AND " + limit + " TO MAKE " + newLimit)
+
+                                            if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= newLimit)
                                             {
                                                 message.channel.send(trigger + " counter: " + customCounterData[index].counters[dataIndex].channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
                                                 response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
