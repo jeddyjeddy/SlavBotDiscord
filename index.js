@@ -3337,7 +3337,7 @@ bot.on("message", (message) => {
                                                 message.channel.send(trigger + " counter: " + customCounterData[index].counters[dataIndex].channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
                                                 response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                                 message.channel.send(response).catch(error => console.log("Send Error - " + error))
-                                                customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter;
+                                                customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter = Math.floor(customCounterData[index].counters[dataIndex].channels[channelIndex].counter/limit) * limit;
                                             }
                                             else
                                             {
@@ -3379,7 +3379,7 @@ bot.on("message", (message) => {
                                             message.channel.send(trigger + " counter: " + counterDataToAdd.channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
                                             response = response.replace(/{USER}/g, "<@" + message.author.id + ">");
                                             message.channel.send(response).catch(error => console.log("Send Error - " + error))
-                                            counterDataToAdd.channels[channelIndex].lastCounter = counterDataToAdd.channels[channelIndex].counter
+                                            counterDataToAdd.channels[channelIndex].lastCounter = Math.floor(counterDataToAdd.channels[channelIndex].counter/limit) * limit
                                         }
                                         else
                                         {
