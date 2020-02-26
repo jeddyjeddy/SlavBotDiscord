@@ -3329,10 +3329,7 @@ bot.on("message", (message) => {
                                                 var add = (message.content.toLowerCase().match(reg) || []).length
                                                 customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + add;
                                             }
-
-                                            if(limiy < customCounterData[index].counters[dataIndex].channels[channelIndex].counter)
-                                                limit = customCounterData[index].counters[dataIndex].channels[channelIndex].counter;
-
+                                            
                                             if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit)
                                             {
                                                 message.channel.send(trigger + " counter: " + customCounterData[index].counters[dataIndex].channels[channelIndex].counter).catch(error => console.log("Send Error - " + error))
