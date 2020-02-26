@@ -3329,8 +3329,8 @@ bot.on("message", (message) => {
                                                 var add = (message.content.toLowerCase().match(reg) || []).length
                                                 customCounterData[index].counters[dataIndex].channels[channelIndex].counter = customCounterData[index].counters[dataIndex].channels[channelIndex].counter + add;
                                             }
-                                            var newLimit = customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + limit
-                                            console.log("ADDING " + customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter + " AND " + limit + " TO MAKE " + newLimit)
+                                            
+                                            var newLimit = parseInt(customCounterData[index].counters[dataIndex].channels[channelIndex].lastCounter) + parseInt(limit)
 
                                             if(customCounterData[index].counters[dataIndex].channels[channelIndex].counter >= newLimit)
                                             {
