@@ -12,7 +12,7 @@ const dbl = new DBL(process.env.DBL_TOKEN, bot);
 
 var settingsInit = false;
 
-const globalLimit = 100000000000000
+const globalLimit = 1000000000000000
 
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
