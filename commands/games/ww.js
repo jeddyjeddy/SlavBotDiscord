@@ -103,7 +103,7 @@ class WWCommand extends command.Command
                 message.channel.send("You have been banned from the use of war games. You may contact the admins/owner if you believe this to be unfair.").catch((error) => {console.log("Send Error - " + error)})
                 return;
             }
-            else if(args.indexOf("<@" + blackList[i] + ">") > -1)
+            else if(args.toString().indexOf("<@" + blackList[i] + ">") > -1)
             {
                 message.channel.send("Pinging banned users in war game commands is restricted. No commands will be executed on banned users.").catch((error) => {console.log("Send Error - " + error)})
                 return;
