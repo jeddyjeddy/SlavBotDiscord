@@ -130,6 +130,7 @@ class TokensCommand extends command.Command
                 firebase.database().ref("warblacklist").set(JSON.stringify(blackList))
                 message.channel.send("<@" + userID + "> has been blacklisted").catch(error => console.log("Send Error - " + error));
             }
+            return;
         }
 
         if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("generate"))
