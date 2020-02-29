@@ -68,7 +68,7 @@ class TokensCommand extends command.Command
                 }
             }
 
-            if(userFound)
+            if(userFound && !(message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id))
             {
                 message.channel.send("Pinging banned users in war game commands is restricted. No commands will be executed on banned users.").catch((error) => {console.log("Send Error - " + error)})
                 return;
