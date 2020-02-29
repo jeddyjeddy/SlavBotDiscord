@@ -5,6 +5,33 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+var firebase = require("firebase");
+var signedIntoFirebase = false;
+var listening = false;
+var blackList = []
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        signedIntoFirebase = true;
+
+        if(!listening)
+        {
+            firebase.database().ref("warblacklist").on("value", function(snapshot) {
+                if(snapshot.val() != null)
+                    blackList = JSON.parse(snapshot.val());  
+                else
+                    blackList = [];
+            })
+
+            listening = true;
+        }
+    } 
+    else
+    {
+        signedIntoFirebase = false;
+    }
+  });
+
 class TokensCommand extends command.Command
  {
     constructor(client)
@@ -22,6 +49,15 @@ class TokensCommand extends command.Command
     {
         if(!IndexRef.isInit)
             return;
+
+        for(var i = 0; i < blackList.length; i++)
+        {
+            if(blackList[i] == message.author.id)
+            {
+                message.channel.send("You have been banned from the use of war games. You may contact the admins/owner if you believe this to be unfair.").catch((error) => {console.log("Send Error - " + error)})
+                return;
+            }
+        }
             
         IndexRef.addCommandCounter(message.author.id);
         IndexRef.initTokens(message.author.id)
@@ -30,6 +66,70 @@ class TokensCommand extends command.Command
         if(message.guild != null)
         {
             commandPrefix = message.guild.commandPrefix
+        }
+
+        if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.startsWith("blacklist"))
+        {
+            var userID = "";
+            var getUser = false;
+            for(var i = 0; i < args.length; i++)
+            {
+                if(getUser)
+                {
+                    if(args[i].toString() == ">")
+                    {
+                        i = args.length;
+                    }
+                    else
+                    {
+                        if(args[i].toString() != "@" && (!isNaN(args[i].toString()) || args[i] == "&"))
+                        {
+                            userID = userID + args[i].toString();
+                        }
+                    }
+                }
+                else
+                {
+                    if(args[i].toString() == "<")
+                    {
+                        getUser = true;
+                    } 
+                }
+            }
+            
+            var alreadyBlackListed = false;
+
+            for(var i = 0; i < blackList.length; i++)
+            {
+                if(blackList[i] == userID)
+                {
+                    alreadyBlackListed = true;
+                }
+            }
+
+            if(alreadyBlackListed)
+            {
+                if(args.startsWith("blacklist remove"))
+                {
+                    for(var i = 0; i < blackList.length; i++)
+                    {
+                        if(blackList[i] == userID)
+                        {
+                            blackList.splice(i, 1);
+                            firebase.database().ref("warblacklist").set(JSON.stringify(blackList))
+                            message.channel.send("<@" + userID + "> is no longer blacklisted").catch(error => console.log("Send Error - " + error));
+                        }
+                    }
+                }
+                else
+                    message.channel.send("User already blacklisted").catch(error => console.log("Send Error - " + error));
+            }
+            else
+            {
+                blackList.push(userID.toString());
+                firebase.database().ref("warblacklist").set(JSON.stringify(blackList))
+                message.channel.send("<@" + userID + "> has been blacklisted").catch(error => console.log("Send Error - " + error));
+            }
         }
 
         if((message.author.id == message.client.owners[0].id || message.author.id == message.client.owners[1].id || message.author.id == message.client.owners[2].id) && args.toLowerCase().startsWith("generate"))

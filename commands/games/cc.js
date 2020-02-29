@@ -38,12 +38,21 @@ function toTitleCase(str) {
     });
 }
 
+var blackList = []
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         signedIntoFirebase = true;
 
         if(!listening)
         {
+            firebase.database().ref("warblacklist").on("value", function(snapshot) {
+                if(snapshot.val() != null)
+                    blackList = JSON.parse(snapshot.val());  
+                else
+                    blackList = [];
+            })
+
             characters = []
             firebase.database().ref("patrons").on("child_added", function(snapshot){
                 var added = false;
@@ -151,6 +160,15 @@ class CCCommand extends command.Command
         {
             message.channel.send("Slav Bot recently restarted, Calamity Cards is loading.").catch((error) => {console.log("Send Error - " + error)})
             return;
+        }
+
+        for(var i = 0; i < blackList.length; i++)
+        {
+            if(blackList[i] == message.author.id)
+            {
+                message.channel.send("You have been banned from the use of war games. You may contact the admins/owner if you believe this to be unfair.").catch((error) => {console.log("Send Error - " + error)})
+                return;
+            }
         }
 
         var existingData = false;

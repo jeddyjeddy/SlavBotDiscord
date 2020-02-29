@@ -25,6 +25,7 @@ function toTitleCase(str) {
     });
 }
 
+var blackList = []
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -32,6 +33,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         if(!listening)
         {
+            firebase.database().ref("warblacklist").on("value", function(snapshot) {
+                if(snapshot.val() != null)
+                    blackList = JSON.parse(snapshot.val());  
+                else
+                    blackList = [];
+            })
+
             firebase.database().ref("patrons").on("child_added", function(snapshot){
                 var added = false;
                 for(var i = 0; i < patrons.length; i++)
@@ -99,6 +107,15 @@ class WarfareCommand extends command.Command
     {
         if(!signedIntoFirebase || !IndexRef.isInit || message.guild == null)
             return;
+
+        for(var i = 0; i < blackList.length; i++)
+        {
+            if(blackList[i] == message.author.id)
+            {
+                message.channel.send("You have been banned from the use of war games. You may contact the admins/owner if you believe this to be unfair.").catch((error) => {console.log("Send Error - " + error)})
+                return;
+            }
+        }
             
         IndexRef.addCommandCounter(message.author.id);
         IndexRef.initTokens(message.author.id)

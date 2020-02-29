@@ -7,6 +7,7 @@ var firebase = require("firebase");
 var signedIntoFirebase = false;
 var listening = false;
 var patrons = [{userID: "", type: 0}];
+var blackList = []
 const rankEmojis = [":first_place:", ":second_place:", ":third_place:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":poop:"]
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -14,6 +15,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         if(!listening)
         {
+            firebase.database().ref("warblacklist").on("value", function(snapshot) {
+                if(snapshot.val() != null)
+                    blackList = JSON.parse(snapshot.val());  
+                else
+                    blackList = [];
+            })
+
             firebase.database().ref("patrons").on("child_added", function(snapshot){
                 var added = false;
                 for(var i = 0; i < patrons.length; i++)
@@ -87,6 +95,15 @@ class WWCommand extends command.Command
     {
         if(!signedIntoFirebase || !IndexRef.isInit || message.guild == null)
             return;
+
+        for(var i = 0; i < blackList.length; i++)
+        {
+            if(blackList[i] == message.author.id)
+            {
+                message.channel.send("You have been banned from the use of war games. You may contact the admins/owner if you believe this to be unfair.").catch((error) => {console.log("Send Error - " + error)})
+                return;
+            }
+        }
             
         IndexRef.addCommandCounter(message.author.id);
         IndexRef.initTokens(message.author.id)
