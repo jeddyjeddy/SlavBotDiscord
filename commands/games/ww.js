@@ -111,7 +111,7 @@ class WWCommand extends command.Command
             {
                 if(mentions[mentionIndex].id == blackList[i])
                 {
-                    user = true;
+                    userFound = true;
                 }
             }
 
