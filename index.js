@@ -833,6 +833,7 @@ var DatabaseFunctions = {
                 if(tokens[index].tokens > globalLimit)
                 {
                     bot.owners[0].send("<@" + userID + "> unexpected amount stored PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[index].tokens)).catch(error => console.log("Send Error - " + error));                    
+                    tokens[index].tokens = 0
                 }
 
                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
@@ -865,6 +866,7 @@ var DatabaseFunctions = {
                                 if(tokens[i].tokens > globalLimit)
                                 {
                                     bot.owners[0].send("<@" + userID + "> unexpected amount downloaded PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(tokens[i].tokens)).catch(error => console.log("Send Error - " + error));
+                                    tokens[i].tokens = 0
                                 }
 
                                 firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[i]))
@@ -879,9 +881,11 @@ var DatabaseFunctions = {
                             if(token.tokens > globalLimit)
                             {
                                 bot.owners[0].send("<@" + userID + "> unexpected amount downloaded (not added) PROFILE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(token.tokens)).catch(error => console.log("Send Error - " + error));
+                                token.tokens = 0
                             }
 
                             console.log(token.key + " - Add Init - " + token.tokens)
+                            
                             tokens.push(token)
                             firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
                         }
@@ -890,6 +894,10 @@ var DatabaseFunctions = {
                     {
                         var timestamp = (new Date()).toJSON();
                         var token = {key: userID, tokens: amount, collectDate: timestamp}
+                        
+                        if(token.tokens > globalLimit)
+                                token.tokens = 0
+                        
                         tokens.push(token);
                         firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(token))
                     }
@@ -1588,6 +1596,9 @@ async function initData() {
                         console.log("INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
                         token.key = childSnap.key
                     }
+                    
+                    if(token.tokens > globalLimit)
+                        token.tokens = 0
     
                     tokens.push(token)
                 }
@@ -1682,6 +1693,9 @@ async function initData() {
                         console.log("SECOND INIT TOKEN KEY ERROR - " + childSnap.key + " vs " + token.key)
                         token.key = childSnap.key
                     }
+                    
+                    if(token.tokens > globalLimit)
+                        token.tokens = 0
 
                     tokens.push(token)
                 }
