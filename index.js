@@ -823,6 +823,11 @@ var DatabaseFunctions = {
 
     addUserTokens: function(userID, amount)
     {
+        if(amount >= globalLimit/100)
+        {
+            bot.owners[0].send("<@" + userID + "> unexpected amount added TRANSACTION RECEIVE REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));                       
+        }
+        
         var added = false;
         for(var index = 0; index < tokens.length; index++)
         {
@@ -922,6 +927,10 @@ var DatabaseFunctions = {
                 {
                     tokens[index].tokens = (tokens[index].tokens) - (amount);
                     firebase.database().ref("usersettings/" + userID + "/tokens").set(JSON.stringify(tokens[index]))
+                    if(amount >= globalLimit/100)
+                    {
+                        bot.owners[0].send("<@" + userID + "> unexpected amount sent TRANSACTION SEND REPORT (SHARD " + bot.shard.id + ") - " + numberWithCommas(amount)).catch(error => console.log("Send Error - " + error));                       
+                    }
                     return true;
                 }
             }
